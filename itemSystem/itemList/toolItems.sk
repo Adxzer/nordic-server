@@ -1,7 +1,5 @@
 on load:
-    set {_defaultHoe} to wooden hoe named "&fDefault Hoe" with lore "&7Harvesting Tool.", "", "&e☀ &7Crops: +2", "&3⚗ &7Level: 1", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
-    set {_gatheringHoe} to stone hoe named "&aGathering Hoe" with lore "&7Harvesting Tool.", "", "&e☀ &7Wheat: +5", "&3⚗ &7Level: 3", "", "&8☆☆☆☆☆" and "&a&lUNIQUE" with all flags hidden
+    set {_prototypeHoe} to wooden hoe named "&fPrototype Hoe" with lore "&7Harvesting Tool.", "", "&e☀ &7Crops: +2", "&3⚗ &7Level: 1", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_prototypeSword} to wooden sword named "&fPrototype Sword" with lore "&7Damaging Tool.", "", "&4☠ &7Damage: +3", "&3⚗ &7Level: 2", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
 
-    set {_oakDagger} to wooden sword named "&fOak Dagger" with lore "&7Damaging Tool.", "", "&4☠ &7Damage: +3", "&3⚗ &7Level: 2", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
-
-    set {items::toolItems::*} to ({_defaultHoe}, {_gatheringHoe}, {_oakDagger})
+    set {items::toolItems::*} to ({_prototypeHoe}, {_prototypeSword})
