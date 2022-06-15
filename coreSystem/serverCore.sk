@@ -11,7 +11,7 @@ function coreCheckLevel(player: player):
         add 1 to {level::%{_u}%}
         set {xp::%{_u}%} to 0
         set {actionBarSet::%{_u}%} to true
-        send action bar coreGetActionBar({_player}, "&3&oYou just leveled up to level %{level::%{_u}%}%!") to {_player}
+        send action bar coreGetActionBar({_player}, "&3You just leveled up to level %{level::%{_u}%}%!") to {_player}
         wait 1 seconds
         set {actionBarSet::%{_u}%} to false
 
@@ -21,7 +21,7 @@ function coreAddXp(player: player, experience: number):
     set {_next} to 75 * ({level::%{_u}%} * {level::%{_u}%}) + 425 * {level::%{_u}%}
 
     set {actionBarSet::%{_u}%} to true
-    send action bar coreGetActionBar({_player}, "&3&o+%{_experience}% Experience (%coreRoundTo({xp::%{_u}%}, 1)%/%round({_next})%)") to {_player}
+    send action bar coreGetActionBar({_player}, "&3+%{_experience}% Experience (%coreRoundTo({xp::%{_u}%}, 1)%/%round({_next})%)") to {_player}
     add {_experience} to {xp::%{_u}%}
     wait 1 seconds
     set {actionBarSet::%{_u}%} to false
@@ -151,7 +151,7 @@ function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward:
 
             else:
                 set {actionBarSet::%{_u}%} to true
-                send action bar coreGetActionBar({_player}, "&c&oNot requried level") to {_player}
+                send action bar coreGetActionBar({_player}, "&cNot requried level") to {_player}
                 wait 1 seconds
                 set {actionBarSet::%{_u}%} to false
     else:
@@ -179,9 +179,25 @@ function coreHarvestBoost(player: player, tool: item, allowed: itemtypes) :: num
 
             if {level::%{_u}%} >= {_level::2} parsed as integer:
                 return {_harvest::2} parsed as integer
-            
-            else:
-                return 0
+
+function coreDamageBoost(player: player, tool: item) :: number:
+
+    set {_u} to uuid of {_player}
+    set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
+
+    if {_type::1} is "Damaging Tool":
+
+        set {_damage::*} to split uncolored 3rd line of lore of {_tool} at "+"
+        set {_level::*} to split uncolored 4th line of lore of {_tool} at ": "
+        
+        if {level::%{_u}%} >= {_level::2} parsed as integer:
+            return {_damage::2} parsed as integer
+
+        else:
+            set {actionBarSet::%{_u}%} to true
+            send action bar coreGetActionBar({_player}, "&cNot requried level") to {_player}
+            wait 1 seconds
+            set {actionBarSet::%{_u}%} to false
 
 function coreArmorBoost(player: player, tool: item) :: number:
 
@@ -195,11 +211,6 @@ function coreArmorBoost(player: player, tool: item) :: number:
         
         if {level::%{_u}%} >= {_level::2} parsed as integer:
             return {_health::2} parsed as integer
-
-        else:
-            return 0
-    else:
-        return 0
 
 every 1 seconds:
 

@@ -3,6 +3,13 @@ on damage:
     if damage cause is fall:
     
         cancel event
+    
+    if attacker is player:
+
+        set damage to 0
+
+        set {_damage} to coreDamageBoost(attacker, (attacker's tool))
+        add {_damage} / 2 to damage
 
     if {combat::%victim's uuid%} is true:
         stop trigger
