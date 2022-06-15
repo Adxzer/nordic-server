@@ -1,0 +1,3 @@
+command /discord:
+    trigger:
+        send formatted "<tooltip:&7Join our discord by clicking on the message.><link:https://discord.gg/V5xgJK6ZxR>&3[DISCORD] » &fClick here to join our discord server!"

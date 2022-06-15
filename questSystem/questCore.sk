@@ -1,0 +1,132 @@
+function quizNew(player: player, string: string):
+
+    send "" to {_player}
+    send " &a&lNEW QUEST! &fYou have started the quest &a%{_string}%. &fTalk to the quest NPC to gain additional information on how to finish this quest." to {_player}
+    send "" to {_player}
+
+function quizComplete(player: player, strings: strings):
+
+    send "" to {_player}
+    send " &a&lQUEST COMPLETE! &fYou have successfully completed the quest &a%{_strings::1}%. &fAs a reward for completing the quest you gained %{_strings::2}%" to {_player}
+    send "" to {_player}
+
+command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
+    permission: op
+    permission message: Unknown command. Type "/help" for help.
+    trigger:
+
+        if arg-1 is set:
+
+            if arg-1 is "user":
+     
+                if arg-2 is set:
+
+                    if arg-2 parsed as player is player:
+
+                        if arg-3 is set:
+
+                            set {_quests::*} to ("carrotsAndPotatoes") # add new quests
+
+                            set {_player} to arg-2 parsed as player
+                            set {_uuid} to uuid of {_player}
+
+                            if arg-3 is "clear":
+                                send "&a[QUEST] » &fYou cleared all of &a%arg-2%&f's quiz progress."
+                                loop {_quests::*}:
+                                    set {quests::%loop-value%::talked::%{_uuid}%} to false
+                                    set {quests::%loop-value%::completed::%{_uuid}%} to false
+                                    set {quests::%loop-value%::interaction::%{_uuid}%::*} to (false, false, false, false, false)
+                            else if arg-3 is "list":
+                                loop {_quests::*}:
+                                    if {quests::%loop-value%::completed::%{_uuid}%} is true:
+                                        set {_completed::%loop-value%} to "&f%loop-value% - &acompleted"
+                                    else:
+                                        set {_completed::%loop-value%} to "&f%loop-value% - &cnot completed"
+                                send "&a[QUEST] » &fShowing quest status for &a%arg-2%&f..."
+                                send "&a[QUEST] » &f%{_completed::carrotsAndPotatoes}%&f."
+                                # add new quests
+                            else if arg-3 is "set":
+
+                                if arg-4 is set:
+
+                                    loop {_quests::*}:
+                                        if arg-4 is loop-value:
+                                            set {_quest} to true
+                                            stop loop
+
+                                    if {_quest} is true:
+
+                                        if arg-5 is set:
+
+                                            set {_player} to arg-2 parsed as player
+                                            set {_uuid} to uuid of {_player}
+
+                                            if arg-5 is "true":
+                                                send "&a[QUEST] » &fYou magically finished the quest &a%arg-4% &ffor &a%arg-2%.&f"
+                                                set {quests::%arg-4%::interaction::%{_uuid}%::*} to (true, true, true, true, false)
+                                                set {quests::%arg-4%::talked::%{_uuid}%} to true
+                                                set {quests::%arg-4%::completed::%{_uuid}%} to true
+                                            else if arg-5 is "false":
+                                                send "&a[QUEST] » &fYou cleared the progress of quest &a%arg-4% &ffor &a%arg-2%.&f"
+                                                set {quests::%arg-4%::talked::%{_uuid}%} to false
+                                                set {quests::%arg-4%::completed::%{_uuid}%} to false
+                                                set {quests::%arg-4%::interaction::%{_uuid}%::*} to (false, false, false, false, false)
+                                            else:
+                                                send "&a[QUEST] » &cPlease specify true or false."
+
+                                        else:
+                                            send "&a[QUEST] » &cThis command option does not exist."
+
+                                    else:
+                                        send "&a[QUEST] » &cThis quest does not exist."
+
+                                else:
+                                    send "&a[QUEST] » &cThis command option does not exist."
+                            else:
+                                send "&a[QUEST] » &cThis command option does not exist."  
+
+                        else:
+                            send "&a[QUEST] » &cPlease specify a command option."
+
+                    else:
+                        send "&a[QUEST] » &cThis player does not exist."
+
+                else:
+                    send "&a[QUEST] » &cPlease specify a player."  
+
+            else:
+                send "&a[QUEST] » &cThis command option does not exist."
+
+        else:
+            send "&a[QUEST] » &cPlease specify a command option."
+
+on tab complete of "/quest":
+
+    if tab arg-1 is not "user": # add new options  
+        clear {_tabCompletion::*}
+        set {_tabCompletion::*} to ("user") # add new options
+        set tab completions for position 1 to {_tabCompletion::*}
+
+    if tab arg-1 is "user":
+        loop players:
+            clear {_tabCompletion::*}
+            add loop-value to {_tabCompletion::*}
+            set tab completions for position 2 to {_tabCompletion::*}
+
+    if tab arg-2 parsed as player is player:
+
+        if tab arg-3 is not "set" or "clear" or "list": # add new options 
+            clear {_tabCompletion::*}
+            set {_tabCompletion::*} to ("clear", "set", "list") # add new options 
+            set tab completions for position 3 to {_tabCompletion::*}
+
+    set {_quests::*} to ("carrotsAndPotatoes") # add new quests 
+    loop {_quests::*}:
+        if tab arg-4 is loop-value:
+            set {_quest} to true
+
+    if tab arg-3 is "set":
+        set tab completions for position 4 to {_quests::*}
+    
+    if {_quest} is true:
+        set tab completions for position 5 to "true" and "false"

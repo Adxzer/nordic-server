@@ -1,0 +1,5 @@
+on load:
+    set {_emerald} to emerald named "&aEmerald" with lore "&7Currency worth $1.", "", "&8☆☆☆☆☆" and "&a&lUNIQUE"
+    set {_gemstone} to emerald block named "&aGemstone" with lore "&7Currency worth $64.", "", "&a★&8☆☆☆☆" and "&a&lUNIQUE"
+
+    set {items::economyItems::*} to ({_emerald}, {_gemstone})

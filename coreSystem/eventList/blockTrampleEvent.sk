@@ -1,0 +1,4 @@
+on block trample:
+
+    if event-block is farmland:
+        cancel event

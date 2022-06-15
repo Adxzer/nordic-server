@@ -1,0 +1,23 @@
+on load:
+    set {_wood} to oak wood named "&fWood" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
+    set {_stick} to stick named "&fStick" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
+
+    set {_chicken} to raw chicken named "&fChicken" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
+    set {_neef} to raw beef named "&fBeef" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
+    set {_mutton} to raw mutton named "&fMutton" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
+    set {_rabbit} to raw mutton named "&fRabbit" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
+    set {_feather} to feather named "&fFeather" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
+    set {_egg} to egg named "&fEgg" with lore "&7Crafting Ingredient.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL"
+    set {_leather} to leather named "&fLeather" with lore "&7Crafting Ingredient.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL"
+    set {_wool} to white wool named "&fWool" with lore "&7Crafting Ingredient.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL"
+    set {_bone} to bone named "&fBone" with lore "&7Crafting Ingredient.", "", "&f★★&8☆☆☆" and "&f&lNORMAL"
+    set {_arrow} to arrow named "&fArrow" with lore "&7Crafting Ingredient.", "", "&f★★★&8☆☆" and "&f&lNORMAL"
+    set {_eye} to spider eye named "&aEye" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&a&lUNIQUE"
+    set {_flesh} to rotten flesh named "&aFlesh" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&a&lUNIQUE"
+    set {_string} to string named "&aString" with lore "&7Crafting Ingredient.", "", "&a★&8☆☆☆☆" and "&a&lUNIQUE"
+    set {_cobweb} to cobweb named "&aCobweb" with lore "&7Crafting Ingredient.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE"
+
+    set {_wheat} to wheat named "&fWheat" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
+    set {_seed} to wheat seed named "&fSeed" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
+
+    set {items::dropItems::*} to ({_wood}, {_stick}, {_chicken}, {_beef}, {_mutton}, {_rabbit}, {_feather}, {_egg}, {_leather}, {_wool}, {_bone}, {_arrow}, {_eye}, {_flesh}, {_string}, {_cobweb}, {_wheat}, {_seed})

@@ -1,0 +1,2 @@
+on load:
+    set {quests::carrotsAndPotatoes::dialouge::*} to ("&e[NPC] Farmer: &fHey there! It's been a long time since I have eaten.", "&e[NPC] Farmer: &fWould you mind helping me gather some food?", "&e[NPC] Farmer: &fLooks like you don't have enough, go back to the farm again!", "&e[NPC] Farmer: &fThank you lots this will greatly help in the making of my food!", "&e[NPC] Farmer: &fI don't really need help anymore.")

@@ -1,0 +1,12 @@
+on heal:
+
+    cancel event
+    
+    if regen cause is peaceful regeneration or satiated:
+
+        cancel event
+        set {_heal} to 0.5
+
+        coreHealPlayer(player, {_heal})
+
+        heal player by {_heal} hearts

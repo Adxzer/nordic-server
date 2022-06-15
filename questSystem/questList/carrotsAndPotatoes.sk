@@ -1,0 +1,41 @@
+on npc rightclick:
+    
+    if npc id of target is 0:
+
+        if {quests::carrotsAndPotatoes::talked::%player's uuid%} is not true:
+            set {quests::carrotsAndPotatoes::interaction::%player's uuid%::*} to (false, false, false, false, false)
+            set {quests::carrotsAndPotatoes::carrots::%player's uuid%} to 0
+            set {quests::carrotsAndPotatoes::potatoes::%player's uuid%} to 0
+            set {quests::carrotsAndPotatoes::talked::%player's uuid%} to true
+            set {quests::carrotsAndPotatoes::completed::%player's uuid%} to false
+
+        if {quests::carrotsAndPotatoes::interaction::%player's uuid%::1} is false:
+            send "%{quests::carrotsAndPotatoes::dialouge::1}%"
+            set {quests::carrotsAndPotatoes::interaction::%player's uuid%::1} to true  
+        else if {quests::carrotsAndPotatoes::interaction::%player's uuid%::2} is false:  
+            send "%{quests::carrotsAndPotatoes::dialouge::2}%"
+            set {quests::carrotsAndPotatoes::interaction::%player's uuid%::2} to true
+            quizNew(player, "Carrots & Potatos")
+        else if {quests::carrotsAndPotatoes::interaction::%player's uuid%::3} is false:  
+            send "%{quests::carrotsAndPotatoes::dialouge::3}%"
+        else if {quests::carrotsAndPotatoes::interaction::%player's uuid%::4} is false:  
+            send "%{quests::carrotsAndPotatoes::dialouge::4}%"
+            set {quests::carrotsAndPotatoes::interaction::%player's uuid%::4} to true
+            set {quests::carrotsAndPotatoes::completed::%player's uuid%} to true
+            quizComplete(player, ("Carrots & Potatos", "&310 &7Experience"))
+            remove 10 of carrot from player
+            remove 10 of potato from player
+        else if {quests::carrotsAndPotatoes::interaction::%player's uuid%::5} is false:  
+            send "%{quests::carrotsAndPotatoes::dialouge::5}%"
+
+on break:
+
+    if event-block is potato plant:
+        add 1 to {quests::carrotsAndPotatoes::potatoes::%player's uuid%}
+    else if event-block is carrot plant:
+        add 1 to {quests::carrotsAndPotatoes::carrots::%player's uuid%}
+
+    if {quests::carrotsAndPotatoes::potatoes::%player's uuid%} > 10:
+
+        if {quests::carrotsAndPotatoes::carrots::%player's uuid%} > 10:
+            set {quests::carrotsAndPotatoes::interaction::%player's uuid%::3} to true

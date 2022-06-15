@@ -1,0 +1,10 @@
+on chat:
+
+    if player's group is "admin" or "master":
+        set {_message::*} to ("&8 »", "&f%message%")
+
+    else:
+        set {_message::*} to ("&8 »", "&7%message%")
+
+
+    set chat format to "%player's prefix%%player%&7%{_message::1}% %{_message::2}%"

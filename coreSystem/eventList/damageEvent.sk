@@ -1,0 +1,14 @@
+on damage:
+
+    if damage cause is fall:
+    
+        cancel event
+
+    if {combat::%victim's uuid%} is true:
+        stop trigger
+
+    else:
+        set {combat::%victim's uuid%} to true
+        wait 7 seconds
+        set {combat::%victim's uuid%} to false
+

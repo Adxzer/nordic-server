@@ -1,0 +1,220 @@
+function coreRoundTo(n: number, to: number) :: number:
+
+   return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
+
+function coreCheckLevel(player: player):
+
+    set {_u} to uuid of {_player}
+    set {_next} to 75 * ({level::%{_u}%} * {level::%{_u}%}) + 425 * {level::%{_u}%}
+ 
+    if {xp::%{_u}%} > {_next}:
+        add 1 to {level::%{_u}%}
+        set {xp::%{_u}%} to 0
+        set {actionBarSet::%{_u}%} to true
+        send action bar coreGetActionBar({_player}, "&3&oYou just leveled up to level %{level::%{_u}%}%!") to {_player}
+        wait 1 seconds
+        set {actionBarSet::%{_u}%} to false
+
+function coreAddXp(player: player, experience: number):
+
+    set {_u} to uuid of {_player}
+    set {_next} to 75 * ({level::%{_u}%} * {level::%{_u}%}) + 425 * {level::%{_u}%}
+
+    set {actionBarSet::%{_u}%} to true
+    send action bar coreGetActionBar({_player}, "&3&o+%{_experience}% Experience (%coreRoundTo({xp::%{_u}%}, 1)%/%round({_next})%)") to {_player}
+    add {_experience} to {xp::%{_u}%}
+    wait 1 seconds
+    set {actionBarSet::%{_u}%} to false
+
+function coreGetActionBar(player: player, string: string) :: string:
+    
+    set {_u} to uuid of {_player}
+    return "&c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤  %{_string}%&6  %coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦"
+
+function coreGetLevelBar(player: player) :: string:
+
+    set {_u} to uuid of {_player}
+    
+    set {_bar} to ""
+    set {_formula} to 75 * ({level::%{_u}%} * {level::%{_u}%}) + 475 * {level::%{_u}%}
+
+    loop 10 times:
+        if {xp::%{_u}%} >= ({_formula} / 10) * loop-number:
+            set {_bar} to "%{_bar}%&3▌"
+        else:
+            set {_bar} to "%{_bar}%&7▌"
+    return {_bar}
+
+function coreGetEntity(string: string) :: string:
+    
+    set {_entity::*} to split uncolored {_string} at "] "
+    set {_final::*} to split {_entity::2} at " "
+    return {_final::1}
+
+function coreCheckRegion(player: player, pos1: location, pos2: location) :: boolean:
+
+    add 0.001 to {_pos1}'s x-coord 
+    add 0.999 to {_pos2}'s z-coord 
+
+    if {_player}'s x-coord is between {_pos1}'s x-coord and {_pos2}'s x-coord:
+
+        if {_player}'s y-coord is between {_pos1}'s y-coord and {_pos2}'s y-coord:
+
+            if {_player}'s z-coord is between {_pos1}'s z-coord and {_pos2}'s z-coord:
+                set {_return} to true
+        
+    if {_return} is true:
+        return true
+
+    else:
+        return false
+
+function coreDamagePlayer(player: player, damage: number) :: number:
+
+    set {_u} to uuid of {_player}
+    remove {_damage} from {health::currentHearts::%{_u}%}
+
+    set {_return} to 10 * ({_damage} / {health::maxHearts::%{_u}%})
+    return {_return}
+
+function coreHealPlayer(player: player, heal: number) :: number:
+
+    set {_u} to uuid of {_player}
+    set {_return} to 0.1 * ({_heal} * {health::maxHearts::%{_u}%})
+    
+    if {health::currentHearts::%{_u}%} + {_return} > {health::maxHearts::%{_u}%}:
+        set {health::currentHearts::%{_u}%} to {health::maxHearts::%{_u}%}
+
+    else:
+        add {_return} to {health::currentHearts::%{_u}%}
+ 
+    return {_heal}
+
+function coreAddMana(player: player, mana: number) :: number:
+
+    set {_u} to uuid of {_player}
+    set {_return} to 0.1 * ({_mana} * {mana::maxMana::%{_u}%})
+    
+    if {mana::currentMana::%{_u}%} + {_return} > {mana::maxMana::%{_u}%}:
+        set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
+
+    else:
+        add {_return} to {mana::currentMana::%{_u}%}
+
+    return {_mana}
+
+function coreRegenerateHealth(player: player):
+
+    set {_u} to uuid of {_player}
+    
+    if {_player}'s health is 10:
+
+        if {health::currentHearts::%{_u}%} < {health::maxHearts::%{_u}%}:
+
+            if {combat::%{_u}%} is not true:
+                coreHealPlayer({_player}, 0.2)
+
+        else if {health::currentHearts::%{_u}%} > {health::maxHearts::%{_u}%}:
+            set {health::currentHearts::%{_u}%} to {health::maxHearts::%{_u}%}
+
+function coreRegenerateMana(player: player):
+
+    set {_u} to uuid of {_player}
+
+    if {mana::currentMana::%{_u}%} < {mana::maxMana::%{_u}%}:
+        coreAddMana({_player}, 0.2)
+
+    else if {mana::currentMana::%{_u}%} > {mana::maxMana::%{_u}%}:
+        set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
+
+function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward: item, min: number, max: number, experience: number):
+    
+    set {_u} to uuid of {_player}
+    set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
+
+    if {_type::1} is "Harvesting Tool":
+
+        loop {_allowed::*}:
+            if uncolored name of {_tool} is uncolored name of loop-value:
+                set {_continue} to true
+                stop loop
+
+        if {_continue} is true:
+
+            set {_level::*} to split uncolored 4th line of lore of {_tool} at ": "
+
+            if {level::%{_u}%} >= {_level::2} parsed as integer:
+                set {_random} to random number between {_min} and {_max}
+                give {_player} {_random} of {_reward}
+                coreAddXp({_player}, {_experience})
+                coreCheckLevel({_player})
+
+            else:
+                set {actionBarSet::%{_u}%} to true
+                send action bar coreGetActionBar({_player}, "&c&oNot requried level") to {_player}
+                wait 1 seconds
+                set {actionBarSet::%{_u}%} to false
+    else:
+        set {_random} to random number between {_min} and {_max}
+        give {_player} {_random} of {_reward}
+        coreAddXp({_player}, {_experience})
+        coreCheckLevel({_player})
+
+function coreHarvestBoost(player: player, tool: item, allowed: itemtypes) :: number:
+
+    set {_u} to uuid of {_player}
+    set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
+
+    if {_type::1} is "Harvesting Tool":
+
+        loop {_allowed::*}:
+            if uncolored name of {_tool} is uncolored name of loop-value:
+                set {_continue} to true
+                stop loop
+                
+        if {_continue} is true:
+
+            set {_harvest::*} to split uncolored 3rd line of lore of {_tool} at "+"
+            set {_level::*} to split uncolored 4th line of lore of {_tool} at ": "
+
+            if {level::%{_u}%} >= {_level::2} parsed as integer:
+                return {_harvest::2} parsed as integer
+            
+            else:
+                return 0
+
+function coreArmorBoost(player: player, tool: item) :: number:
+
+    set {_u} to uuid of {_player}
+    set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
+
+    if {_type::1} is "Defense Armor":
+
+        set {_health::*} to split uncolored 3rd line of lore of {_tool} at "+"
+        set {_level::*} to split uncolored 4th line of lore of {_tool} at ": "
+        
+        if {level::%{_u}%} >= {_level::2} parsed as integer:
+            return {_health::2} parsed as integer
+
+        else:
+            return 0
+    else:
+        return 0
+
+every 1 seconds:
+
+    loop all players:
+        if {actionBarSet::%loop-player's uuid%} is not true:
+        
+            if {health::customHearts::%loop-player's uuid%} is not set:
+                set {_boost} to coreArmorBoost(loop-player, helmet of loop-player) + coreArmorBoost(loop-player, chestplate of loop-player) + coreArmorBoost(loop-player, leggings of loop-player) + coreArmorBoost(loop-player, boots of loop-player)
+                set {health::maxHearts::%loop-player's uuid%} to {_boost} + 20 + ({level::%loop-player's uuid%} * 2)
+
+                coreRegenerateHealth(loop-player)
+
+            if {mana::customMana::%loop-player's uuid%} is not set:
+                set {mana::maxMana::%loop-player's uuid%} to 15 + ({level::%loop-player's uuid%} * 1)
+
+                coreRegenerateMana(loop-player)
+
+            send action bar coreGetActionBar(loop-player, "") to loop-player 

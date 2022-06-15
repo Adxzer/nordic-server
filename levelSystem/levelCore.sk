@@ -1,0 +1,74 @@
+command /level [<text>] [<text>] [<text>] [<text>]:
+    permission: op
+    permission message: Unknown command. Type "/help" for help.
+    trigger:
+
+        if arg-1 is set:
+
+            if arg-1 is "user":
+     
+                if arg-2 is set:
+
+                    if arg-2 parsed as player is player:
+
+                        if arg-3 is set:
+
+                            set {_player} to arg-2 parsed as player
+                            set {_u} to uuid of {_player}
+
+                            if arg-3 is "set":
+
+                                if arg-4 is set:
+
+                                    set {_value} to arg-4 parsed as integer
+
+                                    if arg-4 parsed as integer is integer:
+                                        send "&9[LEVEL] » &fYou set &3%arg-2%&f's level to &3%arg-4%&f."
+                                        set {level::%player's uuid%} to {_value}
+                                        set {xp::%player's uuid%} to 0
+
+                                    else:
+                                        send "&3[LEVEL] » &cThis argument must be an integer."
+
+                                else:
+                                    send "&3[LEVEL] » &cPlease specify an integer."
+                            else if arg-3 is "check":
+                                send "&3[LEVEL] » &fThe level of &3%arg-2%&f is &3%{level::%{_u}%}%&f."
+                                
+                            else:
+                                send "&3[LEVEL] » &cThis command option does not exist."
+
+                        else:
+                            send "&3[LEVEL] » &cPlease specify a command option."
+
+                    else:
+                        send "&3[LEVEL] » &cThis player does not exist."
+
+                else:
+                    send "&3[LEVEL] » &cPlease specify a player."  
+
+            else:
+                send "&3[LEVEL] » &cThis command option does not exist."
+
+        else:
+            send "&3[LEVEL] » &cPlease specify a command option."
+
+on tab complete of "/level":
+
+    if tab arg-1 is not "user": # add new options  
+        clear {_tabCompletion::*}
+        set {_tabCompletion::*} to ("user") # add new options
+        set tab completions for position 1 to {_tabCompletion::*}
+
+    if tab arg-1 is "user":
+        loop players:
+            clear {_tabCompletion::*}
+            add loop-value to {_tabCompletion::*}
+            set tab completions for position 2 to {_tabCompletion::*}
+
+    if tab arg-2 parsed as player is player:
+
+        if tab arg-3 is not "set" or "check": # add new options 
+            clear {_tabCompletion::*}
+            set {_tabCompletion::*} to ("set", "check") # add new options 
+            set tab completions for position 3 to {_tabCompletion::*}

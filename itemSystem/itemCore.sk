@@ -1,0 +1,157 @@
+command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
+    permission: op
+    permission message: Unknown command. Type "/help" for help.
+    trigger:
+
+        if arg-1 is set:
+
+            if arg-1 is "user":
+     
+                if arg-2 is set:
+
+                    if arg-2 parsed as player is player:
+
+                        if arg-3 is set:
+
+                            if arg-3 is "give" or "take":
+
+                                if arg-4 is set:
+
+                                    if arg-4 is "economy" or "drop" or "tool" or "armor":
+
+                                        if arg-5 is set:
+
+                                            loop {items::%arg-4%Items::*}:
+                                                set {_split::*} to uncolored name of loop-value split at " "
+                                                if {_split::2} is set:
+                                                    set {_name} to "%{_split::1} in lower case%%{_split::2}%"
+                                                else:
+                                                    set {_name} to {_split::1} in lower case
+                                                if arg-5 is {_name}:
+                                                    set {_item} to true
+                                                    set {_give} to loop-value
+                                                    stop loop
+
+                                            if {_item} is true:
+
+                                                set {_player} to arg-2 parsed as player
+
+                                                if arg-6 is set:
+
+                                                    set {_amount} to arg-6 parsed as integer
+
+                                                    if arg-6 parsed as integer is integer:
+
+                                                        if arg-3 is "give":
+                                                            give {_player} {_amount} of {_give}
+                                                            send "&b[ITEM] » &fYou gave &b%arg-6%x %uncolored name of {_give}%&f to &b%arg-2%&f."
+                                                        else if arg-3 is "take":
+
+                                                            loop player's inventory:
+                                                                if loop-value's type is {_give}'s type:
+                                                                    set {_contains} to true
+                                                                    stop loop
+
+                                                            if {_contains} is true:                            
+                                                                remove {_amount} of {_give} from {_player} 
+                                                                send "&b[ITEM] » &fYou took &b%arg-6%x %uncolored name of {_give}%&f from &b%arg-2%&f."
+
+                                                            else:
+                                                                send "&b[ITEM] » &cThe player does not have this item."
+                                                                                                   
+                                                        else:
+                                                            send "&b[ITEM] » &cThis command option does not exist." 
+
+                                                else if arg-6 is not set:
+
+                                                    if arg-3 is "give":
+                                                        give {_player} {_give}
+                                                        send "&b[ITEM] » &fYou gave &b1x %uncolored name of {_give}%&f to &b%arg-2%&f."
+                                                    else if arg-3 is "take":
+
+                                                        loop player's inventory:
+                                                            if loop-value's type is {_give}'s type:
+                                                                set {_contains} to true
+                                                                stop loop
+
+                                                        if {_contains} is true:                            
+                                                            remove {_give} from {_player} 
+                                                            send "&b[ITEM] » &fYou took &b1x %uncolored name of {_give}%&f from &b%arg-2%&f."
+
+                                                        else:
+                                                            send "&b[ITEM] » &cThe player does not have this item."
+                                                                                                   
+                                                    else:
+                                                        send "&b[ITEM] » &cThis command option does not exist."  
+                                                               
+                                                else:
+                                                    send "&b[ITEM] » &cThis command option does not exist."   
+
+                                            else:
+                                                send "&b[ITEM] » &cThis item does not exist."
+                                                
+                                        else:
+                                            send "&b[ITEM] » &cPlease specify an item."
+
+                                    else:
+                                        send "&b[ITEM] » &cThis command option does not exist."
+
+                                else:
+                                    send "&b[ITEM] » &cPlease specify a command option."
+
+                            else:
+                                send "&b[ITEM] » &cThis command option does not exist."
+
+                        else:
+                            send "&b[ITEM] » &cPlease specify a command option."
+
+                    else:
+                        send "&b[ITEM] » &cThis player does not exist."
+
+                else:
+                    send "&b[ITEM] » &cPlease specify a player."  
+
+            else:
+                send "&b[ITEM] » &cThis command option does not exist."
+
+        else:
+            send "&b[ITEM] » &cPlease specify a command option."
+
+on tab complete of "/item":
+
+    if tab arg-1 is not "user": # add new options  
+        clear {_tabCompletion::*}
+        set {_tabCompletion::*} to ("user") # add new options
+        set tab completions for position 1 to {_tabCompletion::*}
+
+    if tab arg-1 is "user":
+        loop players:
+            clear {_tabCompletion::*}
+            add loop-value to {_tabCompletion::*}
+            set tab completions for position 2 to {_tabCompletion::*}
+
+    if tab arg-2 parsed as player is player:
+
+        if tab arg-3 is not "give" or "take": # add new options 
+            clear {_tabCompletion::*}
+            set {_tabCompletion::*} to ("give", "take") # add new options 
+            set tab completions for position 3 to {_tabCompletion::*}
+
+    set {_categories::*} to ("economy", "drop", "tool", "armor") # add new categories 
+    if tab arg-3 is "give" or "take":
+        set tab completions for position 4 to {_categories::*} 
+    loop {_categories::*}:
+        if tab arg-4 is loop-value:
+            set {_item} to true
+    
+    if {_item} is true:
+        clear {_tabCompletion::*}
+        set {_category} to tab arg-4
+        loop {items::%{_category}%Items::*}:
+            set {_split::*} to uncolored name of loop-value split at " "
+            if {_split::2} is set:
+                set {_name} to "%{_split::1} in lower case%%{_split::2}%"
+            else:
+                set {_name} to {_split::1} in lower case
+            add {_name} to {_tabCompletion::*}
+        set tab completions for position 5 to {_tabCompletion::*}

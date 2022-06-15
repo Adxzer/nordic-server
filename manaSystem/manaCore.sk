@@ -1,0 +1,106 @@
+command /mana [<text>] [<text>] [<text>] [<text>] [<text>]:
+    permission: op
+    permission message: Unknown command. Type "/help" for help.
+    trigger:
+
+        if arg-1 is set:
+
+            if arg-1 is "user":
+     
+                if arg-2 is set:
+
+                    if arg-2 parsed as player is player:
+
+                        if arg-3 is set:
+
+                            set {_player} to arg-2 parsed as player
+                            set {_u} to uuid of {_player}
+
+                            if arg-3 is "custom":
+
+                                if arg-4 is set:
+
+                                    if arg-4 is "set":
+
+                                        if arg-5 is set:
+
+                                            set {_value} to arg-5 parsed as integer
+
+                                            if arg-5 parsed as integer is integer:
+                                                send "&6[MANA] » &fYou set &6%arg-2%&f's max mana to &6%arg-5%&f."
+                                                set {mana::maxMana::%{_u}%} to {_value}
+                                                set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
+                                                set {mana::customMana::%{_u}%} to {mana::maxMana::%{_u}%}
+
+                                            else:
+                                                send "&6[MANA] » &cThis argument must be an integer."
+
+                                        else:
+                                            send "&6[MANA] » &cPlease specify an integer."
+                                    else if arg-4 is "clear":
+                                        
+                                        if {mana::customMana::%{_u}%} is set:
+                                            send "&6[MANA] » &fYou cleared &6%arg-2%&f's custom mana&f."
+                                            clear {mana::customMana::%{_u}%}
+                                            set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
+
+                                        else:
+                                            send "&6[MANA] » &cThere is no custom mana for this player."                                            
+                                    else if arg-4 is "check":
+
+                                        if {mana::customMana::%{_u}%} is set:
+                                            send "&6[MANA] » &fThe custom mana of &c%arg-2%&f is &6%{mana::customMana::%{_u}%}%&f."
+                                        
+                                        else:
+                                            send "&6[MANA] » &cThere is no custom mana for this player."
+
+                                    else:
+                                        send "&6[MANA] » &cThis command option does not exist."
+
+                                else:
+                                    send "&6[MANA] » &cThis command option does not exist."
+                            else if arg-3 is "regen":
+                                send "&6[MANA] » &fRegenerated &6%arg-2%&f's mana."
+                                set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
+
+                            else:
+                                send "&6[MANA] » &cThis command option does not exist."
+
+                        else:
+                            send "&6[MANA] » &cPlease specify a command option."
+
+                    else:
+                        send "&6[MANA] » &cThis player does not exist."
+
+                else:
+                    send "&6[MANA] » &cPlease specify a player."  
+
+            else:
+                send "&6[MANA] » &cThis command option does not exist."
+
+        else:
+            send "&6[MANA] » &cPlease specify a command option."
+
+on tab complete of "/mana":
+
+    if tab arg-1 is not "user": # add new options  
+        clear {_tabCompletion::*}
+        set {_tabCompletion::*} to ("user") # add new options
+        set tab completions for position 1 to {_tabCompletion::*}
+
+    if tab arg-1 is "user":
+        loop players:
+            clear {_tabCompletion::*}
+            add loop-value to {_tabCompletion::*}
+            set tab completions for position 2 to {_tabCompletion::*}
+
+    if tab arg-2 parsed as player is player:
+
+        if tab arg-3 is not "regen" or "custom": # add new options 
+            clear {_tabCompletion::*}
+            set {_tabCompletion::*} to ("regen", "custom") # add new options 
+            set tab completions for position 3 to {_tabCompletion::*}
+
+    if tab arg-3 is "custom":
+        set {_tabCompletion::*} to ("set", "clear", "check") # add new options 
+        set tab completions for position 4 to {_tabCompletion::*}

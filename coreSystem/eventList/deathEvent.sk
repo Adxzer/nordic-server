@@ -1,0 +1,6 @@
+on death:
+
+    force victim to respawn
+    set {health::currentHearts::%victim's uuid%} to {health::maxHearts::%victim's uuid%}
+    set {mana::currentMana::%victim's uuid%} to {mana::maxMana::%victim's uuid%}
+    set {combat::%victim's uuid%} to false

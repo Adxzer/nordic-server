@@ -1,0 +1,24 @@
+on break:
+    
+    if event-block is wheat plant:
+
+        cancel drops
+        set event-block to wheat item
+        
+        loop {items::toolItems::*}:
+            if uncolored name of loop-value is "Default Hoe" or "Gathering Hoe":
+                add loop-value to {_items::*}
+ 
+        set {_experience} to 0.1
+        set {_boost} to coreHarvestBoost(player, (player's tool), ({_items::*}))
+
+        loop {items::dropItems::*}:
+            if uncolored name of loop-value is "Wheat":
+                set {_drop} to loop-value
+                stop loop
+
+        coreHarvestDrop(player, (player's tool), ({_items::*}), {_drop}, 1 + {_boost}, 3 + {_boost}, {_experience})
+ 
+        wait 15 seconds
+        set event-block to ripe wheat plant
+

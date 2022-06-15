@@ -1,0 +1,22 @@
+on first join:
+
+    set join message to "&a[FIRST JOIN] ☄ &fEveryone welcome &a%player%&f that just joined the server for the first time."
+
+on join:
+
+    set join message to "&a[JOIN] + &fWelcome back to the server &a%player%&f."
+    set {health::currentHearts::%player's uuid%} to {health::maxHearts::%player's uuid%}
+    set {mana::currentMana::%player's uuid%} to {mana::maxMana::%player's uuid%}
+    set {combat::%player's uuid%} to false
+
+    while player is online:
+
+        set player's tablist header to "%nl%&f&lNordic&3&lRPG%nl%"
+        set player's tablist footer to  "%nl%&fOnline: &3%number of all players%/%max players%%nl%&eNordicRPG.minehut.gg%nl%                                             "    
+        set player's tablist name to "%player's prefix%%player%"
+
+        wait 1 second
+
+on leave:
+
+    set leave message to "&c[LEAVE] - &fHope to see you soon &c%player%&f."
