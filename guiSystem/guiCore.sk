@@ -1,0 +1,75 @@
+function guiCreateMerchant(player: player, name: string, items: itemtypes, type: string, cost: strings):
+
+    set metadata tag "merchant" of {_player} to chest with 6 row named "%{_name}%"
+    
+    set {_u} to uuid of {_player}
+    set {_borderIndex} to 0
+    set {_itemIndex} to 0
+    set {_currentIndex} to 1
+
+    loop 54 times:
+
+        if {_borderIndex} is not 11, 12, 13, 14, 15, 20, 21, 22, 23, 24, 29, 30, 31, 32, 33, 38, 39, 40, 41 or 42:
+            set slot {_borderIndex} of metadata tag "merchant" of {_player} to black stained glass pane named "&8Border"
+
+        if {_borderIndex} is 10, 16, 19, 25, 28, 34, 37 or 43:
+            set slot {_borderIndex} of metadata tag "merchant" of {_player} to gray stained glass pane named "&7Border"
+
+        add 1 to {_borderIndex}
+
+        if {_itemIndex} is 11, 12, 13, 14, 15, 20, 21, 22, 23, 24, 29, 30, 31, 32, 33, 38, 39, 40, 41 or 42:
+
+            add "" to lore of {_items::%{_currentIndex}%}
+
+            if {_type} is "sell":
+                add "&7Sell For:" to lore of {_items::%{_currentIndex}%}
+            else if {_type} is "buy":
+                add "&7Buy For:" to lore of {_items::%{_currentIndex}%}
+                
+            add {_cost::*} to lore of {_items::%{_currentIndex}%}
+            add "&6" to lore of {_items::%{_currentIndex}%}
+            add "&eSell (Left Click)" to lore of {_items::%{_currentIndex}%}
+
+            if max stack size of {_items::%{_currentIndex}%} > 1:
+                add "&eOptions (Right Click)" to lore of {_items::%{_currentIndex}%}
+
+            set slot {_itemIndex} of metadata tag "merchant" of {_player} to {_items::%{_currentIndex}%}
+
+            add 1 to {_currentIndex}
+
+        add 1 to {_itemIndex}
+
+    open (metadata tag "merchant" of {_player}) to {_player}
+
+on inventory click:
+    if event-inventory = (metadata tag "merchant" of player):
+        cancel event
+
+        if event-item is not air, black stained glass pane or gray stained glass pane:
+
+            set {_splitOne::*} to split uncolored 7th line of lore of event-item at "x "
+
+            if uncolored 8th line of lore of event-item is not "":
+                set {_splitTwo::*} to split uncolored 8th line of lore of event-item at "x "
+            if uncolored 9th line of lore of event-item is not "Buy 1x (Left Click)":
+                set {_splitThree::*} to split uncolored 9th line of lore of event-item at "x "
+
+            if click type is left mouse button:
+
+                set {_lore::*} to event-item's lore
+                loop {_lore::*}:
+                    if loop-value contains "For":
+                        set {_type::*} to split loop-value at " "
+                        stop loop
+
+                if uncolored {_type::1} is "Sell":      
+
+                    set {_item} to event-item
+
+                    loop 9 times:
+                        clear 5th line of lore of {_item}
+
+                    if player's inventory contains {_item}:
+
+                        remove {_item} from player
+                        send "heya"

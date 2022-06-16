@@ -35,7 +35,9 @@ command /economy [<text>] [<text>] [<text>] [<text>]:
                                             if arg-3 is "add":
                                                 give {_player} {_block} of {items::economyItems::2}
                                                 give {_player} {_value} of {items::economyItems::1}
-                                                send "&2[ECONOMY] » &fYou added &2$%{_value} + (64 * {_block})%&f to &2%arg-2%&f's balance."
+                                                if {_block} is not set:
+                                                    set {_block} to 0
+                                                send "&2[ECONOMY] » &fYou added &2%{_block}%x Gemstone&f and &2%{_value}%x Emerald&f to &2%arg-2%&f's balance."
                                             else if arg-3 is "remove":
 
                                                 if {_block} is not set:

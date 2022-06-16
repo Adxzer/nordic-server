@@ -228,4 +228,4 @@ every 1 seconds:
 
                 coreRegenerateMana(loop-player)
 
-            send action bar coreGetActionBar(loop-player, "") to loop-player 
+            send action bar coreGetActionBar(loop-player, "&7%round(loop-player's x coordinate)% %round(loop-player's y coordinate)% %round(loop-player's z coordinate)%") to loop-player 
