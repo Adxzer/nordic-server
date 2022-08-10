@@ -57,7 +57,7 @@ command /economy [<text>] [<text>] [<text>] [<text>]:
                                                     if {_containsGem} >= {_value}:
                                                         remove {_block} of {items::economyItems::2} from {_player}
                                                         remove {_value} of {items::economyItems::1} from {_player}
-                                                        send "&2[ECONOMY] » &fYou removed &2$%{_value} + (64 * {_block})%&f from &2%arg-2%&f's balance."
+                                                        send "&2[ECONOMY] » &fYou removed &2%{_block}%x Gemstone&f and &2%{_value}%x Emerald&f from &2%arg-2%&f's balance."
 
                                                     else:
                                                         send "&2[ECONOMY] » &cThe player does not have enough to complete this action."     
@@ -82,12 +82,12 @@ command /economy [<text>] [<text>] [<text>] [<text>]:
 
                                 loop player's inventory:
                                     if loop-value's type is {items::economyItems::2}'s type:
-                                        add item amount of loop-value * 64 to {_value}
+                                        add item amount of loop-value to {_block}
                                     if loop-value's type is {items::economyItems::1}'s type:
                                         add item amount of loop-value to {_value}
 
                                 if {_value} > 0:
-                                    send "&2[ECONOMY] » &fThe balance of &2%arg-2%&f's inventory is &2$%{_value}%&f."
+                                    send "&2[ECONOMY] » &fThe balance of &2%arg-2%&f's is &2%{_block}%x Gemstone&f and &2%{_value}%x Emerald&f."
                                 
                                 else:
                                     send "&2[ECONOMY] » &cThe player does not have any balance in their inventory."

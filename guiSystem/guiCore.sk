@@ -1,4 +1,4 @@
-function guiCreateMerchant(player: player, name: string, items: itemtypes, type: string, cost: strings):
+function guiCreateMerchant(player: player, name: string, items: itemtypes, type: strings, cost: strings):
 
     set metadata tag "merchant" of {_player} to chest with 6 row named "%{_name}%"
     
@@ -21,14 +21,19 @@ function guiCreateMerchant(player: player, name: string, items: itemtypes, type:
 
             add "" to lore of {_items::%{_currentIndex}%}
 
-            if {_type} is "sell":
-                add "&7Sell For:" to lore of {_items::%{_currentIndex}%}
-            else if {_type} is "buy":
-                add "&7Buy For:" to lore of {_items::%{_currentIndex}%}
+            if {_type::%{_currentIndex}%} is "sell":
+                add "&7&nSell For:" to lore of {_items::%{_currentIndex}%}
+            else if {_type::%{_currentIndex}%} is "buy":
+                add "&7&nBuy For:" to lore of {_items::%{_currentIndex}%}
                 
-            add {_cost::*} to lore of {_items::%{_currentIndex}%}
+            set {_price::*} to split {_cost::%{_currentIndex}%} at ":"
+            add {_price::*} to lore of {_items::%{_currentIndex}%}
             add "&6" to lore of {_items::%{_currentIndex}%}
-            add "&eSell (Left Click)" to lore of {_items::%{_currentIndex}%}
+
+            if {_type::%{_currentIndex}%} is "sell":
+                add "&eSell (Left Click)" to lore of {_items::%{_currentIndex}%}
+            else if {_type::%{_currentIndex}%} is "buy":
+                add "&eBuy (Left Click)" to lore of {_items::%{_currentIndex}%}
 
             if max stack size of {_items::%{_currentIndex}%} > 1:
                 add "&eOptions (Right Click)" to lore of {_items::%{_currentIndex}%}
@@ -41,20 +46,292 @@ function guiCreateMerchant(player: player, name: string, items: itemtypes, type:
 
     open (metadata tag "merchant" of {_player}) to {_player}
 
+function guiMerchantOptions(player: player, name: string, item: item, type: string):
+
+    set metadata tag "options" of {_player} to chest with 5 row named "%{_name}%"
+
+    set {_u} to uuid of {_player}
+    set {_borderIndex} to 0
+    set {_itemIndex} to 0
+    set {_currentIndex} to 1
+    set {_loreIndex} to 1
+
+    set {_lore::*} to {_item}'s lore
+    set {_size} to size of {_item}'s lore
+    set {_change} to {_size} - 1
+    clear {_size}th line of lore of {_item}
+
+    loop {_lore::*}:
+        if loop-value contains "(Left Click)":
+            set {_type::*} to split loop-value at " "
+            stop loop
+
+        if uncolored loop-value contains "For":
+            set {_loreItemOneIndex} to {_loreIndex} + 1
+            set {_loreItemTwoIndex} to {_loreIndex} + 2
+            set {_loreItemThreeIndex} to {_loreIndex} + 3
+    
+        add 1 to {_loreIndex}
+
+    set {_splitOne::*} to uncolored split {_loreItemOneIndex}th line of lore of {_item} at "x "
+    set {_itemOne::*} to uncolored split {_splitOne::1} at " "
+    set {_itemOneNumber} to {_itemOne::2} parsed as integer
+
+    set {_splitTwo::*} to uncolored split {_loreItemTwoIndex}th line of lore of {_item} at "x "
+    set {_itemTwo::*} to uncolored split {_splitTwo::1} at " "
+    set {_itemTwoNumber} to {_itemTwo::2} parsed as integer
+
+    set {_splitThree::*} to uncolored split {_loreItemThreeIndex}th line of lore of {_item} at "x "
+    set {_itemThree::*} to uncolored split {_splitThree::1} at " "
+    set {_itemThreeNumber} to {_itemThree::2} parsed as integer
+
+    loop 54 times:
+
+        if {_borderIndex} is not 11, 12, 13, 14, 15, 20, 21, 22, 23, 24, 29, 30, 31, 32 or 33:
+            set slot {_borderIndex} of metadata tag "options" of {_player} to black stained glass pane named "&8Border"
+
+        if {_borderIndex} is 10, 16, 19, 25, 28 or 34:
+            set slot {_borderIndex} of metadata tag "options" of {_player} to gray stained glass pane named "&7Border"
+
+        if {_borderIndex} is 31:
+            set slot {_borderIndex} of metadata tag "options" of {_player} to barrier named "&cClose"
+
+        add 1 to {_borderIndex}
+
+        if {_itemIndex} is 11:
+
+            set {_change}th line of lore of {_item} to "%{_type::1}% 1x (Left Click)"
+            set {_loreItemOneIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemOneNumber}%x %{_splitOne::2}%"
+
+            if uncolored {_loreItemTwoIndex}th line of lore of {_item} is not "":
+                set {_loreItemTwoIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemTwoNumber}%x %{_splitTwo::2}%"
+            
+            if {_loreItemThreeIndex}th line of lore of {_item} is not "%{_type::1}% 1x (Left Click)" or "":
+                set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
+
+            set slot {_itemIndex} of metadata tag "options" of {_player} to {_item}
+        else if {_itemIndex} is 12:
+            set {_item} to 4 of {_item}
+
+            set {_change}th line of lore of {_item} to "%{_type::1}% 4x (Left Click)"
+            set {_loreItemOneIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemOneNumber}%x %{_splitOne::2}%"
+
+            if uncolored {_loreItemTwoIndex}th line of lore of {_item} is not "":
+                set {_loreItemTwoIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemTwoNumber}%x %{_splitTwo::2}%"
+            
+            if {_loreItemThreeIndex}th line of lore of {_item} is not "%{_type::1}% 4x (Left Click)" or "":
+                set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
+
+            set slot {_itemIndex} of metadata tag "options" of {_player} to {_item}
+        else if {_itemIndex} is 13:
+            set {_item} to 16 of {_item}
+
+            set {_change}th line of lore of {_item} to "%{_type::1}% 16x (Left Click)"
+            set {_loreItemOneIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemOneNumber}%x %{_splitOne::2}%"
+
+            if uncolored {_loreItemTwoIndex}th line of lore of {_item} is not "":
+                set {_loreItemTwoIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemTwoNumber}%x %{_splitTwo::2}%"
+            
+            if {_loreItemThreeIndex}th line of lore of {_item} is not "%{_type::1}% 16x (Left Click)" or "":
+                set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
+
+            set slot {_itemIndex} of metadata tag "options" of {_player} to {_item}
+        else if {_itemIndex} is 14:
+            set {_item} to 32 of {_item}
+
+            set {_change}th line of lore of {_item} to "%{_type::1}% 32x (Left Click)"
+            set {_loreItemOneIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemOneNumber}%x %{_splitOne::2}%"
+
+            if uncolored {_loreItemTwoIndex}th line of lore of {_item} is not "":
+                set {_loreItemTwoIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemTwoNumber}%x %{_splitTwo::2}%"
+            
+            if {_loreItemThreeIndex}th line of lore of {_item} is not "%{_type::1}% 32x (Left Click)" or "":
+                set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
+
+            set slot {_itemIndex} of metadata tag "options" of {_player} to {_item}
+        else if {_itemIndex} is 15:       
+            set {_item} to 64 of {_item}
+
+            set {_change}th line of lore of {_item} to "%{_type::1}% 64x (Left Click)"
+            set {_loreItemOneIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemOneNumber}%x %{_splitOne::2}%"
+
+            if uncolored {_loreItemTwoIndex}th line of lore of {_item} is not "":
+                set {_loreItemTwoIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemTwoNumber}%x %{_splitTwo::2}%"
+            
+            if {_loreItemThreeIndex}th line of lore of {_item} is not "%{_type::1}% 64x (Left Click)" or "":
+                set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
+
+            set slot {_itemIndex} of metadata tag "options" of {_player} to {_item}
+            
+        add 1 to {_itemIndex}
+
+
+    open (metadata tag "options" of {_player}) to {_player}
+
 on inventory click:
     if event-inventory = (metadata tag "merchant" of player):
         cancel event
 
         if event-item is not air, black stained glass pane or gray stained glass pane:
 
-            set {_splitOne::*} to split uncolored 7th line of lore of event-item at "x "
-
-            if uncolored 8th line of lore of event-item is not "":
-                set {_splitTwo::*} to split uncolored 8th line of lore of event-item at "x "
-            if uncolored 9th line of lore of event-item is not "Buy 1x (Left Click)":
-                set {_splitThree::*} to split uncolored 9th line of lore of event-item at "x "
-
             if click type is left mouse button:
+
+                set {_item} to event-item
+                set {_max} to size of lore of {_item}
+                set {_itemLore::*} to {_item}'s lore
+                    
+                loop {_itemLore::*}:
+                    if uncolored {_max}th line of lore of {_item} is "NORMAL", "UNIQUE", "RARE", "EPIC" or "LEGENDARY":
+                        stop loop
+                    clear {_max}th line of lore of {_item}
+                    remove 1 from {_max}
+
+                set {_lore::*} to event-item's lore
+                loop {_lore::*}:
+                    if loop-value contains "For":
+                        set {_type::*} to split loop-value at " "
+                        stop loop
+
+                if uncolored {_type::1} is "Sell":      
+                    
+                    if player's inventory contains {_item}:
+                        set {_size} to size of lore of event-item
+                        
+                        if max stack size of event-item > 1:
+                            set {_checkLine1} to {_size} - 3
+                            set {_checkLine2} to {_size} - 4
+                            set {_checkLine3} to {_size} - 5
+                        
+                        else:
+                            set {_checkLine1} to {_size} - 2
+                            set {_checkLine2} to {_size} - 3
+                            set {_checkLine3} to {_size} - 4
+                        
+                        set {_splitOne::*} to uncolored split {_checkLine1}th line of lore of event-item at "x "
+                        set {_itemOneList::*} to uncolored split {_splitOne::1} at " "
+
+                        set {_splitTwo::*} to uncolored split {_checkLine2}th line of lore of event-item at "x "
+                        set {_itemTwoList::*} to uncolored split {_splitTwo::1} at " "
+
+                        set {_splitThree::*} to uncolored split {_checkLine3}th line of lore of event-item at "x "
+                        set {_itemThreeList::*} to uncolored split {_splitThree::1} at " "
+
+                        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                        loop {_itemList::*}:
+                            if uncolored name of loop-value is {_splitOne::2}:
+                                set {_itemOne} to {_itemOneList::2} parsed as integer of loop-value
+                            if uncolored name of loop-value is {_splitTwo::2}:
+                                set {_itemTwo} to {_itemTwoList::2} parsed as integer of loop-value
+                            if uncolored name of loop-value is {_splitThree::2}:
+                                set {_itemThree} to {_itemThreeList::2} parsed as integer of loop-value
+                        
+                        if {_itemTwo} is not set:
+                            set {_itemTwo} to air
+
+                        if {_itemThree} is not set:
+                            set {_itemThree} to air
+                        
+                        remove {_item} from player
+                        give {_itemOne}, {_itemTwo} and {_itemThree} to player
+
+                else if uncolored {_type::1} is "Buy":
+
+                    set {_size} to size of lore of event-item
+                        
+                    if max stack size of event-item > 1:
+                        set {_checkLine1} to {_size} - 3
+                        set {_checkLine2} to {_size} - 4
+                        set {_checkLine3} to {_size} - 5
+                        
+                    else:
+                        set {_checkLine1} to {_size} - 2
+                        set {_checkLine2} to {_size} - 3
+                        set {_checkLine3} to {_size} - 4
+                        
+                    set {_splitOne::*} to uncolored split {_checkLine1}th line of lore of event-item at "x "
+                    set {_itemOneList::*} to uncolored split {_splitOne::1} at " "
+
+                    set {_splitTwo::*} to uncolored split {_checkLine2}th line of lore of event-item at "x "
+                    set {_itemTwoList::*} to uncolored split {_splitTwo::1} at " "
+
+                    set {_splitThree::*} to uncolored split {_checkLine3}th line of lore of event-item at "x "
+                    set {_itemThreeList::*} to uncolored split {_splitThree::1} at " "
+
+                    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                    loop {_itemList::*}:
+                        if uncolored name of loop-value is {_splitOne::2}:
+                            set {_itemOne} to {_itemOneList::2} parsed as integer of loop-value
+                        if uncolored name of loop-value is {_splitTwo::2}:
+                            set {_itemTwo} to {_itemTwoList::2} parsed as integer of loop-value
+                        if uncolored name of loop-value is {_splitThree::2}:
+                            set {_itemThree} to {_itemThreeList::2} parsed as integer of loop-value
+                        
+                    if {_itemTwo} is not set:
+                        set {_itemTwo} to air
+
+                    if {_itemThree} is not set:
+                        set {_itemThree} to air
+                        
+                    if {_itemOne} is set:
+                            
+                        if player's inventory contains {_itemOne}:
+                            set {_final} to true
+
+                        else:
+                            set {_final} to false
+
+                        if {_itemTwo} is not air:
+
+                            if player's inventory contains {_itemTwo}:
+                                set {_final} to true
+
+                            else:
+                                set {_final} to false
+
+                        if {_itemThree} is not air:
+
+                            if player's inventory contains {_itemThree}:
+                                set {_final} to true
+                                    
+                            else:
+                                set {_final} to false
+
+                    if {_final} is true:
+                        remove {_itemOne}, {_itemTwo} and {_itemThree} from player
+                        give player {_item}
+            else if click type is right mouse button:
+
+                if max stack of event-item > 1:
+
+                    set {_lore::*} to event-item's lore
+                    loop {_lore::*}:
+                        if loop-value contains "For":
+                            set {_type::*} to split loop-value at " "
+                            stop loop
+
+                    if uncolored {_type::1} is "Sell":
+                        guiMerchantOptions(player, "&8Sell Options", event-item, "sell")
+                    else if uncolored {_type::1} is "Buy":
+                        guiMerchantOptions(player, "&8Buy Options", event-item, "buy")
+    else if event-inventory = (metadata tag "options" of player):
+        
+        cancel event
+
+        if index of event-slot is 31:
+            open (metadata tag "merchant" of player) to player
+        else if index of event-slot is between 11 and 15:
+
+            if event-item is not air, black stained glass pane or gray stained glass pane:
+
+                set {_item} to event-item
+                set {_max} to size of lore of {_item}
+                set {_itemLore::*} to {_item}'s lore
+                    
+                loop {_itemLore::*}:
+                    if uncolored {_max}th line of lore of {_item} is "NORMAL", "UNIQUE", "RARE", "EPIC" or "LEGENDARY":
+                        stop loop
+                    clear {_max}th line of lore of {_item}
+                    remove 1 from {_max}
 
                 set {_lore::*} to event-item's lore
                 loop {_lore::*}:
@@ -64,12 +341,98 @@ on inventory click:
 
                 if uncolored {_type::1} is "Sell":      
 
-                    set {_item} to event-item
-
-                    loop 9 times:
-                        clear 5th line of lore of {_item}
-
                     if player's inventory contains {_item}:
+                        set {_size} to size of lore of event-item
+                        
+                        if max stack size of event-item > 1:
+                            set {_checkLine1} to {_size} - 2
+                            set {_checkLine2} to {_size} - 3
+                            set {_checkLine3} to {_size} - 4
+                            
+                        set {_splitOne::*} to uncolored split {_checkLine1}th line of lore of event-item at "x "
+                        set {_itemOneList::*} to uncolored split {_splitOne::1} at " "
+
+                        set {_splitTwo::*} to uncolored split {_checkLine2}th line of lore of event-item at "x "
+                        set {_itemTwoList::*} to uncolored split {_splitTwo::1} at " "
+
+                        set {_splitThree::*} to uncolored split {_checkLine3}th line of lore of event-item at "x "
+                        set {_itemThreeList::*} to uncolored split {_splitThree::1} at " "
+
+                        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                        loop {_itemList::*}:
+                            if uncolored name of loop-value is {_splitOne::2}:
+                                set {_itemOne} to {_itemOneList::2} parsed as integer of loop-value
+                            if uncolored name of loop-value is {_splitTwo::2}:
+                                set {_itemTwo} to {_itemTwoList::2} parsed as integer of loop-value
+                            if uncolored name of loop-value is {_splitThree::2}:
+                                set {_itemThree} to {_itemThreeList::2} parsed as integer of loop-value
+                        
+                        if {_itemTwo} is not set:
+                            set {_itemTwo} to air
+
+                        if {_itemThree} is not set:
+                            set {_itemThree} to air
 
                         remove {_item} from player
-                        send "heya"
+                        give {_itemOne}, {_itemTwo} and {_itemThree} to player
+                else if uncolored {_type::1} is "Buy":
+
+                    set {_size} to size of lore of event-item
+                            
+                    if max stack size of event-item > 1:
+                        set {_checkLine1} to {_size} - 2
+                        set {_checkLine2} to {_size} - 3
+                        set {_checkLine3} to {_size} - 4
+
+                    set {_splitOne::*} to uncolored split {_checkLine1}th line of lore of event-item at "x "
+                    set {_itemOneList::*} to uncolored split {_splitOne::1} at " "
+
+                    set {_splitTwo::*} to uncolored split {_checkLine2}th line of lore of event-item at "x "
+                    set {_itemTwoList::*} to uncolored split {_splitTwo::1} at " "
+
+                    set {_splitThree::*} to uncolored split {_checkLine3}th line of lore of event-item at "x "
+                    set {_itemThreeList::*} to uncolored split {_splitThree::1} at " "
+
+                    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                    loop {_itemList::*}:
+                        if uncolored name of loop-value is {_splitOne::2}:
+                            set {_itemOne} to {_itemOneList::2} parsed as integer of loop-value
+                        if uncolored name of loop-value is {_splitTwo::2}:
+                            set {_itemTwo} to {_itemTwoList::2} parsed as integer of loop-value
+                        if uncolored name of loop-value is {_splitThree::2}:
+                            set {_itemThree} to {_itemThreeList::2} parsed as integer of loop-value
+                            
+                    if {_itemTwo} is not set:
+                        set {_itemTwo} to air
+
+                    if {_itemThree} is not set:
+                        set {_itemThree} to air
+
+                    if {_itemOne} is set:
+                                
+                        if player's inventory contains {_itemOne}:
+                            set {_final} to true
+
+                        else:
+                            set {_final} to false
+
+                        if {_itemTwo} is not air:
+
+                            if player's inventory contains {_itemTwo}:
+                                set {_final} to true
+
+                            else:
+                                set {_final} to false
+
+                        if {_itemThree} is not air:
+
+                            if player's inventory contains {_itemThree}:
+                                set {_final} to true
+                                        
+                            else:
+                                set {_final} to false
+
+                    if {_final} is true:
+                        remove {_item} from player
+                        remove {_itemOne}, {_itemTwo} and {_itemThree} from player
+                        give player {_item}

@@ -4,15 +4,17 @@ on break:
 
         cancel drops
         set event-block to wheat item
-        
-        loop {items::toolItems::*}:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+
+        loop {_itemList::*}:
             if uncolored name of loop-value is "Prototype Hoe":
                 add loop-value to {_items::*}
  
         set {_experience} to 0.1
         set {_boost} to coreHarvestBoost(player, (player's tool), ({_items::*}))
 
-        loop {items::dropItems::*}:
+        loop {_itemList::*}:
             if uncolored name of loop-value is "Prototype Drop":
                 set {_drop} to loop-value
                 stop loop

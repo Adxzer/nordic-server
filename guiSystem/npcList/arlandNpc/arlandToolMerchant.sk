@@ -2,8 +2,12 @@ on npc rightclick:
     
     if npc id of target is 1:
 
-        loop {items::dropItems::*}:
-            if uncolored name of loop-value is "Prototype Drop":
-                add loop-value to {_items::*}
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
 
-        guiCreateMerchant(player, "&8Arland Tool Merchant", {_items::*}, "sell", ("&a3x Emerald"))
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Prototype Drop":
+                set {_prototypeDrop} to loop-value
+            if uncolored name of loop-value is "Prototype Hoe":
+                set {_prototypeHoe} to loop-value            
+
+        guiCreateMerchant(player, "&8Arland Tool Merchant", ({_prototypeHoe}, {_prototypeHoe}), ("sell", "buy"), ("&8- &73x Emerald:&8- &73x Prototype Drop", "&8- &73x Emerald:&8- &73x Prototype Drop"))

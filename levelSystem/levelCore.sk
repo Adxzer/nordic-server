@@ -23,7 +23,7 @@ command /level [<text>] [<text>] [<text>] [<text>]:
                                     set {_value} to arg-4 parsed as integer
 
                                     if arg-4 parsed as integer is integer:
-                                        send "&9[LEVEL] » &fYou set &3%arg-2%&f's level to &3%arg-4%&f."
+                                        send "&3[LEVEL] » &fYou set &3%arg-2%&f's level to &3%arg-4%&f."
                                         set {level::%player's uuid%} to {_value}
                                         set {xp::%player's uuid%} to 0
 
