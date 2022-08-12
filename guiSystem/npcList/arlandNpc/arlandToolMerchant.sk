@@ -8,6 +8,10 @@ on npc rightclick:
             if uncolored name of loop-value is "Prototype Drop":
                 set {_prototypeDrop} to loop-value
             if uncolored name of loop-value is "Prototype Hoe":
-                set {_prototypeHoe} to loop-value            
+                set {_prototypeHoe} to loop-value     
+            if uncolored name of loop-value is "Prototype Boots":
+                set {_prototypeBoots} to loop-value            
+            if uncolored name of loop-value is "Prototype Cap":
+                set {_prototypeCap} to loop-value    
 
-        guiCreateMerchant(player, "&8Arland Tool Merchant", ({_prototypeHoe}, {_prototypeHoe}), ("sell", "buy"), ("&8- &73x Emerald:&8- &73x Prototype Drop", "&8- &73x Emerald:&8- &73x Prototype Drop"))
+        guiCreateMerchant(player, "&8Arland Tool Merchant", ({_prototypeDrop}, {_prototypeDrop}, {_prototypeHoe}), ("sell", "buy", "buy"), ("&8- &73x Emerald", "&8- &73x Emerald", "&8- &73x Emerald:&8- &71x Prototype Boots:&8- &71x Prototype Cap"))

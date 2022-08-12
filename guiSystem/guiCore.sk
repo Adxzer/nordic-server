@@ -168,8 +168,124 @@ function guiMerchantOptions(player: player, name: string, item: item, type: stri
 
     open (metadata tag "options" of {_player}) to {_player}
 
+function guiCreateBank(player: player, name: string, number: integer):
+
+    set metadata tag "bank" of {_player} to chest with 6 row named "%{_name}% Page %{_number}%"
+
+    set {_u} to uuid of {_player}
+    set {previousBank::%{_u}%} to {_name}
+    set {_borderIndex} to 0
+    set {_slot} to 0
+    set {_start} to {_number}
+
+    loop 35 times:
+        set slot {_slot} of metadata tag "bank" of {_player} to {bank::%{_start}%::%{_slot}%::%{_u}%}
+        add 1 to {_slot}
+
+    set {_value} to 0
+
+    loop {_player}'s inventory:
+        if type of loop-value is emerald:
+            add item amount of loop-value to {_value}
+    set {_value} to floor({_value} / 64)
+
+    if {_number} > 1:
+        set {_showPrevious} to true
+    else:
+        set {_showPrevious} to false
+
+    if {_number} < 9:
+        set {_showNext} to true
+    else:
+        set {_showNext} to false
+
+    loop 54 times:
+
+        if {_borderIndex} > 35:
+            set slot {_borderIndex} of metadata tag "bank" of {_player} to black stained glass pane named "&8Border"
+
+        if {_borderIndex} is 46:
+            set slot {_borderIndex} of metadata tag "bank" of {_player} to emerald named "&aGemstone Decompressor" with lore "&7Decompress your gemstone.", "", "&7&nDecompress For:", "&8- &764x Emerald", "" and "&eDecompress (Left Click)"
+        
+        if {_borderIndex} is 47:
+            set slot {_borderIndex} of metadata tag "bank" of {_player} to emerald block named "&aEmerald Compressor" with lore "&7Compress your emeralds.", "", "&7&nCompress For:", "&8- &71x Gemstone", "" and "&eCompress (Left Click)"
+        
+        if {_borderIndex} is 48:
+            set slot {_borderIndex} of metadata tag "bank" of {_player} to chest named "&aInventory Compressor" with lore "&7Compress your inventory.", "", "&7&nCompress For:", "&8- &7%{_value}%x Gemstone", "" and "&eCompress (Left Click)"
+        
+        if {_borderIndex} is 50:
+
+            if {_showPrevious} is true:
+                set slot {_borderIndex} of metadata tag "bank" of {_player} to arrow named "&fPage %{_number} - 1%" with lore "&7Open the previous page of", "&7your bank storage.", "" and "&ePrevious (Left Click)"
+
+        if {_borderIndex} is 51:
+            set slot {_borderIndex} of metadata tag "bank" of {_player} to barrier named "&cClose"
+        
+        if {_borderIndex} is 52:
+
+            if {_showNext} is true:
+                set slot {_borderIndex} of metadata tag "bank" of {_player} to arrow named "&fPage %{_number} + 1%" with lore "&7Open the next page of", "&7your bank storage.", "" and "&eNext (Left Click)"
+        add 1 to {_borderIndex}
+
+    open (metadata tag "bank" of {_player}) to {_player}
+
 on inventory click:
-    if event-inventory = (metadata tag "merchant" of player):
+
+    if event-inventory = (metadata tag "bank" of player): 
+
+        if index of event-slot > 35:
+            cancel event
+
+            loop ({items::economyItems::*}):
+                if uncolored name of loop-value is "Emerald":
+                    set {_emerald} to loop-value
+                else if uncolored name of loop-value is "Gemstone":
+                    set {_gemstone} to loop-value
+
+            if index of event-slot is 50 or 52:
+                
+                if event-item's type is arrow:
+                    set {_split::*} to uncolored name of event-item split at " "
+                    set {_number} to {_split::2} parsed as integer
+                    set {_slot} to 0
+
+                    if index of event-slot is 50: 
+                        set {_save} to {_number} + 1
+
+                    if index of event-slot is 52: 
+                        set {_save} to {_number} - 1
+
+                    loop 35 times:
+                        set {bank::%{_save}%::%{_slot}%::%player's uuid%} to slot {_slot} of player's current inventory
+                        add 1 to {_slot}
+
+                    guiCreateBank(player, {previousBank::%player's uuid%}, {_number})
+            else if index of event-slot is 51:
+                close player's inventory
+            else if index of event-slot is 46:
+
+                if player's inventory contains 1 of {_gemstone}:
+                    if player's inventory have space for 1 saddle:
+                        remove {_gemstone} from player
+                        give player 64 of {_emerald}
+            else if index of event-slot is 47:
+
+                if player's inventory contains 64 of {_emerald}:
+                    if player's inventory have space for 1 of {_gemstone}:
+                        remove 64 of {_emerald} from player
+                        give player {_gemstone}
+            else if index of event-slot is 48:
+
+                while true:
+                    if player's inventory contains 64 of {_emerald}:
+                        if player's inventory have space for 1 of {_gemstone}:
+                            remove 64 of {_emerald} from player
+                            give player {_gemstone}
+                        else:
+                            stop loop
+                    else:
+                        stop loop
+    else if event-inventory = (metadata tag "merchant" of player):
         cancel event
 
         if event-item is not air, black stained glass pane or gray stained glass pane:
@@ -233,7 +349,6 @@ on inventory click:
                         
                         remove {_item} from player
                         give {_itemOne}, {_itemTwo} and {_itemThree} to player
-
                 else if uncolored {_type::1} is "Buy":
 
                     set {_size} to size of lore of event-item
@@ -436,3 +551,15 @@ on inventory click:
                         remove {_item} from player
                         remove {_itemOne}, {_itemTwo} and {_itemThree} from player
                         give player {_item}
+
+on inventory close:
+
+    if event-inventory = (metadata tag "bank" of player): 
+
+        set {_split::*} to uncolored name of event-inventory split at "Page "
+        set {_save} to {_split::2} parsed as integer
+        set {_slot} to 0
+
+        loop 35 times:
+            set {bank::%{_save}%::%{_slot}%::%player's uuid%} to slot {_slot} of player's current inventory
+            add 1 to {_slot}

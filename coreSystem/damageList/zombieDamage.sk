@@ -1,8 +1,8 @@
 on damage:
 
     set {_name} to coreGetEntity(name of attacker)
-    
-    if {_name} is "Zombie":
+
+    if {_name} is "Brown":
 
         set damage to 0
 
