@@ -1,0 +1,2 @@
+on load:
+    set {quests::carrotsAndPotatoes::coords} to "-264 6 162"

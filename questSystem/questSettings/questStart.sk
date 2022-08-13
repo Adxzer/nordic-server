@@ -1,0 +1,2 @@
+on load:
+    set {quests::carrotsAndPotatoes::start} to "Talk to the Farmer to start this quest."

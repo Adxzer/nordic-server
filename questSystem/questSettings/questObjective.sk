@@ -1,0 +1,2 @@
+on load:
+    set {quests::carrotsAndPotatoes::objective} to "Bring food to the Farmer."

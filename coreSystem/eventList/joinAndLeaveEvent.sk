@@ -8,6 +8,7 @@ on join:
     set {health::currentHearts::%player's uuid%} to {health::maxHearts::%player's uuid%}
     set {mana::currentMana::%player's uuid%} to {mana::maxMana::%player's uuid%}
     set {combat::%player's uuid%} to false
+    set slot 8 of player's inventory to book named "&fQuest Book" with lore "&7View all your active quests and", "&7how many you have left to finish.", "" and "&eView (Rigth Click)"
 
     while player is online:
 

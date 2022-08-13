@@ -1,0 +1,6 @@
+on inventory click:
+
+    if event-inventory is player's inventory:
+        
+        if index of event-slot is 8:
+            cancel event

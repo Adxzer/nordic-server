@@ -1,0 +1,2 @@
+on load:
+    set {quests::carrotsAndPotatoes::reward} to "Harvest and give the Farmer 10x Potatoes and 10x Carrots."

@@ -1,0 +1,3 @@
+on drop:
+
+    cancel event

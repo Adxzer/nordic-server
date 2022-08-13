@@ -15,14 +15,14 @@ on npc rightclick:
         else if {quests::carrotsAndPotatoes::interaction::%player's uuid%::2} is false:  
             send "%{quests::carrotsAndPotatoes::dialouge::2}%"
             set {quests::carrotsAndPotatoes::interaction::%player's uuid%::2} to true
-            quizNew(player, "Carrots & Potatos")
+            questNew(player, {quests::carrotsAndPotatoes::name})
         else if {quests::carrotsAndPotatoes::interaction::%player's uuid%::3} is false:  
             send "%{quests::carrotsAndPotatoes::dialouge::3}%"
         else if {quests::carrotsAndPotatoes::interaction::%player's uuid%::4} is false:  
             send "%{quests::carrotsAndPotatoes::dialouge::4}%"
             set {quests::carrotsAndPotatoes::interaction::%player's uuid%::4} to true
             set {quests::carrotsAndPotatoes::completed::%player's uuid%} to true
-            quizComplete(player, ("Carrots & Potatos", "&310 &7Experience"))
+            questComplete(player, ({quests::carrotsAndPotatoes::name}, {quests::carrotsAndPotatoes::reward}))
             remove 10 of carrot from player
             remove 10 of potato from player
         else if {quests::carrotsAndPotatoes::interaction::%player's uuid%::5} is false:  

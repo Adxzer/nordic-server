@@ -1,0 +1,2 @@
+on load:
+    set {quests::carrotsAndPotatoes::name} to "Carrots & Potatoes"

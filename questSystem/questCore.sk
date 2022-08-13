@@ -1,14 +1,130 @@
-function quizNew(player: player, string: string):
+function questNew(player: player, string: string):
 
     send "" to {_player}
-    send " &a&lNEW QUEST! &fYou have started the quest &a%{_string}%. &fTalk to the quest NPC to gain additional information on how to finish this quest." to {_player}
+    send "&a[QUEST] » &fYou have started the quest &a%{_string}%&f. Check your Quest Book to gain additional information how to finish this quest." to {_player}
     send "" to {_player}
 
-function quizComplete(player: player, strings: strings):
+function questComplete(player: player, strings: strings):
 
     send "" to {_player}
-    send " &a&lQUEST COMPLETE! &fYou have successfully completed the quest &a%{_strings::1}%. &fAs a reward for completing the quest you gained %{_strings::2}%" to {_player}
+    send "&a[QUEST] » &fYou have successfully completed the quest &a%{_strings::1}%&f. As a reward for completing the quest you gained %{_strings::2}%" to {_player}
     send "" to {_player}
+
+function questBookGetQuest(player: player, quest: string) :: item:
+
+    set {_u} to uuid of {_player}
+   
+    if {quests::%{_quest}%::completed::%{_u}%} is false:
+
+        set {_dialougeNumber} to 1
+        set {_addedDialouge} to 0
+        set {_book} to book named "&a%{quests::%{_quest}%::name}%" with lore "&7%{quests::%{_quest}%::objective}%", "" and "&7&nDialouge:"
+
+        loop {quests::%{_quest}%::dialouge::*}:
+           
+            if {quests::%{_quest}%::interaction::%{_u}%::%{_dialougeNumber}%} is true:
+                set {_split::*} to split uncolored loop-value at ": "
+                add "&8[%{_dialougeNumber}%.] &7%{_split::2}%" to lore of {_book}
+                add 1 to {_addedDialouge}
+
+            add 1 to {_dialougeNumber}
+
+        add "" and "&7&nObjective:" to lore of {_book}
+        
+        loop {quests::%{_quest}%::quota::*}:
+            add "&8- &7%loop-value%" to lore of {_book}
+        
+        add "" and "&f[%{quests::%{_quest}%::coords}%]" to lore of {_book}
+
+        if {_addedDialouge} is 0:
+            add "&cYou haven't talked to this NPC yet." to lore of {_book}
+        else:
+            add "&fThere's more dialouge to unlock with this NPC." to lore of {_book}
+
+        return {_book}
+    else if {quests::%{_quest}%::talked::%{_u}%} is not true:
+
+        if {quests::%{_quest}%::name} is set:
+            set {_notTalked} to gray dye named "&f%{quests::%{_quest}%::name}%" with lore "&7%{quests::%{_quest}%::start}%"
+            add "" and "&f[%{quests::%{_quest}%::coords}%]" to lore of {_notTalked}
+            return {_notTalked} 
+    else:
+        return air
+
+on rightclick:
+
+    if uncolored name of event-item is "Quest Book":
+    
+        set metadata tag "quest" of player to chest with 6 row named "&8Quest Book"
+        
+        set {_quests::*} to ("carrotsAndPotatoes") # add new quests
+
+        set {_borderIndex} to 0
+        set {_questIndex} to 1
+        set {_placeIndex} to 0
+        
+        loop 54 times:
+
+            if {_borderIndex} is 7, 8, 16, 17, 25, 26, 34, 35, 43, 44, 52 or 53:
+                if {_borderIndex} is 44:
+                    set slot {_borderIndex} of metadata tag "quest" of player to barrier named "&cClose"
+                else if {_borderIndex} is 35:
+                
+                    set {_questProgress} to paper named "&aQuest Progress"
+                    set {_completed} to 0
+                    set {_bar} to ""
+
+                    loop {_quests::*}:
+                        if {quests::%loop-value-2%::completed::%player's uuid%} is true:
+                            add 1 to {_completed}
+
+                    add "&7You currently have finished %{_completed}%/%size of {_quests::*}%", "&7of all the quests in the game." and "" to lore of {_questProgress}
+
+                    loop 10 times:
+                        if {_completed} * loop-number-2 >= (size of {_quests::*}) * loop-number-2:
+                            set {_bar} to "%{_bar}%&f▌"
+                        else:
+                            set {_bar} to "%{_bar}%&7▌"
+
+                    add "%{_bar}%" to lore of {_questProgress}
+                    set slot {_borderIndex} of metadata tag "quest" of player to {_questProgress}
+                else:
+                    set slot {_borderIndex} of metadata tag "quest" of player to black stained glass pane named "&8Border"
+            else:
+                if questBookGetQuest(player, {_quests::%{_questIndex}%}) is book:
+                    set slot {_placeIndex} of metadata tag "quest" of player to questBookGetQuest(player, {_quests::%{_questIndex}%})
+                    add 1 to {_placeIndex}
+                    add 1 to {_questIndex}
+                else:
+                    add 1 to {_questIndex}
+
+            add 1 to {_borderIndex}
+
+        set {_notTalkedPlaceIndex} to {_placeIndex} 
+        set {_borderControl} to 0
+        set {_notTalkedIndex} to 1
+
+        loop 54 times:
+            
+            if {_borderControl} is not 7, 8, 16, 17, 25, 26, 34, 35, 43, 44, 52 or 53:
+                if questBookGetQuest(player, {_quests::%{_notTalkedIndex}%}) is gray dye:
+                    set slot {_notTalkedPlaceIndex} of metadata tag "quest" of player to questBookGetQuest(player, {_quests::%{_notTalkedIndex}%})
+                    add 1 to {_notTalkedPlaceIndex}
+                    add 1 to {_notTalkedIndex}
+                else:
+                    add 1 to {_notTalkedIndex}
+
+            add 1 to {_borderControl}
+
+        open (metadata tag "quest" of player) to player
+
+on inventory click:
+
+    if event-inventory = (metadata tag "quest" of player): 
+        cancel event
+
+        if index of event-slot is 44:
+            close player's inventory
 
 command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
     permission: op
@@ -33,9 +149,9 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
                             if arg-3 is "clear":
                                 send "&a[QUEST] » &fYou cleared all of &a%arg-2%&f's quiz progress."
                                 loop {_quests::*}:
-                                    set {quests::%loop-value%::talked::%{_uuid}%} to false
-                                    set {quests::%loop-value%::completed::%{_uuid}%} to false
-                                    set {quests::%loop-value%::interaction::%{_uuid}%::*} to (false, false, false, false, false)
+                                    clear {quests::%loop-value%::talked::%{_uuid}%}
+                                    clear {quests::%loop-value%::completed::%{_uuid}%}
+                                    clear {quests::%loop-value%::interaction::%{_uuid}%::*} 
                             else if arg-3 is "list":
                                 loop {_quests::*}:
                                     if {quests::%loop-value%::completed::%{_uuid}%} is true:
@@ -68,9 +184,9 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
                                                 set {quests::%arg-4%::completed::%{_uuid}%} to true
                                             else if arg-5 is "false":
                                                 send "&a[QUEST] » &fYou cleared the progress of quest &a%arg-4% &ffor &a%arg-2%.&f"
-                                                set {quests::%arg-4%::talked::%{_uuid}%} to false
-                                                set {quests::%arg-4%::completed::%{_uuid}%} to false
-                                                set {quests::%arg-4%::interaction::%{_uuid}%::*} to (false, false, false, false, false)
+                                                clear {quests::%arg-4%::talked::%{_uuid}%}
+                                                clear {quests::%arg-4%::completed::%{_uuid}%}
+                                                clear {quests::%arg-4%::interaction::%{_uuid}%::*}
                                             else:
                                                 send "&a[QUEST] » &cPlease specify true or false."
 
