@@ -2,7 +2,7 @@ on damage:
 
     set {_name} to coreGetEntity(name of attacker)
 
-    if {_name} is "Brown":
+    if {_name} is "Zombie":
 
         set damage to 0
 

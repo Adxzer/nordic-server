@@ -1,0 +1,4 @@
+on item spawn:
+
+    if event-item is an egg:
+        cancel event

@@ -9,7 +9,27 @@ on damage:
         set damage to 0
 
         set {_damage} to coreDamageBoost(attacker, (attacker's tool))
-        add {_damage} / 2 to damage
+        set {_attackSpeed} to coreAttackSpeedBoost(attacker, (attacker's tool))
+        set {_criticalHit} to coreCriticalChance(attacker, (attacker's tool))
+
+        if {_attackSpeed} is set:
+            set attacker's attack speed attribute to {_attackSpeed}
+
+        spawn armor stand at victim with nbt "{Invisible:1,NoGravity:1,Small:1,Pose:{Head:[45f,0f,0f]}}"
+
+        if {_damage} is not set:
+            add 0.5 to damage
+            set display name of last spawned armor stand to "&71"
+        else:
+            if {_criticalHit} is true:
+                add {_damage} to damage
+                set display name of last spawned armor stand to "&c%{_damage} * 2%"
+            else:
+                add {_damage} / 2 to damage
+                set display name of last spawned armor stand to "&7%{_damage}%"
+
+        wait 1 second
+        kill all armor stands
 
     if {combat::%victim's uuid%} is true:
         stop trigger

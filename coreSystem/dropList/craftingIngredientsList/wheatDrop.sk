@@ -8,18 +8,17 @@ on break:
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
 
         loop {_itemList::*}:
-            if uncolored name of loop-value is "Prototype Hoe":
+            if uncolored name of loop-value contains "Hoe":
                 add loop-value to {_items::*}
  
-        set {_experience} to 0.1
+        set {_xp} to 0.25
         set {_boost} to coreHarvestBoost(player, (player's tool), ({_items::*}))
 
         loop {_itemList::*}:
             if uncolored name of loop-value is "Prototype Drop":
                 set {_drop} to loop-value
-                stop loop
 
-        coreHarvestDrop(player, (player's tool), ({_items::*}), {_drop}, 1 + {_boost}, 3 + {_boost}, {_experience})
+        coreHarvestDrop(player, (player's tool), ({_items::*}), {_drop}, 1 + {_boost}, 3 + {_boost}, {_xp})
  
         wait 15 seconds
         set event-block to ripe wheat plant

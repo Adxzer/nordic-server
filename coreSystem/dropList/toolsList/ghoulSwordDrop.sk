@@ -1,0 +1,17 @@
+on death:
+
+    set {_name} to coreGetEntity(name of victim)
+
+    if {_name} is "Zombie Ghoul":
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+
+        set {_percentage} to 1
+        set {_min} to 1
+        set {_max} to 1
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Ghoul Sword":
+                set {_drop} to loop-value
+
+        give attacker coreRandomNumber({_min}, {_max}, {_percentage}) of {_drop}

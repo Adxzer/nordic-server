@@ -1,0 +1,9 @@
+function abilityTransmission(player: player) :: boolean:
+
+    if block 7 in front of {_player} is not air:
+        send action bar coreGetActionBar({_player}, "&cThere are blocks in your way!") to {_player}
+        return false
+    
+    else:
+        play sound "ENTITY_ENDERMAN_TELEPORT" with volume 0.2 to {_player}
+        teleport {_player} to location 7 blocks infront of {_player}

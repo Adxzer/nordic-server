@@ -1,5 +1,23 @@
 on load:
-    set {_prototypeHoe} to wooden hoe named "&fPrototype Hoe" with lore "&7Harvesting Tool.", "", "&e☀ &7Crops: +2", "&3⚗ &7Level: 1", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
-    set {_prototypeSword} to wooden sword named "&fPrototype Sword" with lore "&7Damaging Tool.", "", "&4☠ &7Damage: +3", "&3⚗ &7Level: 2", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
 
-    set {items::toolItems::*} to ({_prototypeHoe}, {_prototypeSword})
+# Prototypes
+    set {_prototypeHoe} to wooden hoe named "&fPrototype Hoe" with lore "&7Harvesting Tool.", "", "&7Crops: &b+2", "&7Double Drop: &b10%%", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_prototypeSword} to wooden sword named "&fPrototype Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+3", "&7Crit Chance: &c+50%%", "&7Attack Speed: &c+50", "", "&eItem Ability: Transmission &8(Right Click)", "&7When right clicked, this item will teleport", "&7you 7 blocks ahead of you.", "", "&7Mana Cost: &6✦3", "&7Cooldown: &615 seconds", "", "&cRequires Level &4⚗2", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_prototypeBow} to bow named "&fPrototype Bow" with lore "&7Archer Tool.", "", "&7Damage: &d+3", "&7Crit Chance: &d+50%%", "", "&cRequires Level &4⚗2", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+
+# Swords
+    set {_commonSword} to wooden sword named "&fCommon Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+2", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_zombieSword} to stone sword named "&aZombie Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+3", "&7Attack Speed: &c+2", "", "&cRequires Level &4⚗3", "&cto use this item.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE" with all flags hidden
+    set {_ghoulSword} to golden sword named "&aGhoul Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+7", "&7Crit Chance: &c+10%%", "&7Attack Speed: &c+3", "", "&cRequires Level &4⚗5", "&cto use this item.", "", "&a★★★★★&8" and "&a&lUNIQUE" with all flags hidden
+    set {_cryptoSword} to diamond sword named "&9Crypto Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+14", "&7Crit Chance: &c+15%%", "&7Attack Speed: &c+3", "", "&eItem Ability: Explosion &8(Right Click)", "&7When right clicked, this item will deal a hit", "&7on all mobs within a range of 5 blocks.", "", "&7Mana Cost: &6✦15", "&7Cooldown: &630 seconds", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★★&8☆☆☆" and "&9&lRARE" with all flags hidden
+
+# Bows
+    set {_skeletonBow} to bow named "&aSkeleton Bow" with lore "&7Archer Tool.", "", "&7Damage: &d+4", "", "&cRequires Level &4⚗3", "&cto use this item.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE" with all flags hidden
+    set {_ghoulBow} to bow named "&aGhoul Bow" with lore "&7Archer Tool.", "", "&7Damage: &d+6", "&7Crit Chance: &d+10%%", "", "&cRequires Level &4⚗4", "&cto use this item.", "", "&a★★★★&8☆" and "&a&lUNIQUE"  with all flags hidden
+
+# Hoes
+    set {_beginnersHoe} to wooden hoe named "&fBeginners Hoe" with lore "&7Harvesting Tool.", "", "&7Crops: &b+1", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_harvestingHoe} to stone hoe named "&fHarvesting Hoe" with lore "&7Harvesting Tool.", "", "&7Crops: &b+2", "&7Double Drop: &b5%%", "", "&cRequires Level &4⚗3", "&cto use this item.", "", "&f★★★★&8☆" and "&f&lNORMAL" with all flags hidden
+    set {_soiledHoe} to iron hoe named "&aSoiled Hoe" with lore "&7Harvesting Tool.", "", "&7Crops: &b+3", "&7Double Drop: &b20%%", "", "&cRequires Level &4⚗7", "&cto use this item.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE" with all flags hidden
+
+    set {items::toolItems::*} to ({_prototypeHoe}, {_prototypeSword}, {_prototypeBow}, {_commonSword}, {_zombieSword}, {_ghoulSword}, {_cryptoSword}, {_skeletonBow}, {_ghoulBow}, {_beginnersHoe}, {_harvestingHoe}, {_soiledHoe})

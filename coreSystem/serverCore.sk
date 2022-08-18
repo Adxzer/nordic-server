@@ -2,6 +2,16 @@ function coreRoundTo(n: number, to: number) :: number:
 
    return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
 
+function coreRandomNumber(min: number, max: number, percentage: number) :: number:
+
+    set {_random} to random number between {_min} and {_max}
+    set {_chance} to random number between 0.001 and 100.000
+    
+    if {_chance} is between 0.001 and {_percentage}:
+        return {_random}
+    else:
+        return 0
+
 function coreCheckLevel(player: player):
 
     set {_u} to uuid of {_player}
@@ -21,6 +31,7 @@ function coreAddXp(player: player, experience: number):
     set {_next} to 75 * ({level::%{_u}%} * {level::%{_u}%}) + 425 * {level::%{_u}%}
 
     set {actionBarSet::%{_u}%} to true
+    play sound "ENTITY_EXPERIENCE_ORB_PICKUP" with volume 0.2 to {_player}
     send action bar coreGetActionBar({_player}, "&3+%{_experience}% Experience (%coreRoundTo({xp::%{_u}%}, 1)%/%round({_next})%)") to {_player}
     add {_experience} to {xp::%{_u}%}
     wait 1 seconds
@@ -49,7 +60,11 @@ function coreGetEntity(string: string) :: string:
     
     set {_entity::*} to split uncolored {_string} at "] "
     set {_final::*} to split {_entity::2} at " "
-    return {_final::1}
+
+    if {_final::3} is set:
+        return "%{_final::1}% %{_final::2}%"
+    else:
+        return {_final::1}
 
 function coreCheckRegion(player: player, pos1: location, pos2: location) :: boolean:
 
@@ -65,7 +80,7 @@ function coreCheckRegion(player: player, pos1: location, pos2: location) :: bool
         
     if {_return} is true:
         return true
-
+        
     else:
         return false
 
@@ -75,6 +90,7 @@ function coreDamagePlayer(player: player, damage: number) :: number:
     remove {_damage} from {health::currentHearts::%{_u}%}
 
     set {_return} to 10 * ({_damage} / {health::maxHearts::%{_u}%})
+    broadcast {_return}
     return {_return}
 
 function coreHealPlayer(player: player, heal: number) :: number:
@@ -141,7 +157,10 @@ function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward:
 
         if {_continue} is true:
 
-            set {_level::*} to split uncolored 4th line of lore of {_tool} at ": "
+            set {_lore::*} to {_tool}'s lore
+            loop {_lore::*}:
+                if loop-value contains "Level":
+                    set {_level::*} to split uncolored loop-value at "⚗"
 
             if {level::%{_u}%} >= {_level::2} parsed as integer:
                 set {_random} to random number between {_min} and {_max}
@@ -151,7 +170,7 @@ function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward:
 
             else:
                 set {actionBarSet::%{_u}%} to true
-                send action bar coreGetActionBar({_player}, "&cNot requried level") to {_player}
+                send action bar coreGetActionBar({_player}, "&cNot requried level!") to {_player}
                 wait 1 seconds
                 set {actionBarSet::%{_u}%} to false
     else:
@@ -173,29 +192,53 @@ function coreHarvestBoost(player: player, tool: item, allowed: itemtypes) :: num
                 stop loop
                 
         if {_continue} is true:
-
-            set {_harvest::*} to split uncolored 3rd line of lore of {_tool} at "+"
-            set {_level::*} to split uncolored 4th line of lore of {_tool} at ": "
+            
+            set {_lore::*} to {_tool}'s lore
+            loop {_lore::*}:
+                if loop-value contains "Crops":
+                    set {_harvest::*} to split uncolored loop-value at "+"
+                else if loop-value contains "Double Drop":
+                    set {_doubleDrop::*} to split uncolored loop-value at ": "
+                    set {_double::*} to split {_doubleDrop::2} at "%%"
+                    set {_double} to {_double::1} parsed as integer
+                else if loop-value contains "Level":
+                    set {_level::*} to split uncolored loop-value at "⚗"
 
             if {level::%{_u}%} >= {_level::2} parsed as integer:
-                return {_harvest::2} parsed as integer
+
+                if {_double} is set:
+                    
+                    set {_random} to random integer between 1 and 100
+
+                    if {_random} is between 1 and {_double}:
+                        return {_harvest::2} parsed as integer * 2
+
+                    else:
+                        return {_harvest::2} parsed as integer
+
+                else:
+                    return {_harvest::2} parsed as integer
 
 function coreDamageBoost(player: player, tool: item) :: number:
 
     set {_u} to uuid of {_player}
     set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
 
-    if {_type::1} is "Damaging Tool":
+    if {_type::1} is "Damaging Tool" or "Archer Tool":
 
-        set {_damage::*} to split uncolored 3rd line of lore of {_tool} at "+"
-        set {_level::*} to split uncolored 4th line of lore of {_tool} at ": "
+        set {_lore::*} to {_tool}'s lore
+        loop {_lore::*}:
+            if loop-value contains "Damage":
+                set {_damage::*} to split uncolored loop-value at "+"
+            else if loop-value contains "Level":
+                set {_level::*} to split uncolored loop-value at "⚗"
         
         if {level::%{_u}%} >= {_level::2} parsed as integer:
             return {_damage::2} parsed as integer
 
         else:
             set {actionBarSet::%{_u}%} to true
-            send action bar coreGetActionBar({_player}, "&cNot requried level") to {_player}
+            send action bar coreGetActionBar({_player}, "&cNot requried level!") to {_player}
             wait 1 seconds
             set {actionBarSet::%{_u}%} to false
 
@@ -206,11 +249,73 @@ function coreArmorBoost(player: player, tool: item) :: number:
 
     if {_type::1} is "Defense Armor":
 
-        set {_health::*} to split uncolored 3rd line of lore of {_tool} at "+"
-        set {_level::*} to split uncolored 4th line of lore of {_tool} at ": "
+        set {_lore::*} to {_tool}'s lore
+        loop {_lore::*}:
+            if loop-value contains "Health":
+                set {_health::*} to split uncolored loop-value at "+"
+            else if loop-value contains "Level":
+                set {_level::*} to split uncolored loop-value at "⚗"
         
         if {level::%{_u}%} >= {_level::2} parsed as integer:
             return {_health::2} parsed as integer
+
+function coreManaBoost(player: player, tool: item) :: number:
+
+    set {_u} to uuid of {_player}
+    set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
+
+    if {_type::1} is "Defense Armor":
+
+        set {_lore::*} to {_tool}'s lore
+        loop {_lore::*}:
+            if loop-value contains "Mana":
+                set {_mana::*} to split uncolored loop-value at "+"
+            else if loop-value contains "Level":
+                set {_level::*} to split uncolored loop-value at "⚗"
+        
+        if {level::%{_u}%} >= {_level::2} parsed as integer:
+            return {_mana::2} parsed as integer
+
+function coreAttackSpeedBoost(player: player, tool: item) :: number:
+
+    set {_u} to uuid of {_player}
+    set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
+
+    if {_type::1} is "Damaging Tool":
+
+        set {_lore::*} to {_tool}'s lore
+        loop {_lore::*}:
+            if loop-value contains "Attack Speed":
+                set {_attackSpeed::*} to split uncolored loop-value at ": "
+            else if loop-value contains "Level":
+                set {_level::*} to split uncolored loop-value at "⚗"       
+
+        if {level::%{_u}%} >= {_level::2} parsed as integer:
+            return {_attackSpeed::2} parsed as an integer
+
+function coreCriticalChance(player: player, tool: item) :: boolean:
+
+    set {_u} to uuid of {_player}
+    set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
+
+    if {_type::1} is "Damaging Tool" or "Archer Tool":
+
+        set {_lore::*} to {_tool}'s lore
+        loop {_lore::*}:
+            if loop-value contains "Crit Chance":
+                set {_criticalChance::*} to split uncolored loop-value at " +"
+            else if loop-value contains "Level":
+                set {_level::*} to split uncolored loop-value at "⚗"       
+
+        set {_criticalChanceFinal::*} to split {_criticalChance::2} at "%%"
+
+        if {level::%{_u}%} >= {_level::2} parsed as integer:
+
+            set {_chance} to {_criticalChanceFinal::1} parsed as an integer
+            set {_random} to random integer between 1 and 100
+
+            if {_random} is between 1 and {_chance}:
+                return true
 
 every 1 seconds:
 
@@ -224,7 +329,8 @@ every 1 seconds:
                 coreRegenerateHealth(loop-player)
 
             if {mana::customMana::%loop-player's uuid%} is not set:
-                set {mana::maxMana::%loop-player's uuid%} to 15 + ({level::%loop-player's uuid%} * 1)
+                set {_boost} to coreManaBoost(loop-player, helmet of loop-player) + coreManaBoost(loop-player, chestplate of loop-player) + coreManaBoost(loop-player, leggings of loop-player) + coreManaBoost(loop-player, boots of loop-player)
+                set {mana::maxMana::%loop-player's uuid%} to {_boost} + 15 + ({level::%loop-player's uuid%} * 1)
 
                 coreRegenerateMana(loop-player)
 

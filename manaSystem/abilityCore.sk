@@ -1,0 +1,86 @@
+function abilityUse(player: player, ability: string, cooldown: integer, mana: integer):
+
+    set {_u} to uuid of {_player}
+
+    set {ability::%{_ability}%::%{_u}%} to true
+    send action bar coreGetActionBar({_player}, "&6You used %{_ability}%!") to {_player}
+    remove {_mana} from {mana::currentMana::%{_u}%}
+    wait "%{_cooldown}% seconds" parsed as timespan
+    set {ability::%{_ability}%::%{_u}%} to false
+
+on rightclick:
+
+    if player's tool is not air:
+        
+        set {_lore::*} to lore of player's tool
+        
+        loop {_lore::*}:
+            if uncolored loop-value contains "Item Ability:":
+                set {_abilityTemp::*} to split uncolored loop-value at ": "
+                set {_ability::*} to split {_abilityTemp::2} at " ("
+                set {_ability} to {_ability::1}
+            else if uncolored loop-value contains "Damage:":
+                set {_damage::*} to split uncolored loop-value at " +"
+                set {_damage} to {_damage::2} parsed as an integer
+            else if uncolored loop-value contains "Mana Cost:":
+                set {_mana::*} to split uncolored loop-value at "✦"
+                set {_mana} to {_mana::2} parsed as an integer
+            else if uncolored loop-value contains "Cooldown:":
+                set {_cooldownTemp::*} to split uncolored loop-value at ": "
+                set {_cooldown::*} to split {_cooldownTemp::2} at " "
+                set {_cooldown} to {_cooldown::1} parsed as an integer
+        
+        if {_ability} is set:
+
+            if {_ability::2} is "Right Click)":
+
+                if {ability::%{_ability}%::%player's uuid%} is true:
+                    send action bar coreGetActionBar(player, "&cThis item has a cooldown!") to player
+                    stop trigger
+
+                else:
+                    if {mana::currentMana::%player's uuid%} >= {_mana}:
+                        if {_ability} is "Transmission":
+                            if abilityTransmission(player) is not false:
+                                abilityUse(player, {_ability}, {_cooldown}, {_mana})
+                        else if {_ability} is "Explosion":
+                            if abilityExplosion(player, {_damage}) is not false:
+                                abilityUse(player, {_ability}, {_cooldown}, {_mana})
+
+
+                    else:
+                        send action bar coreGetActionBar(player, "&cNot enough mana!") to player
+
+on leftclick:
+
+    if player's tool is not air:
+        
+        set {_lore::*} to lore of player's tool
+        
+        loop {_lore::*}:
+            if uncolored loop-value contains "Item Ability:":
+                set {_abilityTemp::*} to split uncolored loop-value at ": "
+                set {_ability::*} to split {_abilityTemp::2} at " ("
+                set {_ability} to {_ability::1}
+            else if uncolored loop-value contains "Mana Cost:":
+                set {_mana::*} to split uncolored loop-value at "✦"
+                set {_mana} to {_mana::2} parsed as an integer
+            else if uncolored loop-value contains "Cooldown:":
+                set {_cooldownTemp::*} to split uncolored loop-value at ": "
+                set {_cooldown::*} to split {_cooldownTemp::2} at " "
+                set {_cooldown} to {_cooldown::1} parsed as an integer
+        
+        if {_ability} is set:
+
+            if {_ability::2} is "Left Click)":
+
+                if {ability::%{_ability}%::%player's uuid%} is true:
+                    send action bar coreGetActionBar(player, "&cThis item has a cooldown!") to player
+                    stop trigger
+
+                else:
+                    if {mana::currentMana::%player's uuid%} >= {_mana}:
+                        broadcast "s"
+
+                    else:
+                        send action bar coreGetActionBar(player, "&cNot enough mana!") to player

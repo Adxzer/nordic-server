@@ -1,12 +1,37 @@
 on load:
-    set {_prototypeCap} to leather cap named "&fPrototype Cap" with lore "&7Defense Armor.", "", "&c❤ &7Health: +3", "&3⚗ &7Level: 1", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
-    set {_prototypeTunic} to leather tunic named "&fPrototype Tunic" with lore "&7Defense Armor.", "", "&c❤ &7Health: +16", "&3⚗ &7Level: 7", "", "&f★★★★&8☆" and "&f&lNORMAL" with all flags hidden
-    set {_prototypePants} to leather pants named "&fPrototype Pants" with lore "&7Defense Armor.", "", "&c❤ &7Health: +11", "&3⚗ &7Level: 5", "", "&f★★★&8☆☆" and "&f&lNORMAL" with all flags hidden
-    set {_prototypeBoots} to leather boots named "&fPrototype Boots" with lore "&7Defense Armor.", "", "&c❤ &7Health: +7", "&3⚗ &7Level: 3", "", "&f★★&8☆☆☆" and "&f&lNORMAL" with all flags hidden
-    
-    dye {_prototypeCap} rgb(255, 239, 99)
-    dye {_prototypeTunic} rgb(255, 239, 99)
-    dye {_prototypePants} rgb(255, 239, 99)
-    dye {_prototypeBoots} rgb(255, 239, 99)
 
-    set {items::armorItems::*} to ({_prototypeCap}, {_prototypeTunic}, {_prototypePants}, {_prototypeBoots})
+# Prototypes
+
+    set {_prototypeCap} to leather cap named "&fPrototype Cap" with lore "&7Defense Armor.", "", "&7Health: &2+3", "&7Mana: &2+7", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_prototypeTunic} to leather tunic named "&fPrototype Tunic" with lore "&7Defense Armor.", "", "&7Health: &2+3", "&7Mana: &2+7", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_prototypePants} to leather pants named "&fPrototype Pants" with lore "&7Defense Armor.", "", "&7Health: &2+3", "&7Mana: &2+7", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_prototypeBoots} to leather boots named "&fPrototype Boots" with lore "&7Defense Armor.", "", "&7Health: &2+3", "&7Mana: &2+7", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+
+# Arland
+
+    set {_wheatCap} to leather cap named "&fWheat Cap" with lore "&7Defense Armor.", "", "&7Health: &2+2", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_wheatTunic} to leather tunic named "&fWheat Tunic" with lore "&7Defense Armor.", "", "&7Health: &2+6", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_wheatPants} to leather pants named "&fWheat Pants" with lore "&7Defense Armor.", "", "&7Health: &2+4", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_wheatBoots} to leather boots named "&fWheat Boots" with lore "&7Defense Armor.", "", "&7Health: &2+3",  "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+
+    set {_ghoulSkull} to zombie head named "&aGhoul Skull" with lore "&7Defense Armor.", "", "&7Health: &2+4", "", "&cRequires Level &4⚗5", "&cto use this item.", "", "&a★★★★&8☆" and "&a&lUNIQUE" with all flags hidden
+    set {_ghoulChestplate} to chainmail chestplate named "&aGhoul Chestplate" with lore "&7Defense Armor.", "", "&7Health: &2+8", "", "&cRequires Level &4⚗5", "&cto use this item.", "", "&a★★★★&8☆" and "&a&lUNIQUE" with all flags hidden
+    set {_ghoulPants} to leather pants named "&aGhoul Pants" with lore "&7Defense Armor.", "", "&7Health: &2+6", "", "&cRequires Level &4⚗5", "&cto use this item.", "", "&a★★★★&8☆" and "&a&lUNIQUE" with all flags hidden
+    set {_ghoulBoots} to golden boots named "&aGhoul Boots" with lore "&7Defense Armor.", "", "&7Health: &2+5", "", "&cRequires Level &4⚗5", "&cto use this item.", "", "&a★★★★&8☆" and "&a&lUNIQUE" with all flags hidden
+    
+    set {_cryptoHelmet} to diamond helmet named "&9Crypto Helmet" with lore "&7Defense Armor.", "", "&7Health: &2+7", "&7Mana: &2+1", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★&8☆☆☆☆" and "&9&lRARE" with all flags hidden
+    set {_cryptoChestplate} to chainmail chestplate named "&9Crypto Chestplate" with lore "&7Defense Armor.", "", "&7Health: &2+11", "&7Mana: &2+5", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★&8☆☆☆☆" and "&9&lRARE" with all flags hidden
+    set {_cryptoPants} to leather pants named "&9Crypto Pants" with lore "&7Defense Armor.", "", "&7Health: &2+9", "&7Mana: &2+3", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★&8☆☆☆☆" and "&9&lRARE" with all flags hidden
+    set {_cryptoBoots} to diamond boots named "&9Crypto Boots" with lore "&7Defense Armor.", "", "&7Health: &2+8", "&7Mana: &2+2", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★&8☆☆☆☆" and "&9&lRARE" with all flags hidden
+    
+    dye {_wheatCap} rgb(255, 239, 99)
+    dye {_wheatTunic} rgb(255, 239, 99)
+    dye {_wheatPants} rgb(255, 239, 99)
+    dye {_wheatBoots} rgb(255, 239, 99)
+    dye {_ghoulPants} rgb(55, 76, 183)
+    dye {_cryptoPants} rgb(51, 70, 73)
+
+    set {items::armorItems::*} to ({_prototypeCap}, {_prototypeTunic}, {_prototypePants}, {_prototypeBoots}, {_wheatCap}, {_wheatTunic}, {_wheatPants}, {_wheatBoots}, {_ghoulSkull}, {_ghoulChestplate}, {_ghoulPants}, {_ghoulBoots}, {_cryptoHelmet}, {_cryptoChestplate}, {_cryptoPants}, {_cryptoBoots})
+
+    loop {items::armorItems::*}:
+        add "{AttributeModifiers:[{Slot:""mainhand"", AttributeName:""generic.attack_damage"", Name:""generic.attack_damage"", Amount:20.0, Operation:0, UUID:[I; -192596, -61963, -161679, -10288428]}]}" to nbt of loop-value

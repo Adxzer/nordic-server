@@ -1,0 +1,8 @@
+on death:
+
+    set {_name} to coreGetEntity(name of victim)
+
+    if {_name} is "Skeleton Ghoul":
+
+        set {_xp} to 15
+        coreAddXp(attacker, {_xp})

@@ -38,6 +38,7 @@ function questBookGetQuest(player: player, quest: string) :: item:
 
         if {_addedDialouge} is 0:
             add "&cYou haven't talked to this NPC yet." to lore of {_book}
+        
         else:
             add "&fThere's more dialouge to unlock with this NPC." to lore of {_book}
 
@@ -48,6 +49,7 @@ function questBookGetQuest(player: player, quest: string) :: item:
             set {_notTalked} to gray dye named "&f%{quests::%{_quest}%::name}%" with lore "&7%{quests::%{_quest}%::start}%"
             add "" and "&f[%{quests::%{_quest}%::coords}%]" to lore of {_notTalked}
             return {_notTalked} 
+    
     else:
         return air
 
@@ -88,13 +90,16 @@ on rightclick:
 
                     add "%{_bar}%" to lore of {_questProgress}
                     set slot {_borderIndex} of metadata tag "quest" of player to {_questProgress}
+                
                 else:
                     set slot {_borderIndex} of metadata tag "quest" of player to black stained glass pane named "&8Border"
+            
             else:
                 if questBookGetQuest(player, {_quests::%{_questIndex}%}) is book:
                     set slot {_placeIndex} of metadata tag "quest" of player to questBookGetQuest(player, {_quests::%{_questIndex}%})
                     add 1 to {_placeIndex}
                     add 1 to {_questIndex}
+                
                 else:
                     add 1 to {_questIndex}
 
@@ -111,6 +116,7 @@ on rightclick:
                     set slot {_notTalkedPlaceIndex} of metadata tag "quest" of player to questBookGetQuest(player, {_quests::%{_notTalkedIndex}%})
                     add 1 to {_notTalkedPlaceIndex}
                     add 1 to {_notTalkedIndex}
+                
                 else:
                     add 1 to {_notTalkedIndex}
 
