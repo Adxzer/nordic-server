@@ -2,7 +2,7 @@ on load:
 
 # Prototypes
     set {_prototypeHoe} to wooden hoe named "&fPrototype Hoe" with lore "&7Harvesting Tool.", "", "&7Crops: &b+2", "&7Double Drop: &b10%%", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
-    set {_prototypeSword} to wooden sword named "&fPrototype Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+3", "&7Crit Chance: &c+50%%", "&7Attack Speed: &c+50", "", "&eItem Ability: Transmission &8(Right Click)", "&7When right clicked, this item will teleport", "&7you 7 blocks ahead of you.", "", "&7Mana Cost: &6✦3", "&7Cooldown: &615 seconds", "", "&cRequires Level &4⚗2", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_prototypeSword} to wooden sword named "&fPrototype Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+1000", "&7Crit Chance: &c+50%%", "&7Attack Speed: &c+50", "", "&eItem Ability: Transmission &8(Right Click)", "&7When right clicked, this item will teleport", "&7you 7 blocks ahead of you.", "", "&7Mana Cost: &6✦3", "&7Cooldown: &615 seconds", "", "&cRequires Level &4⚗2", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
     set {_prototypeBow} to bow named "&fPrototype Bow" with lore "&7Archer Tool.", "", "&7Damage: &d+3", "&7Crit Chance: &d+50%%", "", "&cRequires Level &4⚗2", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
 
 # Swords

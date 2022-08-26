@@ -20,10 +20,9 @@ function coreCheckLevel(player: player):
     if {xp::%{_u}%} > {_next}:
         add 1 to {level::%{_u}%}
         set {xp::%{_u}%} to 0
-        set {actionBarSet::%{_u}%} to true
-        send action bar coreGetActionBar({_player}, "&3You just leveled up to level %{level::%{_u}%}%!") to {_player}
-        wait 1 seconds
-        set {actionBarSet::%{_u}%} to false
+        send "" to {_player}
+        send "&3[LEVEL] » &fYou just leveled up to level &3%{level::%{_u}%}%&f and gained &c+2❤ &fand &6+1✦&f." to {_player}
+        send "" to {_player}
 
 function coreAddXp(player: player, experience: number):
 

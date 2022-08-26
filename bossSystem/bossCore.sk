@@ -1,0 +1,279 @@
+function bossCreateRewards(player: player, name: string, rewards: strings, boss: string, item: item):
+
+    set metadata tag "type" of {_player} to chest with 6 row named "%{_name}%"
+
+    set {_u} to uuid of {_player}
+    set {_borderIndex} to 0
+    set {_loopIndex} to 20
+
+    loop 54 times:
+
+        if {_borderIndex} is not 20, 21, 22, 23, 24 or 49:
+            set slot {_borderIndex} of metadata tag "type" of {_player} to black stained glass pane named "&8Border"
+
+        if {_borderIndex} is 10, 11, 12, 13, 14, 15, 16, 19, 25, 28, 29, 30, 31, 32, 33 or 34:
+            set slot {_borderIndex} of metadata tag "type" of {_player} to gray stained glass pane named "&7Border"
+
+        if {_borderIndex} is 49:
+            set slot {_borderIndex} of metadata tag "type" of {_player} to barrier named "&cBack"
+
+        add 1 to {_borderIndex}
+
+    loop 5 times:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+
+        set {_items} to {_rewards::%loop-number%}
+        set {_loopItem} to {_item}
+        set {_split::*} to split {_items} at ":"
+
+        set {_squared} to loop-number ^ 3
+
+        set lore of {_loopItem} to "&7Rewards for killing the %{_boss}% boss.", "", "&7Current Kills: &c%{boss::%{_boss}%::%{_u}%}%", "&7Kills Needed: &c%{_squared}%", "" and "&7&nRewards:"
+
+        add "&8- &7%{_split::1}%" to lore of {_loopItem}
+
+        if {_split::2} is set:
+            add "&8- &7%{_split::2}%" to lore of {_loopItem}
+
+        if {boss::%{_boss}%::%{_u}%} >= {_squared}:
+            if {boss::%{_boss}%::claimed::%{_u}%} is true:
+                add "" and "&cYou have already claimed this reward!" to lore of {_loopItem}
+            else:
+                add "" and "&aClick to claim!" to lore of {_loopItem}
+        else:
+            add "" and "&cYou don't have enough %{_boss}% kills." to lore of {_loopItem}
+
+        if {_loopIndex} is 20:
+            set name of {_loopItem} to "&aBoss Reward I"
+        else if {_loopIndex} is 21:
+            set name of {_loopItem} to "&aBoss Reward II"
+        else if {_loopIndex} is 22:
+            set name of {_loopItem} to "&aBoss Reward III"
+        else if {_loopIndex} is 23:
+            set name of {_loopItem} to "&aBoss Reward IV"
+        else if {_loopIndex} is 24:
+            set name of {_loopItem} to "&aBoss Reward V"
+            
+        set slot {_loopIndex} of metadata tag "type" of {_player} to loop-value of {_loopItem}
+
+        add 1 to {_loopIndex}
+
+    open (metadata tag "type" of {_player}) to {_player}
+
+function bossCreateCore(player: player, name: string):
+    
+    set metadata tag "boss" of {_player} to chest with 6 row named "%{_name}%"
+
+    set {_u} to uuid of {_player}
+    set {_borderIndex} to 0
+    set {_loopIndex} to 20
+    set {_bosses::*} to ("groot") 
+
+    set {_gui::groot} to dead bush named "&aGroot Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the forest and the lightning.", "", "&7Defeated: &c%{boss::groot::%{_u}%}%", "" and "&eView (Left Click)"
+    set {_gui::soon} to gray dye named "&fComing soon..." with lore "&7There are still more challenges and rewards" and "&7to come, stay tuned for future updates."
+
+    loop 54 times:
+
+        if {_borderIndex} is not 20, 21, 22, 23, 24 or 49:
+            set slot {_borderIndex} of metadata tag "boss" of {_player} to black stained glass pane named "&8Border"
+
+        if {_borderIndex} is 10, 11, 12, 13, 14, 15, 16, 19, 25, 28, 29, 30, 31, 32, 33 or 34:
+            set slot {_borderIndex} of metadata tag "boss" of {_player} to gray stained glass pane named "&7Border"
+
+        if {_borderIndex} is 49:
+            set slot {_borderIndex} of metadata tag "boss" of {_player} to barrier named "&cClose"
+
+        add 1 to {_borderIndex}
+
+    loop {_bosses::*}:
+        if {boss::%loop-value%::%{_u}%} is not set:
+            set {boss::%loop-value%::%{_u}%} to 0
+
+    loop 5 times:
+
+        if {_gui::%{_bosses::%loop-number%}%} is set:
+            set slot {_loopIndex} of metadata tag "boss" of {_player} to {_gui::%{_bosses::%loop-number%}%}
+
+        else:
+            set slot {_loopIndex} of metadata tag "boss" of {_player} to {_gui::soon}
+
+        add 1 to {_loopIndex}
+
+    open (metadata tag "boss" of {_player}) to {_player}
+
+command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
+    permission: op
+    permission message: Unknown command. Type "/help" for help.
+    trigger:
+
+        if arg-1 is set:
+
+            if arg-1 is "groot": # add new options
+
+                if arg-2 is set:
+
+                    if arg-2 is "user":
+            
+                        if arg-3 is set:
+
+                            if arg-3 parsed as offline player is offline player:
+
+                                if arg-4 is set:
+
+                                    set {_player} to arg-3 parsed as player
+                                    set {_u} to uuid of {_player}
+
+                                    if {boss::%arg-1%::%{_u}%} is not set:
+                                        set {boss::%arg-1%::%{_u}%} to 0
+
+                                    if arg-4 is "set", "remove" or "add":
+
+                                        if arg-5 is set:
+
+                                            set {_value} to arg-5 parsed as integer
+
+                                            if arg-5 parsed as integer is integer:
+
+                                                if arg-4 is "set":
+                                                    send "&4[BOSS] » &fYou set &4%arg-3%&f's %arg-1% boss kills to &4%arg-5%&f."
+                                                    set {boss::%arg-1%::%{_u}%} to {_value}
+                                                else if arg-4 is "add":
+                                                    send "&4[BOSS] » &fYou added %arg-5% to &4%arg-3%&f's %arg-1% boss kills."
+                                                    add {_value} to {boss::%arg-1%::%{_u}%}
+                                                else if arg-4 is "remove":
+                                                    send "&4[BOSS] » &fYou removed %arg-5% from &4%arg-3%&f's %arg-1% boss kills."
+                                                    remove {_value} from {boss::%arg-1%::%{_u}%}
+
+                                            else:
+                                                send "&4[BOSS] » &cThis argument must be an integer."
+
+                                        else:
+                                            send "&4[BOSS] » &cPlease specify an integer."
+                                    else if arg-4 is "check":
+                                        send "&4[BOSS] » &fThe %arg-1% boss kills of &4%arg-3%&f is &4%{boss::%arg-2%::%{_u}%}%&f."
+                                        
+                                    else:
+                                        send "&4[BOSS] » &cThis command option does not exist."
+
+                                else:
+                                    send "&4[BOSS] » &cPlease specify a command option."
+
+                            else:
+                                send "&4[BOSS] » &cThis player does not exist."
+
+                        else:
+                            send "&4[BOSS] » &cPlease specify a player."  
+
+                    else if arg-2 is "deactivate": 
+
+                        send "&4[BOSS] » &cDeactivated the %arg-1% spawner."  
+                        make console execute command "hd setline Boss%arg-1%Cooldown 2 &75 minute(s)"
+                        
+                        set {_minutes} to 5
+
+                        loop 5 times:
+                            wait 1 minute
+                            remove 1 from {_minutes}
+                            make console execute command "hd setline Boss%arg-1%Cooldown 2 &7%{_minutes}% minute(s)"
+
+                        make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
+                        make console execute command "/mm spawners activate Boss%arg-1%Spawner"
+                    else if arg-2 is "activate": 
+
+                        send "&4[BOSS] » &cDeactivated the %arg-1% spawner."  
+                        make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
+                        make console execute command "/mm spawners activate Boss%arg-1%Spawner"
+
+                    else:
+                        send "&4[BOSS] » &cThis command option does not exist."
+
+                else:
+                    send "&4[BOSS] » &cPlease specify a command option."
+
+            else:
+                send "&4[BOSS] » &cThis command option does not exist."
+
+        else:
+            send "&4[BOSS] » &cPlease specify a command option."
+
+on inventory click:
+
+    if event-inventory = (metadata tag "boss" of player): 
+        cancel event
+
+        if index of event-slot is 20:
+            bossCreateRewards(player, "&8Groot Rewards", ("1x Wheat:2x Emerald", "1x Carrot", "1x Carrot", "1x Carrot", "1x Carrot"), "groot", event-item)
+        else if index of event-slot is 21:
+            broadcast "pepe"
+        else if index of event-slot is 22:
+            broadcast "pepe"
+        else if index of event-slot is 23:
+            broadcast "pepe"
+        else if index of event-slot is 24:
+            broadcast "pepe"
+        else if index of event-slot is 49:
+            close player's inventory
+    else if event-inventory = (metadata tag "type" of player): 
+        cancel event
+
+        if index of event-slot is 20, 21, 22, 23 or 24:
+
+            set {_boss::*} to split 1st line of lore of event-item at " "
+            set {_boss} to uncolored {_boss::5}
+            set {_u} to uuid of player
+
+            set {_splitOneFirst::*} to uncolored split 7th line of lore of event-item at "- "
+            set {_splitTwoFirst::*} to uncolored split 8th line of lore of event-item at "- "
+
+            set {_splitOne::*} to uncolored split {_splitOneFirst::2} at "x "
+            set {_splitTwo::*} to uncolored split {_splitTwoFirst::2} at "x "
+
+            set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+            loop {_itemList::*}:
+                if uncolored name of loop-value is {_splitOne::2}:
+                    set {_itemOne} to {_splitOne::1} parsed as integer of loop-value
+                else if uncolored name of loop-value is {_splitTwo::2}:
+                    set {_itemTwo} to {_splitTwo::1} parsed as integer of loop-value
+
+            set {_needed::*} to uncolored split 4th line of lore of event-item at ": "
+            set {_squared} to {_needed::2} parsed as an integer
+
+            if {boss::%{_boss}%::%{_u}%} >= {_squared}:
+                if {boss::%{_boss}%::claimed::%{_u}%} is not true:
+                    give player {_itemOne} and {_itemTwo}
+                    set {_size} to size of lore of event-item
+                    set {_size}th line of lore of slot index of event-slot of player's current inventory to "&cYou have already claimed this reward!"
+
+        else if index of event-slot is 49:
+            open (metadata tag "boss" of player) to player
+
+on load: # add new options
+    make console execute command "hd setline BossGrootCooldown 2 &7Fetching data from server..."
+    make console execute command "mm m kill BossGroot"
+    wait 2 seconds
+    make console execute command "mm spawners activate BossGrootSpawner"
+
+on tab complete of "/boss":
+
+    if tab arg-1 is not "groot": # add new options  
+        clear {_tabCompletion::*}
+        set {_tabCompletion::*} to ("groot") # add new options
+        set tab completions for position 1 to {_tabCompletion::*}
+
+    if tab arg-2 is not "user", "deactivate" or "activate": # add new options  
+        clear {_tabCompletion::*}
+        set {_tabCompletion::*} to ("user") # add new options
+        set tab completions for position 2 to {_tabCompletion::*}
+
+    if tab arg-2 is "user":
+        loop players:
+            clear {_tabCompletion::*}
+            add loop-value to {_tabCompletion::*}
+            set tab completions for position 3 to {_tabCompletion::*}
+
+    if tab arg-3 parsed as player is player:
+        if tab arg-4 is not "set", "remove", "add" or "check": # add new options 
+            clear {_tabCompletion::*}
+            set {_tabCompletion::*} to ("set", "check", "add", "remove") # add new options 
+            set tab completions for position 4 to {_tabCompletion::*}

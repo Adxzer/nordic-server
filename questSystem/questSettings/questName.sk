@@ -1,2 +1,3 @@
 on load:
     set {quests::carrotsAndPotatoes::name} to "Carrots & Potatoes"
+    set {quests::firstSlay::name} to "First Slay"

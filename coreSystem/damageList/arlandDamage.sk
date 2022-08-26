@@ -1,0 +1,29 @@
+on damage:
+
+    set {_name} to coreGetEntity(name of attacker)
+    set {_critical} to 1
+
+    chance of 10%:
+        set {_critical} to 2
+
+    set damage to 0
+
+    if {_name} is "Zombie":
+        set {_damage} to 6 * {_critical}
+    else if {_name} is "Skeleton":
+        set {_damage} to 5 * {_critical}
+    else if {_name} is "Zombie Ghoul":
+        set {_damage} to 13 * {_critical}
+    else if {_name} is "Skeleton Ghoul":
+        set {_damage} to 11 * {_critical}
+    else if {_name} is "Crypto Ghoul":
+        set {_damage} to 17 * {_critical}
+    else if {_name} is "Groot":
+        set {_damage} to 26 * {_critical}
+
+    if {_name} is "Zombie", "Skeleton", "Zombie Ghoul", "Skeleton Ghoul", "Crypto Ghoul" or "Groot":
+        set {_final} to coreDamagePlayer(victim, {_damage})
+        add {_final} to damage
+
+
+        

@@ -1,0 +1,25 @@
+on damage:
+
+    set {_name} to coreGetEntity(name of attacker)
+    set {_critical} to 1
+
+    chance of 10%:
+        set {_critical} to 2
+
+    set damage to 0
+
+    if {_name} is "Dunter Stray":
+        set {_damage} to 62 * {_critical}
+    else if {_name} is "Dunter Iceologer":
+        set {_damage} to 77 * {_critical}
+    else if {_name} is "Dunter Lushbloom":
+        set {_damage} to 92 * {_critical}
+    else if {_name} is "Dunter Grasp":
+        set {_damage} to 135 * {_critical}
+
+    if {_name} is "Dunter Stray", "Dunter Iceologer", "Dunter Lushbloom", "Dunter Grasp":
+        set {_final} to coreDamagePlayer(victim, {_damage})
+        add {_final} to damage
+
+
+        

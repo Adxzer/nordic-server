@@ -1,0 +1,25 @@
+on damage:
+
+    set {_name} to coreGetEntity(name of attacker)
+    set {_critical} to 1
+
+    chance of 10%:
+        set {_critical} to 2
+
+    set damage to 0
+
+    if {_name} is "Baby Piglin":
+        set {_damage} to 34 * {_critical}
+    else if {_name} is "Zombified Piglin":
+        set {_damage} to 42 * {_critical}
+    else if {_name} is "Wither Minion":
+        set {_damage} to 48 * {_critical}
+    else if {_name} is "Wither Skeleton":
+        set {_damage} to 56 * {_critical}
+
+    if {_name} is "Baby Piglin", "Zombified Piglin", "Wither Minion", "Wither Skeleton":
+        set {_final} to coreDamagePlayer(victim, {_damage})
+        add {_final} to damage
+
+
+        

@@ -9,7 +9,7 @@ command /level [<text>] [<text>] [<text>] [<text>]:
      
                 if arg-2 is set:
 
-                    if arg-2 parsed as player is player:
+                    if arg-2 parsed as offline player is offline player:
 
                         if arg-3 is set:
 

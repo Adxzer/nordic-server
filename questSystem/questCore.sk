@@ -24,7 +24,32 @@ function questBookGetQuest(player: player, quest: string) :: item:
            
             if {quests::%{_quest}%::interaction::%{_u}%::%{_dialougeNumber}%} is true:
                 set {_split::*} to split uncolored loop-value at ": "
-                add "&8[%{_dialougeNumber}%.] &7%{_split::2}%" to lore of {_book}
+
+                set {_add::*} to uncolored split {_split::2} at " "
+                set {_add} to ""
+                set {_loopIndex} to 1
+
+                while true:
+                    if {_add::%{_loopIndex}%} is set:
+                        set {_add} to "%{_add}% %{_add::%{_loopIndex}%}%"
+                        if {_loopIndex} is 11:
+                            add "&8[%{_dialougeNumber}%.]&7%{_add}%" to lore of {_book}
+                            set {_add} to ""
+                        else if {_loopIndex} is 22 or 33:
+                            add "&7%{_add}%" to lore of {_book}
+                            set {_add} to ""
+                    else if {_loopIndex} <= 10:
+                        add "&8[%{_dialougeNumber}%.]&7%{_add}%" to lore of {_book}
+                        stop loop
+                    else if {_loopIndex} >= 12: 
+                        if {_add} is not "":
+                            add "&7%{_add}%" to lore of {_book}
+                        stop loop           
+                    else:
+                        stop loop
+
+                    add 1 to {_loopIndex}
+
                 add 1 to {_addedDialouge}
 
             add 1 to {_dialougeNumber}
@@ -59,7 +84,7 @@ on rightclick:
     
         set metadata tag "quest" of player to chest with 6 row named "&8Quest Book"
         
-        set {_quests::*} to ("carrotsAndPotatoes") # add new quests
+        set {_quests::*} to ("carrotsAndPotatoes", "firstSlay") # add new quests
 
         set {_borderIndex} to 0
         set {_questIndex} to 1
@@ -83,7 +108,7 @@ on rightclick:
                     add "&7You currently have finished %{_completed}%/%size of {_quests::*}%", "&7of all the quests in the game." and "" to lore of {_questProgress}
 
                     loop 10 times:
-                        if {_completed} * loop-number-2 >= (size of {_quests::*}) * loop-number-2:
+                        if {_completed} >= (size of {_quests::*} / 10) * loop-number-2:
                             set {_bar} to "%{_bar}%&f▌"
                         else:
                             set {_bar} to "%{_bar}%&7▌"
@@ -147,7 +172,7 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                         if arg-3 is set:
 
-                            set {_quests::*} to ("carrotsAndPotatoes") # add new quests
+                            set {_quests::*} to ("carrotsAndPotatoes", "firstSlay") # add new quests
 
                             set {_player} to arg-2 parsed as player
                             set {_uuid} to uuid of {_player}
@@ -166,6 +191,7 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
                                         set {_completed::%loop-value%} to "&f%loop-value% - &cnot completed"
                                 send "&a[QUEST] » &fShowing quest status for &a%arg-2%&f..."
                                 send "&a[QUEST] » &f%{_completed::carrotsAndPotatoes}%&f."
+                                send "&a[QUEST] » &f%{_completed::firstSlay}%&f."
                                 # add new quests
                             else if arg-3 is "set":
 
@@ -242,7 +268,7 @@ on tab complete of "/quest":
             set {_tabCompletion::*} to ("clear", "set", "list") # add new options 
             set tab completions for position 3 to {_tabCompletion::*}
 
-    set {_quests::*} to ("carrotsAndPotatoes") # add new quests 
+    set {_quests::*} to ("carrotsAndPotatoes", "firstSlay") # add new quests 
     loop {_quests::*}:
         if tab arg-4 is loop-value:
             set {_quest} to true

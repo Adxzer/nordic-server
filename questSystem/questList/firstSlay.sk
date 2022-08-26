@@ -1,0 +1,54 @@
+on npc rightclick:
+    
+    if npc id of target is 3:
+
+        if {quests::firstSlay::talked::%player's uuid%} is not true:
+            set {quests::firstSlay::interaction::%player's uuid%::*} to (false, false, false, false, false, false, false)
+            set {quests::firstSlay::animals::%player's uuid%} to 0
+            set {quests::firstSlay::talked::%player's uuid%} to true
+            set {quests::firstSlay::completed::%player's uuid%} to false
+
+        if {quests::firstSlay::interaction::%player's uuid%::1} is false:
+            send "%{quests::firstSlay::dialouge::1}%"
+            set {quests::firstSlay::interaction::%player's uuid%::1} to true  
+        else if {quests::firstSlay::interaction::%player's uuid%::2} is false:  
+            send "%{quests::firstSlay::dialouge::2}%"
+            set {quests::firstSlay::interaction::%player's uuid%::2} to true
+        else if {quests::firstSlay::interaction::%player's uuid%::3} is false:  
+            send "%{quests::firstSlay::dialouge::3}%"
+            set {quests::firstSlay::interaction::%player's uuid%::3} to true
+        else if {quests::firstSlay::interaction::%player's uuid%::4} is false:  
+            send "%{quests::firstSlay::dialouge::4}%"
+            set {quests::firstSlay::interaction::%player's uuid%::4} to true
+            questNew(player, {quests::firstSlay::name})
+        else if {quests::firstSlay::interaction::%player's uuid%::5} is false:  
+            send "%{quests::firstSlay::dialouge::5}%"
+        else if {quests::firstSlay::interaction::%player's uuid%::6} is false:  
+            send "%{quests::firstSlay::dialouge::6}%"
+            set {quests::firstSlay::interaction::%player's uuid%::6} to true
+            set {quests::firstSlay::completed::%player's uuid%} to true
+            wait 3 seconds
+            questComplete(player, ({quests::firstSlay::name}, {quests::firstSlay::reward}))
+            set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+            loop {_itemList::*}:
+                if uncolored name of loop-value is "Common Sword":
+                    set {_commonSword} to loop-value
+                else if uncolored name of loop-value is "Emerald":
+                    set {_emerald} to loop-value
+            give player 10 of {_emerald}
+            give player {_commonSword}
+        else if {quests::firstSlay::interaction::%player's uuid%::7} is false:  
+            send "%{quests::firstSlay::dialouge::7}%"
+
+on death:
+
+    if coreGetEntity(name of victim) is "Cow", "Chicken" or "Sheep":
+
+        if {quests::firstSlay::interaction::%attacker's uuid%::5} is false:
+
+            if {quests::firstSlay::animals::%attacker's uuid%} is 10:
+                set {quests::firstSlay::interaction::%attacker's uuid%::5} to true
+                send "&a[QUEST] » &fYou have finished the quest &aFirst Slay&f, talk to Alicia to claim your rewards." to attacker
+
+            else:
+                add 1 to {quests::firstSlay::animals::%attacker's uuid%}

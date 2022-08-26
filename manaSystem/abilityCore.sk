@@ -35,7 +35,10 @@ on rightclick:
             if {_ability::2} is "Right Click)":
 
                 if {ability::%{_ability}%::%player's uuid%} is true:
+                    set {actionBarSet::%{_u}%} to true
                     send action bar coreGetActionBar(player, "&cThis item has a cooldown!") to player
+                    wait 1 second
+                    set {actionBarSet::%{_u}%} to false
                     stop trigger
 
                 else:
@@ -49,7 +52,10 @@ on rightclick:
 
 
                     else:
+                        set {actionBarSet::%{_u}%} to true
                         send action bar coreGetActionBar(player, "&cNot enough mana!") to player
+                        set {actionBarSet::%{_u}%} to false
+                        stop trigger
 
 on leftclick:
 
@@ -75,7 +81,10 @@ on leftclick:
             if {_ability::2} is "Left Click)":
 
                 if {ability::%{_ability}%::%player's uuid%} is true:
+                    set {actionBarSet::%{_u}%} to true
                     send action bar coreGetActionBar(player, "&cThis item has a cooldown!") to player
+                    wait 1 second
+                    set {actionBarSet::%{_u}%} to false
                     stop trigger
 
                 else:
@@ -83,4 +92,7 @@ on leftclick:
                         broadcast "s"
 
                     else:
+                        set {actionBarSet::%{_u}%} to true
                         send action bar coreGetActionBar(player, "&cNot enough mana!") to player
+                        set {actionBarSet::%{_u}%} to false
+                        stop trigger
