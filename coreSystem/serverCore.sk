@@ -89,7 +89,6 @@ function coreDamagePlayer(player: player, damage: number) :: number:
     remove {_damage} from {health::currentHearts::%{_u}%}
 
     set {_return} to 10 * ({_damage} / {health::maxHearts::%{_u}%})
-    broadcast {_return}
     return {_return}
 
 function coreHealPlayer(player: player, heal: number) :: number:

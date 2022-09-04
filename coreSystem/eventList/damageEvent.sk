@@ -18,15 +18,28 @@ on damage:
         spawn armor stand at victim with nbt "{Invisible:1,NoGravity:1,Small:1,Pose:{Head:[45f,0f,0f]}}"
 
         if {_damage} is not set:
-            add 0.5 to damage
-            set display name of last spawned armor stand to "&71"
-        else:
-            if {_criticalHit} is true:
-                add {_damage} to damage
-                set display name of last spawned armor stand to "&c%{_damage} * 2%"
+
+            if {ability::sight::status::%attacker's uuid%} is true:
+                add 1 to damage
+                set display name of last spawned armor stand to "&72" 
+            
             else:
-                add {_damage} / 2 to damage
-                set display name of last spawned armor stand to "&7%{_damage}%"
+                add 0.5 to damage
+                set display name of last spawned armor stand to "&71"
+        else:
+        
+            if {ability::sight::status::%attacker's uuid%} is true:
+                set {_processedDamage} to {_damage} * 2
+
+            else:
+                set {_processedDamage} to {_damage}
+
+            if {_criticalHit} is true:
+                add {_processedDamage} to damage
+                set display name of last spawned armor stand to "&c%{_processedDamage} * 2%"
+            else:
+                add {_processedDamage} / 2 to damage
+                set display name of last spawned armor stand to "&7%{_processedDamage}%"
 
         wait 1 second
         kill all armor stands

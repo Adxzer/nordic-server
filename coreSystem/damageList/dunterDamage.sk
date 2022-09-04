@@ -17,7 +17,7 @@ on damage:
     else if {_name} is "Dunter Grasp":
         set {_damage} to 135 * {_critical}
 
-    if {_name} is "Dunter Stray", "Dunter Iceologer", "Dunter Lushbloom", "Dunter Grasp":
+    if {_name} is "Dunter Stray", "Dunter Iceologer", "Dunter Lushbloom" or "Dunter Grasp":
         set {_final} to coreDamagePlayer(victim, {_damage})
         add {_final} to damage
 

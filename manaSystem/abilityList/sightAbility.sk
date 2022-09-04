@@ -1,0 +1,13 @@
+function abilitySight(player: player) :: boolean:
+
+    set {_u} to uuid of {_player}
+
+    if time in "world" is not night:
+        send action bar coreGetActionBar({_player}, "&cIt is not currently night!") to {_player}
+        return false
+    
+    else:
+        play sound "ENTITY_SPLASH_POTION_BREAK" with volume 0.2 to {_player}
+        set {ability::sight::status::%{_u}%} to true
+        wait 20 seconds
+        set {ability::sight::status::%{_u}%} to false

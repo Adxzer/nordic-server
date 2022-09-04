@@ -49,7 +49,9 @@ on rightclick:
                         else if {_ability} is "Explosion":
                             if abilityExplosion(player, {_damage}) is not false:
                                 abilityUse(player, {_ability}, {_cooldown}, {_mana})
-
+                        else if {_ability} is "Sight":
+                            if abilitySight(player) is not false:
+                                abilityUse(player, {_ability}, {_cooldown}, {_mana})
 
                     else:
                         set {actionBarSet::%{_u}%} to true

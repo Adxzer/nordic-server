@@ -17,7 +17,7 @@ on damage:
     else if {_name} is "Wither Skeleton":
         set {_damage} to 56 * {_critical}
 
-    if {_name} is "Baby Piglin", "Zombified Piglin", "Wither Minion", "Wither Skeleton":
+    if {_name} is "Baby Piglin", "Zombified Piglin", "Wither Minion" or "Wither Skeleton":
         set {_final} to coreDamagePlayer(victim, {_damage})
         add {_final} to damage
 

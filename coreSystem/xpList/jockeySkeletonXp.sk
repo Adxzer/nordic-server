@@ -1,0 +1,8 @@
+on death:
+
+    set {_name} to coreGetEntity(name of victim)
+
+    if {_name} is "Jockey Skeleton":
+
+        set {_xp} to 30
+        coreAddXp(attacker, {_xp})
