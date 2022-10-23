@@ -1,3 +1,3 @@
 on load:
-    set {quests::carrotsAndPotatoes::quota::*} to ("Harvest and give the Farmer 10x Potatoes & Carrots.") 
     set {quests::firstSlay::quota::*} to ("Kill 10 animals in and around Arland.") 
+    set {quests::animalFood::quota::*} to ("Harvest 192x Wheat and bring it to Eirik.") 

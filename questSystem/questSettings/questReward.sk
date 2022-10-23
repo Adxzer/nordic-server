@@ -1,3 +1,3 @@
 on load:
-    set {quests::carrotsAndPotatoes::reward} to "10 Experience"
     set {quests::firstSlay::reward} to "Common Sword and 10x Emeralds"
+    set {quests::animalFood::reward} to "Beginners Hoe and 15x Emeralds"

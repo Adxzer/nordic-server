@@ -250,8 +250,8 @@ on inventory click:
 
 on load: # add new options
     make console execute command "hd setline BossGrootCooldown 2 &7Fetching data from server..."
-    make console execute command "mm m kill BossGroot"
     wait 2 seconds
+    make console execute command "mm m kill BossGroot"
     make console execute command "mm spawners activate BossGrootSpawner"
 
 on tab complete of "/boss":

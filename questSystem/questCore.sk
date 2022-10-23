@@ -84,7 +84,7 @@ on rightclick:
     
         set metadata tag "quest" of player to chest with 6 row named "&8Quest Book"
         
-        set {_quests::*} to ("carrotsAndPotatoes", "firstSlay") # add new quests
+        set {_quests::*} to ("animalFood", "firstSlay") # add new quests
 
         set {_borderIndex} to 0
         set {_questIndex} to 1
@@ -172,7 +172,7 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                         if arg-3 is set:
 
-                            set {_quests::*} to ("carrotsAndPotatoes", "firstSlay") # add new quests
+                            set {_quests::*} to ("animalFood", "firstSlay") # add new quests
 
                             set {_player} to arg-2 parsed as player
                             set {_uuid} to uuid of {_player}
@@ -190,7 +190,7 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
                                     else:
                                         set {_completed::%loop-value%} to "&f%loop-value% - &cnot completed"
                                 send "&a[QUEST] » &fShowing quest status for &a%arg-2%&f..."
-                                send "&a[QUEST] » &f%{_completed::carrotsAndPotatoes}%&f."
+                                send "&a[QUEST] » &f%{_completed::animalFood}%&f."
                                 send "&a[QUEST] » &f%{_completed::firstSlay}%&f."
                                 # add new quests
                             else if arg-3 is "set":
@@ -268,7 +268,7 @@ on tab complete of "/quest":
             set {_tabCompletion::*} to ("clear", "set", "list") # add new options 
             set tab completions for position 3 to {_tabCompletion::*}
 
-    set {_quests::*} to ("carrotsAndPotatoes", "firstSlay") # add new quests 
+    set {_quests::*} to ("animalFood", "firstSlay") # add new quests 
     loop {_quests::*}:
         if tab arg-4 is loop-value:
             set {_quest} to true

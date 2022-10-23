@@ -6,8 +6,6 @@ on damage:
     chance of 10%:
         set {_critical} to 2
 
-    set damage to 0
-
     if {_name} is "Zombie":
         set {_damage} to 6 * {_critical}
     else if {_name} is "Skeleton":

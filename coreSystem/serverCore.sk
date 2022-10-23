@@ -41,6 +41,11 @@ function coreGetActionBar(player: player, string: string) :: string:
     set {_u} to uuid of {_player}
     return "&c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤  %{_string}%&6  %coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦"
 
+function coreEndActionBar(player: player):
+
+    wait 1 seconds
+    set {actionBarSet::%{_u}%} to false
+
 function coreGetLevelBar(player: player) :: string:
 
     set {_u} to uuid of {_player}
@@ -141,7 +146,7 @@ function coreRegenerateMana(player: player):
     else if {mana::currentMana::%{_u}%} > {mana::maxMana::%{_u}%}:
         set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
 
-function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward: item, min: number, max: number, experience: number):
+function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward: item, min: number, max: number, experience: number) :: number:
     
     set {_u} to uuid of {_player}
     set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
@@ -165,17 +170,18 @@ function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward:
                 give {_player} {_random} of {_reward}
                 coreAddXp({_player}, {_experience})
                 coreCheckLevel({_player})
+                return {_random}
 
             else:
                 set {actionBarSet::%{_u}%} to true
                 send action bar coreGetActionBar({_player}, "&cNot requried level!") to {_player}
-                wait 1 seconds
-                set {actionBarSet::%{_u}%} to false
+                coreEndActionBar({_player})
     else:
         set {_random} to random number between {_min} and {_max}
         give {_player} {_random} of {_reward}
         coreAddXp({_player}, {_experience})
         coreCheckLevel({_player})
+        return {_random}
 
 function coreHarvestBoost(player: player, tool: item, allowed: itemtypes) :: number:
 

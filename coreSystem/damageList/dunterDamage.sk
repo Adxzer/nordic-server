@@ -6,8 +6,6 @@ on damage:
     chance of 10%:
         set {_critical} to 2
 
-    set damage to 0
-
     if {_name} is "Dunter Stray":
         set {_damage} to 62 * {_critical}
     else if {_name} is "Dunter Iceologer":

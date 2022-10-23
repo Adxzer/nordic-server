@@ -1,3 +1,3 @@
 on load:
-    set {quests::carrotsAndPotatoes::objective} to "Bring food to the Farmer."
     set {quests::firstSlay::objective} to "Learn the fundamentals and demonstrate your worthiness."
+    set {quests::animalFood::objective} to "Assist Eirik in gathering wheat to feed the animals."
