@@ -27,8 +27,6 @@ on npc rightclick:
             send "%{quests::firstSlay::dialouge::6}%"
             set {quests::firstSlay::interaction::%player's uuid%::6} to true
             set {quests::firstSlay::completed::%player's uuid%} to true
-            wait 3 seconds
-            questComplete(player, ({quests::firstSlay::name}, {quests::firstSlay::reward}))
             set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
             loop {_itemList::*}:
                 if uncolored name of loop-value is "Common Sword":
@@ -37,6 +35,8 @@ on npc rightclick:
                     set {_emerald} to loop-value
             give player 10 of {_emerald}
             give player {_commonSword}
+            wait 3 seconds
+            questComplete(player, ({quests::firstSlay::name}, {quests::firstSlay::reward}))
         else if {quests::firstSlay::interaction::%player's uuid%::7} is false:  
             send "%{quests::firstSlay::dialouge::7}%"
 

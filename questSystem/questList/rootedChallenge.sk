@@ -1,0 +1,46 @@
+on npc rightclick:
+    
+    if npc id of target is 6:
+
+        if {quests::rootedChallenge::talked::%player's uuid%} is not true:
+            set {quests::rootedChallenge::interaction::%player's uuid%::*} to (false, false, false, false, false, false, false, false)
+            set {quests::rootedChallenge::talked::%player's uuid%} to true
+            set {quests::rootedChallenge::completed::%player's uuid%} to false
+
+        if {quests::rootedChallenge::interaction::%player's uuid%::1} is false:
+            send "%{quests::rootedChallenge::dialouge::1}%"
+            set {quests::rootedChallenge::interaction::%player's uuid%::1} to true  
+        else if {quests::rootedChallenge::interaction::%player's uuid%::2} is false:  
+            send "%{quests::rootedChallenge::dialouge::2}%"
+            set {quests::rootedChallenge::interaction::%player's uuid%::2} to true
+        else if {quests::rootedChallenge::interaction::%player's uuid%::3} is false:  
+            send "%{quests::rootedChallenge::dialouge::3}%"
+            set {quests::rootedChallenge::interaction::%player's uuid%::3} to true
+        else if {quests::rootedChallenge::interaction::%player's uuid%::4} is false:  
+            send "%{quests::rootedChallenge::dialouge::4}%"
+            set {quests::rootedChallenge::interaction::%player's uuid%::4} to true
+        else if {quests::rootedChallenge::interaction::%player's uuid%::5} is false:  
+            send "%{quests::rootedChallenge::dialouge::5}%"
+            set {quests::rootedChallenge::interaction::%player's uuid%::5} to true
+            questNew(player, {quests::rootedChallenge::name})
+        else if {quests::rootedChallenge::interaction::%player's uuid%::6} is false:  
+            if player's inventory contains rabbit hide:
+                set {quests::rootedChallenge::interaction::%player's uuid%::6} to true
+                send "%{quests::rootedChallenge::dialouge::7}%"
+                set {quests::rootedChallenge::interaction::%player's uuid%::7} to true
+                set {quests::rootedChallenge::completed::%player's uuid%} to true
+                set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                loop {_itemList::*}:
+                    if uncolored name of loop-value is "Rooted Heart":
+                        set {_rootedHeart} to loop-value
+                    else if uncolored name of loop-value is "Rooted Skin":
+                        set {_rootedSkin} to loop-value
+                remove {_rootedSkin} from player
+                give player {_rootedHeart}
+                wait 3 seconds
+                questComplete(player, ({quests::rootedChallenge::name}, {quests::rootedChallenge::reward}))
+            else:
+                send "%{quests::rootedChallenge::dialouge::6}%"
+        else if {quests::rootedChallenge::interaction::%player's uuid%::8} is false:  
+            send "%{quests::rootedChallenge::dialouge::8}%"
+

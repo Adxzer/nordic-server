@@ -21,10 +21,12 @@ on load:
     set {_wool} to white wool named "&fWool" with lore "&7Crafting Ingredient.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL"
     set {_feather} to feather named "&fFeather" with lore "&7Crafting Ingredient.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL"
     set {_bone} to bone named "&fBone" with lore "&7Crafting Ingredient.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL"
+    set {_rootedSkin} to rabbit hide named "&aRooted Skin" with lore "&7Crafting Ingredient.", "", "&a★&8☆☆☆☆" and "&a&lUNIQUE"
 
     # 2 Star
     set {_potato} to potato named "&aPotato" with lore "&7Crafting Ingredient.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE"
     set {_goldIngot} to gold ingot named "&aGold Ingot" with lore "&7Crafting Ingredient.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE"
+    set {_rootedHeart} to red dye named "&9Rooted Heart" with lore "&7Crafting Ingredient.", "", "&9★★&8☆☆☆" and "&9&lRARE"
 
     # 4 Star
     set {_platinumTeeth} to iron nugget named "&9Platinum Teeth" with lore "&7Crafting Ingredient.", "", "&9★★★★&8☆" and "&9&lRARE"
@@ -33,4 +35,4 @@ on load:
 
 # Boss
 
-    set {items::dropItems::*} to ({_prototypeDrop}, {_rawBeef}, {_rawMutton}, {_rawChicken}, {_egg}, {_rottenFlesh}, {_arrow}, {_seeds}, {_wheat}, {_leather}, {_wool}, {_feather}, {_bone}, {_potato}, {_goldIngot}, {_platinumTeeth})
+    set {items::dropItems::*} to ({_prototypeDrop}, {_rawBeef}, {_rawMutton}, {_rawChicken}, {_egg}, {_rottenFlesh}, {_arrow}, {_seeds}, {_wheat}, {_leather}, {_wool}, {_feather}, {_bone}, {_rootedSkin}, {_potato}, {_goldIngot}, {_rootedHeart}, {_platinumTeeth})

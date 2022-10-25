@@ -1,3 +1,5 @@
 on load:
     set {quests::firstSlay::quota::*} to ("Kill 10 animals in and around Arland.") 
     set {quests::animalFood::quota::*} to ("Harvest 192x Wheat and bring it to Eirik.") 
+    set {quests::rootedChallenge::quota::*} to ("Defeat the Groot and give Uno 1x Rooted Skin.") 
+    set {quests::mysteryItem::quota::*} to ("Give Bjarne the mystery item is he looking for.") 

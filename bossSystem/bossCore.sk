@@ -37,7 +37,7 @@ function bossCreateRewards(player: player, name: string, rewards: strings, boss:
             add "&8- &7%{_split::2}%" to lore of {_loopItem}
 
         if {boss::%{_boss}%::%{_u}%} >= {_squared}:
-            if {boss::%{_boss}%::claimed::%{_u}%} is true:
+            if {boss::%{_boss}%::claimed::%{_squared}%::%{_u}%} is true:
                 add "" and "&cYou have already claimed this reward!" to lore of {_loopItem}
             else:
                 add "" and "&aClick to claim!" to lore of {_loopItem}
@@ -144,15 +144,19 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
                                                 else if arg-4 is "remove":
                                                     send "&4[BOSS] » &fYou removed %arg-5% from &4%arg-3%&f's %arg-1% boss kills."
                                                     remove {_value} from {boss::%arg-1%::%{_u}%}
-
                                             else:
                                                 send "&4[BOSS] » &cThis argument must be an integer."
 
                                         else:
                                             send "&4[BOSS] » &cPlease specify an integer."
                                     else if arg-4 is "check":
-                                        send "&4[BOSS] » &fThe %arg-1% boss kills of &4%arg-3%&f is &4%{boss::%arg-2%::%{_u}%}%&f."
-                                        
+                                        send "&4[BOSS] » &fThe %arg-1% boss kills of &4%arg-3%&f is &4%{boss::%arg-1%::%{_u}%}%&f."
+                                    else if arg-4 is "clear":
+                                        send "&4[BOSS] » &fYou cleared &4%arg-3%&f's %arg-1% boss kills."
+                                        set {boss::%arg-1%::%{_u}%} to 0
+                                        loop 5 times:
+                                            set {_squared} to loop-number ^ 3
+                                            set {boss::%arg-1%::claimed::%{_squared}%::%{_u}%} to false
                                     else:
                                         send "&4[BOSS] » &cThis command option does not exist."
 
@@ -178,11 +182,13 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
                             make console execute command "hd setline Boss%arg-1%Cooldown 2 &7%{_minutes}% minute(s)"
 
                         make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
+                        make console execute command "mm m kill Boss%arg-1%"
                         make console execute command "/mm spawners activate Boss%arg-1%Spawner"
                     else if arg-2 is "activate": 
 
                         send "&4[BOSS] » &cDeactivated the %arg-1% spawner."  
                         make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
+                        make console execute command "mm m kill Boss%arg-1%"
                         make console execute command "/mm spawners activate Boss%arg-1%Spawner"
 
                     else:
@@ -204,14 +210,14 @@ on inventory click:
 
         if index of event-slot is 20:
             bossCreateRewards(player, "&8Groot Rewards", ("1x Wheat:2x Emerald", "1x Carrot", "1x Carrot", "1x Carrot", "1x Carrot"), "groot", event-item)
-        else if index of event-slot is 21:
-            broadcast "pepe"
-        else if index of event-slot is 22:
-            broadcast "pepe"
-        else if index of event-slot is 23:
-            broadcast "pepe"
-        else if index of event-slot is 24:
-            broadcast "pepe"
+        # else if index of event-slot is 21:
+            # broadcast "pepe"
+        # else if index of event-slot is 22:
+            # broadcast "pepe"
+        # else if index of event-slot is 23:
+            # broadcast "pepe"
+        # else if index of event-slot is 24:
+            # broadcast "pepe"
         else if index of event-slot is 49:
             close player's inventory
     else if event-inventory = (metadata tag "type" of player): 
@@ -240,10 +246,13 @@ on inventory click:
             set {_squared} to {_needed::2} parsed as an integer
 
             if {boss::%{_boss}%::%{_u}%} >= {_squared}:
-                if {boss::%{_boss}%::claimed::%{_u}%} is not true:
+                if {boss::%{_boss}%::claimed::%{_squared}%::%{_u}%} is not true:
                     give player {_itemOne} and {_itemTwo}
+                    set {boss::%{_boss}%::claimed::%{_squared}%::%{_u}%} to true
+                else:
                     set {_size} to size of lore of event-item
                     set {_size}th line of lore of slot index of event-slot of player's current inventory to "&cYou have already claimed this reward!"
+
 
         else if index of event-slot is 49:
             open (metadata tag "boss" of player) to player
@@ -273,7 +282,7 @@ on tab complete of "/boss":
             set tab completions for position 3 to {_tabCompletion::*}
 
     if tab arg-3 parsed as player is player:
-        if tab arg-4 is not "set", "remove", "add" or "check": # add new options 
+        if tab arg-4 is not "set", "remove", "add", "clear" or "check": # add new options 
             clear {_tabCompletion::*}
-            set {_tabCompletion::*} to ("set", "check", "add", "remove") # add new options 
+            set {_tabCompletion::*} to ("set", "check", "add", "clear", "remove") # add new options 
             set tab completions for position 4 to {_tabCompletion::*}

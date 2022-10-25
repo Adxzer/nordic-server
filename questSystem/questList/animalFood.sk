@@ -30,8 +30,6 @@ on npc rightclick:
             send "%{quests::animalFood::dialouge::7}%"
             set {quests::animalFood::interaction::%player's uuid%::7} to true
             set {quests::animalFood::completed::%player's uuid%} to true
-            wait 3 seconds
-            questComplete(player, ({quests::animalFood::name}, {quests::animalFood::reward}))
             set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
             loop {_itemList::*}:
                 if uncolored name of loop-value is "Beginners Hoe":
@@ -43,12 +41,12 @@ on npc rightclick:
             remove 192 of {_wheat} from player
             give player 15 of {_emerald}
             give player {_begginersHoe}
+            wait 3 seconds
+            questComplete(player, ({quests::animalFood::name}, {quests::animalFood::reward}))
         else if {quests::animalFood::interaction::%player's uuid%::8} is false:  
             send "%{quests::animalFood::dialouge::8}%"
 
 on break:
-
-    broadcast {quests::animalFood::wheat::%player's uuid%}
 
     if event-block is wheat plant:
 
