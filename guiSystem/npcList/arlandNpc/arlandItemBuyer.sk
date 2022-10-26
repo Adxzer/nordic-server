@@ -1,0 +1,5 @@
+on npc rightclick:
+    
+    if npc id of target is 8:
+
+        guiCreateItemBuyer(player, "&8Arland Item Buyer")

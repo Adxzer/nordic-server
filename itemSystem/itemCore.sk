@@ -1,3 +1,8 @@
+function getSellValue(item: item) :: integer:
+
+    if uncolored name of {_item} is "Zombie Sword":
+        return 5
+
 command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
     permission: op
     permission message: Unknown command. Type "/help" for help.

@@ -229,6 +229,33 @@ function guiCreateBank(player: player, name: string, number: integer):
 
     open (metadata tag "bank" of {_player}) to {_player}
 
+function guiCreateItemBuyer(player: player, name: string):
+
+    set {_u} to uuid of {_player}
+
+    set metadata tag "buyer" of {_player} to chest with 1 row named "%{_name}%"
+    set slot 8 of metadata tag "buyer" of {_player} to composter named "&fSell Items" with lore "&7Currently no items, add", "&7items to sell them.", "" and "&cEmpty grid!"
+
+    open (metadata tag "buyer" of {_player}) to {_player}
+
+function guiEditItemLore(player: player):
+
+    clear lore of slot 8 of {_player}'s current inventory
+    set 1th line of lore of slot 8 of {_player}'s current inventory to "&7To sell the grid items"
+    set 2th line of lore of slot 8 of {_player}'s current inventory to "&7click on this composter."
+    set 4th line of lore of slot 8 of {_player}'s current inventory to "&7&nItems:"
+
+    set {_counter2} to 0
+    loop 7 times:
+        set {_item2} to slot {_counter2} of {_player}'s current inventory
+        set {_value2} to getSellValue({_item2})
+        if {_value2} is set:
+            add "&7%uncolored name of {_item2}% &7(&a%{_value2}%$&7)" to lore of slot 8 of {_player}'s current inventory
+            add 1 to {_counter2}
+
+    add "" to lore of slot 8 of {_player}'s current inventory
+    add "&eSell (Left Click)" to lore of slot 8 of {_player}'s current inventory
+
 on rightclick:
 
     if uncolored name of event-item is "Remote Menu":
@@ -652,6 +679,53 @@ on inventory click:
                 teleport player to location(-5, 7, -21, world "world", 0, 0)
             else if index of event-slot is 23:
                 teleport player to location(-141, 31, 62, world "world", 90, 0)
+    if uncolored name of player's current inventory contains "Item Buyer":
+        cancel event
+    
+        if event-inventory = (metadata tag "buyer" of player):
+        
+            if index of event-slot is not 8:
+
+                set {_item} to event-slot
+                set event-slot to air
+                give player {_item}
+
+                set {_counter} to 0
+                loop 7 times:
+                    if slot {_counter} of player's current inventory is not air:
+                        guiEditItemLore(player)
+                        set {_empty} to false
+                        stop loop
+                    add 1 to {_counter}
+                
+                if {_empty} is not false:
+                    clear lore of slot 8 of player's current inventory
+                    set lore of slot 8 of player's current inventory to "&7Currently no items, add", "&7items to sell them.", "" and "&cEmpty grid!"
+
+        else:
+
+            if event-slot is not air:
+
+                set {_item} to event-slot
+                set {_value} to getSellValue({_item})
+                if {_item} is set:
+                    
+                    set {_counter} to 0
+
+                    loop 8 times:
+
+                        if slot {_counter} of player's current inventory is air:
+
+                            set event-slot to air
+                            set slot {_counter} of player's current inventory to {_item}
+
+                            guiEditItemLore(player)
+
+                            stop loop
+                        else:
+                            add 1 to {_counter}
+
+
 
 on inventory close:
 
