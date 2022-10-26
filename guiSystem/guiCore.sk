@@ -246,9 +246,9 @@ function guiEditItemLore(player: player):
     set 4th line of lore of slot 8 of {_player}'s current inventory to "&7&nItems:"
 
     set {_counter2} to 0
-    loop 7 times:
+    loop 8 times:
         set {_item2} to slot {_counter2} of {_player}'s current inventory
-        set {_value2} to getSellValue({_item2})
+        set {_value2} to getSellValue({_item2}, item amount of {_item2})
         if {_value2} is set:
             add "&7%uncolored name of {_item2}% &7(&a%{_value2}%$&7)" to lore of slot 8 of {_player}'s current inventory
             add 1 to {_counter2}
@@ -691,7 +691,7 @@ on inventory click:
                 give player {_item}
 
                 set {_counter} to 0
-                loop 7 times:
+                loop 8 times:
                     if slot {_counter} of player's current inventory is not air:
                         guiEditItemLore(player)
                         set {_empty} to false
@@ -701,14 +701,33 @@ on inventory click:
                 if {_empty} is not false:
                     clear lore of slot 8 of player's current inventory
                     set lore of slot 8 of player's current inventory to "&7Currently no items, add", "&7items to sell them.", "" and "&cEmpty grid!"
+            else if index of event-slot is 8:
+
+                set {_counter} to 0
+                set {_value} to 0
+                loop 8 times:
+                    if slot {_counter} of player's current inventory is not air:
+                        add getSellValue(slot {_counter} of player's current inventory, item amount of slot {_counter} of player's current inventory) to {_value}
+                        set slot {_counter} of player's current inventory to air
+                        set {_empty} to false
+                    add 1 to {_counter}
+                
+                if {_empty} is false:
+
+                    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                    loop {_itemList::*}:
+                        if uncolored name of loop-value is "Emerald":
+                            set {_emerald} to loop-value
+
+                    give player {_value} of {_emerald}
 
         else:
 
             if event-slot is not air:
 
                 set {_item} to event-slot
-                set {_value} to getSellValue({_item})
-                if {_item} is set:
+                set {_value} to getSellValue({_item}, item amount of {_item})
+                if {_value} is set:
                     
                     set {_counter} to 0
 
@@ -738,3 +757,10 @@ on inventory close:
         loop 35 times:
             set {bank::%{_save}%::%{_slot}%::%player's uuid%} to slot {_slot} of player's current inventory
             add 1 to {_slot}
+    else if event-inventory = (metadata tag "buyer" of player): 
+
+        set {_counter} to 0
+        loop 8 times:
+            if slot {_counter} of player's current inventory is not air:
+                give player slot {_counter} of player's current inventory
+            add 1 to {_counter}

@@ -1,7 +1,12 @@
-function getSellValue(item: item) :: integer:
+function getSellValue(item: item, amount: number) :: number:
+
+    if {_amount} is not set:
+        set {_amount} to 1
 
     if uncolored name of {_item} is "Zombie Sword":
-        return 5
+        return 5 * {_amount}
+    else if uncolored name of {_item} is "Wheat":
+        return 10 * {_amount}
 
 command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
     permission: op
