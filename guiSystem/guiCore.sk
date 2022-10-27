@@ -250,11 +250,34 @@ function guiEditItemLore(player: player):
         set {_item2} to slot {_counter2} of {_player}'s current inventory
         set {_value2} to getSellValue({_item2}, item amount of {_item2})
         if {_value2} is set:
-            add "&7%uncolored name of {_item2}% &7(&a%{_value2}%$&7)" to lore of slot 8 of {_player}'s current inventory
-            add 1 to {_counter2}
+            if item amount of {_item2} is greater than 1:
+                if {_value2} > 0:
+                    add "&7%item amount of {_item2}%x %uncolored name of {_item2}% &7(&a%{_value2}%$&7)" to lore of slot 8 of {_player}'s current inventory
+                else:
+                    add "&7%item amount of {_item2}%x %uncolored name of {_item2}% &7(&cTRASH&7)" to lore of slot 8 of {_player}'s current inventory
+            else:
+                if {_value2} > 0:
+                    add "&7%uncolored name of {_item2}% &7(&a%{_value2}%$&7)" to lore of slot 8 of {_player}'s current inventory
+                else:
+                    add "&7%uncolored name of {_item2}% &7(&cTRASH&7)" to lore of slot 8 of {_player}'s current inventory
+        add 1 to {_counter2}
 
     add "" to lore of slot 8 of {_player}'s current inventory
     add "&eSell (Left Click)" to lore of slot 8 of {_player}'s current inventory
+
+function guiCheckItemLore(player: player):
+
+    set {_counter} to 0
+    loop 8 times:
+        if slot {_counter} of {_player}'s current inventory is not air:
+            guiEditItemLore({_player})
+            set {_empty} to false
+            stop loop
+        add 1 to {_counter}
+                
+    if {_empty} is not false:
+        clear lore of slot 8 of {_player}'s current inventory
+        set lore of slot 8 of {_player}'s current inventory to "&7Currently no items, add", "&7items to sell them.", "" and "&cEmpty grid!"
 
 on rightclick:
 
@@ -270,8 +293,9 @@ on rightclick:
             if {_borderIndex} is not 10, 13, 16, 19, 25, 28, 31, 34, 37, 39, 41 or 43:
                 set slot {_borderIndex} of metadata tag "menu" of player to black stained glass pane named "&8Border"
 
+            set {_next} to 25 * ({level::%player's uuid%} * {level::%player's uuid%}) + 175 * {level::%player's uuid%}
             if {_borderIndex} is 13:
-                set slot {_borderIndex} of metadata tag "menu" of player to ("%player%" parsed as offline player)'s head named "&aYour Stats" with lore "&7View your current stats and the", "&7experience you require to level up.", "", "&7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤", "&7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦", "", "&7Level: &3⚗%{level::%{_u}%}%" and coreGetLevelBar(player)
+                set slot {_borderIndex} of metadata tag "menu" of player to ("%player%" parsed as offline player)'s head named "&aYour Stats" with lore "&7View your current stats and the", "&7experience you require to level up.", "", "&7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤", "&7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦", "", "&3%{xp::%player's uuid%}%&7/&3%{_next}%", "&7Level: &3⚗%{level::%{_u}%}%" and coreGetLevelBar(player)
 
             if {_borderIndex} is 31:
                 set slot {_borderIndex} of metadata tag "menu" of player to diamond named "&aStore" with lore "&7The primary way to support the development", "&7of the server and the expantion of the game.", "" and "&eView (Left Click)"
@@ -690,17 +714,8 @@ on inventory click:
                 set event-slot to air
                 give player {_item}
 
-                set {_counter} to 0
-                loop 8 times:
-                    if slot {_counter} of player's current inventory is not air:
-                        guiEditItemLore(player)
-                        set {_empty} to false
-                        stop loop
-                    add 1 to {_counter}
-                
-                if {_empty} is not false:
-                    clear lore of slot 8 of player's current inventory
-                    set lore of slot 8 of player's current inventory to "&7Currently no items, add", "&7items to sell them.", "" and "&cEmpty grid!"
+                guiCheckItemLore(player)
+
             else if index of event-slot is 8:
 
                 set {_counter} to 0
@@ -719,6 +734,7 @@ on inventory click:
                         if uncolored name of loop-value is "Emerald":
                             set {_emerald} to loop-value
 
+                    guiCheckItemLore(player)
                     give player {_value} of {_emerald}
 
         else:

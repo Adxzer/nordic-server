@@ -3,10 +3,80 @@ function getSellValue(item: item, amount: number) :: number:
     if {_amount} is not set:
         set {_amount} to 1
 
-    if uncolored name of {_item} is "Zombie Sword":
-        return 5 * {_amount}
-    else if uncolored name of {_item} is "Wheat":
+    if uncolored name of {_item} is "Common Sword":
+        return 8 * {_amount}
+    else if uncolored name of {_item} is "Zombie Sword":
+        return 26 * {_amount}
+    else if uncolored name of {_item} is "Ghoul Sword":
+        return 52 * {_amount}
+    else if uncolored name of {_item} is "Crypto Sword":
+        return 98 * {_amount}
+    else if uncolored name of {_item} is "Beginners Hoe":
+        return 6 * {_amount}
+    else if uncolored name of {_item} is "Harvesting Hoe":
+        return 18 * {_amount}
+    else if uncolored name of {_item} is "Soiled Hoe":
+        return 34 * {_amount}
+    else if uncolored name of {_item} is "Skeleton Bow":
+        return 24 * {_amount}
+    else if uncolored name of {_item} is "Ghoul Bow":
+        return 67 * {_amount}
+    else if uncolored name of {_item} is "Wheat Cap":
+        return 6 * {_amount}
+    else if uncolored name of {_item} is "Wheat Tunic":
         return 10 * {_amount}
+    else if uncolored name of {_item} is "Wheat Pants":
+        return 8 * {_amount}
+    else if uncolored name of {_item} is "Wheat Boots":
+        return 4 * {_amount}
+    else if uncolored name of {_item} is "Ghoul Skull":
+        return 28 * {_amount}
+    else if uncolored name of {_item} is "Ghoul Chestplate":
+        return 34 * {_amount}
+    else if uncolored name of {_item} is "Ghoul Pants":
+        return 31 * {_amount}
+    else if uncolored name of {_item} is "Ghoul Boots":
+        return 25 * {_amount}
+    else if uncolored name of {_item} is "Crypto Helmet":
+        return 72 * {_amount}
+    else if uncolored name of {_item} is "Crypto Chestplate":
+        return 83 * {_amount}
+    else if uncolored name of {_item} is "Crypto Pants":
+        return 76 * {_amount}
+    else if uncolored name of {_item} is "Crypto Boots":
+        return 66 * {_amount}
+    else if uncolored name of {_item} is "Arrow":
+        return 0 * {_amount}
+    else if uncolored name of {_item} is "Bone":
+        return 0 * {_amount}
+    else if uncolored name of {_item} is "Egg":
+        return 8 * {_amount}
+    else if uncolored name of {_item} is "Feather":
+        return 0 * {_amount}
+    else if uncolored name of {_item} is "Gold Ingot":
+        return 13 * {_amount}
+    else if uncolored name of {_item} is "Leather":
+        return 0 * {_amount}
+    else if uncolored name of {_item} is "Platinum Teeth":
+        return 42 * {_amount}
+    else if uncolored name of {_item} is "Raw Beef":
+        return 0 * {_amount}
+    else if uncolored name of {_item} is "Raw Chicken":
+        return 0 * {_amount}
+    else if uncolored name of {_item} is "Raw Mutton":
+        return 0 * {_amount}
+    else if uncolored name of {_item} is "Rooted Heart":
+        return 87 * {_amount}
+    else if uncolored name of {_item} is "Rooted Skin":
+        return 32 * {_amount}
+    else if uncolored name of {_item} is "Rotten Flesh":
+        return 0 * {_amount}
+    else if uncolored name of {_item} is "Seeds":
+        return 0 * {_amount}
+    else if uncolored name of {_item} is "Wheat":
+        return 0 * {_amount}
+    else if uncolored name of {_item} is "Wool":
+        return 3 * {_amount}
 
 command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
     permission: op

@@ -26,23 +26,26 @@ on npc rightclick:
             questNew(player, {quests::animalFood::name})
         else if {quests::animalFood::interaction::%player's uuid%::6} is false:  
             send "%{quests::animalFood::dialouge::6}%"
-        else if {quests::animalFood::interaction::%player's uuid%::7} is false:  
-            send "%{quests::animalFood::dialouge::7}%"
-            set {quests::animalFood::interaction::%player's uuid%::7} to true
-            set {quests::animalFood::completed::%player's uuid%} to true
-            set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
-            loop {_itemList::*}:
-                if uncolored name of loop-value is "Beginners Hoe":
-                    set {_begginersHoe} to loop-value
-                else if uncolored name of loop-value is "Emerald":
-                    set {_emerald} to loop-value
-                else if uncolored name of loop-value is "Wheat":
-                    set {_wheat} to loop-value
-            remove 192 of {_wheat} from player
-            give player 15 of {_emerald}
-            give player {_begginersHoe}
-            wait 3 seconds
-            questComplete(player, ({quests::animalFood::name}, {quests::animalFood::reward}))
+        else if {quests::animalFood::interaction::%player's uuid%::7} is false: 
+            if player's inventory contains 192 of wheat: 
+                send "%{quests::animalFood::dialouge::7}%"
+                set {quests::animalFood::interaction::%player's uuid%::7} to true
+                set {quests::animalFood::completed::%player's uuid%} to true
+                set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                loop {_itemList::*}:
+                    if uncolored name of loop-value is "Beginners Hoe":
+                        set {_begginersHoe} to loop-value
+                    else if uncolored name of loop-value is "Emerald":
+                        set {_emerald} to loop-value
+                    else if uncolored name of loop-value is "Wheat":
+                        set {_wheat} to loop-value
+                remove 192 of {_wheat} from player
+                give player 15 of {_emerald}
+                give player {_begginersHoe}
+                wait 3 seconds
+                questComplete(player, ({quests::animalFood::name}, {quests::animalFood::reward}))
+            else:
+                send "&e[NPC] Eirik: &fThat is insufficient wheat; did you discard the wheat I instructed you to harvest?"
         else if {quests::animalFood::interaction::%player's uuid%::8} is false:  
             send "%{quests::animalFood::dialouge::8}%"
 

@@ -18,8 +18,8 @@ on damage:
         set {_damage} to 36 * {_critical}
 
     if {_name} is "Brown Mushroomite", "Red Mushroomite", "Jockey Skeleton", "Revenant Spider" or "Jockey Spider":
-        set {_final} to coreDamagePlayer(victim, {_damage})
-        add {_final} to damage
-
-
-        
+        if victim is not blocking:
+            set {_final} to coreDamagePlayer(victim, {_damage})
+            set damage to {_final}
+        else:
+            set damage to 0

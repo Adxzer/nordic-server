@@ -21,4 +21,7 @@ on load:
     set {_harvestingHoe} to stone hoe named "&fHarvesting Hoe" with lore "&7Harvesting Tool.", "", "&7Crops: &b+2", "&7Double Drop: &b5%%", "", "&cRequires Level &4⚗3", "&cto use this item.", "", "&f★★★★&8☆" and "&f&lNORMAL" with all flags hidden
     set {_soiledHoe} to iron hoe named "&aSoiled Hoe" with lore "&7Harvesting Tool.", "", "&7Crops: &b+3", "&7Double Drop: &b20%%", "", "&cRequires Level &4⚗7", "&cto use this item.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE" with all flags hidden
 
-    set {items::toolItems::*} to ({_prototypeHoe}, {_prototypeSword}, {_prototypeBow}, {_commonSword}, {_zombieSword}, {_ghoulSword}, {_cryptoSword}, {_mushrewSword}, {_skeletonBow}, {_ghoulBow}, {_beginnersHoe}, {_harvestingHoe}, {_soiledHoe})
+# Other
+    set {_shield} to shield named "&aShield" with lore "&7Defense Tool.", "" and "&a★&8☆☆☆☆"
+
+    set {items::toolItems::*} to ({_prototypeHoe}, {_prototypeSword}, {_prototypeBow}, {_commonSword}, {_zombieSword}, {_ghoulSword}, {_cryptoSword}, {_mushrewSword}, {_skeletonBow}, {_ghoulBow}, {_beginnersHoe}, {_harvestingHoe}, {_soiledHoe}, {_shield})

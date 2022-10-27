@@ -16,8 +16,8 @@ on damage:
         set {_damage} to 56 * {_critical}
 
     if {_name} is "Baby Piglin", "Zombified Piglin", "Wither Minion" or "Wither Skeleton":
-        set {_final} to coreDamagePlayer(victim, {_damage})
-        add {_final} to damage
-
-
-        
+        if victim is not blocking:
+            set {_final} to coreDamagePlayer(victim, {_damage})
+            set damage to {_final}
+        else:
+            set damage to 0

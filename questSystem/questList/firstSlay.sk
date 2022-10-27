@@ -33,8 +33,11 @@ on npc rightclick:
                     set {_commonSword} to loop-value
                 else if uncolored name of loop-value is "Emerald":
                     set {_emerald} to loop-value
+                else if uncolored name of loop-value is "Shield":
+                    set {_shield} to loop-value      
             give player 10 of {_emerald}
             give player {_commonSword}
+            give player {_shield}
             wait 3 seconds
             questComplete(player, ({quests::firstSlay::name}, {quests::firstSlay::reward}))
         else if {quests::firstSlay::interaction::%player's uuid%::7} is false:  

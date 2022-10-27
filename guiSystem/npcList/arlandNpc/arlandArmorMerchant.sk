@@ -1,0 +1,25 @@
+on npc rightclick:
+    
+    if npc id of target is 9:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Wheat Cap":
+                set {_wheatCap} to loop-value 
+            else if uncolored name of loop-value is "Wheat Tunic":
+                set {_wheatTunic} to loop-value 
+            else if uncolored name of loop-value is "Wheat Pants":
+                set {_wheatPants} to loop-value 
+            else if uncolored name of loop-value is "Wheat Boots":
+                set {_wheatBoots} to loop-value 
+            else if uncolored name of loop-value is "Crypto Helmet":
+                set {_cryptoHelmet} to loop-value 
+            else if uncolored name of loop-value is "Crypto Chestplate":
+                set {_cryptoChestplate} to loop-value 
+            else if uncolored name of loop-value is "Crypto Pants":
+                set {_cryptoPants} to loop-value 
+            else if uncolored name of loop-value is "Crypto Boots":
+                set {_cryptoBoots} to loop-value 
+
+        guiCreateMerchant(player, "&8Arland Armor Merchant", ({_wheatCap}, {_wheatTunic}, {_wheatPants}, {_wheatBoots}, air, {_cryptoHelmet}, {_cryptoChestplate}, {_cryptoPants}, {_cryptoBoots}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &716x Emerald:&8- &724x Wheat", "&8- &720x Emerald:&8- &728x Wheat", "&8- &718x Emerald:&8- &726x Wheat", "&8- &714x Emerald:&8- &722x Wheat", "", "&8- &73x Gemstone:&8- &71x Rooted Heart:&8- &71x Ghoul Skull", "&8- &75x Gemstone:&8- &71x Rooted Heart:&8- &71x Ghoul Chestplate", "&8- &74x Gemstone:&8- &71x Rooted Heart:&8- &71x Ghoul Pants", "&8- &72x Gemstone:&8- &71x Rooted Heart:&8- &71x Ghoul Boots"))

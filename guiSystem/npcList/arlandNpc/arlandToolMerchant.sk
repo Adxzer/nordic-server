@@ -5,13 +5,22 @@ on npc rightclick:
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
 
         loop {_itemList::*}:
-            if uncolored name of loop-value is "Prototype Drop":
-                set {_prototypeDrop} to loop-value
-            if uncolored name of loop-value is "Prototype Hoe":
-                set {_prototypeHoe} to loop-value     
-            if uncolored name of loop-value is "Prototype Boots":
-                set {_prototypeBoots} to loop-value            
-            if uncolored name of loop-value is "Prototype Cap":
-                set {_prototypeCap} to loop-value    
+            if uncolored name of loop-value is "Common Sword":
+                set {_commonSword} to loop-value 
+            else if uncolored name of loop-value is "Zombie Sword":
+                set {_zombieSword} to loop-value 
+            else if uncolored name of loop-value is "Ghoul Sword":
+                set {_ghoulSword} to loop-value 
+            else if uncolored name of loop-value is "Beginners Hoe":
+                set {_beginnersHoe} to loop-value 
+            else if uncolored name of loop-value is "Harvesting Hoe":
+                set {_harvestingHoe} to loop-value 
+            else if uncolored name of loop-value is "Soiled Hoe":
+                set {_soiledHoe} to loop-value
+            else if uncolored name of loop-value is "Skeleton Bow":
+                set {_skeletonBow} to loop-value
+            else if uncolored name of loop-value is "Ghoul Bow":
+                set {_ghoulBow} to loop-value
 
-        guiCreateMerchant(player, "&8Arland Tool Merchant", ({_prototypeDrop}, {_prototypeDrop}, {_prototypeHoe}), ("sell", "buy", "buy"), ("&8- &73x Emerald", "&8- &73x Emerald", "&8- &73x Emerald:&8- &71x Prototype Boots:&8- &71x Prototype Cap"))
+
+        guiCreateMerchant(player, "&8Arland Tool Merchant", ({_commonSword}, {_zombieSword}, {_ghoulSword}, {_beginnersHoe}, {_harvestingHoe}, {_soiledHoe}, {_skeletonBow}, {_ghoulBow}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &712x Emerald:&8- &716x Rotten Flesh", "&8- &748x Emerald:&8- &732x Rotten Flesh", "&8- &73x Gemstone:&8- &7128x Rotten Flesh:&8- &713x Gold Ingot", "&8- &718x Emerald:&8- &7128x Wheat", "&8- &736x Emerald:&8- &7324x Wheat", "&8- &72x Gemstone:&8- &7546x Wheat", "&8- &72x Gemstone:&8- &764x Bone", "&8- &75x Gemstone:&8- &7132x Bone"))
