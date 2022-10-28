@@ -438,9 +438,19 @@ on inventory click:
 
                         if {_itemThree} is not set:
                             set {_itemThree} to air
-                        
-                        remove {_item} from player
-                        give {_itemOne}, {_itemTwo} and {_itemThree} to player
+                            
+                        if {_itemOne} is not air:
+                            add 1 to {_saddles}
+                        if {_itemTwo} is not air:
+                            add 1 to {_saddles}
+                        if {_itemThree} is not air:
+                            add 1 to {_saddles}
+
+                        if player's inventory have space for {_saddles} of saddle:
+                            remove {_item} from player
+                            give {_itemOne}, {_itemTwo} and {_itemThree} to player
+                        else:
+                            send "&c[WARNING] » &fYou don't have any space in your inventory for that action."
                 else if uncolored {_type::1} is "Buy":
 
                     set {_size} to size of lore of event-item
@@ -504,8 +514,11 @@ on inventory click:
                                 set {_final} to false
 
                     if {_final} is true:
-                        remove {_itemOne}, {_itemTwo} and {_itemThree} from player
-                        give player {_item}
+                        if player's inventory have space for 1 saddle:
+                            remove {_itemOne}, {_itemTwo} and {_itemThree} from player
+                            give player {_item}
+                        else:
+                            send "&c[WARNING] » &fYou don't have any space in your inventory for that action."
             else if click type is right mouse button:
 
                 if max stack of event-item > 1:

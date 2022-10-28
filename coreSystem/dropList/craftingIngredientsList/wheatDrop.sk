@@ -26,6 +26,6 @@ on break:
 
             wheatDrop(player)
     
-            wait 15 seconds
+            wait 30 seconds
             set event-block to ripe wheat plant
 

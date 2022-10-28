@@ -65,8 +65,8 @@ on break:
                 set event-block to wheat item
 
                 set {_wheat} to wheatDrop(player)
-                add round({_wheat}) to {quests::animalFood::wheat::%player's uuid%}
+                add floor({_wheat}) to {quests::animalFood::wheat::%player's uuid%}
 
-                wait 15 seconds
+                wait 30 seconds
                 set event-block to ripe wheat plant
 
