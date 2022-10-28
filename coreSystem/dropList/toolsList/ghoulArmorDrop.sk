@@ -16,4 +16,5 @@ on death:
 
         set {_drop} to random element out of {_drop::*}
 
-        give attacker coreRandomNumber({_min}, {_max}, {_percentage}) of {_drop}
+        set {_amount} to coreRandomNumber({_min}, {_max}, {_percentage})
+        coreKillDrop(attacker, {_amount}, {_drop})

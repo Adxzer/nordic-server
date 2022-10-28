@@ -44,6 +44,7 @@ function guiCreateMerchant(player: player, name: string, items: itemtypes, type:
 
         add 1 to {_itemIndex}
 
+    questTalk({_player})
     open (metadata tag "merchant" of {_player}) to {_player}
 
 function guiMerchantOptions(player: player, name: string, item: item, type: string):
@@ -227,6 +228,7 @@ function guiCreateBank(player: player, name: string, number: integer):
                 set slot {_borderIndex} of metadata tag "bank" of {_player} to arrow named "&fPage %{_number} + 1%" with lore "&7Open the next page of", "&7your bank storage.", "" and "&eNext (Left Click)"
         add 1 to {_borderIndex}
 
+    questTalk({_player})
     open (metadata tag "bank" of {_player}) to {_player}
 
 function guiCreateItemBuyer(player: player, name: string):
@@ -236,6 +238,7 @@ function guiCreateItemBuyer(player: player, name: string):
     set metadata tag "buyer" of {_player} to chest with 1 row named "%{_name}%"
     set slot 8 of metadata tag "buyer" of {_player} to composter named "&fSell Items" with lore "&7Currently no items, add", "&7items to sell them.", "" and "&cEmpty grid!"
 
+    questTalk({_player})
     open (metadata tag "buyer" of {_player}) to {_player}
 
 function guiEditItemLore(player: player):
@@ -446,11 +449,12 @@ on inventory click:
                         if {_itemThree} is not air:
                             add 1 to {_saddles}
 
+                        remove {_item} from player
                         if player's inventory have space for {_saddles} of saddle:
-                            remove {_item} from player
                             give {_itemOne}, {_itemTwo} and {_itemThree} to player
                         else:
                             send "&c[WARNING] » &fYou don't have any space in your inventory for that action."
+                            give player {_item}
                 else if uncolored {_type::1} is "Buy":
 
                     set {_size} to size of lore of event-item
@@ -514,11 +518,12 @@ on inventory click:
                                 set {_final} to false
 
                     if {_final} is true:
+                        remove {_itemOne}, {_itemTwo} and {_itemThree} from player
                         if player's inventory have space for 1 saddle:
-                            remove {_itemOne}, {_itemTwo} and {_itemThree} from player
                             give player {_item}
                         else:
                             send "&c[WARNING] » &fYou don't have any space in your inventory for that action."
+                            give player {_itemOne}, {_itemTwo} and {_itemThree}
             else if click type is right mouse button:
 
                 if max stack of event-item > 1:
@@ -747,6 +752,7 @@ on inventory click:
                         if uncolored name of loop-value is "Emerald":
                             set {_emerald} to loop-value
 
+                    play sound "BLOCK_COMPOSTER_FILL_SUCCESS" at volume 0.2 to player
                     guiCheckItemLore(player)
                     give player {_value} of {_emerald}
 

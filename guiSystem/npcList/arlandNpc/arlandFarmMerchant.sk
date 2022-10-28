@@ -1,0 +1,18 @@
+on npc rightclick:
+    
+    if npc id of target is 11:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Beginners Hoe":
+                set {_beginnersHoe} to loop-value 
+            else if uncolored name of loop-value is "Harvesting Hoe":
+                set {_harvestingHoe} to loop-value 
+            else if uncolored name of loop-value is "Soiled Hoe":
+                set {_soiledHoe} to loop-value
+            else if uncolored name of loop-value is "Hay":
+                set {_hay} to loop-value
+
+
+        guiCreateMerchant(player, "&8Arland Farm Merchant", ({_beginnersHoe}, {_harvestingHoe}, {_soiledHoe}, {_hay}), ("buy", "buy", "buy", "buy"), ("&8- &718x Emerald:&8- &72x Hay", "&8- &736x Emerald:&8- &78x Hay", "&8- &72x Gemstone:&8- &716x Hay", "&8- &7248x Wheat"))

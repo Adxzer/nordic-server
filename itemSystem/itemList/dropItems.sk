@@ -22,6 +22,7 @@ on load:
     set {_feather} to feather named "&fFeather" with lore "&7Crafting Ingredient.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL"
     set {_bone} to bone named "&fBone" with lore "&7Crafting Ingredient.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL"
     set {_rootedSkin} to rabbit hide named "&aRooted Skin" with lore "&7Crafting Ingredient.", "", "&a★&8☆☆☆☆" and "&a&lUNIQUE"
+    set {_hay} to hay bale named "&aHay" with lore "&7Crafting Ingredient.", "", "&a★&8☆☆☆☆" and "&a&lUNIQUE"
 
     # 2 Star
     set {_potato} to potato named "&aPotato" with lore "&7Crafting Ingredient.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE"
@@ -35,4 +36,4 @@ on load:
 
 # Boss
 
-    set {items::dropItems::*} to ({_prototypeDrop}, {_rawBeef}, {_rawMutton}, {_rawChicken}, {_egg}, {_rottenFlesh}, {_arrow}, {_seeds}, {_wheat}, {_leather}, {_wool}, {_feather}, {_bone}, {_rootedSkin}, {_potato}, {_goldIngot}, {_rootedHeart}, {_platinumTeeth})
+    set {items::dropItems::*} to ({_prototypeDrop}, {_rawBeef}, {_rawMutton}, {_rawChicken}, {_egg}, {_rottenFlesh}, {_arrow}, {_seeds}, {_wheat}, {_leather}, {_wool}, {_feather}, {_bone}, {_rootedSkin}, {_hay}, {_potato}, {_goldIngot}, {_rootedHeart}, {_platinumTeeth})

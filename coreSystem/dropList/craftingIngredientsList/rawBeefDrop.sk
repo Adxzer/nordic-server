@@ -13,5 +13,6 @@ on death:
         loop {_itemList::*}:
             if uncolored name of loop-value is "Raw Beef":
                 set {_drop} to loop-value
-
-        give attacker coreRandomNumber({_min}, {_max}, {_percentage}) of {_drop}
+        
+        set {_amount} to coreRandomNumber({_min}, {_max}, {_percentage})
+        coreKillDrop(attacker, {_amount}, {_drop})

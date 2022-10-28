@@ -2,6 +2,8 @@ on npc rightclick:
     
     if npc id of target is 4:
 
+        questTalk(player)
+
         if {quests::animalFood::talked::%player's uuid%} is not true:
             set {quests::animalFood::interaction::%player's uuid%::*} to (false, false, false, false, false, false, false, false)
             set {quests::animalFood::wheat::%player's uuid%} to 0
@@ -51,7 +53,7 @@ on npc rightclick:
 
 on break:
 
-    if event-block is wheat plant:
+    if event-block is wheat[age=7]:
 
         if {quests::animalFood::interaction::%player's uuid%::6} is false:
 
@@ -67,6 +69,6 @@ on break:
                 set {_wheat} to wheatDrop(player)
                 add floor({_wheat}) to {quests::animalFood::wheat::%player's uuid%}
 
-                wait 30 seconds
+                wait 2 minutes
                 set event-block to ripe wheat plant
 

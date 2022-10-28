@@ -20,6 +20,7 @@ function coreCheckLevel(player: player):
     if {xp::%{_u}%} > {_next}:
         add 1 to {level::%{_u}%}
         set {xp::%{_u}%} to 0
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 0.2 to {_player}
         send "&3[LEVEL] » &fYou just leveled up to level &3%{level::%{_u}%}%&f and gained &c+2❤ &fand &6+1✦&f." to {_player}
 
 function coreAddXp(player: player, experience: number):
@@ -144,6 +145,16 @@ function coreRegenerateMana(player: player):
     else if {mana::currentMana::%{_u}%} > {mana::maxMana::%{_u}%}:
         set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
 
+function coreKillDrop(player: player, amount: number, drop: item):
+
+    if {_player}'s inventory have space for {_amount} of {_drop}:
+        give {_player} {_amount} of {_drop}
+    else:
+        set {actionBarSet::%{_u}%} to true
+        send action bar coreGetActionBar({_player}, "&cFull inventory!") to {_player}
+        coreEndActionBar({_player})
+        set {actionBarSet::%{_u}%} to true
+
 function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward: item, min: number, max: number, experience: number) :: number:
     
     set {_u} to uuid of {_player}
@@ -165,21 +176,37 @@ function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward:
 
             if {level::%{_u}%} >= {_level::2} parsed as integer:
                 set {_random} to random number between {_min} and {_max}
-                give {_player} {_random} of {_reward}
-                coreAddXp({_player}, {_experience})
-                coreCheckLevel({_player})
-                return {_random}
+                
+                if {_player}'s inventory have space for {_random} of {_reward}:
+                    give {_player} {_random} of {_reward}
+                    coreAddXp({_player}, {_experience})
+                    coreCheckLevel({_player})
+                    return {_random}
+                else:
+                    set {actionBarSet::%{_u}%} to true
+                    send action bar coreGetActionBar({_player}, "&cFull inventory!") to {_player}
+                    coreEndActionBar({_player})
+                    set {actionBarSet::%{_u}%} to true
 
             else:
                 set {actionBarSet::%{_u}%} to true
                 send action bar coreGetActionBar({_player}, "&cNot requried level!") to {_player}
                 coreEndActionBar({_player})
+                set {actionBarSet::%{_u}%} to false
     else:
         set {_random} to random number between {_min} and {_max}
-        give {_player} {_random} of {_reward}
-        coreAddXp({_player}, {_experience})
-        coreCheckLevel({_player})
-        return {_random}
+        
+        if {_player}'s inventory have space for {_random} of {_reward}:
+            give {_player} {_random} of {_reward}
+            coreAddXp({_player}, {_experience})
+            coreCheckLevel({_player})
+            return {_random}
+        else:
+            set {actionBarSet::%{_u}%} to true
+            send action bar coreGetActionBar({_player}, "&cFull inventory!") to {_player}
+            coreEndActionBar({_player})
+            set {actionBarSet::%{_u}%} to false
+
 
 function coreHarvestBoost(player: player, tool: item, allowed: itemtypes) :: number:
 

@@ -12,12 +12,12 @@ function wheatDrop(player: player) :: number:
         if uncolored name of loop-value is "Wheat":
             set {_drop} to loop-value
 
-    set {_return} to coreHarvestDrop({_player}, ({_player}'s tool), ({_items::*}), {_drop}, 1 + {_boost}, 3 + {_boost}, {_xp})
+    set {_return} to coreHarvestDrop({_player}, ({_player}'s tool), ({_items::*}), {_drop}, 1 + {_boost}, 2 + {_boost}, {_xp})
     return {_return}
 
 on break:
     
-    if event-block is wheat plant:
+    if event-block is wheat[age=7]:
 
         if {quests::animalFood::interaction::%player's uuid%::6} is not false:
 
@@ -25,7 +25,7 @@ on break:
             set event-block to wheat item
 
             wheatDrop(player)
-    
-            wait 30 seconds
+        
+            wait 2 minutes
             set event-block to ripe wheat plant
 

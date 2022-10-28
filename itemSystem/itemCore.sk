@@ -46,13 +46,13 @@ function getSellValue(item: item, amount: number) :: number:
     else if uncolored name of {_item} is "Crypto Boots":
         return 66 * {_amount}
     else if uncolored name of {_item} is "Arrow":
-        return 0 * {_amount}
+        return 1 * {_amount}
     else if uncolored name of {_item} is "Bone":
-        return 0 * {_amount}
+        return 1 * {_amount}
     else if uncolored name of {_item} is "Egg":
         return 8 * {_amount}
     else if uncolored name of {_item} is "Feather":
-        return 0 * {_amount}
+        return 1 * {_amount}
     else if uncolored name of {_item} is "Gold Ingot":
         return 13 * {_amount}
     else if uncolored name of {_item} is "Leather":
@@ -60,21 +60,23 @@ function getSellValue(item: item, amount: number) :: number:
     else if uncolored name of {_item} is "Platinum Teeth":
         return 42 * {_amount}
     else if uncolored name of {_item} is "Raw Beef":
-        return 0 * {_amount}
+        return 1 * {_amount}
     else if uncolored name of {_item} is "Raw Chicken":
-        return 0 * {_amount}
+        return 1 * {_amount}
     else if uncolored name of {_item} is "Raw Mutton":
-        return 0 * {_amount}
+        return 1 * {_amount}
     else if uncolored name of {_item} is "Rooted Heart":
         return 87 * {_amount}
     else if uncolored name of {_item} is "Rooted Skin":
         return 32 * {_amount}
     else if uncolored name of {_item} is "Rotten Flesh":
-        return 0 * {_amount}
+        return 1 * {_amount}
     else if uncolored name of {_item} is "Seeds":
         return 0 * {_amount}
     else if uncolored name of {_item} is "Wheat":
         return 0 * {_amount}
+    else if uncolored name of {_item} is "Hay":
+        return 2 * {_amount}
     else if uncolored name of {_item} is "Wool":
         return 3 * {_amount}
 

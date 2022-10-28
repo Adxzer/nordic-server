@@ -2,6 +2,8 @@ on npc rightclick:
     
     if npc id of target is 7:
 
+        questTalk(player)
+
         if {quests::mysteryItem::talked::%player's uuid%} is not true:
             set {quests::mysteryItem::interaction::%player's uuid%::*} to (false, false, false, false, false, false, false, false)
             set {quests::mysteryItem::talked::%player's uuid%} to true

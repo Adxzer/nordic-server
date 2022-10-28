@@ -2,6 +2,8 @@ on npc rightclick:
     
     if npc id of target is 6:
 
+        questTalk(player)
+
         if {quests::rootedChallenge::talked::%player's uuid%} is not true:
             set {quests::rootedChallenge::interaction::%player's uuid%::*} to (false, false, false, false, false, false, false, false)
             set {quests::rootedChallenge::talked::%player's uuid%} to true

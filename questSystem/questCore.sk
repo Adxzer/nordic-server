@@ -10,6 +10,16 @@ function questComplete(player: player, strings: strings):
     send "&a[QUEST] » &fYou have successfully completed the quest &a%{_strings::1}%&f. As a reward for completing the quest you gained %{_strings::2}%" to {_player}
     send "" to {_player}
 
+function questTalk(player: player):
+
+    set {_random} to random integer between 1 and 3
+    if {_random} is 1:
+        play sound "ENTITY_VILLAGER_AMBIENT" at volume 0.2 to {_player}
+    else if {_random} is 2:
+        play sound "ENTITY_VILLAGER_YES" at volume 0.2 to {_player}
+    else if {_random} is 3:
+        play sound "ENTITY_VILLAGER_TRADE" at volume 0.2 to {_player}
+
 function questBookGetQuest(player: player, quest: string) :: item:
 
     set {_u} to uuid of {_player}

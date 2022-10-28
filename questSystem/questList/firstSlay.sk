@@ -2,6 +2,8 @@ on npc rightclick:
     
     if npc id of target is 3:
 
+        questTalk(player)
+
         if {quests::firstSlay::talked::%player's uuid%} is not true:
             set {quests::firstSlay::interaction::%player's uuid%::*} to (false, false, false, false, false, false, false)
             set {quests::firstSlay::animals::%player's uuid%} to 0
