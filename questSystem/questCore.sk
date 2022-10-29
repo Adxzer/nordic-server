@@ -178,75 +178,77 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
      
                 if arg-2 is set:
 
-                    if arg-2 parsed as player is player:
+                    if arg-2 parsed as offline player is offline player:
 
-                        if arg-3 is set:
+                        set {_player} to arg-2 parsed as offline player
+                        set {_u} to uuid of {_player}
 
-                            set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem") # add new quests
+                        if {level::%{_u}%} is set:
 
-                            set {_player} to arg-2 parsed as player
-                            set {_uuid} to uuid of {_player}
+                            if arg-3 is set:
 
-                            if arg-3 is "clear":
-                                send "&a[QUEST] » &fYou cleared all of &a%arg-2%&f's quiz progress."
-                                loop {_quests::*}:
-                                    clear {quests::%loop-value%::talked::%{_uuid}%}
-                                    clear {quests::%loop-value%::completed::%{_uuid}%}
-                                    clear {quests::%loop-value%::interaction::%{_uuid}%::*} 
-                            else if arg-3 is "list":
-                                loop {_quests::*}:
-                                    if {quests::%loop-value%::completed::%{_uuid}%} is true:
-                                        set {_completed::%loop-value%} to "&f%loop-value% - &acompleted"
-                                    else:
-                                        set {_completed::%loop-value%} to "&f%loop-value% - &cnot completed"
-                                send "&a[QUEST] » &fShowing quest status for &a%arg-2%&f..."
-                                send "&a[QUEST] » &f%{_completed::firstSlay}%&f."
-                                send "&a[QUEST] » &f%{_completed::animalFood}%&f."
-                                send "&a[QUEST] » &f%{_completed::rootedChallenge}%&f."
-                                send "&a[QUEST] » &f%{_completed::mysteryItem}%&f."
-                                # add new quests
-                            else if arg-3 is "set":
+                                set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem") # add new quests
 
-                                if arg-4 is set:
-
+                                if arg-3 is "clear":
+                                    send "&a[QUEST] » &fYou cleared all of &a%arg-2%&f's quiz progress."
                                     loop {_quests::*}:
-                                        if arg-4 is loop-value:
-                                            set {_quest} to true
-                                            stop loop
+                                        clear {quests::%loop-value%::talked::%{_u}%}
+                                        clear {quests::%loop-value%::completed::%{_u}%}
+                                        clear {quests::%loop-value%::interaction::%{_u}%::*} 
+                                else if arg-3 is "list":
+                                    loop {_quests::*}:
+                                        if {quests::%loop-value%::completed::%{_u}%} is true:
+                                            set {_completed::%loop-value%} to "&f%loop-value% - &acompleted"
+                                        else:
+                                            set {_completed::%loop-value%} to "&f%loop-value% - &cnot completed"
+                                    send "&a[QUEST] » &fShowing quest status for &a%arg-2%&f..."
+                                    send "&a[QUEST] » &f%{_completed::firstSlay}%&f."
+                                    send "&a[QUEST] » &f%{_completed::animalFood}%&f."
+                                    send "&a[QUEST] » &f%{_completed::rootedChallenge}%&f."
+                                    send "&a[QUEST] » &f%{_completed::mysteryItem}%&f."
+                                    # add new quests
+                                else if arg-3 is "set":
 
-                                    if {_quest} is true:
+                                    if arg-4 is set:
 
-                                        if arg-5 is set:
+                                        loop {_quests::*}:
+                                            if arg-4 is loop-value:
+                                                set {_quest} to true
+                                                stop loop
 
-                                            set {_player} to arg-2 parsed as player
-                                            set {_uuid} to uuid of {_player}
+                                        if {_quest} is true:
 
-                                            if arg-5 is "true":
-                                                send "&a[QUEST] » &fYou magically finished the quest &a%arg-4% &ffor &a%arg-2%.&f"
-                                                set {quests::%arg-4%::interaction::%{_uuid}%::*} to (true, true, true, true, false)
-                                                set {quests::%arg-4%::talked::%{_uuid}%} to true
-                                                set {quests::%arg-4%::completed::%{_uuid}%} to true
-                                            else if arg-5 is "false":
-                                                send "&a[QUEST] » &fYou cleared the progress of quest &a%arg-4% &ffor &a%arg-2%.&f"
-                                                clear {quests::%arg-4%::talked::%{_uuid}%}
-                                                clear {quests::%arg-4%::completed::%{_uuid}%}
-                                                clear {quests::%arg-4%::interaction::%{_uuid}%::*}
+                                            if arg-5 is set:
+
+                                                if arg-5 is "true":
+                                                    send "&a[QUEST] » &fYou magically finished the quest &a%arg-4% &ffor &a%arg-2%.&f"
+                                                    set {quests::%arg-4%::interaction::%{_u}%::*} to (true, true, true, true, false)
+                                                    set {quests::%arg-4%::talked::%{_u}%} to true
+                                                    set {quests::%arg-4%::completed::%{_u}%} to true
+                                                else if arg-5 is "false":
+                                                    send "&a[QUEST] » &fYou cleared the progress of quest &a%arg-4% &ffor &a%arg-2%.&f"
+                                                    clear {quests::%arg-4%::talked::%{_u}%}
+                                                    clear {quests::%arg-4%::completed::%{_u}%}
+                                                    clear {quests::%arg-4%::interaction::%{_u}%::*}
+                                                else:
+                                                    send "&a[QUEST] » &cPlease specify true or false."
+
                                             else:
-                                                send "&a[QUEST] » &cPlease specify true or false."
+                                                send "&a[QUEST] » &cThis command option does not exist."
 
                                         else:
-                                            send "&a[QUEST] » &cThis command option does not exist."
+                                            send "&a[QUEST] » &cThis quest does not exist."
 
                                     else:
-                                        send "&a[QUEST] » &cThis quest does not exist."
-
+                                        send "&a[QUEST] » &cThis command option does not exist."
                                 else:
-                                    send "&a[QUEST] » &cThis command option does not exist."
+                                    send "&a[QUEST] » &cThis command option does not exist."  
+
                             else:
-                                send "&a[QUEST] » &cThis command option does not exist."  
+                                send "&a[QUEST] » &cPlease specify a command option."
 
                         else:
-                            send "&a[QUEST] » &cPlease specify a command option."
+                            send "&6[MANA] » &cThis player has never been on the server."
 
                     else:
                         send "&a[QUEST] » &cThis player does not exist."
@@ -268,12 +270,14 @@ on tab complete of "/quest":
         set tab completions for position 1 to {_tabCompletion::*}
 
     if tab arg-1 is "user":
+        clear {_tabCompletion::*}
         loop players:
-            clear {_tabCompletion::*}
             add loop-value to {_tabCompletion::*}
             set tab completions for position 2 to {_tabCompletion::*}
 
-    if tab arg-2 parsed as player is player:
+    set {_user} to tab arg-2 parsed as offline player
+    set {_u} to uuid of {_user}
+    if {level::%{_u}%} is set:
 
         if tab arg-3 is not "set" or "clear" or "list": # add new options 
             clear {_tabCompletion::*}

@@ -36,7 +36,8 @@ function guiCreateMerchant(player: player, name: string, items: itemtypes, type:
                 add "&eBuy (Left Click)" to lore of {_items::%{_currentIndex}%}
 
             if max stack size of {_items::%{_currentIndex}%} > 1:
-                add "&eOptions (Right Click)" to lore of {_items::%{_currentIndex}%}
+                if {_items::%{_currentIndex}%} is not player skull, zombie head or creeper head:
+                    add "&eOptions (Right Click)" to lore of {_items::%{_currentIndex}%}
 
             set slot {_itemIndex} of metadata tag "merchant" of {_player} to {_items::%{_currentIndex}%}
 
@@ -297,8 +298,24 @@ on rightclick:
                 set slot {_borderIndex} of metadata tag "menu" of player to black stained glass pane named "&8Border"
 
             set {_next} to 25 * ({level::%player's uuid%} * {level::%player's uuid%}) + 175 * {level::%player's uuid%}
+            set {_functionValue} to "%{xp::%player's uuid%}%/%{_next}%"
             if {_borderIndex} is 13:
-                set slot {_borderIndex} of metadata tag "menu" of player to ("%player%" parsed as offline player)'s head named "&aYour Stats" with lore "&7View your current stats and the", "&7experience you require to level up.", "", "&7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤", "&7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦", "", "&3%{xp::%player's uuid%}%&7/&3%{_next}%", "&7Level: &3⚗%{level::%{_u}%}%" and coreGetLevelBar(player)
+
+                set {_placeItem} to ("%player%" parsed as offline player)'s head named "&aYour Stats" with lore "&7View your current stats and the", "&7experience you require to level up.", "", "&7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤" and "&7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦" and ""
+                if {boost::luck::%{_u}%} or {boost::experience::%{_u}%} is greater than 0:
+
+                    add "&7Boost:" to lore of {_placeItem}
+                    if {boost::experience::%{_u}%} is greater than 0:
+                        add "&d» &7Experience (&d%round({boost::experience::%{_u}%} / 60)% min&7)" to lore of {_placeItem}
+                    if {boost::luck::%{_u}%} is greater than 0:
+                        add "&d» &7Luck (&d%round({boost::luck::%{_u}%} / 60)% min&7)" to lore of {_placeItem}
+                    add "" to lore of {_placeItem}
+
+                add "&7Level: &3⚗%{level::%{_u}%}%", coreReturnCharacterBar(player, {_functionValue}) and coreGetLevelBar(player) to lore of {_placeItem}
+
+                set slot {_borderIndex} of metadata tag "menu" of player to {_placeItem}
+
+
 
             if {_borderIndex} is 31:
                 set slot {_borderIndex} of metadata tag "menu" of player to diamond named "&aStore" with lore "&7The primary way to support the development", "&7of the server and the expantion of the game.", "" and "&eView (Left Click)"
@@ -563,9 +580,9 @@ on inventory click:
                     if loop-value contains "For":
                         set {_type::*} to split loop-value at " "
                         stop loop
-
+                
                 if uncolored {_type::1} is "Sell":      
-
+                    
                     if player's inventory contains {_item}:
                         set {_size} to size of lore of event-item
                         
@@ -599,9 +616,13 @@ on inventory click:
                             set {_itemThree} to air
 
                         remove {_item} from player
-                        give {_itemOne}, {_itemTwo} and {_itemThree} to player
+                        if player's inventory have space for {_saddles} of saddle:
+                            give {_itemOne}, {_itemTwo} and {_itemThree} to player
+                        else:
+                            send "&c[WARNING] » &fYou don't have any space in your inventory for that action."
+                            give player {_item}
                 else if uncolored {_type::1} is "Buy":
-
+                    
                     set {_size} to size of lore of event-item
                             
                     if max stack size of event-item > 1:
@@ -658,9 +679,12 @@ on inventory click:
                                 set {_final} to false
 
                     if {_final} is true:
-                        remove {_item} from player
                         remove {_itemOne}, {_itemTwo} and {_itemThree} from player
-                        give player {_item}
+                        if player's inventory have space for 1 saddle:
+                            give player {_item}
+                        else:
+                            send "&c[WARNING] » &fYou don't have any space in your inventory for that action."
+                            give player {_itemOne}, {_itemTwo} and {_itemThree}
     else if event-inventory = (metadata tag "menu" of player):
         cancel event
 

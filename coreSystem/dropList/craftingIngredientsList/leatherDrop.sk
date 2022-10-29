@@ -6,13 +6,13 @@ on death:
 
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
 
-        set {_percentage} to 45
+        set {_percentage} to 65
         set {_min} to 1
-        set {_max} to 2
+        set {_max} to 3
 
         loop {_itemList::*}:
             if uncolored name of loop-value is "Leather":
                 set {_drop} to loop-value
 
-        set {_amount} to coreRandomNumber({_min}, {_max}, {_percentage})
+        set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})
         coreKillDrop(attacker, {_amount}, {_drop})

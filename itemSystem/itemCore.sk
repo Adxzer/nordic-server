@@ -21,7 +21,7 @@ function getSellValue(item: item, amount: number) :: number:
         return 24 * {_amount}
     else if uncolored name of {_item} is "Ghoul Bow":
         return 67 * {_amount}
-    else if uncolored name of {_item} is "Wheat Cap":
+    else if uncolored name of {_item} is "Wheat Skull":
         return 6 * {_amount}
     else if uncolored name of {_item} is "Wheat Tunic":
         return 10 * {_amount}
@@ -37,7 +37,7 @@ function getSellValue(item: item, amount: number) :: number:
         return 31 * {_amount}
     else if uncolored name of {_item} is "Ghoul Boots":
         return 25 * {_amount}
-    else if uncolored name of {_item} is "Crypto Helmet":
+    else if uncolored name of {_item} is "Crypto Skull":
         return 72 * {_amount}
     else if uncolored name of {_item} is "Crypto Chestplate":
         return 83 * {_amount}
@@ -56,7 +56,9 @@ function getSellValue(item: item, amount: number) :: number:
     else if uncolored name of {_item} is "Gold Ingot":
         return 13 * {_amount}
     else if uncolored name of {_item} is "Leather":
-        return 0 * {_amount}
+        return 1 * {_amount}
+    else if uncolored name of {_item} is "Potato":
+        return 1 * {_amount}
     else if uncolored name of {_item} is "Platinum Teeth":
         return 42 * {_amount}
     else if uncolored name of {_item} is "Raw Beef":
@@ -91,42 +93,67 @@ command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
      
                 if arg-2 is set:
 
-                    if arg-2 parsed as player is player:
+                    if arg-2 parsed as offline player is offline player:
 
-                        if arg-3 is set:
+                        set {_player} to arg-2 parsed as offline player
+                        set {_u} to uuid of {_player}
 
-                            if arg-3 is "give" or "take":
+                        if {level::%{_u}%} is set:
 
-                                if arg-4 is set:
+                            if arg-3 is set:
 
-                                    if arg-4 is "economy" or "drop" or "tool" or "armor":
+                                if arg-3 is "give" or "take":
 
-                                        if arg-5 is set:
+                                    if arg-4 is set:
 
-                                            loop {items::%arg-4%Items::*}:
-                                                set {_split::*} to uncolored name of loop-value split at " "
-                                                if {_split::2} is set:
-                                                    set {_name} to "%{_split::1} in lower case%%{_split::2}%"
-                                                else:
-                                                    set {_name} to {_split::1} in lower case
-                                                if arg-5 is {_name}:
-                                                    set {_item} to true
-                                                    set {_give} to loop-value
-                                                    stop loop
+                                        if arg-4 is "economy" or "drop" or "tool" or "armor":
 
-                                            if {_item} is true:
+                                            if arg-5 is set:
 
-                                                set {_player} to arg-2 parsed as player
+                                                loop {items::%arg-4%Items::*}:
+                                                    set {_split::*} to uncolored name of loop-value split at " "
+                                                    if {_split::2} is set:
+                                                        set {_name} to "%{_split::1} in lower case%%{_split::2}%"
+                                                    else:
+                                                        set {_name} to {_split::1} in lower case
+                                                    if arg-5 is {_name}:
+                                                        set {_item} to true
+                                                        set {_give} to loop-value
+                                                        stop loop
 
-                                                if arg-6 is set:
+                                                if {_item} is true:
 
-                                                    set {_amount} to arg-6 parsed as integer
+                                                    if arg-6 is set:
 
-                                                    if arg-6 parsed as integer is integer:
+                                                        set {_amount} to arg-6 parsed as integer
+
+                                                        if arg-6 parsed as integer is integer:
+
+                                                            if arg-3 is "give":
+                                                                give {_player} {_amount} of {_give}
+                                                                send "&b[ITEM] » &fYou gave &b%arg-6%x %uncolored name of {_give}%&f to &b%arg-2%&f."
+                                                            else if arg-3 is "take":
+
+                                                                loop player's inventory:
+                                                                    if loop-value's type is {_give}'s type:
+                                                                        set {_contains} to true
+                                                                        stop loop
+
+                                                                if {_contains} is true:                            
+                                                                    remove {_amount} of {_give} from {_player} 
+                                                                    send "&b[ITEM] » &fYou took &b%arg-6%x %uncolored name of {_give}%&f from &b%arg-2%&f."
+
+                                                                else:
+                                                                    send "&b[ITEM] » &cThe player does not have this item."
+                                                                                                    
+                                                            else:
+                                                                send "&b[ITEM] » &cThis command option does not exist." 
+
+                                                    else if arg-6 is not set:
 
                                                         if arg-3 is "give":
-                                                            give {_player} {_amount} of {_give}
-                                                            send "&b[ITEM] » &fYou gave &b%arg-6%x %uncolored name of {_give}%&f to &b%arg-2%&f."
+                                                            give {_player} {_give}
+                                                            send "&b[ITEM] » &fYou gave &b1x %uncolored name of {_give}%&f to &b%arg-2%&f."
                                                         else if arg-3 is "take":
 
                                                             loop player's inventory:
@@ -135,57 +162,38 @@ command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
                                                                     stop loop
 
                                                             if {_contains} is true:                            
-                                                                remove {_amount} of {_give} from {_player} 
-                                                                send "&b[ITEM] » &fYou took &b%arg-6%x %uncolored name of {_give}%&f from &b%arg-2%&f."
+                                                                remove {_give} from {_player} 
+                                                                send "&b[ITEM] » &fYou took &b1x %uncolored name of {_give}%&f from &b%arg-2%&f."
 
                                                             else:
                                                                 send "&b[ITEM] » &cThe player does not have this item."
-                                                                                                   
+                                                                                                    
                                                         else:
-                                                            send "&b[ITEM] » &cThis command option does not exist." 
-
-                                                else if arg-6 is not set:
-
-                                                    if arg-3 is "give":
-                                                        give {_player} {_give}
-                                                        send "&b[ITEM] » &fYou gave &b1x %uncolored name of {_give}%&f to &b%arg-2%&f."
-                                                    else if arg-3 is "take":
-
-                                                        loop player's inventory:
-                                                            if loop-value's type is {_give}'s type:
-                                                                set {_contains} to true
-                                                                stop loop
-
-                                                        if {_contains} is true:                            
-                                                            remove {_give} from {_player} 
-                                                            send "&b[ITEM] » &fYou took &b1x %uncolored name of {_give}%&f from &b%arg-2%&f."
-
-                                                        else:
-                                                            send "&b[ITEM] » &cThe player does not have this item."
-                                                                                                   
+                                                            send "&b[ITEM] » &cThis command option does not exist."  
+                                                                
                                                     else:
-                                                        send "&b[ITEM] » &cThis command option does not exist."  
-                                                               
-                                                else:
-                                                    send "&b[ITEM] » &cThis command option does not exist."   
+                                                        send "&b[ITEM] » &cThis command option does not exist."   
 
+                                                else:
+                                                    send "&b[ITEM] » &cThis item does not exist."
+                                                    
                                             else:
-                                                send "&b[ITEM] » &cThis item does not exist."
-                                                
+                                                send "&b[ITEM] » &cPlease specify an item."
+
                                         else:
-                                            send "&b[ITEM] » &cPlease specify an item."
+                                            send "&b[ITEM] » &cThis command option does not exist."
 
                                     else:
-                                        send "&b[ITEM] » &cThis command option does not exist."
+                                        send "&b[ITEM] » &cPlease specify a command option."
 
                                 else:
-                                    send "&b[ITEM] » &cPlease specify a command option."
+                                    send "&b[ITEM] » &cThis command option does not exist."
 
                             else:
-                                send "&b[ITEM] » &cThis command option does not exist."
+                                send "&b[ITEM] » &cPlease specify a command option."
 
                         else:
-                            send "&b[ITEM] » &cPlease specify a command option."
+                            send "&b[ITEM] » &cThis player has never been on the server."
 
                     else:
                         send "&b[ITEM] » &cThis player does not exist."
@@ -207,12 +215,14 @@ on tab complete of "/item":
         set tab completions for position 1 to {_tabCompletion::*}
 
     if tab arg-1 is "user":
+        clear {_tabCompletion::*}
         loop players:
-            clear {_tabCompletion::*}
             add loop-value to {_tabCompletion::*}
             set tab completions for position 2 to {_tabCompletion::*}
 
-    if tab arg-2 parsed as player is player:
+    set {_user} to tab arg-2 parsed as offline player
+    set {_u} to uuid of {_user}
+    if {level::%{_u}%} is set:
 
         if tab arg-3 is not "give" or "take": # add new options 
             clear {_tabCompletion::*}

@@ -11,35 +11,40 @@ command /level [<text>] [<text>] [<text>] [<text>]:
 
                     if arg-2 parsed as offline player is offline player:
 
-                        if arg-3 is set:
+                        set {_player} to arg-2 parsed as offline player
+                        set {_u} to uuid of {_player}
 
-                            set {_player} to arg-2 parsed as player
-                            set {_u} to uuid of {_player}
+                        if {level::%{_u}%} is set:
 
-                            if arg-3 is "set":
+                            if arg-3 is set:
 
-                                if arg-4 is set:
+                                if arg-3 is "set":
 
-                                    set {_value} to arg-4 parsed as integer
+                                    if arg-4 is set:
 
-                                    if arg-4 parsed as integer is integer:
-                                        send "&3[LEVEL] » &fYou set &3%arg-2%&f's level to &3%arg-4%&f."
-                                        set {level::%player's uuid%} to {_value}
-                                        set {xp::%player's uuid%} to 0
+                                        set {_value} to arg-4 parsed as integer
+
+                                        if arg-4 parsed as integer is integer:
+                                            send "&3[LEVEL] » &fYou set &3%arg-2%&f's level to &3%arg-4%&f."
+                                            set {level::%{_u}%} to {_value}
+                                            set {xp::%{_u}%} to 0
+
+                                        else:
+                                            send "&3[LEVEL] » &cThis argument must be an integer."
 
                                     else:
-                                        send "&3[LEVEL] » &cThis argument must be an integer."
-
-                                else:
-                                    send "&3[LEVEL] » &cPlease specify an integer."
-                            else if arg-3 is "check":
-                                send "&3[LEVEL] » &fThe level of &3%arg-2%&f is &3%{level::%{_u}%}%&f."
+                                        send "&3[LEVEL] » &cPlease specify an integer."
+                                else if arg-3 is "check":
+                                    send "&3[LEVEL] » &fThe level of &3%arg-2%&f is &3%{level::%{_u}%}%&f."
                                 
+                                else:
+                                    send "&3[LEVEL] » &cThis command option does not exist."
+
                             else:
-                                send "&3[LEVEL] » &cThis command option does not exist."
+                                send "&3[LEVEL] » &cPlease specify a command option."
 
                         else:
-                            send "&3[LEVEL] » &cPlease specify a command option."
+                            send "&3[LEVEL] » &cThis player does not have a level set."
 
                     else:
                         send "&3[LEVEL] » &cThis player does not exist."
@@ -61,13 +66,14 @@ on tab complete of "/level":
         set tab completions for position 1 to {_tabCompletion::*}
 
     if tab arg-1 is "user":
+        clear {_tabCompletion::*}
         loop players:
-            clear {_tabCompletion::*}
             add loop-value to {_tabCompletion::*}
             set tab completions for position 2 to {_tabCompletion::*}
 
-    if tab arg-2 parsed as player is player:
-
+    set {_user} to tab arg-2 parsed as offline player
+    set {_u} to uuid of {_user}
+    if {level::%{_u}%} is set:
         if tab arg-3 is not "set" or "check": # add new options 
             clear {_tabCompletion::*}
             set {_tabCompletion::*} to ("set", "check") # add new options 

@@ -8,11 +8,11 @@ on death:
 
         set {_percentage} to 100
         set {_min} to 1
-        set {_max} to 3
+        set {_max} to 1
 
         loop {_itemList::*}:
             if uncolored name of loop-value is "Raw Beef":
                 set {_drop} to loop-value
         
-        set {_amount} to coreRandomNumber({_min}, {_max}, {_percentage})
+        set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})
         coreKillDrop(attacker, {_amount}, {_drop})

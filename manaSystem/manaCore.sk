@@ -9,65 +9,70 @@ command /mana [<text>] [<text>] [<text>] [<text>] [<text>]:
      
                 if arg-2 is set:
 
-                    if arg-2 parsed as player is player:
+                    if arg-2 parsed as offline player is offline player:
 
-                        if arg-3 is set:
+                        set {_player} to arg-2 parsed as offline player
+                        set {_u} to uuid of {_player}
 
-                            set {_player} to arg-2 parsed as player
-                            set {_u} to uuid of {_player}
+                        if {level::%{_u}%} is set:
 
-                            if arg-3 is "custom":
+                            if arg-3 is set:
 
-                                if arg-4 is set:
+                                if arg-3 is "custom":
 
-                                    if arg-4 is "set":
+                                    if arg-4 is set:
 
-                                        if arg-5 is set:
+                                        if arg-4 is "set":
 
-                                            set {_value} to arg-5 parsed as integer
+                                            if arg-5 is set:
 
-                                            if arg-5 parsed as integer is integer:
-                                                send "&6[MANA] » &fYou set &6%arg-2%&f's max mana to &6%arg-5%&f."
-                                                set {mana::maxMana::%{_u}%} to {_value}
-                                                set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
-                                                set {mana::customMana::%{_u}%} to {mana::maxMana::%{_u}%}
+                                                set {_value} to arg-5 parsed as integer
+
+                                                if arg-5 parsed as integer is integer:
+                                                    send "&6[MANA] » &fYou set &6%arg-2%&f's max mana to &6%arg-5%&f."
+                                                    set {mana::maxMana::%{_u}%} to {_value}
+                                                    set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
+                                                    set {mana::customMana::%{_u}%} to {mana::maxMana::%{_u}%}
+
+                                                else:
+                                                    send "&6[MANA] » &cThis argument must be an integer."
 
                                             else:
-                                                send "&6[MANA] » &cThis argument must be an integer."
+                                                send "&6[MANA] » &cPlease specify an integer."
+                                        else if arg-4 is "clear":
+                                            
+                                            if {mana::customMana::%{_u}%} is set:
+                                                send "&6[MANA] » &fYou cleared &6%arg-2%&f's custom mana&f."
+                                                clear {mana::customMana::%{_u}%}
+                                                set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
+
+                                            else:
+                                                send "&6[MANA] » &cThere is no custom mana for this player."                                            
+                                        else if arg-4 is "check":
+
+                                            if {mana::customMana::%{_u}%} is set:
+                                                send "&6[MANA] » &fThe custom mana of &c%arg-2%&f is &6%{mana::customMana::%{_u}%}%&f."
+                                            
+                                            else:
+                                                send "&6[MANA] » &cThere is no custom mana for this player."
 
                                         else:
-                                            send "&6[MANA] » &cPlease specify an integer."
-                                    else if arg-4 is "clear":
-                                        
-                                        if {mana::customMana::%{_u}%} is set:
-                                            send "&6[MANA] » &fYou cleared &6%arg-2%&f's custom mana&f."
-                                            clear {mana::customMana::%{_u}%}
-                                            set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
-
-                                        else:
-                                            send "&6[MANA] » &cThere is no custom mana for this player."                                            
-                                    else if arg-4 is "check":
-
-                                        if {mana::customMana::%{_u}%} is set:
-                                            send "&6[MANA] » &fThe custom mana of &c%arg-2%&f is &6%{mana::customMana::%{_u}%}%&f."
-                                        
-                                        else:
-                                            send "&6[MANA] » &cThere is no custom mana for this player."
+                                            send "&6[MANA] » &cThis command option does not exist."
 
                                     else:
                                         send "&6[MANA] » &cThis command option does not exist."
+                                else if arg-3 is "regen":
+                                    send "&6[MANA] » &fRegenerated &6%arg-2%&f's mana."
+                                    set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
 
                                 else:
                                     send "&6[MANA] » &cThis command option does not exist."
-                            else if arg-3 is "regen":
-                                send "&6[MANA] » &fRegenerated &6%arg-2%&f's mana."
-                                set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
 
                             else:
-                                send "&6[MANA] » &cThis command option does not exist."
+                                send "&6[MANA] » &cPlease specify a command option."
 
                         else:
-                            send "&6[MANA] » &cPlease specify a command option."
+                            send "&6[MANA] » &cThis player has never been on the server."
 
                     else:
                         send "&6[MANA] » &cThis player does not exist."
@@ -89,13 +94,15 @@ on tab complete of "/mana":
         set tab completions for position 1 to {_tabCompletion::*}
 
     if tab arg-1 is "user":
+        clear {_tabCompletion::*}
         loop players:
-            clear {_tabCompletion::*}
             add loop-value to {_tabCompletion::*}
             set tab completions for position 2 to {_tabCompletion::*}
 
-    if tab arg-2 parsed as player is player:
-
+    set {_user} to tab arg-2 parsed as offline player
+    set {_u} to uuid of {_user}
+    if {level::%{_u}%} is set:
+    
         if tab arg-3 is not "regen" or "custom": # add new options 
             clear {_tabCompletion::*}
             set {_tabCompletion::*} to ("regen", "custom") # add new options 

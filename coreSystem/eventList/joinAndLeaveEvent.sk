@@ -1,15 +1,21 @@
 on first join:
 
     set join message to "&a[FIRST JOIN] ☄ &fEveryone welcome &a%player%&f that just joined the server for the first time."
+    set {level::%player's uuid%} to 1
+    add 1 to {joins}
+    teleport player to location(-204, 4, 75, world "world", 90, 0)
 
 on join:
 
-    set join message to "&a[JOIN] + &fWelcome back to the server &a%player%&f."
+    if {level::%player's uuid%} is not set:
+        set {level::%player's uuid%} to 1
+
+    set join message to "&a[JOIN] + &fWelcome back to the server &a%player%&f. &7[&a#%{joins}%]&7"
     set {health::currentHearts::%player's uuid%} to {health::maxHearts::%player's uuid%}
     set {mana::currentMana::%player's uuid%} to {mana::maxMana::%player's uuid%}
     set {combat::%player's uuid%} to false
-    set slot 7 of player's inventory to book named "&aQuest Book" with lore "&7View all your active quests and", "&7how many you have left to finish.", "" and "&eView (Rigth Click)"
-    set slot 8 of player's inventory to nether star named "&aRemote Menu" with lore "&7A remote menu to access special", "&7features and view your current stats.", "" and "&eView (Rigth Click)"
+    set slot 7 of player's inventory to book named "&aQuest Book" with lore "&7View all your active quests and", "&7how many you have left to finish.", "" and "&eView (Left Click)"
+    set slot 8 of player's inventory to nether star named "&aRemote Menu" with lore "&7A remote menu to access special", "&7features and view your current stats.", "" and "&eLeft (Rigth Click)"
 
     while player is online:
 

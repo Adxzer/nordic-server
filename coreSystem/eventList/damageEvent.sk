@@ -4,45 +4,51 @@ on damage:
     
         cancel event
     
-    if attacker is player:
+    if victim is not a player:
 
-        set damage to 0
+        if attacker is not a player:
 
-        set {_damage} to coreDamageBoost(attacker, (attacker's tool))
-        set {_attackSpeed} to coreAttackSpeedBoost(attacker, (attacker's tool))
-        set {_criticalHit} to coreCriticalChance(attacker, (attacker's tool))
+            cancel event
 
-        if {_attackSpeed} is set:
-            set attacker's attack speed attribute to {_attackSpeed}
-
-        spawn armor stand at victim with nbt "{Invisible:1,NoGravity:1,Small:1,Pose:{Head:[45f,0f,0f]}}"
-
-        if {_damage} is not set:
-
-            if {ability::sight::status::%attacker's uuid%} is true:
-                add 1 to damage
-                set display name of last spawned armor stand to "&72" 
-            
-            else:
-                add 0.5 to damage
-                set display name of last spawned armor stand to "&71"
         else:
-        
-            if {ability::sight::status::%attacker's uuid%} is true:
-                set {_processedDamage} to {_damage} * 2
 
+            set damage to 0
+
+            set {_damage} to coreDamageBoost(attacker, (attacker's tool))
+            set {_attackSpeed} to coreAttackSpeedBoost(attacker, (attacker's tool))
+            set {_criticalHit} to coreCriticalChance(attacker, (attacker's tool))
+
+            if {_attackSpeed} is set:
+                set attacker's attack speed attribute to {_attackSpeed}
+
+            spawn armor stand at victim with nbt "{Invisible:1,NoGravity:1,Small:1,Pose:{Head:[45f,0f,0f]}}"
+
+            if {_damage} is not set:
+
+                if {ability::sight::status::%attacker's uuid%} is true:
+                    add 1 to damage
+                    set display name of last spawned armor stand to "&72" 
+                
+                else:
+                    add 0.5 to damage
+                    set display name of last spawned armor stand to "&71"
             else:
-                set {_processedDamage} to {_damage}
+            
+                if {ability::sight::status::%attacker's uuid%} is true:
+                    set {_processedDamage} to {_damage} * 2
 
-            if {_criticalHit} is true:
-                add {_processedDamage} to damage
-                set display name of last spawned armor stand to "&c%{_processedDamage} * 2%"
-            else:
-                add {_processedDamage} / 2 to damage
-                set display name of last spawned armor stand to "&7%{_processedDamage}%"
+                else:
+                    set {_processedDamage} to {_damage}
 
-        wait 1 second
-        kill all armor stands
+                if {_criticalHit} is true:
+                    add {_processedDamage} to damage
+                    set display name of last spawned armor stand to "&c%{_processedDamage} * 2%"
+                else:
+                    add {_processedDamage} / 2 to damage
+                    set display name of last spawned armor stand to "&7%{_processedDamage}%"
+
+            wait 1 second
+            kill all armor stands
 
     if {combat::%victim's uuid%} is true:
         stop trigger
@@ -51,4 +57,3 @@ on damage:
         set {combat::%victim's uuid%} to true
         wait 7 seconds
         set {combat::%victim's uuid%} to false
-

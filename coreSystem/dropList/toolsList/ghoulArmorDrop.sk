@@ -16,5 +16,8 @@ on death:
 
         set {_drop} to random element out of {_drop::*}
 
-        set {_amount} to coreRandomNumber({_min}, {_max}, {_percentage})
+        set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})
         coreKillDrop(attacker, {_amount}, {_drop})
+
+        if {_amount} is greater than 0:
+            send "&3[DROP] » &fYou just got a %uncolored name of {_drop}%! &7[&3%{_percentage}%%%&7]" to attacker

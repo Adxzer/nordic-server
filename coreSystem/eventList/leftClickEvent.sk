@@ -1,0 +1,7 @@
+on right click:
+
+    if player's tool is a egg:
+        cancel event
+    
+    if event-block is barrel:
+        cancel event

@@ -11,10 +11,12 @@ on npc rightclick:
                 set {_zombieSword} to loop-value 
             else if uncolored name of loop-value is "Ghoul Sword":
                 set {_ghoulSword} to loop-value 
+            else if uncolored name of loop-value is "Crypto Sword":
+                set {_cryptoSword} to loop-value 
             else if uncolored name of loop-value is "Skeleton Bow":
                 set {_skeletonBow} to loop-value
             else if uncolored name of loop-value is "Ghoul Bow":
                 set {_ghoulBow} to loop-value
 
 
-        guiCreateMerchant(player, "&8Arland Tool Merchant", ({_commonSword}, {_zombieSword}, {_ghoulSword}, {_skeletonBow}, {_ghoulBow}), ("buy", "buy", "buy", "buy", "buy"), ("&8- &712x Emerald:&8- &78x Rotten Flesh", "&8- &748x Emerald:&8- &724x Rotten Flesh", "&8- &73x Gemstone:&8- &764x Rotten Flesh:&8- &713x Gold Ingot", "&8- &72x Gemstone:&8- &764x Bone", "&8- &75x Gemstone:&8- &7132x Bone"))
+        guiCreateMerchant(player, "&8Arland Tool Merchant", ({_commonSword}, {_zombieSword}, {_ghoulSword}, {_cryptoSword}, {_skeletonBow}, {_ghoulBow}), ("buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &712x Emerald:&8- &78x Rotten Flesh", "&8- &748x Emerald:&8- &724x Rotten Flesh", "&8- &73x Gemstone:&8- &764x Rotten Flesh:&8- &732x Leather", "&8- &77x Gemstone:&8- &7128x Rotten Flesh:&8- &73x Platinum Teeth", "&8- &72x Gemstone:&8- &764x Bone", "&8- &75x Gemstone:&8- &7132x Bone"))

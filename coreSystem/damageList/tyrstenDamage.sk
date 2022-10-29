@@ -1,25 +1,33 @@
 on damage:
 
-    set {_name} to coreGetEntity(name of attacker)
-    set {_critical} to 1
+    if attacker is not a player:
 
-    chance of 10%:
-        set {_critical} to 2
+        if victim is not a player:
 
-    if {_name} is "Brown Mushroomite":
-        set {_damage} to 19 * {_critical}
-    else if {_name} is "Red Mushroomite":
-        set {_damage} to 19 * {_critical}
-    else if {_name} is "Jockey Skeleton":
-        set {_damage} to 26 * {_critical}
-    else if {_name} is "Revenant Spider":
-        set {_damage} to 31 * {_critical}
-    else if {_name} is "Jockey Spider":
-        set {_damage} to 36 * {_critical}
+            cancel event
 
-    if {_name} is "Brown Mushroomite", "Red Mushroomite", "Jockey Skeleton", "Revenant Spider" or "Jockey Spider":
-        if victim is not blocking:
-            set {_final} to coreDamagePlayer(victim, {_damage})
-            set damage to {_final}
         else:
-            set damage to 0
+        
+            set {_name} to coreGetEntity(name of attacker)
+            set {_critical} to 1
+
+            chance of 10%:
+                set {_critical} to 2
+
+            if {_name} is "Brown Mushroomite":
+                set {_damage} to 19 * {_critical}
+            else if {_name} is "Red Mushroomite":
+                set {_damage} to 19 * {_critical}
+            else if {_name} is "Jockey Skeleton":
+                set {_damage} to 26 * {_critical}
+            else if {_name} is "Revenant Spider":
+                set {_damage} to 31 * {_critical}
+            else if {_name} is "Jockey Spider":
+                set {_damage} to 36 * {_critical}
+
+            if {_name} is "Brown Mushroomite", "Red Mushroomite", "Jockey Skeleton", "Revenant Spider" or "Jockey Spider":
+                if victim is not blocking:
+                    set {_final} to coreDamagePlayer(victim, {_damage})
+                    set damage to {_final}
+                else:
+                    set damage to 0

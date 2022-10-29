@@ -7,12 +7,12 @@ on death:
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
 
         set {_percentage} to 100
-        set {_min} to 2
-        set {_max} to 4
+        set {_min} to 1
+        set {_max} to 2
 
         loop {_itemList::*}:
-            if uncolored name of loop-value is "Raw Chicken":
+            if uncolored name of loop-value is "Feather":
                 set {_drop} to loop-value
 
-        set {_amount} to coreRandomNumber({_min}, {_max}, {_percentage})
+        set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})
         coreKillDrop(attacker, {_amount}, {_drop})

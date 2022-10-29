@@ -1,0 +1,86 @@
+command /rank [<text>] [<text>] [<text>] [<text>]:
+    permission: op
+    permission message: Unknown command. Type "/help" for help.
+    trigger:
+
+        if arg-1 is set:
+
+            if arg-1 is "user":
+     
+                if arg-2 is set:
+
+                    if arg-2 parsed as offline player is offline player:
+
+                        set {_player} to arg-2 parsed as offline player
+                        set {_u} to uuid of {_player}
+
+                        if {level::%{_u}%} is set:
+
+                            if arg-3 is set:
+
+                                if arg-3 is "grant":
+
+                                    if arg-4 is set:
+
+                                        set {_ranks::*} to "default", "viking", "master" and "admin"
+                                        loop {_ranks::*}:
+                                            if arg-4 is loop-value:
+                                                set {_continue} to true
+                                                stop loop
+
+                                        if {_continue} is true:
+                                            send "&5[RANK] » &fYou set &5%arg-2%&f's rank to &5%arg-4%&f."
+                                            make console execute command "lp user %arg-2% parent set %arg-4%"
+
+                                        else:
+                                            send "&5[RANK] » &cThis argument must be an string."
+
+                                    else:
+                                        send "&5[RANK] » &cPlease specify a valid rank."
+
+                                else:
+                                    send "&5[RANK] » &cThis command option does not exist."
+
+                            else:
+                                send "&5[RANK] » &cPlease specify a command option."
+
+                        else:
+                            send "&5[MANA] » &cThis player has never been on the server."
+
+                    else:
+                        send "&5[RANK] » &cThis player does not exist."
+
+                else:
+                    send "&5[RANK] » &cPlease specify a player."  
+
+            else:
+                send "&5[RANK] » &cThis command option does not exist."
+
+        else:
+            send "&5[RANK] » &cPlease specify a command option."
+
+on tab complete of "/rank":
+
+    if tab arg-1 is not "user": # add new options  
+        clear {_tabCompletion::*}
+        set {_tabCompletion::*} to ("user") # add new options
+        set tab completions for position 1 to {_tabCompletion::*}
+
+    if tab arg-1 is "user":
+        clear {_tabCompletion::*}
+        loop players:
+            add loop-value to {_tabCompletion::*}
+            set tab completions for position 2 to {_tabCompletion::*}
+
+    set {_user} to tab arg-2 parsed as offline player
+    set {_u} to uuid of {_user}
+    if {level::%{_u}%} is set:
+
+        if tab arg-3 is not "grant": # add new options 
+            clear {_tabCompletion::*}
+            set {_tabCompletion::*} to ("grant") # add new options 
+            set tab completions for position 3 to {_tabCompletion::*}
+
+    if tab arg-3 is "grant":
+        set {_tabCompletion::*} to ("default", "viking", "master", "admin") # add new ranks 
+        set tab completions for position 4 to {_tabCompletion::*}

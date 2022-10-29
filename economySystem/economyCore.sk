@@ -9,94 +9,102 @@ command /economy [<text>] [<text>] [<text>] [<text>]:
      
                 if arg-2 is set:
 
-                    if arg-2 parsed as player is player:
+                    if arg-2 parsed as offline player is offline player:
 
-                        if arg-3 is set:
+                        set {_player} to arg-2 parsed as offline player
+                        set {_u} to uuid of {_player}
 
-                            if arg-3 is "add" or "remove":
+                        if {level::%{_u}%} is set:
 
-                                if arg-4 is set:
+                            if arg-3 is set:
 
-                                    if arg-4 parsed as integer is integer:
+                                if arg-3 is "add" or "remove":
 
-                                        set {_value} to arg-4 parsed as integer 
+                                    if arg-4 is set:
 
-                                        if {_value} <= 5000:
+                                        if arg-4 parsed as integer is integer:
 
-                                            set {_player} to arg-2 parsed as player
+                                            set {_value} to arg-4 parsed as integer 
 
-                                            while true:
-                                                if {_value} >= 64:
-                                                    add 1 to {_block}
-                                                    remove 64 from {_value}
-                                                else:
-                                                    stop loop
+                                            if {_value} <= 5000:
 
-                                            if arg-3 is "add":
-                                                give {_player} {_block} of {items::economyItems::2}
-                                                give {_player} {_value} of {items::economyItems::1}
-                                                if {_block} is not set:
-                                                    set {_block} to 0
-                                                send "&2[ECONOMY] » &fYou added &2%{_block}%x Gemstone&f and &2%{_value}%x Emerald&f to &2%arg-2%&f's balance."
-                                            else if arg-3 is "remove":
+                                                set {_player} to arg-2 parsed as player
 
-                                                if {_block} is not set:
-                                                    set {_block} to 0
-                                                
-                                                set {_containsBlock} to 0
-                                                set {_containsGem} to 0
+                                                while true:
+                                                    if {_value} >= 64:
+                                                        add 1 to {_block}
+                                                        remove 64 from {_value}
+                                                    else:
+                                                        stop loop
 
-                                                loop {_player}'s inventory:
-                                                    if loop-value's type is {items::economyItems::2}'s type:
-                                                        add item amount of loop-value to {_containsBlock}
-                                                    if loop-value's type is {items::economyItems::1}'s type:
-                                                        add item amount of loop-value to {_containsGem}
+                                                if arg-3 is "add":
+                                                    give {_player} {_block} of {items::economyItems::2}
+                                                    give {_player} {_value} of {items::economyItems::1}
+                                                    if {_block} is not set:
+                                                        set {_block} to 0
+                                                    send "&2[ECONOMY] » &fYou added &2%{_block}%x Gemstone&f and &2%{_value}%x Emerald&f to &2%arg-2%&f's balance."
+                                                else if arg-3 is "remove":
 
-                                                if {_containsBlock} >= {_block}:
-                                                        
-                                                    if {_containsGem} >= {_value}:
-                                                        remove {_block} of {items::economyItems::2} from {_player}
-                                                        remove {_value} of {items::economyItems::1} from {_player}
-                                                        send "&2[ECONOMY] » &fYou removed &2%{_block}%x Gemstone&f and &2%{_value}%x Emerald&f from &2%arg-2%&f's balance."
+                                                    if {_block} is not set:
+                                                        set {_block} to 0
+                                                    
+                                                    set {_containsBlock} to 0
+                                                    set {_containsGem} to 0
+
+                                                    loop {_player}'s inventory:
+                                                        if loop-value's type is {items::economyItems::2}'s type:
+                                                            add item amount of loop-value to {_containsBlock}
+                                                        if loop-value's type is {items::economyItems::1}'s type:
+                                                            add item amount of loop-value to {_containsGem}
+
+                                                    if {_containsBlock} >= {_block}:
+                                                            
+                                                        if {_containsGem} >= {_value}:
+                                                            remove {_block} of {items::economyItems::2} from {_player}
+                                                            remove {_value} of {items::economyItems::1} from {_player}
+                                                            send "&2[ECONOMY] » &fYou removed &2%{_block}%x Gemstone&f and &2%{_value}%x Emerald&f from &2%arg-2%&f's balance."
+
+                                                        else:
+                                                            send "&2[ECONOMY] » &cThe player does not have enough to complete this action."     
 
                                                     else:
-                                                        send "&2[ECONOMY] » &cThe player does not have enough to complete this action."     
+                                                        send "&2[ECONOMY] » &cThe player does not have enough to complete this action."                                    
 
                                                 else:
-                                                    send "&2[ECONOMY] » &cThe player does not have enough to complete this action."                                    
+                                                    send "&2[ECONOMY] » &cThis command option does not exist."
 
                                             else:
-                                                send "&2[ECONOMY] » &cThis command option does not exist."
+                                                send "&2[ECONOMY] » &cThis argument can not be more than 5000."
 
                                         else:
-                                            send "&2[ECONOMY] » &cThis argument can not be more than 5000."
+                                            send "&2[ECONOMY] » &cThis argument must be an integer."
 
                                     else:
-                                        send "&2[ECONOMY] » &cThis argument must be an integer."
+                                        send "&2[ECONOMY] » &cPlease specify an integer."
+                                else if arg-3 is "check":
+
+                                    set {_value} to 0
+
+                                    loop player's inventory:
+                                        if loop-value's type is {items::economyItems::2}'s type:
+                                            add item amount of loop-value to {_block}
+                                        if loop-value's type is {items::economyItems::1}'s type:
+                                            add item amount of loop-value to {_value}
+
+                                    if {_value} > 0:
+                                        send "&2[ECONOMY] » &fThe balance of &2%arg-2%&f's is &2%{_block}%x Gemstone&f and &2%{_value}%x Emerald&f."
+                                    
+                                    else:
+                                        send "&2[ECONOMY] » &cThe player does not have any balance in their inventory."
 
                                 else:
-                                    send "&2[ECONOMY] » &cPlease specify an integer."
-                            else if arg-3 is "check":
-
-                                set {_value} to 0
-
-                                loop player's inventory:
-                                    if loop-value's type is {items::economyItems::2}'s type:
-                                        add item amount of loop-value to {_block}
-                                    if loop-value's type is {items::economyItems::1}'s type:
-                                        add item amount of loop-value to {_value}
-
-                                if {_value} > 0:
-                                    send "&2[ECONOMY] » &fThe balance of &2%arg-2%&f's is &2%{_block}%x Gemstone&f and &2%{_value}%x Emerald&f."
-                                
-                                else:
-                                    send "&2[ECONOMY] » &cThe player does not have any balance in their inventory."
+                                    send "&2[ECONOMY] » &cThis command option does not exist."
 
                             else:
-                                send "&2[ECONOMY] » &cThis command option does not exist."
+                                send "&2[ECONOMY] » &cPlease specify a command option."
 
                         else:
-                            send "&2[ECONOMY] » &cPlease specify a command option."
+                            send "&6[MANA] » &cThis player has never been on the server."
 
                     else:
                         send "&2[ECONOMY] » &cThis player does not exist."
@@ -118,12 +126,14 @@ on tab complete of "/economy":
         set tab completions for position 1 to {_tabCompletion::*}
 
     if tab arg-1 is "user":
+        clear {_tabCompletion::*}
         loop players:
-            clear {_tabCompletion::*}
             add loop-value to {_tabCompletion::*}
             set tab completions for position 2 to {_tabCompletion::*}
 
-    if tab arg-2 parsed as player is player:
+    set {_user} to tab arg-2 parsed as offline player
+    set {_u} to uuid of {_user}
+    if {level::%{_u}%} is set:
 
         if tab arg-3 is not "add" or "remove" or "check": # add new options 
             clear {_tabCompletion::*}

@@ -9,7 +9,7 @@ on load:
 
 # Arland
 
-    set {_wheatCap} to leather cap named "&fWheat Cap" with lore "&7Defense Armor.", "", "&7Health: &2+2", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_wheatSkull} to player skull with nbt "{display:{Name:""Wheat""},SkullOwner:{Id:""9d4095f9-205d-4840-9963-9528957d60a0"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjg2YmFkYjBkOTEzYjM5MWZiNDhkNzc3NmMzNzhjYTNmNGIyZGJlNzI0NTM0MDM0ZjM1MGNjZDM4ZjkwNDQ3MyJ9fX0=""}]}}}" named "&fWheat Skull" with lore "&7Defense Armor.", "", "&7Health: &2+2", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
     set {_wheatTunic} to leather tunic named "&fWheat Tunic" with lore "&7Defense Armor.", "", "&7Health: &2+6", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
     set {_wheatPants} to leather pants named "&fWheat Pants" with lore "&7Defense Armor.", "", "&7Health: &2+4", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
     set {_wheatBoots} to leather boots named "&fWheat Boots" with lore "&7Defense Armor.", "", "&7Health: &2+3",  "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
@@ -19,19 +19,19 @@ on load:
     set {_ghoulPants} to leather pants named "&aGhoul Pants" with lore "&7Defense Armor.", "", "&7Health: &2+6", "", "&cRequires Level &4⚗5", "&cto use this item.", "", "&a★★★★&8☆" and "&a&lUNIQUE" with all flags hidden
     set {_ghoulBoots} to golden boots named "&aGhoul Boots" with lore "&7Defense Armor.", "", "&7Health: &2+5", "", "&cRequires Level &4⚗5", "&cto use this item.", "", "&a★★★★&8☆" and "&a&lUNIQUE" with all flags hidden
     
-    set {_cryptoHelmet} to diamond helmet named "&9Crypto Helmet" with lore "&7Defense Armor.", "", "&7Health: &2+7", "&7Mana: &2+1", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★&8☆☆☆☆" and "&9&lRARE" with all flags hidden
-    set {_cryptoChestplate} to chainmail chestplate named "&9Crypto Chestplate" with lore "&7Defense Armor.", "", "&7Health: &2+11", "&7Mana: &2+5", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★&8☆☆☆☆" and "&9&lRARE" with all flags hidden
+    set {_cryptoSkull} to player skull with nbt "{display:{Name:""Scourge Ghoul""},SkullOwner:{Id:""54f7ac65-d197-4760-9386-247397ccd07e"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjMxY2ZiZDY4OTllZWVjOTQ2NmYwMjZjYTg0NzgwN2ZiNjBlMjc2Y2JkMDFhY2Y5MTkyNWViNzkwMmI5YTYzMiJ9fX0=""}]}}}" named "&9Crypto Skull" with lore "&7Defense Armor.", "", "&7Health: &2+7", "&7Mana: &2+1", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★&8☆☆☆☆" and "&9&lRARE" with all flags hidden
+    set {_cryptoChestplate} to iron chestplate named "&9Crypto Chestplate" with lore "&7Defense Armor.", "", "&7Health: &2+11", "&7Mana: &2+5", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★&8☆☆☆☆" and "&9&lRARE" with all flags hidden
     set {_cryptoPants} to leather pants named "&9Crypto Pants" with lore "&7Defense Armor.", "", "&7Health: &2+9", "&7Mana: &2+3", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★&8☆☆☆☆" and "&9&lRARE" with all flags hidden
     set {_cryptoBoots} to diamond boots named "&9Crypto Boots" with lore "&7Defense Armor.", "", "&7Health: &2+8", "&7Mana: &2+2", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★&8☆☆☆☆" and "&9&lRARE" with all flags hidden
     
-    dye {_wheatCap} rgb(255, 239, 99)
     dye {_wheatTunic} rgb(255, 239, 99)
     dye {_wheatPants} rgb(255, 239, 99)
     dye {_wheatBoots} rgb(255, 239, 99)
     dye {_ghoulPants} rgb(55, 76, 183)
     dye {_cryptoPants} rgb(51, 70, 73)
 
-    set {items::armorItems::*} to ({_prototypeCap}, {_prototypeTunic}, {_prototypePants}, {_prototypeBoots}, {_wheatCap}, {_wheatTunic}, {_wheatPants}, {_wheatBoots}, {_ghoulSkull}, {_ghoulChestplate}, {_ghoulPants}, {_ghoulBoots}, {_cryptoHelmet}, {_cryptoChestplate}, {_cryptoPants}, {_cryptoBoots})
+    set {items::armorItems::*} to ({_prototypeCap}, {_prototypeTunic}, {_prototypePants}, {_prototypeBoots}, {_wheatSkull}, {_wheatTunic}, {_wheatPants}, {_wheatBoots}, {_ghoulSkull}, {_ghoulChestplate}, {_ghoulPants}, {_ghoulBoots}, {_cryptoSkull}, {_cryptoChestplate}, {_cryptoPants}, {_cryptoBoots})
 
     loop {items::armorItems::*}:
         add "{AttributeModifiers:[{Slot:""mainhand"", AttributeName:""generic.attack_damage"", Name:""generic.attack_damage"", Amount:20.0, Operation:0, UUID:[I; -192596, -61963, -161679, -10288428]}]}" to nbt of loop-value
+

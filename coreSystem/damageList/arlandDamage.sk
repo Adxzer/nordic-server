@@ -1,28 +1,35 @@
 on damage:
 
-    set {_name} to coreGetEntity(name of attacker)
-    set {_critical} to 1
+    if attacker is not a player:
 
-    chance of 10%:
-        set {_critical} to 2
+        if victim is not a player:
 
-    if {_name} is "Zombie":
-        set {_damage} to 3 * {_critical}
-    else if {_name} is "Skeleton":
-        set {_damage} to 2 * {_critical}
-    else if {_name} is "Zombie Ghoul":
-        set {_damage} to 6 * {_critical}
-    else if {_name} is "Skeleton Ghoul":
-        set {_damage} to 5 * {_critical}
-    else if {_name} is "Crypto Ghoul":
-        set {_damage} to 11 * {_critical}
-    else if {_name} is "Groot":
-        set {_damage} to 17 * {_critical}
+            cancel event
 
-    if {_name} is "Zombie", "Skeleton", "Zombie Ghoul", "Skeleton Ghoul", "Crypto Ghoul" or "Groot":
-        if victim is not blocking:
-            set {_final} to coreDamagePlayer(victim, {_damage})
-            set damage to {_final}
         else:
-            set damage to 0
-        
+
+            set {_name} to coreGetEntity(name of attacker)
+            set {_critical} to 1
+
+            chance of 10%:
+                set {_critical} to 2
+
+            if {_name} is "Zombie":
+                set {_damage} to 3 * {_critical}
+            else if {_name} is "Skeleton":
+                set {_damage} to 2 * {_critical}
+            else if {_name} is "Zombie Ghoul":
+                set {_damage} to 6 * {_critical}
+            else if {_name} is "Skeleton Ghoul":
+                set {_damage} to 5 * {_critical}
+            else if {_name} is "Crypto Ghoul":
+                set {_damage} to 11 * {_critical}
+            else if {_name} is "Groot":
+                set {_damage} to 17 * {_critical}
+
+            if {_name} is "Zombie", "Skeleton", "Zombie Ghoul", "Skeleton Ghoul", "Crypto Ghoul" or "Groot":
+                if victim is not blocking:
+                    set {_final} to coreDamagePlayer(victim, {_damage})
+                    set damage to {_final}
+                else:
+                    set damage to 0

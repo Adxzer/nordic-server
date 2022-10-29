@@ -1,0 +1,117 @@
+command /boost [<text>] [<text>] [<text>] [<text>] [<text>]:
+    permission: op
+    permission message: Unknown command. Type "/help" for help.
+    trigger:
+
+        if arg-1 is set:
+
+            if arg-1 is "user":
+     
+                if arg-2 is set:
+
+                    if arg-2 parsed as offline player is offline player:
+
+                        set {_player} to arg-2 parsed as offline player
+                        set {_u} to uuid of {_player}
+
+                        if {level::%{_u}%} is set:
+
+                            if arg-3 is set:
+
+                                if arg-3 is "add", "remove" or "check":
+
+                                    if arg-4 is set:
+
+                                        if arg-4 is "experience" or "luck":
+
+                                            if {boost::arg-4::%{_u}%} is not set:
+                                                set {boost::arg-4::%{_u}%} to 0
+
+                                            if arg-3 is "add" or "remove":
+                                            
+                                                if arg-5 is set:
+                                                
+                                                    set {_value} to arg-5 parsed as an integer * 60
+
+                                                    if arg-4 is "experience":
+                                                        add {_value} to {boost::experience::%{_u}%} 
+                                                        send "&d[BOOST] » &fYou have added &d%round({_value} / 60)% minutes&f to &d%{_player}%&f's &d%arg-4% boost." to player
+                                                    else if arg-4 is "luck":
+                                                        add {_value} to {boost::luck::%{_u}%}
+                                                        send "&d[BOOST] » &fYou have added &d%round({_value} / 60)% minutes&f to &d%{_player}%&f's &d%arg-4% boost." to player
+                                            
+                                            else if arg-3 is "check":
+                                                send "&d[BOOST] » &fThe current &d%arg-4%&f boost for &d%{_player}%&f is &d%round({boost::%arg-4%::%{_u}%} / 60)% minutes&f or &d%{boost::%arg-4%::%{_u}%}%&f seconds." to player
+                                            
+                                            else:
+                                                send "&d[BOOST] » &cPlease specify an integer."     
+                                        
+                                        else:
+                                            send "&d[BOOST] » &cThis command option does not exist."                 
+                                    
+                                    else:
+                                        send "&d[BOOST] » &cPlease specify a command option."                                
+                                
+                                else if arg-3 is "clear":
+                                    send "&d[BOOST] » &fYou have cleared &d%{_player}%&f's boosts." to player
+                                    clear {boost::luck::%{_u}%}
+                                    clear {boost::experience::%{_u}%}
+
+                                else:
+                                    send "&d[BOOST] » &cThis command option does not exist."
+
+                            else:
+                                send "&d[BOOST] » &cPlease specify a command option."
+
+                        else:
+                            send "&d[BOOST] » &cThis player has never been on the server."
+
+                    else:
+                        send "&d[BOOST] » &cThis player does not exist."
+
+                else:
+                    send "&d[BOOST] » &cPlease specify a player."  
+
+            else:
+                send "&d[BOOST] » &cThis command option does not exist."
+
+        else:
+            send "&d[BOOST] » &cPlease specify a command option."
+
+on tab complete of "/boost":
+
+    if tab arg-1 is not "user": # add new options  
+        clear {_tabCompletion::*}
+        set {_tabCompletion::*} to ("user") # add new options
+        set tab completions for position 1 to {_tabCompletion::*}
+
+    if tab arg-1 is "user":
+        clear {_tabCompletion::*}
+        loop players:
+            add loop-value to {_tabCompletion::*}
+            set tab completions for position 2 to {_tabCompletion::*}
+
+    set {_user} to tab arg-2 parsed as offline player
+    set {_u} to uuid of {_user}
+    if {level::%{_u}%} is set:
+
+        if tab arg-3 is not "clear", "add", "remove" or "check": # add new options 
+            clear {_tabCompletion::*}
+            set {_tabCompletion::*} to ("clear", "add", "remove" and "check") # add new options 
+            set tab completions for position 3 to {_tabCompletion::*}
+
+    if tab arg-3 is "remove", "add" or "check":
+        set {_tabCompletion::*} to ("experience", "luck") # add new boosts 
+        set tab completions for position 4 to {_tabCompletion::*}
+
+every 10 seconds:
+
+    loop all players:
+
+        set {_u} to uuid of loop-player
+        if {boost::luck::%{_u}%} or {boost::experience::%{_u}%} is greater than 0:
+
+            if {boost::luck::%{_u}%} is greater than 0:
+                remove 10 from {boost::luck::%{_u}%}
+            if {boost::experience::%{_u}%} is greater than 0:
+                remove 10 from {boost::experience::%{_u}%}

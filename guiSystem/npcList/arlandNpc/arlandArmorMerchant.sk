@@ -5,16 +5,24 @@ on npc rightclick:
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
 
         loop {_itemList::*}:
-            if uncolored name of loop-value is "Wheat Cap":
-                set {_wheatCap} to loop-value 
+            if uncolored name of loop-value is "Wheat Skull":
+                set {_wheatSkull} to loop-value 
             else if uncolored name of loop-value is "Wheat Tunic":
                 set {_wheatTunic} to loop-value 
             else if uncolored name of loop-value is "Wheat Pants":
                 set {_wheatPants} to loop-value 
             else if uncolored name of loop-value is "Wheat Boots":
                 set {_wheatBoots} to loop-value 
-            else if uncolored name of loop-value is "Crypto Helmet":
-                set {_cryptoHelmet} to loop-value 
+            else if uncolored name of loop-value is "Ghoul Skull":
+                set {_ghoulSkull} to loop-value 
+            else if uncolored name of loop-value is "Ghoul Chestplate":
+                set {_ghoulChestplate} to loop-value 
+            else if uncolored name of loop-value is "Ghoul Pants":
+                set {_ghoulPants} to loop-value 
+            else if uncolored name of loop-value is "Ghoul Boots":
+                set {_ghoulBoots} to loop-value 
+            else if uncolored name of loop-value is "Crypto Skull":
+                set {_cryptoSkull} to loop-value 
             else if uncolored name of loop-value is "Crypto Chestplate":
                 set {_cryptoChestplate} to loop-value 
             else if uncolored name of loop-value is "Crypto Pants":
@@ -22,4 +30,4 @@ on npc rightclick:
             else if uncolored name of loop-value is "Crypto Boots":
                 set {_cryptoBoots} to loop-value 
 
-        guiCreateMerchant(player, "&8Arland Armor Merchant", ({_wheatCap}, {_wheatTunic}, {_wheatPants}, {_wheatBoots}, air, {_cryptoHelmet}, {_cryptoChestplate}, {_cryptoPants}, {_cryptoBoots}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &716x Emerald:&8- &724x Wheat", "&8- &720x Emerald:&8- &728x Wheat", "&8- &718x Emerald:&8- &726x Wheat", "&8- &714x Emerald:&8- &722x Wheat", "", "&8- &73x Gemstone:&8- &71x Rooted Heart:&8- &71x Ghoul Skull", "&8- &75x Gemstone:&8- &71x Rooted Heart:&8- &71x Ghoul Chestplate", "&8- &74x Gemstone:&8- &71x Rooted Heart:&8- &71x Ghoul Pants", "&8- &72x Gemstone:&8- &71x Rooted Heart:&8- &71x Ghoul Boots"))
+        guiCreateMerchant(player, "&8Arland Armor Merchant", ({_wheatSkull}, {_wheatTunic}, {_wheatPants}, {_wheatBoots}, air, {_ghoulSkull}, {_ghoulChestplate}, {_ghoulPants}, {_ghoulBoots}, air, {_cryptoSkull}, {_cryptoChestplate}, {_cryptoPants}, {_cryptoBoots}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &716x Emerald:&8- &74x Hay", "&8- &720x Emerald:&8- &76x Hay", "&8- &718x Emerald:&8- &75x Hay", "&8- &714x Emerald:&8- &73x Hay", "", "&8- &742x Emerald:&8- &766x Rotten Flesh", "&8- &762x Emerald:&8- &786x Rotten Flesh", "&8- &754x Emerald:&8- &778x Rotten Flesh", "&8- &748x Emerald:&8- &772x Rotten Flesh", "", "&8- &73x Gemstone:&8- &71x Rooted Heart:&8- &71x Ghoul Skull", "&8- &75x Gemstone:&8- &71x Rooted Heart:&8- &71x Ghoul Chestplate", "&8- &74x Gemstone:&8- &71x Rooted Heart:&8- &71x Ghoul Pants", "&8- &72x Gemstone:&8- &71x Rooted Heart:&8- &71x Ghoul Boots"))

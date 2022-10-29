@@ -14,5 +14,5 @@ on death:
             if uncolored name of loop-value is "Golden Ingot":
                 set {_drop} to loop-value
 
-        set {_amount} to coreRandomNumber({_min}, {_max}, {_percentage})
+        set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})
         coreKillDrop(attacker, {_amount}, {_drop})

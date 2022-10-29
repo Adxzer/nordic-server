@@ -2,7 +2,15 @@ function coreRoundTo(n: number, to: number) :: number:
 
    return floor(({_n} * 10^{_to}) + 0.5) / 10^{_to}
 
-function coreRandomNumber(min: number, max: number, percentage: number) :: number:
+function coreRandomNumber(player: player, min: number, max: number, percentage: number) :: number:
+
+    set {_u} to uuid of {_player}
+
+    if {boost::luck::%{_u}%} is greater than 0:
+    
+        set {_percentage} to {_percentage} * 2
+        if {_percentage} is greater than 100:
+            set {_percentage} to 100
 
     set {_random} to random number between {_min} and {_max}
     set {_chance} to random number between 0.001 and 100.000
@@ -27,6 +35,9 @@ function coreAddXp(player: player, experience: number):
 
     set {_u} to uuid of {_player}
     set {_next} to 25 * ({level::%{_u}%} * {level::%{_u}%}) + 175 * {level::%{_u}%}
+
+    if {boost::experience::%{_u}%} is greater than 0:
+        set {_experience} to {_experience} * 2
 
     set {actionBarSet::%{_u}%} to true
     play sound "ENTITY_EXPERIENCE_ORB_PICKUP" with volume 0.2 to {_player}
@@ -59,6 +70,23 @@ function coreGetLevelBar(player: player) :: string:
             set {_bar} to "%{_bar}%&7▌"
     return {_bar}
 
+function coreReturnCharacterBar(player: player, bar: string) :: string:
+
+    set {_u} to uuid of {_player}
+    
+    set {_len} to length of {_bar}
+    set {_loopCounter} to 0
+    set {_returnChar} to ""
+    set {_formula} to 25 * ({level::%{_u}%} * {level::%{_u}%}) + 175 * {level::%{_u}%}
+
+    loop {_len} times:
+        if {xp::%{_u}%} >= ({_formula} / {_len}) * loop-number:
+            set {_returnChar} to "%{_returnChar}%&3%char at {_loopCounter} in {_bar}%"
+        else:
+            set {_returnChar} to "%{_returnChar}%&7%char at {_loopCounter} in {_bar}%"
+        add 1 to {_loopCounter}
+    return {_returnChar}
+
 function coreGetEntity(string: string) :: string:
     
     set {_entity::*} to split uncolored {_string} at "] "
@@ -87,10 +115,24 @@ function coreCheckRegion(player: player, pos1: location, pos2: location) :: bool
     else:
         return false
 
+function coreGetPlayerRegion(player: player) :: string:
+
+    if coreCheckRegion({_player}, location(-332, 21, -16, world "world"), location(-83, 76, 165, world "world")) or coreCheckRegion({_player}, location(-317, 0, 93, world "world"), location(-98, 60, 135, world "world")) is true:
+        return "dundret"     
+    else if coreCheckRegion({_player}, location(-166, 59, -75, world "world"), location(49, 0, -305, world "world")) is true:
+        return "tyrsten"
+    else if coreCheckRegion({_player}, location(98, 73, -140, world "world"), location(-116, 5, 142, world "world")) is true:
+        return "ostvik"           
+    else if coreCheckRegion({_player}, location(-332, 47, 100, world "world"), location(-134, 1, -164, world "world")) is true:
+        return "arland"
+
 function coreDamagePlayer(player: player, damage: number) :: number:
 
     set {_u} to uuid of {_player}
     remove {_damage} from {health::currentHearts::%{_u}%}
+
+    if {health::currentHearts::%{_u}%} is less than 0:
+        kill {_player}
 
     set {_return} to 10 * ({_damage} / {health::maxHearts::%{_u}%})
     return {_return}
@@ -153,6 +195,7 @@ function coreKillDrop(player: player, amount: number, drop: item):
         set {actionBarSet::%{_u}%} to true
         send action bar coreGetActionBar({_player}, "&cFull inventory!") to {_player}
         coreEndActionBar({_player})
+        coreCheckLevel({_player})
         set {actionBarSet::%{_u}%} to true
 
 function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward: item, min: number, max: number, experience: number) :: number:

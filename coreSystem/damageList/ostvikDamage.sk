@@ -1,23 +1,31 @@
 on damage:
 
-    set {_name} to coreGetEntity(name of attacker)
-    set {_critical} to 1
+    if attacker is not a player:
 
-    chance of 10%:
-        set {_critical} to 2
+        if victim is not a player:
 
-    if {_name} is "Baby Piglin":
-        set {_damage} to 34 * {_critical}
-    else if {_name} is "Zombified Piglin":
-        set {_damage} to 42 * {_critical}
-    else if {_name} is "Wither Minion":
-        set {_damage} to 48 * {_critical}
-    else if {_name} is "Wither Skeleton":
-        set {_damage} to 56 * {_critical}
+            cancel event
 
-    if {_name} is "Baby Piglin", "Zombified Piglin", "Wither Minion" or "Wither Skeleton":
-        if victim is not blocking:
-            set {_final} to coreDamagePlayer(victim, {_damage})
-            set damage to {_final}
         else:
-            set damage to 0
+        
+            set {_name} to coreGetEntity(name of attacker)
+            set {_critical} to 1
+
+            chance of 10%:
+                set {_critical} to 2
+
+            if {_name} is "Baby Piglin":
+                set {_damage} to 34 * {_critical}
+            else if {_name} is "Zombified Piglin":
+                set {_damage} to 42 * {_critical}
+            else if {_name} is "Wither Minion":
+                set {_damage} to 48 * {_critical}
+            else if {_name} is "Wither Skeleton":
+                set {_damage} to 56 * {_critical}
+
+            if {_name} is "Baby Piglin", "Zombified Piglin", "Wither Minion" or "Wither Skeleton":
+                if victim is not blocking:
+                    set {_final} to coreDamagePlayer(victim, {_damage})
+                    set damage to {_final}
+                else:
+                    set damage to 0
