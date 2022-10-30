@@ -1,5 +1,5 @@
 command /shout [<text>]:
-    permission: op
+    permission: skript.admin
     permission message: Unknown command. Type "/help" for help.
     trigger:
         if arg-1 is set:

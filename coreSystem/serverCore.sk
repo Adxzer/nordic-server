@@ -20,6 +20,23 @@ function coreRandomNumber(player: player, min: number, max: number, percentage: 
     else:
         return 0
 
+function coreReturnCharacterBar(player: player, bar: string) :: string:
+
+    set {_u} to uuid of {_player}
+    
+    set {_len} to length of {_bar}
+    set {_loopCounter} to 0
+    set {_returnChar} to ""
+    set {_formula} to 25 * ({level::%{_u}%} * {level::%{_u}%}) + 175 * {level::%{_u}%}
+
+    loop {_len} times:
+        if {xp::%{_u}%} >= ({_formula} / {_len}) * loop-number:
+            set {_returnChar} to "%{_returnChar}%&3%char at {_loopCounter} in {_bar}%"
+        else:
+            set {_returnChar} to "%{_returnChar}%&7%char at {_loopCounter} in {_bar}%"
+        add 1 to {_loopCounter}
+    return {_returnChar}
+
 function coreCheckLevel(player: player):
 
     set {_u} to uuid of {_player}
@@ -42,7 +59,8 @@ function coreAddXp(player: player, experience: number):
     set {actionBarSet::%{_u}%} to true
     play sound "ENTITY_EXPERIENCE_ORB_PICKUP" with volume 0.2 to {_player}
     add {_experience} to {xp::%{_u}%}
-    send action bar coreGetActionBar({_player}, "&3+%{_experience}% Experience (%coreRoundTo({xp::%{_u}%}, 1)%/%round({_next})%)") to {_player}
+    set {_add} to "+%{_experience}% Experience (%coreRoundTo({xp::%{_u}%}, 1)%/%round({_next})%)"
+    send action bar coreGetActionBar({_player}, coreReturnCharacterBar({_player}, {_add})) to {_player}
     wait 1 seconds
     set {actionBarSet::%{_u}%} to false
 
@@ -69,23 +87,6 @@ function coreGetLevelBar(player: player) :: string:
         else:
             set {_bar} to "%{_bar}%&7▌"
     return {_bar}
-
-function coreReturnCharacterBar(player: player, bar: string) :: string:
-
-    set {_u} to uuid of {_player}
-    
-    set {_len} to length of {_bar}
-    set {_loopCounter} to 0
-    set {_returnChar} to ""
-    set {_formula} to 25 * ({level::%{_u}%} * {level::%{_u}%}) + 175 * {level::%{_u}%}
-
-    loop {_len} times:
-        if {xp::%{_u}%} >= ({_formula} / {_len}) * loop-number:
-            set {_returnChar} to "%{_returnChar}%&3%char at {_loopCounter} in {_bar}%"
-        else:
-            set {_returnChar} to "%{_returnChar}%&7%char at {_loopCounter} in {_bar}%"
-        add 1 to {_loopCounter}
-    return {_returnChar}
 
 function coreGetEntity(string: string) :: string:
     
