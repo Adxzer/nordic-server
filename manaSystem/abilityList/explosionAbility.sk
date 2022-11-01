@@ -1,4 +1,4 @@
-function abilityExplosion(player: player, damage: integer) :: boolean:
+function abilityCheckExplosion(player: player, damage: integer) :: boolean:
 
     loop all entities in radius 5 of {_player}:
         if loop-value is not player:

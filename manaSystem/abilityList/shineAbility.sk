@@ -1,0 +1,28 @@
+
+function abilityCheckShine(player: player) :: boolean:
+
+    set {_u} to uuid of {_player}
+
+    if uncolored name of {_player}'s tool is not "Jockey Bow":
+        send action bar coreGetActionBar({_player}, "&cMust hold the Jockey Bow!") to {_player}
+        return false
+    else if {_player}'s inventory does not contain 3 of arrow:
+        send action bar coreGetActionBar({_player}, "&cNeed 3 arrows!") to {_player}
+        return false
+    else:
+        return true
+
+function abilityUseShine(player: player) :: boolean:
+
+    set {_u} to uuid of {_player}
+
+    set {ability::sight::status::%{_u}%} to true
+    loop 3 times:
+        wait 0.15 seconds
+        if uncolored name of {_player}'s tool is "Jockey Bow":
+            make {_player} shoot an arrow at speed 3
+            remove arrow from {_player}
+            play sound "ENTITY_ARROW_SHOOT" with volume 0.2 to {_player}
+        else:
+            stop loop
+    set {ability::sight::status::%{_u}%} to false

@@ -15,7 +15,7 @@ function abilityUse(player: player, ability: string, cooldown: integer, mana: in
 function abilityCheckOtherActive(player: player) :: boolean:
     
     set {_u} to uuid of {_player}
-    set {_list::*} to ("transmission", "explosion", "sight" and "restore")
+    set {_list::*} to ("transmission", "explosion", "sight", "shine" and "restore")
     
     loop {_list::*}:
 
@@ -67,17 +67,20 @@ on rightclick:
 
                         if {mana::currentMana::%player's uuid%} >= {_mana}:
                             if {_ability} is "Transmission":
-                                if abilityTransmission(player) is not false:
+                                if abilityCheckTransmission(player) is not false:
                                     abilityUse(player, {_ability}, {_cooldown}, {_mana})
+                                    abilityUseTransmission(player)
                             else if {_ability} is "Explosion":
-                                if abilityExplosion(player, {_damage}) is not false:
+                                if abilityCheckExplosion(player, {_damage}) is not false:
                                     abilityUse(player, {_ability}, {_cooldown}, {_mana})
                             else if {_ability} is "Sight":
-                                if abilitySight(player) is not false:
+                                if abilityCheckSight(player) is not false:
                                     abilityUse(player, {_ability}, {_cooldown}, {_mana})
+                                    abilityUseSight(player)
                             else if {_ability} is "Restore":
-                                if abilityRestore(player) is not false:
+                                if abilityCheckRestore(player) is not false:
                                     abilityUse(player, {_ability}, {_cooldown}, {_mana})
+                                    abilityUseRestore(player)
 
                         else:
                             set {actionBarSet::%{_u}%} to true
@@ -124,12 +127,24 @@ on leftclick:
                     stop trigger
 
                 else:
-                    if {mana::currentMana::%player's uuid%} >= {_mana}:
-                        broadcast "s"
 
+                    if abilityCheckOtherActive(player) is false:
+
+                        if {mana::currentMana::%player's uuid%} >= {_mana}:
+                            if {_ability} is "Shine":
+                                if abilityCheckShine(player) is not false:
+                                    abilityUse(player, {_ability}, {_cooldown}, {_mana})
+                                    abilityUseShine(player)
+
+                        else:
+                            set {actionBarSet::%{_u}%} to true
+                            send action bar coreGetActionBar(player, "&cNot enough mana!") to player
+                            wait 1 second
+                            set {actionBarSet::%{_u}%} to false
+                            stop trigger
                     else:
                         set {actionBarSet::%{_u}%} to true
-                        send action bar coreGetActionBar(player, "&cNot enough mana!") to player
+                        send action bar coreGetActionBar(player, "&cYou are already using one ability!") to player
                         wait 1 second
                         set {actionBarSet::%{_u}%} to false
                         stop trigger

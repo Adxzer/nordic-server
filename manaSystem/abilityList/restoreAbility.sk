@@ -1,4 +1,4 @@
-function abilityRestore(player: player) :: boolean:
+function abilityCheckRestore(player: player) :: boolean:
 
     set {_u} to uuid of {_player}
 
@@ -7,6 +7,12 @@ function abilityRestore(player: player) :: boolean:
         return false
     
     else:
-        play sound "ENTITY_WANDERING_TRADER_DRINK_POTION" with volume 0.2 to {_player}
-        set {health::currentHearts::%{_u}%} to {health::maxHearts::%{_u}%}
-        set {_player}'s health to 20
+        return true
+
+function abilityUseRestore(player: player):
+
+    set {_u} to uuid of {_player}
+
+    play sound "ENTITY_WANDERING_TRADER_DRINK_POTION" with volume 0.2 to {_player}
+    set {health::currentHearts::%{_u}%} to {health::maxHearts::%{_u}%}
+    set {_player}'s health to 20
