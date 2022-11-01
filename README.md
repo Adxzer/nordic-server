@@ -1,2 +1,2 @@
 # NordicRPG
-Official repository for the Minecraft server project named NordicRPG.
+Official repository for the Minecraft server project named NordicRPG. 
