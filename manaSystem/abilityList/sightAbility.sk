@@ -8,6 +8,7 @@ function abilitySight(player: player) :: boolean:
     
     else:
         play sound "ENTITY_SPLASH_POTION_BREAK" with volume 0.2 to {_player}
+        apply potion of night vision to {_player} for 20 seconds
         set {ability::sight::status::%{_u}%} to true
         wait 20 seconds
         set {ability::sight::status::%{_u}%} to false

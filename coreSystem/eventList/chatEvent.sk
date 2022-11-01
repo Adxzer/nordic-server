@@ -1,6 +1,6 @@
 on chat:
 
-    if {muteChat} is not true:
+    if {muteChat} is true:
 
         if player does not have permission "skript.mod" or "skript.admin":
             send "&4[STAFF] » &cThe chat is currently muted."

@@ -3,10 +3,30 @@ function abilityUse(player: player, ability: string, cooldown: integer, mana: in
     set {_u} to uuid of {_player}
 
     set {ability::%{_ability}%::%{_u}%} to true
+    set {actionBarSet::%{_u}%} to true
     send action bar coreGetActionBar({_player}, "&6You used %{_ability}%!") to {_player}
     remove {_mana} from {mana::currentMana::%{_u}%}
+    wait 1 second
+    set {actionBarSet::%{_u}%} to false
     wait "%{_cooldown}% seconds" parsed as timespan
     set {ability::%{_ability}%::%{_u}%} to false
+
+
+function abilityCheckOtherActive(player: player) :: boolean:
+    
+    set {_u} to uuid of {_player}
+    set {_list::*} to ("transmission", "explosion", "sight" and "restore")
+    
+    loop {_list::*}:
+
+        if {ability::%loop-value%::status::%{_u}%} is true:
+            set {_return} to true
+            stop loop
+        else:
+            set {_return} to false
+
+    return {_return}
+     
 
 on rightclick:
 
@@ -29,7 +49,7 @@ on rightclick:
                 set {_cooldownTemp::*} to split uncolored loop-value at ": "
                 set {_cooldown::*} to split {_cooldownTemp::2} at " "
                 set {_cooldown} to {_cooldown::1} parsed as an integer
-        
+                
         if {_ability} is set:
 
             if {_ability::2} is "Right Click)":
@@ -42,20 +62,34 @@ on rightclick:
                     stop trigger
 
                 else:
-                    if {mana::currentMana::%player's uuid%} >= {_mana}:
-                        if {_ability} is "Transmission":
-                            if abilityTransmission(player) is not false:
-                                abilityUse(player, {_ability}, {_cooldown}, {_mana})
-                        else if {_ability} is "Explosion":
-                            if abilityExplosion(player, {_damage}) is not false:
-                                abilityUse(player, {_ability}, {_cooldown}, {_mana})
-                        else if {_ability} is "Sight":
-                            if abilitySight(player) is not false:
-                                abilityUse(player, {_ability}, {_cooldown}, {_mana})
 
+                    if abilityCheckOtherActive(player) is false:
+
+                        if {mana::currentMana::%player's uuid%} >= {_mana}:
+                            if {_ability} is "Transmission":
+                                if abilityTransmission(player) is not false:
+                                    abilityUse(player, {_ability}, {_cooldown}, {_mana})
+                            else if {_ability} is "Explosion":
+                                if abilityExplosion(player, {_damage}) is not false:
+                                    abilityUse(player, {_ability}, {_cooldown}, {_mana})
+                            else if {_ability} is "Sight":
+                                if abilitySight(player) is not false:
+                                    abilityUse(player, {_ability}, {_cooldown}, {_mana})
+                            else if {_ability} is "Restore":
+                                if abilityRestore(player) is not false:
+                                    abilityUse(player, {_ability}, {_cooldown}, {_mana})
+
+                        else:
+                            set {actionBarSet::%{_u}%} to true
+                            send action bar coreGetActionBar(player, "&cNot enough mana!") to player
+                            wait 1 second
+                            set {actionBarSet::%{_u}%} to false
+                            stop trigger
+                        
                     else:
                         set {actionBarSet::%{_u}%} to true
-                        send action bar coreGetActionBar(player, "&cNot enough mana!") to player
+                        send action bar coreGetActionBar(player, "&cYou are already using one ability!") to player
+                        wait 1 second
                         set {actionBarSet::%{_u}%} to false
                         stop trigger
 
@@ -96,5 +130,6 @@ on leftclick:
                     else:
                         set {actionBarSet::%{_u}%} to true
                         send action bar coreGetActionBar(player, "&cNot enough mana!") to player
+                        wait 1 second
                         set {actionBarSet::%{_u}%} to false
                         stop trigger

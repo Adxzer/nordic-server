@@ -305,7 +305,7 @@ function coreDamageBoost(player: player, tool: item) :: number:
                 set {_damage::*} to split uncolored loop-value at "+"
             else if loop-value contains "Level":
                 set {_level::*} to split uncolored loop-value at "⚗"
-        
+
         if {level::%{_u}%} >= {_level::2} parsed as integer:
             return {_damage::2} parsed as integer
 

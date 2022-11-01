@@ -7,10 +7,13 @@ on load:
 
 # Swords
     set {_commonSword} to wooden sword named "&fCommon Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+4", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
-    set {_zombieSword} to stone sword named "&aZombie Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+6", "&7Attack Speed: &c+2", "", "&cRequires Level &4⚗3", "&cto use this item.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE" with all flags hidden
-    set {_ghoulSword} to golden sword named "&aGhoul Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+10", "&7Crit Chance: &c+10%%", "&7Attack Speed: &c+3", "", "&cRequires Level &4⚗5", "&cto use this item.", "", "&a★★★★★&8" and "&a&lUNIQUE" with all flags hidden
-    set {_cryptoSword} to diamond sword named "&9Crypto Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+17", "&7Crit Chance: &c+15%%", "&7Attack Speed: &c+3", "", "&eItem Ability: Explosion &8(Right Click)", "&7When right clicked, this item will deal a hit", "&7on all mobs within a range of 5 blocks.", "", "&7Mana Cost: &6✦15", "&7Cooldown: &630 seconds", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★★&8☆☆☆" and "&9&lRARE" with all flags hidden
-    set {_mushrewSword} to iron sword named "&9Mushrew Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+14", "&7Crit Chance: &c+20%%", "&7Attack Speed: &c+2", "", "&eItem Ability: Sight &8(Right Click)", "&7When right clicked, this item will double your", "&7damage for 20 seconds if it is night.", "", "&7Mana Cost: &6✦9", "&7Cooldown: &640 seconds", "", "&cRequires Level &4⚗12", "&cto use this item.", "", "&9★&8☆☆☆☆" and "&9&lRARE" with all flags hidden
+    set {_zombieSword} to stone sword named "&aZombie Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+6", "", "&cRequires Level &4⚗3", "&cto use this item.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE" with all flags hidden
+    set {_ghoulSword} to golden sword named "&aGhoul Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+10", "&7Crit Chance: &c+5%%",  "", "&cRequires Level &4⚗5", "&cto use this item.", "", "&a★★★★★&8" and "&a&lUNIQUE" with all flags hidden
+    set {_cryptoSword} to diamond sword named "&9Crypto Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+17", "&7Crit Chance: &c+10%%", "&7Attack Speed: &c+2", "", "&eItem Ability: Explosion &8(Right Click)", "&7When right clicked, this item will deal a hit", "&7on all mobs within a range of 5 blocks.", "", "&7Mana Cost: &6✦15", "&7Cooldown: &630 seconds", "", "&cRequires Level &4⚗8", "&cto use this item.", "", "&9★★&8☆☆☆" and "&9&lRARE" with all flags hidden
+
+    set {_prudentAxe} to iron axe named "&9Prudent Axe" with lore "&7Damaging Tool.", "", "&7Damage: &c+14", "&7Crit Chance: &c+10%%", "", "&cRequires Level &4⚗7", "&cto use this item.", "", "&9★&8☆☆☆☆" and "&9&lRARE" with all flags hidden
+    set {_mushrewAxe} to diamond axe named "&9Mushrew Axe" with lore "&7Damaging Tool.", "", "&7Damage: &c+19", "&7Crit Chance: &c+15%%", "&7Attack Speed: &c+2", "", "&eItem Ability: Sight &8(Right Click)", "&7When right clicked, this item will double your", "&7attack for 20 seconds if it's night.", "", "&7Mana Cost: &6✦9", "&7Cooldown: &640 seconds", "", "&cRequires Level &4⚗9", "&cto use this item.", "", "&9★★★&8☆☆" and "&9&lRARE" with all flags hidden
+    set {_curativeSword} to iron sword named "&5Curative Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+23", "&7Crit Chance: &c+20%%", "&7Attack Speed: &c+3", "", "&eItem Ability: Restore &8(Right Click)", "&7When right clicked, this item will restore your full", "&7health if you are above half health.", "", "&7Mana Cost: &6✦18", "&7Cooldown: &625 seconds", "", "&cRequires Level &4⚗12", "&cto use this item.", "", "&5★★&8☆☆☆" and "&5&lEPIC" with all flags hidden
 
 # Bows
     set {_skeletonBow} to bow named "&aSkeleton Bow" with lore "&7Archer Tool.", "", "&7Damage: &d+7", "", "&cRequires Level &4⚗3", "&cto use this item.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE" with all flags hidden
@@ -24,4 +27,4 @@ on load:
 # Other
     set {_shield} to shield named "&aShield" with lore "&7Defense Tool.", "" and "&a★&8☆☆☆☆"
 
-    set {items::toolItems::*} to ({_prototypeHoe}, {_prototypeSword}, {_prototypeBow}, {_commonSword}, {_zombieSword}, {_ghoulSword}, {_cryptoSword}, {_mushrewSword}, {_skeletonBow}, {_ghoulBow}, {_beginnersHoe}, {_harvestingHoe}, {_soiledHoe}, {_shield})
+    set {items::toolItems::*} to ({_prototypeHoe}, {_prototypeSword}, {_prototypeBow}, {_commonSword}, {_zombieSword}, {_ghoulSword}, {_cryptoSword}, {_prudentAxe}, {_mushrewAxe}, {_curativeSword}, {_skeletonBow}, {_ghoulBow}, {_beginnersHoe}, {_harvestingHoe}, {_soiledHoe}, {_shield})

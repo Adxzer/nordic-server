@@ -45,7 +45,7 @@ command /rank [<text>] [<text>] [<text>] [<text>]:
                                 send "&5[RANK] » &cPlease specify a command option."
 
                         else:
-                            send "&5[MANA] » &cThis player has never been on the server."
+                            send "&5[RANK] » &cThis player has never been on the server."
 
                     else:
                         send "&5[RANK] » &cThis player does not exist."

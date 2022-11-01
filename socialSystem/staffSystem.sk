@@ -49,6 +49,7 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                                                     set {mute::%{_player}'s uuid%} to true
                                                     send "&4[STAFF] » &fYou have muted &4%{_player}%&f."
                                                     send "&4[STAFF] » &fYou have been muted by a server moderator, to appeal your mute join our discord." to {_player}
+                                                
                                                 else:
                                                     send "&4[STAFF] » &cThis player is already muted."
 
@@ -58,6 +59,7 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                                                     set {mute::%{_player}'s uuid%} to false
                                                     send "&4[STAFF] » &fYou have unmuted &4%{_player}%&f."
                                                     send "&4[STAFF] » &fYou have been unmuted, you can now talk in the chat." to {_player}
+                                                
                                                 else:
                                                     send "&4[STAFF] » &cThis player is not muted"
 
@@ -78,11 +80,13 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                                             if arg-4 is "invsee":
                                                 send "&4[STAFF] » &fYou have opened &4%{_player}%&f's inventory."
                                                 open inventory of {_player} to player
+
                                             else if arg-4 is "ban":
                                             
                                                 if {_player} is not banned:
                                                     ban {_player} due to "Banned by server moderator, to appeal your mute join our discord."
                                                     send "&4[STAFF] » &fYou have banned &4%{_player}%&f."
+
                                                 else:
                                                     send "&4[STAFF] » &cThis player is already banned."
 
@@ -91,6 +95,7 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                                                 if {_player} is banned:
                                                     unban {_player}
                                                     send "&4[STAFF] » &fYou have unbanned &4%{_player}%&f."
+
                                                 else:
                                                     send "&4[STAFF] » &cThis player is not banned."
 
@@ -131,6 +136,7 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                         if {muteChat} is not true:
                             set {muteChat} to true
                             send "&4[STAFF] » &fThe chat was muted by &4%player%&f."
+
                         else:
                             send "&4[STAFF] » &cThe chat is already muted."
                     else if arg-2 is "unmute":
@@ -138,6 +144,7 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                         if {muteChat} is true:
                             set {muteChat} to false
                             send "&4[STAFF] » &fThe chat was unmuted by &4%player%&f."
+
                         else:
                             send "&4[STAFF] » &cThe chat is not muted."
 
@@ -152,14 +159,23 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                 if arg-2 is set:
 
                     if arg-2 is "true":
-                        hide player from all players
-                        set {vanish::%player's uuid%} to true
-                        send "&4[STAFF] » &fYou are now &4vanished&f."
+
+                        if {vanish::%player's uuid%} is not true:
+                            hide player from all players
+                            set {vanish::%player's uuid%} to true
+                            send "&4[STAFF] » &fYou are now &4vanished&f."
+
+                        else:
+                            send "&4[STAFF] » &cYou are already in vanish."
                     else if arg-2 is "false":
-                        reveal player from all players
-                        set {vanish::%player's uuid%} to false
-                        send "&4[STAFF] » &fYou left vanish and you are now &4revealed&f for other players."
-                
+
+                        if {vanish::%player's uuid%} is true:
+                            reveal player from all players
+                            set {vanish::%player's uuid%} to false
+                            send "&4[STAFF] » &fYou left vanish and you are now &4revealed&f for other players."
+                        else:
+                            send "&4[STAFF] » &cYou are not in vanish."
+
                     else:
                         send "&4[STAFF] » &cThis command option does not exist."
 

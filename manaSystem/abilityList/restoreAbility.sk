@@ -1,0 +1,12 @@
+function abilityRestore(player: player) :: boolean:
+
+    set {_u} to uuid of {_player}
+
+    if {health::currentHearts::%{_u}%} < {health::maxHearts::%{_u}%} / 2:
+        send action bar coreGetActionBar({_player}, "&cYou are not above half health!") to {_player}
+        return false
+    
+    else:
+        play sound "ENTITY_WANDERING_TRADER_DRINK_POTION" with volume 0.2 to {_player}
+        set {health::currentHearts::%{_u}%} to {health::maxHearts::%{_u}%}
+        set {_player}'s health to 20

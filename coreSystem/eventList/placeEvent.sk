@@ -1,2 +1,4 @@
 on place:
-    cancel event
+
+    if player does not have permission "op":
+        cancel event

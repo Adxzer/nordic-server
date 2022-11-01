@@ -104,7 +104,7 @@ command /economy [<text>] [<text>] [<text>] [<text>]:
                                 send "&2[ECONOMY] » &cPlease specify a command option."
 
                         else:
-                            send "&6[MANA] » &cThis player has never been on the server."
+                            send "&2[ECONOMY] » &cThis player has never been on the server."
 
                     else:
                         send "&2[ECONOMY] » &cThis player does not exist."

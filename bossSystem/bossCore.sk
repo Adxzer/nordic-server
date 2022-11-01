@@ -68,9 +68,14 @@ function bossCreateCore(player: player, name: string):
     set {_u} to uuid of {_player}
     set {_borderIndex} to 0
     set {_loopIndex} to 20
-    set {_bosses::*} to ("groot") 
+    set {_bosses::*} to ("groot", "chad") 
+
+    loop {_bosses::*}:
+        if {boss::%loop-value%::%{_u}%} is not set:
+            set {boss::%loop-value%::%{_u}%} to 0
 
     set {_gui::groot} to dead bush named "&aGroot Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the forest and the lightning.", "", "&7Defeated: &c%{boss::groot::%{_u}%}%", "" and "&eView (Left Click)"
+    set {_gui::chad} to red mushroom named "&aChad Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the mushroom forest.", "", "&7Defeated: &c%{boss::chad::%{_u}%}%", "" and "&eView (Left Click)"
     set {_gui::soon} to gray dye named "&fComing soon..." with lore "&7There are still more challenges and rewards" and "&7to come, stay tuned for future updates."
 
     loop 54 times:
@@ -85,10 +90,6 @@ function bossCreateCore(player: player, name: string):
             set slot {_borderIndex} of metadata tag "boss" of {_player} to barrier named "&cClose"
 
         add 1 to {_borderIndex}
-
-    loop {_bosses::*}:
-        if {boss::%loop-value%::%{_u}%} is not set:
-            set {boss::%loop-value%::%{_u}%} to 0
 
     loop 5 times:
 
@@ -109,7 +110,7 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
 
         if arg-1 is set:
 
-            if arg-1 is "groot": # add new options
+            if arg-1 is "groot" or "chad": # add new options
 
                 if arg-2 is set:
 
@@ -210,8 +211,8 @@ on inventory click:
 
         if index of event-slot is 20:
             bossCreateRewards(player, "&8Groot Rewards", ("1x Wheat:2x Emerald", "1x Carrot", "1x Carrot", "1x Carrot", "1x Carrot"), "groot", event-item)
-        # else if index of event-slot is 21:
-            # broadcast "pepe"
+        else if index of event-slot is 21:
+            bossCreateRewards(player, "&8Chad Rewards", ("1x Wheat:2x Emerald", "1x Carrot", "1x Carrot", "1x Carrot", "1x Carrot"), "chad", event-item)
         # else if index of event-slot is 22:
             # broadcast "pepe"
         # else if index of event-slot is 23:
@@ -259,15 +260,18 @@ on inventory click:
 
 on load: # add new options
     make console execute command "hd setline BossGrootCooldown 2 &7Fetching data from server..."
+    make console execute command "hd setline BossChadCooldown 2 &7Fetching data from server..."
     wait 2 seconds
     make console execute command "mm m kill BossGroot"
     make console execute command "mm spawners activate BossGrootSpawner"
+    make console execute command "mm m kill BossChad"
+    make console execute command "mm spawners activate BossChadSpawner"
 
 on tab complete of "/boss":
 
-    if tab arg-1 is not "groot": # add new options  
+    if tab arg-1 is not "groot" or "chad": # add new options  
         clear {_tabCompletion::*}
-        set {_tabCompletion::*} to ("groot") # add new options
+        set {_tabCompletion::*} to ("groot" and "chad") # add new options
         set tab completions for position 1 to {_tabCompletion::*}
 
     if tab arg-2 is not "user", "deactivate" or "activate": # add new options  

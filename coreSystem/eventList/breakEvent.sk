@@ -1,2 +1,4 @@
 on break:
-    cancel event
+
+    if player does not have permission "op":
+        cancel event
