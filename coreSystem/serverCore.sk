@@ -178,6 +178,15 @@ function coreRegenerateHealth(player: player):
         else if {health::currentHearts::%{_u}%} > {health::maxHearts::%{_u}%}:
             set {health::currentHearts::%{_u}%} to {health::maxHearts::%{_u}%}
 
+function coreUpdateHearts(player: player):
+
+    set {_u} to uuid of {_player}
+
+    set {_fraction} to {health::maxHearts::%{_u}%} / 10
+    set {_current} to {health::currentHearts::%{_u}%} / {_fraction}
+    
+    set health of {_player} to {_current}
+
 function coreRegenerateMana(player: player):
 
     set {_u} to uuid of {_player}

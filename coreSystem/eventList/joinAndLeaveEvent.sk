@@ -12,6 +12,8 @@ on join:
 
     if {vanish::%player's uuid%} is not true:
         set join message to "&a[JOIN] + &fWelcome back to the server &a%player%&f."
+    else:
+        set join message to ""
 
     set {health::currentHearts::%player's uuid%} to {health::maxHearts::%player's uuid%}
     set {mana::currentMana::%player's uuid%} to {mana::maxMana::%player's uuid%}
@@ -31,3 +33,5 @@ on leave:
 
     if {vanish::%player's uuid%} is not true:
         set leave message to "&c[LEAVE] - &fHope to see you soon &c%player%&f."
+    else:
+        set leave message to ""
