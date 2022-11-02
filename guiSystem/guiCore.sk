@@ -444,7 +444,7 @@ on inventory click:
                         set {_splitThree::*} to uncolored split {_checkLine3}th line of lore of event-item at "x "
                         set {_itemThreeList::*} to uncolored split {_splitThree::1} at " "
 
-                        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
                         loop {_itemList::*}:
                             if uncolored name of loop-value is {_splitOne::2}:
                                 set {_itemOne} to {_itemOneList::2} parsed as integer of loop-value
@@ -495,7 +495,7 @@ on inventory click:
                     set {_splitThree::*} to uncolored split {_checkLine3}th line of lore of event-item at "x "
                     set {_itemThreeList::*} to uncolored split {_splitThree::1} at " "
 
-                    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
                     loop {_itemList::*}:
                         if uncolored name of loop-value is {_splitOne::2}:
                             set {_itemOne} to {_itemOneList::2} parsed as integer of loop-value
@@ -600,7 +600,7 @@ on inventory click:
                         set {_splitThree::*} to uncolored split {_checkLine3}th line of lore of event-item at "x "
                         set {_itemThreeList::*} to uncolored split {_splitThree::1} at " "
 
-                        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
                         loop {_itemList::*}:
                             if uncolored name of loop-value is {_splitOne::2}:
                                 set {_itemOne} to {_itemOneList::2} parsed as integer of loop-value
@@ -639,7 +639,7 @@ on inventory click:
                     set {_splitThree::*} to uncolored split {_checkLine3}th line of lore of event-item at "x "
                     set {_itemThreeList::*} to uncolored split {_splitThree::1} at " "
 
-                    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
                     loop {_itemList::*}:
                         if uncolored name of loop-value is {_splitOne::2}:
                             set {_itemOne} to {_itemOneList::2} parsed as integer of loop-value
@@ -771,7 +771,7 @@ on inventory click:
                 
                 if {_empty} is false:
 
-                    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
                     loop {_itemList::*}:
                         if uncolored name of loop-value is "Emerald":
                             set {_emerald} to loop-value

@@ -106,7 +106,7 @@ command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                                     if arg-4 is set:
 
-                                        if arg-4 is "economy" or "drop" or "tool" or "armor":
+                                        if arg-4 is "economy", "drop", "tool", "consumable" or "armor":
 
                                             if arg-5 is set:
 
@@ -229,7 +229,7 @@ on tab complete of "/item":
             set {_tabCompletion::*} to ("give", "take") # add new options 
             set tab completions for position 3 to {_tabCompletion::*}
 
-    set {_categories::*} to ("economy", "drop", "tool", "armor") # add new categories 
+    set {_categories::*} to ("economy", "drop", "tool", "armor", "consumable") # add new categories 
     if tab arg-3 is "give" or "take":
         set tab completions for position 4 to {_categories::*} 
     loop {_categories::*}:

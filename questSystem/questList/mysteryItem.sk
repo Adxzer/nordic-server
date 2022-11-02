@@ -34,7 +34,7 @@ on npc rightclick:
                 send "%{quests::mysteryItem::dialouge::8}%"
                 set {quests::mysteryItem::interaction::%player's uuid%::8} to true
                 set {quests::mysteryItem::completed::%player's uuid%} to true
-                set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
                 loop {_itemList::*}:
                     if uncolored name of loop-value is "Gemstone":
                         set {_gemstone} to loop-value

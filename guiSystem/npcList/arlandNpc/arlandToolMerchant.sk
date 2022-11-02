@@ -2,7 +2,7 @@ on npc rightclick:
     
     if npc id of target is 1:
 
-        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 
         loop {_itemList::*}:
             if uncolored name of loop-value is "Common Sword":

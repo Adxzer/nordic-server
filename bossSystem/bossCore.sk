@@ -21,7 +21,7 @@ function bossCreateRewards(player: player, name: string, rewards: strings, boss:
 
     loop 5 times:
 
-        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 
         set {_items} to {_rewards::%loop-number%}
         set {_loopItem} to {_item}
@@ -236,7 +236,7 @@ on inventory click:
             set {_splitOne::*} to uncolored split {_splitOneFirst::2} at "x "
             set {_splitTwo::*} to uncolored split {_splitTwoFirst::2} at "x "
 
-            set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+            set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
             loop {_itemList::*}:
                 if uncolored name of loop-value is {_splitOne::2}:
                     set {_itemOne} to {_splitOne::1} parsed as integer of loop-value

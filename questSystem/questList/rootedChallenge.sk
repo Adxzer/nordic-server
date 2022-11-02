@@ -31,7 +31,7 @@ on npc rightclick:
                 send "%{quests::rootedChallenge::dialouge::7}%"
                 set {quests::rootedChallenge::interaction::%player's uuid%::7} to true
                 set {quests::rootedChallenge::completed::%player's uuid%} to true
-                set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+                set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
                 loop {_itemList::*}:
                     if uncolored name of loop-value is "Rooted Heart":
                         set {_rootedHeart} to loop-value

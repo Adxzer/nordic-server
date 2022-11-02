@@ -4,7 +4,7 @@ on death:
 
     if {_name} is "Cow", "Zombie" or "Zombie Ghoul":
 
-        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 
         set {_percentage} to 65
         set {_min} to 1

@@ -4,10 +4,14 @@ function abilityCheckShine(player: player) :: boolean:
     set {_u} to uuid of {_player}
 
     if uncolored name of {_player}'s tool is not "Jockey Bow":
+        set {actionBarSet::%{_u}%} to true
         send action bar coreGetActionBar({_player}, "&cMust hold the Jockey Bow!") to {_player}
+        coreEndActionBar({_player})
         return false
     else if {_player}'s inventory does not contain 3 of arrow:
+        set {actionBarSet::%{_u}%} to true
         send action bar coreGetActionBar({_player}, "&cNeed 3 arrows!") to {_player}
+        coreEndActionBar({_player})
         return false
     else:
         return true

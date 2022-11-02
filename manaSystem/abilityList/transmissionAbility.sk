@@ -1,7 +1,9 @@
 function abilityCheckTransmission(player: player) :: boolean:
 
     if block 7 in front of {_player} is not air:
+        set {actionBarSet::%{_u}%} to true
         send action bar coreGetActionBar({_player}, "&cThere are blocks in your way!") to {_player}
+        coreEndActionBar({_player})
         return false
         
     else:

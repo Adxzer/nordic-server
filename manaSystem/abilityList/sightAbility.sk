@@ -1,7 +1,9 @@
 function abilityCheckSight(player: player) :: boolean:
 
     if time in "world" is not night:
+        set {actionBarSet::%{_u}%} to true
         send action bar coreGetActionBar({_player}, "&cIt is not currently night!") to {_player}
+        coreEndActionBar({_player})
         return false
     
     else:

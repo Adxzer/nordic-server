@@ -1,5 +1,5 @@
 function wheatDrop(player: player) :: number:
-    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 
     loop {_itemList::*}:
         if uncolored name of loop-value contains "Hoe":

@@ -29,7 +29,7 @@ on npc rightclick:
             send "%{quests::firstSlay::dialouge::6}%"
             set {quests::firstSlay::interaction::%player's uuid%::6} to true
             set {quests::firstSlay::completed::%player's uuid%} to true
-            set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*})
+            set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
             loop {_itemList::*}:
                 if uncolored name of loop-value is "Common Sword":
                     set {_commonSword} to loop-value

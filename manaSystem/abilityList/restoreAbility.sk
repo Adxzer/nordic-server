@@ -3,7 +3,9 @@ function abilityCheckRestore(player: player) :: boolean:
     set {_u} to uuid of {_player}
 
     if {health::currentHearts::%{_u}%} < {health::maxHearts::%{_u}%} / 2:
+        set {actionBarSet::%{_u}%} to true
         send action bar coreGetActionBar({_player}, "&cYou are not above half health!") to {_player}
+        coreEndActionBar({_player})
         return false
     
     else:
