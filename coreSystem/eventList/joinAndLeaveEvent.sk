@@ -16,10 +16,6 @@ on join:
     else:
         set join message to ""
 
-    if {music::enabled::%player's uuid%} is not false:
-        set {music::enabled::%player's uuid%} to true
-        coreManageMusic(player)
-
     set {health::currentHearts::%player's uuid%} to {health::maxHearts::%player's uuid%}
     set {mana::currentMana::%player's uuid%} to {mana::maxMana::%player's uuid%}
     set {combat::%player's uuid%} to false
