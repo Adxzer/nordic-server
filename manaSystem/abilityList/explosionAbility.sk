@@ -5,4 +5,5 @@ function abilityCheckExplosion(player: player, damage: integer) :: boolean:
             make {_player} damage loop-value by 0
 
     play sound "ENTITY_GENERIC_EXPLODE" with volume 0.2 at {_player}'s location
+    draw 1 of explosion at {_player}'s location
     return true

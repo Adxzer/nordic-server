@@ -1,0 +1,8 @@
+on respawn:
+
+    loop player's inventory:
+        if uncolored name of loop-value is "Emerald":
+            add item amount of loop-value to {_value}
+    if {_value} is greater than 20:
+        remove ({_value} / 3) of emerald from player
+        send "&c[DEATH] » &fYou died and lost &c%floor({_value} / 3)%x Gems&f." to player

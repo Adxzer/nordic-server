@@ -14,9 +14,3 @@ on death:
         teleport victim to location(-5, 7, -21, world "world", 0, 0)
     else if {_region} is "arland":
         teleport victim to location(-200, 4, -36, world "world", -90, 0)
-    loop victim's inventory:
-        if uncolored name of loop-value is "Emerald":
-            add item amount of loop-value to {_value}
-    if {_value} is greater than 20:
-        remove ({_value} / 3) of emerald from victim
-        send "&c[DEATH] » &fYou died and lost &c%floor({_value} / 3)%x Gems&f." to victim

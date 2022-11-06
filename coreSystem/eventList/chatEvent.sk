@@ -12,7 +12,7 @@ on chat:
                 cancel event
             else:
                 set {_message::*} to ("&8 »", "&f%message%")
-                set chat format to "%player's prefix%%player%&7%{_message::1}% %{_message::2}%"
+                set chat format to formatted "<tooltip:&7test.>%player's prefix%%player%&7%{_message::1}% %{_message::2}%"
 
         else:
         
@@ -20,10 +20,12 @@ on chat:
                 cancel event
                 send "&4[STAFF] » &cYou are currently muted and can not speak in the chat."
             else:
-                if player's group is "admin" or "master":
+                if player's group is "admin", "viking" or "master":
                     set {_message::*} to ("&8 »", "&f%message%")
 
                 else:
                     set {_message::*} to ("&8 »", "&7%message%")
 
-                set chat format to "%player's prefix%%player%&7%{_message::1}% %{_message::2}%"
+                set {_time} to player's first login formatted as "dd/MM/yyyy"
+                send formatted "<tooltip:%player's prefix%%player%%nl%&7Joined: &f%{_time}%%nl%&7Level: &3⚗%{level::%player's uuid%}%>%player's prefix%%player%&7%{_message::1}% %{_message::2}%"        
+                cancel event

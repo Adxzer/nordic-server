@@ -16,5 +16,6 @@ function abilityUseRestore(player: player):
     set {_u} to uuid of {_player}
 
     play sound "ENTITY_WANDERING_TRADER_DRINK_POTION" with volume 0.2 to {_player}
+    draw 4 of heart at {_player}'s location
     set {health::currentHearts::%{_u}%} to {health::maxHearts::%{_u}%}
     set {_player}'s health to 20

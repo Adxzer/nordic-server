@@ -17,3 +17,33 @@ on death:
         set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})
         coreKillDrop(attacker, {_amount}, {_drop})
 
+function potatoDrop(player: player) :: number:
+    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+    loop {_itemList::*}:
+        if uncolored name of loop-value contains "Hoe":
+            add loop-value to {_items::*}
+ 
+    set {_xp} to 1
+    set {_boost} to coreHarvestBoost({_player}, ({_player}'s tool), ({_items::*}))
+
+    loop {_itemList::*}:
+        if uncolored name of loop-value is "Potato":
+            set {_drop} to loop-value
+
+    set {_return} to coreHarvestDrop({_player}, ({_player}'s tool), ({_items::*}), {_drop}, 1 + {_boost}, 2 + {_boost}, {_xp})
+    return {_return}
+
+on break:
+    
+    if event-block is potatoes[age=7]:
+
+        if {quests::animalFood::interaction::%player's uuid%::6} is not false:
+
+            cancel drops
+            set event-block to potato plant
+
+            potatoDrop(player)
+        
+            wait 2 minutes
+            set event-block to ripe potato plant

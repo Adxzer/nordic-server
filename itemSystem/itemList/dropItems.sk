@@ -45,6 +45,8 @@ on load:
 
     # 2 Star
     set {_livingEssence} to rose bush named "&5Living Essence" with lore "&7Crafting Ingredient.", "",  "&5★★&8☆☆☆" and "&5&lEPIC"
+    set {_stuffedPotato} to baked potato named "&aStuffed Potato" with lore "&7Crafting Ingredient.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE"
+    set {_gleamingCarrot} to golden carrot named "&aGleaming Carrot" with lore "&7Crafting Ingredient.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE"
 
     # 3 Star
     set {_enormousShroom} to crimson fungus named "&aEnormous Shroom" with lore "&7Crafting Ingredient.", "",  "&a★★★&8☆☆" and "&a&lUNIQUE"
@@ -54,4 +56,4 @@ on load:
 
 # Boss
 
-    set {items::dropItems::*} to ({_prototypeDrop}, {_rawBeef}, {_rawMutton}, {_rawChicken}, {_egg}, {_rottenFlesh}, {_arrow}, {_seeds}, {_wheat}, {_leather}, {_wool}, {_feather}, {_bone}, {_rootedSkin}, {_hay}, {_potato}, {_goldIngot}, {_rootedHeart}, {_platinumTeeth}, {_redMushroom}, {_brownMushroom}, {_string}, {_potato}, {_carrot}, {_web}, {_livingEssence}, {_enormousShroom}, {_spiderHeart})
+    set {items::dropItems::*} to ({_prototypeDrop}, {_rawBeef}, {_rawMutton}, {_rawChicken}, {_egg}, {_rottenFlesh}, {_arrow}, {_seeds}, {_wheat}, {_leather}, {_wool}, {_feather}, {_bone}, {_rootedSkin}, {_hay}, {_potato}, {_goldIngot}, {_rootedHeart}, {_platinumTeeth}, {_redMushroom}, {_brownMushroom}, {_string}, {_potato}, {_carrot}, {_web}, {_livingEssence}, {_stuffedPotato}, {_gleamingCarrot}, {_enormousShroom}, {_spiderHeart})
