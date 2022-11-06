@@ -30,47 +30,75 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                                                     if arg-5 is "to":
                                                         teleport player to {_player}
-                                                        send "&4[STAFF] » &fYou teleported to &4%{_player}%&f."
+                                                        send "<##9EBD6E>[STAFF] » &fYou teleported to <##9EBD6E>%{_player}%&f."
                                                     else if arg-5 is "here":
                                                         teleport {_player} to player
-                                                        send "&4[STAFF] » &fYou have teleported &4%{_player}%&f to you."                                            
+                                                        send "<##9EBD6E>[STAFF] » &fYou have teleported <##9EBD6E>%{_player}%&f to you."                                            
 
                                                     else:
-                                                        send "&4[STAFF] » &cThis command option does not exist."
+                                                        send "<##9EBD6E>[STAFF] » &cThis command option does not exist."
                                                 
                                                 else:
-                                                    send "&4[STAFF] » &cPlease specify a command option."
+                                                    send "<##9EBD6E>[STAFF] » &cPlease specify a command option."
                                             else if arg-4 is "kick":
                                                 kick {_player} due to "Kicked by server moderator."
-                                                send "&4[STAFF] » &fYou have kicked &4%{_player}%&f."
+                                                send "<##9EBD6E>[STAFF] » &fYou have kicked <##9EBD6E>%{_player}%&f."
                                             else if arg-4 is "mute":
 
                                                 if {mute::%{_player}'s uuid%} is not true:
                                                     set {mute::%{_player}'s uuid%} to true
-                                                    send "&4[STAFF] » &fYou have muted &4%{_player}%&f."
-                                                    send "&4[STAFF] » &fYou have been muted by a server moderator, to appeal your mute join our discord." to {_player}
+                                                    send "<##9EBD6E>[STAFF] » &fYou have muted <##9EBD6E>%{_player}%&f."
+                                                    send "<##9EBD6E>[STAFF] » &fYou have been muted by a server moderator, to appeal your mute join our discord." to {_player}
                                                 
                                                 else:
-                                                    send "&4[STAFF] » &cThis player is already muted."
+                                                    send "<##9EBD6E>[STAFF] » &cThis player is already muted."
 
                                             else if arg-4 is "unmute":
 
                                                 if {mute::%{_player}'s uuid%} is true:
                                                     set {mute::%{_player}'s uuid%} to false
-                                                    send "&4[STAFF] » &fYou have unmuted &4%{_player}%&f."
-                                                    send "&4[STAFF] » &fYou have been unmuted, you can now talk in the chat." to {_player}
+                                                    send "<##9EBD6E>[STAFF] » &fYou have unmuted <##9EBD6E>%{_player}%&f."
+                                                    send "<##9EBD6E>[STAFF] » &fYou have been unmuted, you can now talk in the chat." to {_player}
                                                 
                                                 else:
-                                                    send "&4[STAFF] » &cThis player is not muted"
+                                                    send "<##9EBD6E>[STAFF] » &cThis player is not muted"
+
+                                            else if arg-4 is "gamemode":
+                                                
+                                                if arg-5 is set:
+
+                                                    if arg-5 is "survival":
+
+                                                        if {_player}'s gamemode is not survival:
+                                                            set {_player}'s gamemode to survival
+                                                            send "<##9EBD6E>[STAFF] » &fYou have set <##9EBD6E>%{_player}%&f's gamemode to survival."
+                                                        
+                                                        else:
+                                                            send "<##9EBD6E>[STAFF] » &cThis player is already in survival mode."
+
+                                                    else if arg-5 is "spectator":
+                                                        
+                                                        if {_player}'s gamemode is not spectator:
+                                                            set {_player}'s gamemode to spectator
+                                                            send "<##9EBD6E>[STAFF] » &fYou have set <##9EBD6E>%{_player}%&f's gamemode to spectator."
+
+                                                        else:
+                                                            send "<##9EBD6E>[STAFF] » &cThis player is already in spectator mode."
+
+                                                    else:
+                                                        send "<##9EBD6E>[STAFF] » &cThis command option does not exist."
+                                               
+                                                else:
+                                                    send "<##9EBD6E>[STAFF] » &cPlease specify a command option."                                                 
 
                                             else:
-                                                send "&4[STAFF] » &cThis command option does not exist."
+                                                send "<##9EBD6E>[STAFF] » &cThis command option does not exist."
                                         
                                         else:
-                                            send "&4[STAFF] » &cPlease specify a command option."
+                                            send "<##9EBD6E>[STAFF] » &cPlease specify a command option."
 
                                     else:
-                                        send "&4[STAFF] » &cYou lack permissions to execute this command."
+                                        send "<##9EBD6E>[STAFF] » &cYou lack permissions to execute this command."
                                 else if arg-3 is "admin":
 
                                     if player has permission "skript.admin":
@@ -78,50 +106,82 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                                         if arg-4 is set:
 
                                             if arg-4 is "invsee":
-                                                send "&4[STAFF] » &fYou have opened &4%{_player}%&f's inventory."
+                                                send "<##9EBD6E>[STAFF] » &fYou have opened <##9EBD6E>%{_player}%&f's inventory."
                                                 open inventory of {_player} to player
 
                                             else if arg-4 is "ban":
                                             
                                                 if {_player} is not banned:
                                                     ban {_player} due to "Banned by server moderator, to appeal your mute join our discord."
-                                                    send "&4[STAFF] » &fYou have banned &4%{_player}%&f."
+                                                    send "<##9EBD6E>[STAFF] » &fYou have banned <##9EBD6E>%{_player}%&f."
 
                                                 else:
-                                                    send "&4[STAFF] » &cThis player is already banned."
+                                                    send "<##9EBD6E>[STAFF] » &cThis player is already banned."
 
                                             else if arg-4 is "unban":
                                                 
                                                 if {_player} is banned:
                                                     unban {_player}
-                                                    send "&4[STAFF] » &fYou have unbanned &4%{_player}%&f."
+                                                    send "<##9EBD6E>[STAFF] » &fYou have unbanned <##9EBD6E>%{_player}%&f."
 
                                                 else:
-                                                    send "&4[STAFF] » &cThis player is not banned."
+                                                    send "<##9EBD6E>[STAFF] » &cThis player is not banned."
+
+                                            else if arg-4 is "edit":
+
+                                                if player has permission "op":
+
+                                                    if arg-5 is set:
+
+                                                        if arg-5 is "true":
+
+                                                            if {edit::%{_u}%} is not true:
+                                                                set {edit::%{_u}%} to true
+                                                                send "<##9EBD6E>[STAFF] » &fYou set <##9EBD6E>%{_player}%&f's edit mode to true, and they can now break and place all blocks."
+
+                                                            else:
+                                                                send "<##9EBD6E>[STAFF] » &cThis player is not in edit mode."
+                                                        else if arg-5 is "false":
+
+                                                            if {edit::%{_u}%} is true:
+                                                                set {edit::%{_u}%} to false
+                                                                send "<##9EBD6E>[STAFF] » &fYou set <##9EBD6E>%{_player}%&f's edit mode to false, and they can no longer break and place blocks."
+                                                            
+                                                            else:
+                                                                send "<##9EBD6E>[STAFF] » &cThis player is not in edit mode."
+
+                                                        else:
+                                                            send "<##9EBD6E>[STAFF] » &cThis command option does not exist."
+
+                                                    else:
+                                                        send "<##9EBD6E>[STAFF] » &cPlease specify a command option."
+                                                
+                                                else:
+                                                    send "<##9EBD6E>[STAFF] » &cOnly the owner of the server can issue this command."
 
                                             else:
-                                                send "&4[STAFF] » &cThis command option does not exist."
+                                                send "<##9EBD6E>[STAFF] » &cThis command option does not exist."
                                         
                                         else:
-                                            send "&4[STAFF] » &cPlease specify a command option."
+                                            send "<##9EBD6E>[STAFF] » &cPlease specify a command option."
 
                                     else:
-                                        send "&4[STAFF] » &cYou lack permissions to execute this command."
+                                        send "<##9EBD6E>[STAFF] » &cYou lack permissions to execute this command."
 
                                 else:
-                                    send "&4[STAFF] » &cThis command option does not exist."
+                                    send "<##9EBD6E>[STAFF] » &cThis command option does not exist."
 
                             else:
-                                send "&4[STAFF] » &cPlease specify a command option."
+                                send "<##9EBD6E>[STAFF] » &cPlease specify a command option."
 
                         else:
-                            send "&4[STAFF] » &cThis player has never been on the server."
+                            send "<##9EBD6E>[STAFF] » &cThis player has never been on the server."
 
                     else:
-                        send "&4[STAFF] » &cThis player does not exist."
+                        send "<##9EBD6E>[STAFF] » &cThis player does not exist."
 
                 else:
-                    send "&4[STAFF] » &cPlease specify a player."  
+                    send "<##9EBD6E>[STAFF] » &cPlease specify a player."  
 
             else if arg-1 is "chat":
                 
@@ -130,29 +190,29 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                     if arg-2 is "clear":
                         loop 100 times:
                             broadcast " "
-                        broadcast "&4[STAFF] » &fThe chat was cleared by &4%player%&f."
+                        broadcast "<##9EBD6E>[STAFF] » &fThe chat was cleared by <##9EBD6E>%player%&f."
                     else if arg-2 is "mute":
                         
                         if {muteChat} is not true:
                             set {muteChat} to true
-                            send "&4[STAFF] » &fThe chat was muted by &4%player%&f."
+                            send "<##9EBD6E>[STAFF] » &fThe chat was muted by <##9EBD6E>%player%&f."
 
                         else:
-                            send "&4[STAFF] » &cThe chat is already muted."
+                            send "<##9EBD6E>[STAFF] » &cThe chat is already muted."
                     else if arg-2 is "unmute":
                         
                         if {muteChat} is true:
                             set {muteChat} to false
-                            send "&4[STAFF] » &fThe chat was unmuted by &4%player%&f."
+                            send "<##9EBD6E>[STAFF] » &fThe chat was unmuted by <##9EBD6E>%player%&f."
 
                         else:
-                            send "&4[STAFF] » &cThe chat is not muted."
+                            send "<##9EBD6E>[STAFF] » &cThe chat is not muted."
 
                     else:
-                        send "&4[STAFF] » &cThis command option does not exist."
+                        send "<##9EBD6E>[STAFF] » &cThis command option does not exist."
 
                 else:
-                    send "&4[STAFF] » &cPlease specify a command option."
+                    send "<##9EBD6E>[STAFF] » &cPlease specify a command option."
 
             else if arg-1 is "vanish":
                 
@@ -163,30 +223,30 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                         if {vanish::%player's uuid%} is not true:
                             hide player from all players
                             set {vanish::%player's uuid%} to true
-                            send "&4[STAFF] » &fYou are now &4vanished&f."
+                            send "<##9EBD6E>[STAFF] » &fYou are now <##9EBD6E>vanished&f."
 
                         else:
-                            send "&4[STAFF] » &cYou are already in vanish."
+                            send "<##9EBD6E>[STAFF] » &cYou are already in vanish."
                     else if arg-2 is "false":
 
                         if {vanish::%player's uuid%} is true:
                             reveal player from all players
                             set {vanish::%player's uuid%} to false
-                            send "&4[STAFF] » &fYou left vanish and you are now &4revealed&f for other players."
+                            send "<##9EBD6E>[STAFF] » &fYou left vanish and you are now <##9EBD6E>revealed&f for other players."
                         else:
-                            send "&4[STAFF] » &cYou are not in vanish."
+                            send "<##9EBD6E>[STAFF] » &cYou are not in vanish."
 
                     else:
-                        send "&4[STAFF] » &cThis command option does not exist."
+                        send "<##9EBD6E>[STAFF] » &cThis command option does not exist."
 
                 else:
-                    send "&4[STAFF] » &cPlease specify a command option."
+                    send "<##9EBD6E>[STAFF] » &cPlease specify a command option."
 
             else:
-                send "&4[STAFF] » &cThis command option does not exist."
+                send "<##9EBD6E>[STAFF] » &cThis command option does not exist."
 
         else:
-            send "&4[STAFF] » &cPlease specify a command option."
+            send "<##9EBD6E>[STAFF] » &cPlease specify a command option."
 
 on tab complete of "/staff":
 
@@ -213,16 +273,31 @@ on tab complete of "/staff":
 
         if tab arg-3 is not "admin" or "mind": # add new options 
             clear {_tabCompletion::*}
-            set {_tabCompletion::*} to ("admin" and "mod") # add new options 
+            if player has permission "skript.admin":
+                add "admin" to {_tabCompletion::*}
+            if player has permission "skript.mod":
+                add "mod" to {_tabCompletion::*}
             set tab completions for position 3 to {_tabCompletion::*}
 
     if tab arg-3 is "mod":
-        set {_tabCompletion::*} to ("mute", "unmute", "kick" and "teleport") # add new options 
-        set tab completions for position 4 to {_tabCompletion::*}
+        if player has permission "skript.mod":
+            set {_tabCompletion::*} to ("mute", "unmute", "kick", "gamemode" and "teleport") # add new options 
+            set tab completions for position 4 to {_tabCompletion::*}
     else if tab arg-3 is "admin":
-        set {_tabCompletion::*} to ("invsee", "ban" and "unban") # add new options 
-        set tab completions for position 4 to {_tabCompletion::*}
+        if player has permission "skript.admin":
+            set {_tabCompletion::*} to ("invsee", "ban", "edit" and "unban") # add new options 
+            set tab completions for position 4 to {_tabCompletion::*}
 
     if tab arg-4 is "teleport":
         set {_tabCompletion::*} to ("to" and "here") # add new options 
         set tab completions for position 5 to {_tabCompletion::*}
+
+    if tab arg-4 is "edit":
+        if player has permission "op":
+            set {_tabCompletion::*} to ("true" and "false") # add new options 
+            set tab completions for position 5 to {_tabCompletion::*}
+
+    if tab arg-4 is "gamemode":
+        if player has permission "skript.mod":
+            set {_tabCompletion::*} to ("survival" and "spectator") # add new options 
+            set tab completions for position 5 to {_tabCompletion::*}

@@ -172,7 +172,7 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                     else if arg-2 is "deactivate": 
 
-                        send "&4[BOSS] » &cDeactivated the %arg-1% spawner."  
+                        send "&4[BOSS] » &fDeactivated the &4%arg-1% &cspawner."  
                         make console execute command "hd setline Boss%arg-1%Cooldown 2 &75 minute(s)"
                         
                         set {_minutes} to 5
@@ -187,7 +187,7 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
                         make console execute command "/mm spawners activate Boss%arg-1%Spawner"
                     else if arg-2 is "activate": 
 
-                        send "&4[BOSS] » &cDeactivated the %arg-1% spawner."  
+                        send "&4[BOSS] » &fActivated the &4%arg-1%&f spawner."  
                         make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
                         make console execute command "mm m kill Boss%arg-1%"
                         make console execute command "/mm spawners activate Boss%arg-1%Spawner"

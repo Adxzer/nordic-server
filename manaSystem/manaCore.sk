@@ -111,3 +111,40 @@ on tab complete of "/mana":
     if tab arg-3 is "custom":
         set {_tabCompletion::*} to ("set", "clear", "check") # add new options 
         set tab completions for position 4 to {_tabCompletion::*}
+
+on rightclick:
+
+    set {_lore::*} to lore of player's tool
+    if uncolored {_lore::1} is "Consumable Item.":
+        
+        cancel event
+
+        set {_u} to uuid of player
+        set {_split::*} to split {_lore::4} at " "
+
+        if {_split::3} contains "✦":
+        
+            set {_num::*} to split uncolored {_split::3} at "✦"
+            set {_add} to {_num::1} parsed as integer
+
+            if {mana::currentMana::%{_u}%} is not {mana::maxMana::%{_u}%}:
+                
+                if {mana::currentMana::%{_u}%} + {_add} is greater than {mana::maxMana::%{_u}%}:
+                    set {mana::currentMana::%{_u}%} to {mana::maxMana::%{_u}%}
+
+                else:
+                    add {_add} to {mana::currentMana::%{_u}%}
+
+                set {actionBarSet::%{_u}%} to true
+                play sound "ENTITY_PLAYER_BURP" with volume 0.2 to player
+                send action bar coreGetActionBar(player, "&aYou consumed %uncolored name of player's tool%!") to player
+                remove 1 of player's tool from player
+                wait 1 second
+                set {actionBarSet::%{_u}%} to false
+
+            else:
+
+                set {actionBarSet::%{_u}%} to true
+                send action bar coreGetActionBar(player, "&cYou already have max mana!") to player
+                wait 1 second
+                set {actionBarSet::%{_u}%} to false

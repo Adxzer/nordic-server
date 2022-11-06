@@ -399,6 +399,35 @@ function coreCriticalChance(player: player, tool: item) :: boolean:
             if {_random} is between 1 and {_chance}:
                 return true
 
+function corePlayMusic(player: player, music: string):
+
+    set {_u} to uuid of {_player}
+
+    if {music::enabled::%{_u}%} is not false:
+
+        set {music::playing::%{_u}%} to {_music}
+        make console execute command "execute as %{_player}% run function %{_music}%:play"
+
+function coreManageMusic(player: player):
+
+    set {_u} to uuid of {_player}
+    set {_counter} to 0
+
+    loop 6 times:
+        add 1 to {_counter}
+        if {music::enabled::%{_u}%} is not false:
+            corePlayMusic({_player}, "track%{_counter}%")
+            if {_counter} is 1:
+                wait 60 seconds
+            else if {_counter} is 2:
+                wait 40 seconds
+            else if {_counter} is 3:
+                wait 67 seconds
+            else if {_counter} is 4:
+                wait 43 seconds
+            else if {_counter} is 5:
+                wait 66 seconds
+
 every 1 seconds:
 
     loop all players:

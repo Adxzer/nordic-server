@@ -2,5 +2,10 @@ on load:
 
 # Health Consumables
     set {_redApple} to apple named "&aRed Apple" with lore "&7Consumable Item.", "", "&7Left click to consume this item", "&7and regen &c6❤&7.", "", "&a★&8☆☆☆☆" and "&a&lUNIQUE"
+    set {_brownie} to cookie named "&aBrownie" with lore "&7Consumable Item.", "", "&7Left click to consume this item", "&7and regen &c14❤&7.", "", "&a★★★★&8☆" and "&a&lUNIQUE"
 
-    set {items::consumableItems::*} to ({_redApple})
+# Mana Consumables
+    set {_manaShard} to prismarine shard named "&aMana Shard" with lore "&7Consumable Item.", "", "&7Left click to consume this item", "&7and recharge &64✦&7.", "", "&a★★★&8☆☆" and "&a&lUNIQUE"
+    set {_crystalline} to prismarine crystals named "&9Crystalline" with lore "&7Consumable Item.", "", "&7Left click to consume this item", "&7and recharge &612✦&7.", "", "&9★&8☆☆☆☆" and "&9&lRARE"
+
+    set {items::consumableItems::*} to ({_redApple}, {_brownie}, {_manaShard}, {_crystalline})

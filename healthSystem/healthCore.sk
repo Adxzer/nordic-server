@@ -119,35 +119,36 @@ on rightclick:
     set {_lore::*} to lore of player's tool
     if uncolored {_lore::1} is "Consumable Item.":
         
+        cancel event
+
         set {_u} to uuid of player
         set {_split::*} to split {_lore::4} at " "
 
         if {_split::3} contains "❤":
+        
             set {_num::*} to split uncolored {_split::3} at "❤"
             set {_add} to {_num::1} parsed as integer
-        else if {_split::3} contains "✦":
-            set {_num::*} to split uncolored {_split::3} at "✦"
-            set {_add} to {_num::1} parsed as integer
 
-        if {health::currentHearts::%{_u}%} is not {health::maxHearts::%{_u}%}:
-            
-            if {health::currentHearts::%{_u}%} + {_add} is greater than {health::maxHearts::%{_u}%}:
-                set {health::currentHearts::%{_u}%} to {health::maxHearts::%{_u}%}
-                coreUpdateHearts(player)
+            if {health::currentHearts::%{_u}%} is not {health::maxHearts::%{_u}%}:
+                
+                if {health::currentHearts::%{_u}%} + {_add} is greater than {health::maxHearts::%{_u}%}:
+                    set {health::currentHearts::%{_u}%} to {health::maxHearts::%{_u}%}
+                    coreUpdateHearts(player)
+
+                else:
+                    add {_add} to {health::currentHearts::%{_u}%}
+                    coreUpdateHearts(player)
+
+                set {actionBarSet::%{_u}%} to true
+                play sound "ENTITY_PLAYER_BURP" with volume 0.2 to player
+                send action bar coreGetActionBar(player, "&aYou consumed %uncolored name of player's tool%!") to player
+                remove 1 of player's tool from player
+                wait 1 second
+                set {actionBarSet::%{_u}%} to false
 
             else:
-                add {_add} to {health::currentHearts::%{_u}%}
-                coreUpdateHearts(player)
 
-            set {actionBarSet::%{_u}%} to true
-            send action bar coreGetActionBar(player, "&aYou consumed %uncolored name of player's tool%!") to player
-            remove 1 of player's tool from player
-            wait 1 second
-            set {actionBarSet::%{_u}%} to false
-
-        else:
-
-            set {actionBarSet::%{_u}%} to true
-            send action bar coreGetActionBar(player, "&cYou already have max health!") to player
-            wait 1 second
-            set {actionBarSet::%{_u}%} to false
+                set {actionBarSet::%{_u}%} to true
+                send action bar coreGetActionBar(player, "&cYou already have max health!") to player
+                wait 1 second
+                set {actionBarSet::%{_u}%} to false

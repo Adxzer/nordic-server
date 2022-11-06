@@ -1,0 +1,11 @@
+command /music:
+    trigger:
+
+        if {music::enabled::%player's uuid%} is not false:
+            set {music::enabled::%player's uuid%} to false
+            make console execute command "execute as %player% run function %{music::playing::%player's uuid%}%:stop"
+            send "&3[MUSIC] » &fYou have &3disabled &fthe server soundtrack!"
+        else if {music::enabled::%player's uuid%} is false:
+            set {music::enabled::%player's uuid%} to true
+            coreManageMusic(player)
+            send "&3[MUSIC] » &fYou have &3enabled &fthe server soundtrack!"

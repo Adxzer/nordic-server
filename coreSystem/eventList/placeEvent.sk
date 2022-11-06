@@ -1,4 +1,4 @@
 on place:
 
-    if player does not have permission "op":
+    if {edit::%player's uuid%} is not true:
         cancel event

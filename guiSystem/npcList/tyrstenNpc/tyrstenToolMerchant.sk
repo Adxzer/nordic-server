@@ -1,0 +1,20 @@
+on npc rightclick:
+    
+    if npc id of target is 14:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Prudent Axe":
+                set {_prudentAxe} to loop-value 
+            else if uncolored name of loop-value is "Mushrew Axe":
+                set {_mushrewAxe} to loop-value 
+            else if uncolored name of loop-value is "Curative Sword":
+                set {_curativeSword} to loop-value 
+            else if uncolored name of loop-value is "Revenant Bow":
+                set {_revenantBow} to loop-value 
+            else if uncolored name of loop-value is "Jockey Bow":
+                set {_jockeyBow} to loop-value
+
+
+        guiCreateMerchant(player, "&8Arland Tool Merchant", ({_prudentAxe}, {_mushrewAxe}, {_curativeSword}, {_revenantBow}, {_jockeyBow}), ("buy", "buy", "buy", "buy", "buy"), ("&8- &77x Gemstone:&8- &72x Enormous Shroom:&8- &712x Rotten Flesh", "&8- &79x Gemstone:&8- &75x Enormous Shroom:&8- &748x Rotten Flesh", "&8- &714x Gemstone:&8- &79x Enormous Shroom:&8- &71x Living Essence", "&8- &78x Gemstone:&8- &764x String:&8- &712x Web", "&8- &712x Gemstone:&8- &71x Spider Heart:&8- &796x String"))

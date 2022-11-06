@@ -12,8 +12,13 @@ on join:
 
     if {vanish::%player's uuid%} is not true:
         set join message to "&a[JOIN] + &fWelcome back to the server &a%player%&f."
+    
     else:
         set join message to ""
+
+    if {music::enabled::%player's uuid%} is not false:
+        set {music::enabled::%player's uuid%} to true
+        coreManageMusic(player)
 
     set {health::currentHearts::%player's uuid%} to {health::maxHearts::%player's uuid%}
     set {mana::currentMana::%player's uuid%} to {mana::maxMana::%player's uuid%}
