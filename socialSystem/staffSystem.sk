@@ -140,7 +140,7 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                                                                 send "<##9EBD6E>[STAFF] » &fYou set <##9EBD6E>%{_player}%&f's edit mode to true, and they can now break and place all blocks."
 
                                                             else:
-                                                                send "<##9EBD6E>[STAFF] » &cThis player is not in edit mode."
+                                                                send "<##9EBD6E>[STAFF] » &cThis player is already in edit mode."
                                                         else if arg-5 is "false":
 
                                                             if {edit::%{_u}%} is true:

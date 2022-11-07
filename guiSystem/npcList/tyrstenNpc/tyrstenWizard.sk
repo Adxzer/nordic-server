@@ -16,4 +16,4 @@ on npc rightclick:
             else if uncolored name of loop-value is "Living Essence":
                 set {_livingEssence} to loop-value 
                 
-        guiCreateMerchant(player, "&8Tyrsten Wizard", ({_redApple}, {_brownie}, {_manaShard}, {_crystalline}, {_enormousShroom}, {_spiderHeart}, {_livingEssence}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &732x Red Mushroom:&8- &72x Gleaming Carrot", "&8- &72x Enormous Shroom:&8- &74x Gleaming Carrot", "&8- &732x Brown Mushroom:&8- &72x Stuffed Potato", "&8- &72x Enormous Shroom:&8- &74x Stuffed Potato", "&8- &732x Red Mushroom:&8- &732x Brown Mushroom", "&8- &73x Enormous Shroom:&8- &772x Bone:&8- &716x Web", "&8- &71x Rooted Heart:&8- &71x Spider Heart"))
+        guiCreateMerchant(player, "&8Tyrsten Wizard", ({_manaShard}, {_crystalline}, {_enormousShroom}, {_spiderHeart}, {_livingEssence}), ("buy", "buy", "buy", "buy", "buy"), ("&8- &732x Brown Mushroom:&8- &72x Stuffed Potato", "&8- &72x Enormous Shroom:&8- &74x Stuffed Potato", "&8- &732x Red Mushroom:&8- &732x Brown Mushroom", "&8- &73x Enormous Shroom:&8- &772x Bone:&8- &716x Web", "&8- &71x Rooted Heart:&8- &71x Spider Heart"))

@@ -7,8 +7,8 @@ on death:
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 
         set {_percentage} to 100
-        set {_min} to 1
-        set {_max} to 3
+        set {_min} to 3
+        set {_max} to 6
 
         loop {_itemList::*}:
             if uncolored name of loop-value is "Brown Mushroom":
