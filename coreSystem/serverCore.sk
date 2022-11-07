@@ -234,7 +234,7 @@ function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward:
                     give {_player} {_random} of {_reward}
                     coreAddXp({_player}, {_experience})
                     coreCheckLevel({_player})
-                    return {_random}
+                    return round({_random})
                 else:
                     set {actionBarSet::%{_u}%} to true
                     send action bar coreGetActionBar({_player}, "&cFull inventory!") to {_player}
@@ -253,7 +253,7 @@ function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward:
             give {_player} {_random} of {_reward}
             coreAddXp({_player}, {_experience})
             coreCheckLevel({_player})
-            return {_random}
+            return round({_random})
         else:
             set {actionBarSet::%{_u}%} to true
             send action bar coreGetActionBar({_player}, "&cFull inventory!") to {_player}
@@ -293,13 +293,13 @@ function coreHarvestBoost(player: player, tool: item, allowed: itemtypes) :: num
                     set {_random} to random integer between 1 and 100
 
                     if {_random} is between 1 and {_double}:
-                        return {_harvest::2} parsed as integer * 2
+                        return round({_harvest::2} parsed as integer * 2)
 
                     else:
-                        return {_harvest::2} parsed as integer
+                        return round({_harvest::2} parsed as integer)
 
                 else:
-                    return {_harvest::2} parsed as integer
+                    return round({_harvest::2} parsed as integer)
 
 function coreDamageBoost(player: player, tool: item) :: number:
 

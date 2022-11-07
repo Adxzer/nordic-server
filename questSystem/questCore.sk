@@ -7,7 +7,7 @@ function questNew(player: player, string: string):
 function questComplete(player: player, strings: strings):
 
     send "" to {_player}
-    send "&a[QUEST] » &fYou have successfully completed the quest &a%{_strings::1}%&f. As a reward for completing the quest you gained %{_strings::2}%" to {_player}
+    send "&a[QUEST] » &fYou have successfully completed the quest &a%{_strings::1}%&f. As a reward for completing the quest you gained %{_strings::2}%." to {_player}
     send "" to {_player}
 
 function questTalk(player: player):
@@ -94,7 +94,7 @@ on rightclick:
     
         set metadata tag "quest" of player to chest with 6 row named "&8Quest Book"
         
-        set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot") # add new quests
+        set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot", "conjecture", "healthyCure") # add new quests
 
         set {_borderIndex} to 0
         set {_questIndex} to 1
@@ -187,7 +187,7 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                             if arg-3 is set:
 
-                                set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot") # add new quests
+                                set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot", "conjecture", "healthyCure") # add new quests
 
                                 if arg-3 is "clear":
                                     send "&a[QUEST] » &fYou cleared all of &a%arg-2%&f's quiz progress."
@@ -196,18 +196,13 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
                                         clear {quests::%loop-value%::completed::%{_u}%}
                                         clear {quests::%loop-value%::interaction::%{_u}%::*} 
                                 else if arg-3 is "list":
+                                    send "&a[QUEST] » &fShowing quest status for &a%arg-2%&f..."
                                     loop {_quests::*}:
                                         if {quests::%loop-value%::completed::%{_u}%} is true:
                                             set {_completed::%loop-value%} to "&f%loop-value% - &acompleted"
                                         else:
                                             set {_completed::%loop-value%} to "&f%loop-value% - &cnot completed"
-                                    send "&a[QUEST] » &fShowing quest status for &a%arg-2%&f..."
-                                    send "&a[QUEST] » &f%{_completed::firstSlay}%&f."
-                                    send "&a[QUEST] » &f%{_completed::animalFood}%&f."
-                                    send "&a[QUEST] » &f%{_completed::rootedChallenge}%&f."
-                                    send "&a[QUEST] » &f%{_completed::mysteryItem}%&f."
-                                    send "&a[QUEST] » &f%{_completed::luckyCarrot}%&f."
-                                    # add new quests
+                                        send "&a[QUEST] » &f%{_completed::%loop-value%}%&f."
                                 else if arg-3 is "set":
 
                                     if arg-4 is set:
@@ -285,7 +280,7 @@ on tab complete of "/quest":
             set {_tabCompletion::*} to ("clear", "set", "list") # add new options 
             set tab completions for position 3 to {_tabCompletion::*}
 
-    set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot") # add new quests 
+    set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot", "conjecture", "healthyCure") # add new quests 
     loop {_quests::*}:
         if tab arg-4 is loop-value:
             set {_quest} to true

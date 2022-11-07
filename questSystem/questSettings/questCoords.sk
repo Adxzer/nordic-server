@@ -4,3 +4,5 @@ on load:
     set {quests::rootedChallenge::coords} to "-242 11 -110"
     set {quests::mysteryItem::coords} to "-152 4 -86"
     set {quests::luckyCarrot::coords} to "-152 4 -86"
+    set {quests::conjecture::coords} to "-101 4 -97"
+    set {quests::healthyCure::coords} to "1 4 -195"

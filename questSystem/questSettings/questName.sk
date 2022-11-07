@@ -4,3 +4,5 @@ on load:
     set {quests::rootedChallenge::name} to "Rooted Challenge"
     set {quests::mysteryItem::name} to "Mystery Item"
     set {quests::luckyCarrot::name} to "Lucky Carrot"
+    set {quests::conjecture::name} to "Conjecture"
+    set {quests::healthyCure::name} to "Healthy Cure"

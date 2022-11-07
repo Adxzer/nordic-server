@@ -3,4 +3,6 @@ on load:
     set {quests::animalFood::start} to "Talk to Eirik to start this quest."
     set {quests::rootedChallenge::start} to "Talk to Uno to start this quest."
     set {quests::mysteryItem::start} to "Talk to Bjarne to start this quest."
-    set {quests::mysteryItem::start} to "Talk to Dalur to start this quest."
+    set {quests::luckyCarrot::start} to "Talk to Dalur to start this quest."
+    set {quests::conjecture::start} to "Talk to Oliver to start this quest."
+    set {quests::healthyCure::start} to "Talk to Mari to start this quest."

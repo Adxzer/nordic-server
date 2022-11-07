@@ -4,3 +4,5 @@ on load:
     set {quests::rootedChallenge::reward} to "Rooted Heart"
     set {quests::mysteryItem::reward} to "3x Gemstone"
     set {quests::luckyCarrot::reward} to "7x Gemstone"
+    set {quests::conjecture::reward} to "Living Essence"
+    set {quests::healthyCure::reward} to "3x Crystalline and 2x Gemstone"

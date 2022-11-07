@@ -508,7 +508,8 @@ on inventory click:
                     loop {_numberList::*}:
 
                         if {_item%loop-value%} is not set:
-                            set {_item%loop-value%} to air
+                            set {_final%loop-value%} to true
+                            continue 
                             
                         if {_item%loop-value%} is set:
                             if player's inventory contains {_item%loop-value%}:
@@ -634,7 +635,8 @@ on inventory click:
                     loop {_numberList::*}:
 
                         if {_item%loop-value%} is not set:
-                            set {_item%loop-value%} to air
+                            set {_final%loop-value%} to true
+                            continue 
                             
                         if {_item%loop-value%} is set:
                             if player's inventory contains {_item%loop-value%}:

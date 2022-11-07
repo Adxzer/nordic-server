@@ -4,11 +4,6 @@ on npc rightclick:
 
         questTalk(player)
 
-        set {_counter} to 1
-        loop {quests::luckyCarrot::interaction::%player's uuid%::*}:
-            send "%{_counter}%%loop-value%"
-            add 1 to {_counter}
-
         if {quests::luckyCarrot::talked::%player's uuid%} is not true:
             set {quests::luckyCarrot::interaction::%player's uuid%::*} to (false, false, false, false, false, false, false, false, false, false, false, false, false, false)
             set {quests::luckyCarrot::talked::%player's uuid%} to true
@@ -79,14 +74,14 @@ on break:
             if {quests::luckyCarrot::carrot::%player's uuid%} >= 1080:
                 set {quests::luckyCarrot::interaction::%player's uuid%::6} to true
                 set {quests::luckyCarrot::interaction::%player's uuid%::5} to true
-                send "&a[QUEST] » &fYou have finished the quest &aAnimal Food&f, talk to Dalur to claim your rewards." to player
+                send "&a[QUEST] » &fYou have finished the first part of the quest &aLucky Carrot&f, talk to Dalur to claim your rewards." to player
 
             else:
                 cancel drops
                 set event-block to carrot
 
                 set {_carrot} to carrotDrop(player)
-                add floor({_carrot}) to {quests::luckyCarrot::carrot::%player's uuid%}
+                add {_carrot} to {quests::luckyCarrot::carrot::%player's uuid%}
 
                 wait 2 minutes
                 set event-block to ripe carrot plant

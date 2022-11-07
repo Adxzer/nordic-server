@@ -1,0 +1,64 @@
+on npc rightclick:
+    
+    if npc id of target is 16:
+
+        questTalk(player)
+
+        if {quests::conjecture::talked::%player's uuid%} is not true:
+            set {quests::conjecture::interaction::%player's uuid%::*} to (false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
+            set {quests::conjecture::talked::%player's uuid%} to true
+            set {quests::conjecture::completed::%player's uuid%} to false
+
+        if {quests::conjecture::interaction::%player's uuid%::1} is false:
+            send "%{quests::conjecture::dialouge::1}%"
+            set {quests::conjecture::interaction::%player's uuid%::1} to true  
+        else if {quests::conjecture::interaction::%player's uuid%::2} is false:  
+            send "%{quests::conjecture::dialouge::2}%"
+            set {quests::conjecture::interaction::%player's uuid%::2} to true
+        else if {quests::conjecture::interaction::%player's uuid%::3} is false:  
+            send "%{quests::conjecture::dialouge::3}%"
+            set {quests::conjecture::interaction::%player's uuid%::3} to true
+        else if {quests::conjecture::interaction::%player's uuid%::5} is false:  
+            send "%{quests::conjecture::dialouge::5}%"
+            set {quests::conjecture::interaction::%player's uuid%::5} to true
+        else if {quests::conjecture::interaction::%player's uuid%::6} is false:  
+            send "%{quests::conjecture::dialouge::6}%"
+            set {quests::conjecture::interaction::%player's uuid%::6} to true
+        else if {quests::conjecture::interaction::%player's uuid%::7} is false:  
+            send "%{quests::conjecture::dialouge::7}%"
+            set {quests::conjecture::interaction::%player's uuid%::7} to true
+            questNew(player, {quests::conjecture::name})
+        else if {quests::conjecture::interaction::%player's uuid%::8} is false:  
+            if player's inventory contains crimson fungus: 
+                remove crimson fungus from player
+                send "%{quests::conjecture::dialouge::9}%"
+                set {quests::conjecture::interaction::%player's uuid%::8} to true 
+                set {quests::conjecture::interaction::%player's uuid%::9} to true 
+            else:
+                send "%{quests::conjecture::dialouge::8}%"
+        else if {quests::conjecture::interaction::%player's uuid%::10} is false: 
+            send "%{quests::conjecture::dialouge::10}%"
+            set {quests::conjecture::interaction::%player's uuid%::10} to true     
+        else if {quests::conjecture::interaction::%player's uuid%::11} is false:  
+            send "%{quests::conjecture::dialouge::11}%"
+            set {quests::conjecture::interaction::%player's uuid%::11} to true
+        else if {quests::conjecture::interaction::%player's uuid%::12} is false:  
+            send "%{quests::conjecture::dialouge::12}%"
+            set {quests::conjecture::interaction::%player's uuid%::12} to true
+        else if {quests::conjecture::interaction::%player's uuid%::13} is false:  
+            if player's inventory contains 2 of rabbit hide:
+                send "%{quests::conjecture::dialouge::14}%"
+                set {quests::conjecture::completed::%player's uuid%} to true
+                set {quests::conjecture::interaction::%player's uuid%::13} to true
+                set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+                loop {_itemList::*}:
+                    if uncolored name of loop-value is "Living Essence":
+                        set {_livingEssence} to loop-value
+                remove 2 of rabbit hide from player
+                give player {_livingEssence}
+                wait 3 seconds
+                questComplete(player, ({quests::conjecture::name}, {quests::conjecture::reward}))
+            else:
+                send "%{quests::conjecture::dialouge::13}%"
+        else if {quests::conjecture::interaction::%player's uuid%::14} is false:  
+            send "%{quests::conjecture::dialouge::15}%"

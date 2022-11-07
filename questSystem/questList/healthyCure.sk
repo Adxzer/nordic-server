@@ -1,0 +1,45 @@
+on npc rightclick:
+    
+    if npc id of target is 20:
+
+        questTalk(player)
+
+        if {quests::healthyCure::talked::%player's uuid%} is not true:
+            set {quests::healthyCure::interaction::%player's uuid%::*} to (false, false, false, false, false, false, false)
+            set {quests::healthyCure::talked::%player's uuid%} to true
+            set {quests::healthyCure::completed::%player's uuid%} to false
+
+        if {quests::healthyCure::interaction::%player's uuid%::1} is false:
+            send "%{quests::healthyCure::dialouge::1}%"
+            set {quests::healthyCure::interaction::%player's uuid%::1} to true  
+        else if {quests::healthyCure::interaction::%player's uuid%::2} is false:  
+            send "%{quests::healthyCure::dialouge::2}%"
+            set {quests::healthyCure::interaction::%player's uuid%::2} to true
+        else if {quests::healthyCure::interaction::%player's uuid%::3} is false:  
+            send "%{quests::healthyCure::dialouge::3}%"
+            set {quests::healthyCure::interaction::%player's uuid%::3} to true
+        else if {quests::healthyCure::interaction::%player's uuid%::4} is false:  
+            send "%{quests::healthyCure::dialouge::4}%"
+            set {quests::healthyCure::interaction::%player's uuid%::4} to true
+            questNew(player, {quests::healthyCure::name})
+        else if {quests::healthyCure::interaction::%player's uuid%::5} is false:  
+            if player's inventory contains apple and cookie:
+                send "%{quests::healthyCure::dialouge::6}%"
+                set {quests::healthyCure::interaction::%player's uuid%::5} to true
+                set {quests::healthyCure::completed::%player's uuid%} to true
+                set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+                loop {_itemList::*}:
+                    if uncolored name of loop-value is "Gemstone":
+                        set {_gemstone} to loop-value
+                    else if uncolored name of loop-value is "Crystalline":
+                        set {_crystalline} to loop-value
+                remove apple and cookie from player
+                give player 2 of {_gemstone}
+                give player 3 of {_crystalline}
+                wait 3 seconds
+                questComplete(player, ({quests::healthyCure::name}, {quests::healthyCure::reward}))
+            else:
+                send "%{quests::healthyCure::dialouge::5}%"
+        else if {quests::healthyCure::interaction::%player's uuid%::6} is false:  
+            send "%{quests::healthyCure::dialouge::7}%"
+
