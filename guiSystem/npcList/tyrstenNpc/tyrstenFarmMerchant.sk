@@ -18,4 +18,4 @@ on npc rightclick:
             else if uncolored name of loop-value is "Brownie":
                 set {_brownie} to loop-value 
 
-        guiCreateMerchant(player, "&8Tyrsten Farm Merchant", ({_grimeHoe}, {_fabledHoe}, {_stuffedPotato}, {_gleamingCarrot}, {_redApple}, {_brownie}), ("buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &74x Gemstone:&8- &76x Stuffed Potato:&8- &79x Gleaming Carrot", "&8- &79x Gemstone:&8- &712x Stuffed Potato:&8- &718x Gleaming Carrot", "&8- &7512x Carrot", "&8- &7512x Potato", "&8- &732x Red Mushroom:&8- &7124x Carrot", "&8- &72x Enormous Shroom:&8- &748x Carrot"))
+        guiCreateMerchant(player, "&8Tyrsten Farm Merchant", ({_grimeHoe}, {_fabledHoe}, {_stuffedPotato}, {_gleamingCarrot}, {_redApple}, {_brownie}), ("buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &74x Gemstone:&8- &76x Stuffed Potato:&8- &79x Gleaming Carrot", "&8- &79x Gemstone:&8- &712x Stuffed Potato:&8- &718x Gleaming Carrot", "&8- &7512x Potato", "&8- &7512x Carrot", "&8- &732x Red Mushroom:&8- &7124x Carrot", "&8- &72x Enormous Shroom:&8- &748x Carrot"))

@@ -38,12 +38,10 @@ on break:
     
     if event-block is potatoes[age=7]:
 
-        if {quests::animalFood::interaction::%player's uuid%::6} is not false:
+        cancel drops
+        set event-block to potato plant
 
-            cancel drops
-            set event-block to potato plant
-
-            potatoDrop(player)
+        potatoDrop(player)
         
-            wait 2 minutes
-            set event-block to ripe potato plant
+        wait 2 minutes
+        set event-block to ripe potato plant

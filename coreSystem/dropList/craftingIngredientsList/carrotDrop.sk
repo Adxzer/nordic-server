@@ -19,12 +19,10 @@ on break:
     
     if event-block is carrots[age=7]:
 
-        if {quests::animalFood::interaction::%player's uuid%::6} is not false:
+        cancel drops
+        set event-block to carrot plant
 
-            cancel drops
-            set event-block to carrot plant
-
-            carrotDrop(player)
+        carrotDrop(player)
         
-            wait 2 minutes
-            set event-block to ripe carrot plant
+        wait 2 minutes
+        set event-block to ripe carrot plant

@@ -42,16 +42,16 @@ function questBookGetQuest(player: player, quest: string) :: item:
                 while true:
                     if {_add::%{_loopIndex}%} is set:
                         set {_add} to "%{_add}% %{_add::%{_loopIndex}%}%"
-                        if {_loopIndex} is 11:
+                        if {_loopIndex} is 9:
                             add "&8[%{_dialougeNumber}%.]&7%{_add}%" to lore of {_book}
                             set {_add} to ""
-                        else if {_loopIndex} is 22 or 33:
+                        else if {_loopIndex} is 18 or 27:
                             add "&7%{_add}%" to lore of {_book}
                             set {_add} to ""
-                    else if {_loopIndex} <= 10:
+                    else if {_loopIndex} <= 8:
                         add "&8[%{_dialougeNumber}%.]&7%{_add}%" to lore of {_book}
                         stop loop
-                    else if {_loopIndex} >= 12: 
+                    else if {_loopIndex} >= 10: 
                         if {_add} is not "":
                             add "&7%{_add}%" to lore of {_book}
                         stop loop           
@@ -94,7 +94,7 @@ on rightclick:
     
         set metadata tag "quest" of player to chest with 6 row named "&8Quest Book"
         
-        set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem") # add new quests
+        set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot") # add new quests
 
         set {_borderIndex} to 0
         set {_questIndex} to 1
@@ -187,7 +187,7 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                             if arg-3 is set:
 
-                                set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem") # add new quests
+                                set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot") # add new quests
 
                                 if arg-3 is "clear":
                                     send "&a[QUEST] » &fYou cleared all of &a%arg-2%&f's quiz progress."
@@ -206,6 +206,7 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
                                     send "&a[QUEST] » &f%{_completed::animalFood}%&f."
                                     send "&a[QUEST] » &f%{_completed::rootedChallenge}%&f."
                                     send "&a[QUEST] » &f%{_completed::mysteryItem}%&f."
+                                    send "&a[QUEST] » &f%{_completed::luckyCarrot}%&f."
                                     # add new quests
                                 else if arg-3 is "set":
 
@@ -284,7 +285,7 @@ on tab complete of "/quest":
             set {_tabCompletion::*} to ("clear", "set", "list") # add new options 
             set tab completions for position 3 to {_tabCompletion::*}
 
-    set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem") # add new quests 
+    set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot") # add new quests 
     loop {_quests::*}:
         if tab arg-4 is loop-value:
             set {_quest} to true

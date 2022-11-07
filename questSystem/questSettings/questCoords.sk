@@ -3,3 +3,4 @@ on load:
     set {quests::animalFood::coords} to "-286 4 11"
     set {quests::rootedChallenge::coords} to "-242 11 -110"
     set {quests::mysteryItem::coords} to "-152 4 -86"
+    set {quests::luckyCarrot::coords} to "-152 4 -86"

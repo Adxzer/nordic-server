@@ -3,3 +3,4 @@ on load:
     set {quests::animalFood::objective} to "Assist Eirik in gathering wheat to feed the animals."
     set {quests::rootedChallenge::objective} to "Help Uno to defeat the Groot in his search for the Rooted Skin."
     set {quests::mysteryItem::objective} to "Find the mystery item Bjarne is looking for."
+    set {quests::luckyCarrot::objective} to "Aid Dalur in his farming endeavors and in his search for the golden carrot."

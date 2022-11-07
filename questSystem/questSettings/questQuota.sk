@@ -3,3 +3,4 @@ on load:
     set {quests::animalFood::quota::*} to ("Harvest 192x Wheat and bring it to Eirik.") 
     set {quests::rootedChallenge::quota::*} to ("Defeat the Groot and give Uno 1x Rooted Skin.") 
     set {quests::mysteryItem::quota::*} to ("Give Bjarne the mystery item is he looking for.") 
+    set {quests::luckyCarrot::quota::*} to ("Deliver a year's worth of carrots to Dalur", "Assist Dalur in finding the golden carrot.") 

@@ -1,0 +1,92 @@
+on npc rightclick:
+    
+    if npc id of target is 18:
+
+        questTalk(player)
+
+        set {_counter} to 1
+        loop {quests::luckyCarrot::interaction::%player's uuid%::*}:
+            send "%{_counter}%%loop-value%"
+            add 1 to {_counter}
+
+        if {quests::luckyCarrot::talked::%player's uuid%} is not true:
+            set {quests::luckyCarrot::interaction::%player's uuid%::*} to (false, false, false, false, false, false, false, false, false, false, false, false, false, false)
+            set {quests::luckyCarrot::talked::%player's uuid%} to true
+            set {quests::luckyCarrot::completed::%player's uuid%} to false
+            set {quests::luckyCarrot::carrot::%player's uuid%} to 0
+
+        if {quests::luckyCarrot::interaction::%player's uuid%::1} is false:
+            send "%{quests::luckyCarrot::dialouge::1}%"
+            set {quests::luckyCarrot::interaction::%player's uuid%::1} to true  
+        else if {quests::luckyCarrot::interaction::%player's uuid%::2} is false:  
+            send "%{quests::luckyCarrot::dialouge::2}%"
+            set {quests::luckyCarrot::interaction::%player's uuid%::2} to true
+        else if {quests::luckyCarrot::interaction::%player's uuid%::3} is false:  
+            send "%{quests::luckyCarrot::dialouge::3}%"
+            set {quests::luckyCarrot::interaction::%player's uuid%::3} to true
+        else if {quests::luckyCarrot::interaction::%player's uuid%::4} is false:  
+            send "%{quests::luckyCarrot::dialouge::4}%"
+            set {quests::luckyCarrot::interaction::%player's uuid%::4} to true
+        else if {quests::luckyCarrot::interaction::%player's uuid%::5} is false:  
+            send "%{quests::luckyCarrot::dialouge::5}%"
+            set {quests::luckyCarrot::interaction::%player's uuid%::5} to true
+            questNew(player, {quests::luckyCarrot::name})
+        else if {quests::luckyCarrot::interaction::%player's uuid%::6} is false:  
+            send "%{quests::luckyCarrot::dialouge::6}%"
+        else if {quests::luckyCarrot::interaction::%player's uuid%::7} is false: 
+            if player's inventory contains 1080 of carrots: 
+                remove 1080 carrots from player's inventory
+                send "%{quests::luckyCarrot::dialouge::7}%"
+                set {quests::luckyCarrot::interaction::%player's uuid%::7} to true
+            else:
+                send "&e[NPC] Eirik: &fThat is insufficient carrots; did you discard the carrots I instructed you to harvest?"
+        else if {quests::luckyCarrot::interaction::%player's uuid%::8} is false:  
+            send "%{quests::luckyCarrot::dialouge::8}%"
+            set {quests::luckyCarrot::interaction::%player's uuid%::8} to true
+        else if {quests::luckyCarrot::interaction::%player's uuid%::9} is false:  
+            send "%{quests::luckyCarrot::dialouge::9}%"
+            set {quests::luckyCarrot::interaction::%player's uuid%::9} to true
+        else if {quests::luckyCarrot::interaction::%player's uuid%::10} is false:  
+            send "%{quests::luckyCarrot::dialouge::10}%"
+            set {quests::luckyCarrot::interaction::%player's uuid%::10} to true
+        else if {quests::luckyCarrot::interaction::%player's uuid%::11} is false:  
+            send "%{quests::luckyCarrot::dialouge::11}%"
+            set {quests::luckyCarrot::interaction::%player's uuid%::11} to true
+        else if {quests::luckyCarrot::interaction::%player's uuid%::12} is false:  
+            if player's inventory contains golden carrot:
+                send "%{quests::luckyCarrot::dialouge::13}%"
+                set {quests::luckyCarrot::completed::%player's uuid%} to true
+                set {quests::luckyCarrot::interaction::%player's uuid%::12} to true
+                set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+                loop {_itemList::*}:
+                    if uncolored name of loop-value is "Gemstone":
+                        set {_gemstone} to loop-value
+                remove golden carrot from player
+                give player 7 of {_gemstone}
+                wait 3 seconds
+                questComplete(player, ({quests::luckyCarrot::name}, {quests::luckyCarrot::reward}))
+            else:
+                send "%{quests::luckyCarrot::dialouge::12}%"
+        else if {quests::luckyCarrot::interaction::%player's uuid%::13} is false:  
+            send "%{quests::luckyCarrot::dialouge::14}%"
+
+on break:
+
+    if event-block is carrots[age=7]:
+
+        if {quests::luckyCarrot::interaction::%player's uuid%::6} is false:
+
+            if {quests::luckyCarrot::carrot::%player's uuid%} >= 1080:
+                set {quests::luckyCarrot::interaction::%player's uuid%::6} to true
+                set {quests::luckyCarrot::interaction::%player's uuid%::5} to true
+                send "&a[QUEST] » &fYou have finished the quest &aAnimal Food&f, talk to Dalur to claim your rewards." to player
+
+            else:
+                cancel drops
+                set event-block to carrot
+
+                set {_carrot} to carrotDrop(player)
+                add floor({_carrot}) to {quests::luckyCarrot::carrot::%player's uuid%}
+
+                wait 2 minutes
+                set event-block to ripe carrot plant

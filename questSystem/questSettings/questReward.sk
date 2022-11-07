@@ -3,3 +3,4 @@ on load:
     set {quests::animalFood::reward} to "Beginners Hoe and 15x Emeralds"
     set {quests::rootedChallenge::reward} to "Rooted Heart"
     set {quests::mysteryItem::reward} to "3x Gemstone"
+    set {quests::luckyCarrot::reward} to "7x Gemstone"

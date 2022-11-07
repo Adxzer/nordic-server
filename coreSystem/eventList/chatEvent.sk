@@ -27,5 +27,5 @@ on chat:
                     set {_message::*} to ("&8 »", "&7%message%")
 
                 set {_time} to player's first login formatted as "dd/MM/yyyy"
-                send formatted "<tooltip:%player's prefix%%player%%nl%&7Joined: &f%{_time}%%nl%&7Level: &3⚗%{level::%player's uuid%}%>%player's prefix%%player%&7%{_message::1}% %{_message::2}%"        
+                broadcast formatted "<tooltip:%player's prefix%%player%%nl%&7Joined: &f%{_time}%%nl%&7Level: &3⚗%{level::%player's uuid%}%>%player's prefix%%player%&7%{_message::1}% %{_message::2}%"        
                 cancel event
