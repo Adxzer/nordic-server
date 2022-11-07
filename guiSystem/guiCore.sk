@@ -477,14 +477,14 @@ on inventory click:
                     set {_size} to size of lore of event-item
                         
                     if max stack size of event-item > 1:
-                        set {_checkLine1} to {_size} - 3
+                        set {_checkLine1} to {_size} - 5
                         set {_checkLine2} to {_size} - 4
-                        set {_checkLine3} to {_size} - 5
+                        set {_checkLine3} to {_size} - 3
                         
                     else:
-                        set {_checkLine1} to {_size} - 2
+                        set {_checkLine1} to {_size} - 4
                         set {_checkLine2} to {_size} - 3
-                        set {_checkLine3} to {_size} - 4
+                        set {_checkLine3} to {_size} - 2
                         
                     set {_splitOne::*} to uncolored split {_checkLine1}th line of lore of event-item at "x "
                     set {_itemOneList::*} to uncolored split {_splitOne::1} at " "
@@ -503,38 +503,20 @@ on inventory click:
                             set {_itemTwo} to {_itemTwoList::2} parsed as integer of loop-value
                         if uncolored name of loop-value is {_splitThree::2}:
                             set {_itemThree} to {_itemThreeList::2} parsed as integer of loop-value
-                        
-                    if {_itemTwo} is not set:
-                        set {_itemTwo} to air
 
-                    if {_itemThree} is not set:
-                        set {_itemThree} to air
-                        
-                    if {_itemOne} is set:
+                    set {_numberList::*} to ("One", "Two" and "Three")
+                    loop {_numberList::*}:
+
+                        if {_item%loop-value%} is not set:
+                            set {_item%loop-value%} to air
                             
-                        if player's inventory contains {_itemOne}:
-                            set {_final} to true
-
-                        else:
-                            set {_final} to false
-
-                        if {_itemTwo} is not air:
-
-                            if player's inventory contains {_itemTwo}:
-                                set {_final} to true
-
+                        if {_item%loop-value%} is set:
+                            if player's inventory contains {_item%loop-value%}:
+                                set {_final%loop-value%} to true
                             else:
-                                set {_final} to false
+                                set {_final%loop-value%} to false
 
-                        if {_itemThree} is not air:
-
-                            if player's inventory contains {_itemThree}:
-                                set {_final} to true
-                                    
-                            else:
-                                set {_final} to false
-
-                    if {_final} is true:
+                    if {_finalOne}, {_finalTwo} and {_finalThree} is true:
                         remove {_itemOne}, {_itemTwo} and {_itemThree} from player
                         if player's inventory have space for 1 saddle:
                             give player {_item}
@@ -648,37 +630,19 @@ on inventory click:
                         if uncolored name of loop-value is {_splitThree::2}:
                             set {_itemThree} to {_itemThreeList::2} parsed as integer of loop-value
                             
-                    if {_itemTwo} is not set:
-                        set {_itemTwo} to air
+                    set {_numberList::*} to ("One", "Two" and "Three")
+                    loop {_numberList::*}:
 
-                    if {_itemThree} is not set:
-                        set {_itemThree} to air
-
-                    if {_itemOne} is set:
-                                
-                        if player's inventory contains {_itemOne}:
-                            set {_final} to true
-
-                        else:
-                            set {_final} to false
-
-                        if {_itemTwo} is not air:
-
-                            if player's inventory contains {_itemTwo}:
-                                set {_final} to true
-
+                        if {_item%loop-value%} is not set:
+                            set {_item%loop-value%} to air
+                            
+                        if {_item%loop-value%} is set:
+                            if player's inventory contains {_item%loop-value%}:
+                                set {_final%loop-value%} to true
                             else:
-                                set {_final} to false
+                                set {_final%loop-value%} to false
 
-                        if {_itemThree} is not air:
-
-                            if player's inventory contains {_itemThree}:
-                                set {_final} to true
-                                        
-                            else:
-                                set {_final} to false
-
-                    if {_final} is true:
+                    if {_finalOne}, {_finalTwo} and {_finalThree} is true:
                         remove {_itemOne}, {_itemTwo} and {_itemThree} from player
                         if player's inventory have space for 1 saddle:
                             give player {_item}
