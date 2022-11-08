@@ -1,0 +1,4 @@
+command /link:
+    trigger:
+        make player execute command "discordsrv link"
+        

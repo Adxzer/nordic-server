@@ -1,0 +1,27 @@
+command /stats [<text>]:
+    trigger:
+
+        if arg-1 is set:
+
+            set {_player} to arg-1 parsed as offline player
+            set {_u} to uuid of {_player}
+
+            if {_player} is offline player:
+
+                set {_time} to {_player}'s first login formatted as "dd/MM/yyyy"
+                send formatted "<tooltip:%{_player}'s prefix%%{_player}%%nl%&7Joined: &f%{_time}%%nl%&7Level: &3⚗%{level::%player's uuid%}%>&3[STATS] » &fHover to see the stats of &3%{_player}%&f!"
+
+            else:
+                send "&3[STATS] » &c%{_player}% is not a valid player!"
+
+        else:
+
+            set {_player} to player
+            set {_time} to {_player}'s first login formatted as "dd/MM/yyyy"
+            send formatted "<tooltip:%{_player}'s prefix%%{_player}%%nl%&7Joined: &f%{_time}%%nl%&7Level: &3⚗%{level::%player's uuid%}%>&3[STATS] » &fHover to see the stats of &3yourself&f!"
+
+on tab complete of "/stats":
+
+    loop players:
+        add loop-value to {_tabCompletion::*}
+        set tab completions for position 1 to {_tabCompletion::*}
