@@ -81,6 +81,69 @@ function getSellValue(item: item, amount: number) :: number:
         return 2 * {_amount}
     else if uncolored name of {_item} is "Wool":
         return 3 * {_amount}
+    else if uncolored name of {_item} is "Red Mushroom":
+        return 1 * {_amount}
+    else if uncolored name of {_item} is "Brown Mushroom":
+        return 1 * {_amount}
+    else if uncolored name of {_item} is "String":
+        return 2 * {_amount}
+    else if uncolored name of {_item} is "Potato":
+        return 0 * {_amount}
+    else if uncolored name of {_item} is "Carrot":
+        return 0 * {_amount}
+    else if uncolored name of {_item} is "Web":
+        return 3 * {_amount}
+    else if uncolored name of {_item} is "Living Essence":
+        return 124 * {_amount}
+    else if uncolored name of {_item} is "Stuffed Potato":
+        return 4 * {_amount}
+    else if uncolored name of {_item} is "Gleaming Carrot":
+        return 4 * {_amount}
+    else if uncolored name of {_item} is "Enormous Shroom":
+        return 23 * {_amount}
+    else if uncolored name of {_item} is "Spider Heart":
+        return 65 * {_amount}
+    else if uncolored name of {_item} is "Prudent Axe":
+        return 72 * {_amount}
+    else if uncolored name of {_item} is "Mushrew Axe":
+        return 112 * {_amount}
+    else if uncolored name of {_item} is "Curative Sword":
+        return 212 * {_amount}
+    else if uncolored name of {_item} is "Revenant Bow":
+        return 68 * {_amount}
+    else if uncolored name of {_item} is "Jockey Bow":
+        return 142 * {_amount}
+    else if uncolored name of {_item} is "Grime Hoe":
+        return 42 * {_amount}
+    else if uncolored name of {_item} is "Fabled Hoe":
+        return 74 * {_amount}
+    else if uncolored name of {_item} is "Shield":
+        return 10 * {_amount}
+    else if uncolored name of {_item} is "Red Apple":
+        return 7 * {_amount}
+    else if uncolored name of {_item} is "Brownie":
+        return 28 * {_amount}
+    else if uncolored name of {_item} is "Mana Shard":
+        return 11 * {_amount}
+    else if uncolored name of {_item} is "Crystalline":
+        return 33 * {_amount}
+    else if uncolored name of {_item} is "Orgone Skull":
+        return 44 * {_amount}
+    else if uncolored name of {_item} is "Orgone Tunic":
+        return 52 * {_amount}
+    else if uncolored name of {_item} is "Orgone Pants":
+        return 48 * {_amount}
+    else if uncolored name of {_item} is "Orgone Boots":
+        return 40 * {_amount}
+    else if uncolored name of {_item} is "Remedial Skull":
+        return 90 * {_amount}
+    else if uncolored name of {_item} is "Remedial Tunic":
+        return 108 * {_amount}
+    else if uncolored name of {_item} is "Remedial Pants":
+        return 99 * {_amount}
+    else if uncolored name of {_item} is "Remedial Boots":
+        return 83 * {_amount}
+
 
 command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
     permission: op

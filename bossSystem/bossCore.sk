@@ -1,3 +1,25 @@
+function bossGetChadChunks() :: integer:
+
+    set {_chad} to 0
+
+    loop all entities in chunk at location(7, 4, -165, world "world"), location(7, 4, -158, world "world"), location(-2, 6, -158, world "world") and location(-3, 7, -169, world "world"):
+        set {_split::*} to split uncolored name of loop-value at " "
+        if {_split::2} is "Chad":
+            add 1 to {_chad}
+
+    return {_chad}
+
+function bossGetGrootChunks() :: integer:
+
+    set {_groot} to 0
+
+    loop all entities in chunk at location(-232, 21, -132, world "world") and location(-219, 21, -132, world "world"):
+        set {_split::*} to split uncolored name of loop-value at " "
+        if {_split::2} is "Groot":
+            add 1 to {_groot}
+
+    return {_groot}
+
 function bossCreateRewards(player: player, name: string, rewards: strings, boss: string, item: item):
 
     set metadata tag "type" of {_player} to chest with 6 row named "%{_name}%"
@@ -184,13 +206,23 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                         make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
                         make console execute command "mm m kill Boss%arg-1%"
-                        make console execute command "/mm spawners activate Boss%arg-1%Spawner"
+                        
+                        if arg-1 is "Groot":
+                            set {_boss} to bossGetGrootChunks()
+                            if {_boss} is 0:
+                                make console execute command "mm m spawn BossGroot world,-226,16,-136"
+                            else:
+                                make console execute command "boss groot activate"
+                        else if arg-1 is "Chad":
+                            set {_boss} to bossGetChadChunks()
+                            if {_boss} is 0:
+                                make console execute command "mm m spawn BossChad world,6,4,-166"
+                            else:
+                                make console execute command "boss groot activate"                            
                     else if arg-2 is "activate": 
 
                         send "&4[BOSS] » &fActivated the &4%arg-1%&f spawner."  
                         make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
-                        make console execute command "mm m kill Boss%arg-1%"
-                        make console execute command "/mm spawners activate Boss%arg-1%Spawner"
 
                     else:
                         send "&4[BOSS] » &cThis command option does not exist."
@@ -259,13 +291,13 @@ on inventory click:
             open (metadata tag "boss" of player) to player
 
 on load: # add new options
-    make console execute command "hd setline BossGrootCooldown 2 &7Fetching data from server..."
-    make console execute command "hd setline BossChadCooldown 2 &7Fetching data from server..."
-    wait 2 seconds
-    make console execute command "mm m kill BossGroot"
-    make console execute command "mm spawners activate BossGrootSpawner"
-    make console execute command "mm m kill BossChad"
-    make console execute command "mm spawners activate BossChadSpawner"
+    set {_groot} to bossGetGrootChunks()
+    set {_chad} to bossGetChadChunks()
+    broadcast "%{_groot}% | %{_chad}%"
+    if {_groot} is 0:
+        make console execute command "boss groot deactivate"
+    if {_chad} is 0:
+        make console execute command "boss chad deactivate"
 
 on tab complete of "/boss":
 
