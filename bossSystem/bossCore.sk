@@ -13,7 +13,7 @@ function bossGetGrootChunks() :: integer:
 
     set {_groot} to 0
 
-    loop all entities in chunk at location(-232, 21, -132, world "world") and location(-219, 21, -132, world "world"):
+    loop all entities in chunk at location(-232, 21, -132, world "world"), location(-219, 21, -132, world "world"), location(-232, 15, -132, world "world") and location(-219, 15, -132, world "world"):
         set {_split::*} to split uncolored name of loop-value at " "
         if {_split::2} is "Groot":
             add 1 to {_groot}

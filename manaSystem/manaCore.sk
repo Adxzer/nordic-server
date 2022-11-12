@@ -15,37 +15,107 @@ function manaRaycast(player: player, length: number, tool: item):
             set {_basicSpell} to loop-value
         else if uncolored name of loop-value is "Vital Spell":
             set {_vitalSpell} to loop-value
-            set {_pierce} to true
         else if uncolored name of loop-value is "Aesir Flinger":
             set {_aesirFlinger} to loop-value
-    play sound "ENTITY_RAVAGER_ATTACK" with volume 0.1 to {_player}
+        else if uncolored name of loop-value is "Transient Flinger":
+            set {_transientFlinger} to loop-value
+        else if uncolored name of loop-value is "Binary Spell":
+            set {_binarySpell} to loop-value
+        else if uncolored name of loop-value is "Serrated Staff":
+            set {_serratedStaff} to loop-value
+
+    if {_tool} is {_basicSpell}:
+        play sound "ENTITY_RAVAGER_ATTACK" with volume 0.1 to {_player}
+        set {_rgb1::*} to (rgb(110, 90, 84), rgb(125, 102, 95), rgb(140, 114, 107), rgb(158, 129, 122), rgb(176, 145, 137))
+        set {_rgb2::*} to (rgb(71, 62, 59), rgb(87, 76, 72), rgb(102, 89, 84), rgb(117, 102, 96), rgb(133, 116, 109))
+        set {_offset::*} to (0, 0, 0)
+        set {_radius} to 1.5
+    else if {_tool} is {_vitalSpell}:
+        play sound "ENTITY_RAVAGER_ATTACK" with volume 0.1 to {_player}
+        set {_rgb1::*} to (rgb(60, 89, 31), rgb(72, 107, 36), rgb(82, 122, 40), rgb(91, 135, 45), rgb(99, 148, 49))
+        set {_rgb2::*} to (rgb(86, 74, 53), rgb(99, 85, 61), rgb(112, 96, 68), rgb(128, 108, 75), rgb(143, 121, 84))
+        set {_offset::*} to (0, 0, 0)
+        set {_radius} to 1.5
+        set {_pierce} to true
+    else if {_tool} is {_aesirFlinger}:
+        play sound "ENTITY_WITHER_SHOOT" with volume 0.1 to {_player}
+        set {_rgb1::*} to (rgb(22, 125, 132), rgb(28, 145, 153), rgb(33, 164, 173), rgb(252, 162, 131), rgb(252, 179, 154))
+        set {_rgb2::*} to (rgb(20, 103, 109), rgb(24, 118, 125), rgb(28, 128, 135), rgb(252, 100, 0), rgb(255, 160, 97))
+        set {_offset::*} to (0, 0, 0)
+        set {_radius} to 1.5
+    else if {_tool} is {_transientFlinger}:
+        play sound "ENTITY_SHULKER_SHOOT" with volume 0.2 to {_player}
+        set {_rgb1::*} to (rgb(176, 124, 26), rgb(212, 149, 32), rgb(24, 196, 50), rgb(30, 214, 58), rgb(37, 247, 69))
+        set {_rgb2::*} to (rgb(209, 163, 75), rgb(227, 177, 82), rgb(57, 212, 81), rgb(60, 230, 86), rgb(66, 252, 94))
+        set {_offset::*} to (0, 0, 0)
+        set {_radius} to 1.5
+    else if {_tool} is {_binarySpell}:
+        play sound "ENTITY_BLAZE_SHOOT" with volume 0.1 to {_player}
+        set {_rgb1::*} to (rgb(156, 55, 30), rgb(199, 66, 34), rgb(219, 71, 35), rgb(235, 74, 35), rgb(247, 74, 32))
+        set {_rgb2::*} to (rgb(166, 126, 33), rgb(179, 136, 36), rgb(207, 157, 41), rgb(222, 168, 42), rgb(237, 180, 45))
+        set {_offset::*} to (0, -0.3, 0, 0, 0.3, 0)
+        set {_radius} to 2
+    else if {_tool} is {_serratedStaff}:
+        play sound "ITEM_TRIDENT_THUNDER" with volume 0.1 to {_player}
+        set {_rgb1::*} to (rgb(153, 175, 189), rgb(174, 195, 209), rgb(191, 211, 224), rgb(204, 224, 237), rgb(232, 243, 250))
+        set {_rgb2::*} to (rgb(58, 126, 166), rgb(62, 137, 181), rgb(66, 150, 199), rgb(71, 161, 214), rgb(73, 172, 230))
+        set {_offset::*} to (0, -0.3, 0, 0, 0.3, 0)
+        set {_radius} to 2
+        set {_pierce} to true
 
     set {_x} to 0
     loop {_length} times:
         add 1 to {_x}
-        # add sound
-        # get tool and check if the parsed tool is function input
-        if {_tool} is {_basicSpell}:
-            draw 1 of dust using dustTransition(rgb(110, 90, 84), rgb(71, 62, 59), 2) at {_rg%{_x}%} 
-        else if {_tool} is {_vitalSpell}:
-            draw 1 of dust using dustTransition(rgb(60, 89, 31), rgb(86, 74, 53), 2) at {_rg%{_x}%} 
-        else if {_tool} is {_aesirFlinger}:
-            if {_x} >= 37:
-                draw 1 of dust using dustTransition(rgb(252, 162, 131), rgb(252, 100, 0), 2) at {_rg%{_x}%} 
-            else if {_x} >= 17:
-                draw 1 of dust using dustTransition(rgb(15, 135, 116), rgb(20, 178, 131), 2) at {_rg%{_x}%} 
-            else:
-                draw 1 of dust using dustTransition(rgb(22, 125, 132), rgb(20, 103, 109), 2) at {_rg%{_x}%}
+        
+        set {_counter} to 1
+        loop 3 times:
+            set {_check} to {_counter} * 3
+            if {_offset::%{_check}%} is set:
 
-        loop entities in radius 1.5 around {_rg%{_x}%}:
-            loop-entity is not {_player}
-            make {_player} damage loop-entity by 0
-            if {_tool} is {_aesirFlinger}:
-                draw 0.1 of explosion at loop-entity
-                play sound "ENTITY_GENERIC_EXPLODE" with volume 0.2 at loop-entity
-                loop all entities in radius 4 of loop-entity:
-                    if loop-value-2 is not player:
-                        make {_player} damage loop-value-2 by 0
+                if {_counter} is 1:
+                    remove {_offset::1} from {_rg%{_x}%}'s x coordinate
+                    remove {_offset::2} from {_rg%{_x}%}'s y coordinate
+                    remove {_offset::3} from {_rg%{_x}%}'s z coordinate
+                else if {_counter} is 2:
+                    remove {_offset::4} from {_rg%{_x}%}'s x coordinate
+                    remove {_offset::5} from {_rg%{_x}%}'s y coordinate
+                    remove {_offset::6} from {_rg%{_x}%}'s z coordinate
+                else if {_counter} is 3:
+                    remove {_offset::7} from {_rg%{_x}%}'s x coordinate
+                    remove {_offset::8} from {_rg%{_x}%}'s y coordinate
+                    remove {_offset::9} from {_rg%{_x}%}'s z coordinate
+
+                if {_x} >= ({_length} / 10) * 5.5:
+                    draw 1 of dust using dustTransition({_rgb1::5}, {_rgb2::5}, 0.8) at {_rg%{_x}%}
+                else if {_x} >= ({_length} / 10) * 5:
+                    draw 1 of dust using dustTransition({_rgb1::4}, {_rgb2::4}, 1) at {_rg%{_x}%}
+                else if {_x} >= ({_length} / 10) * 4:
+                    draw 1 of dust using dustTransition({_rgb1::3}, {_rgb2::3}, 1.5) at {_rg%{_x}%}
+                else if {_x} >= ({_length} / 10) * 3.7:
+                    draw 1 of dust using dustTransition({_rgb1::2}, {_rgb2::2}, 1.8) at {_rg%{_x}%}
+                else:
+                    draw 1 of dust using dustTransition({_rgb1::1}, {_rgb2::1}, 2) at {_rg%{_x}%}
+            add 1 to {_counter}
+
+
+        loop entities in radius {_radius} around {_rg%{_x}%}:
+            if loop-entity is not {_player}:
+                make {_player} damage loop-entity by 0
+                if {_tool} is {_aesirFlinger} or {_serratedStaff}:
+                    if {_exploded} is not true:
+                        set {_exploded} to true
+                        draw 1 of explosion at loop-entity
+                        play sound "ENTITY_GENERIC_EXPLODE" with volume 0.2 at loop-entity
+                    loop all entities in radius 4 of loop-entity:
+                        if loop-entity-2 is not player:
+                            make {_player} damage loop-entity-2 by 0
+                if {_tool} is {_transientFlinger} or {_serratedStaff}:
+                    if {_teleport} is not true:
+                        set {_teleport} to true
+                        play sound "ENTITY_ENDERMAN_TELEPORT" with volume 0.2 at loop-entity
+                    loop all entities in radius 5 of loop-entity:
+                        if loop-entity-2 is not player:
+                            teleport loop-entity-2 to loop-entity-1
 
             if {_pierce} is not true:
                 stop
