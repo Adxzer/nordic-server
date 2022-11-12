@@ -69,7 +69,7 @@ command /economy [<text>] [<text>] [<text>] [<text>]:
 
                                                     else:
                                                         send "&2[ECONOMY] » &cThe player does not have enough to complete this action."                                    
-
+                                                
                                                 else:
                                                     send "&2[ECONOMY] » &cThis command option does not exist."
 
@@ -96,6 +96,11 @@ command /economy [<text>] [<text>] [<text>] [<text>]:
                                     
                                     else:
                                         send "&2[ECONOMY] » &cThe player does not have any balance in their inventory."
+
+                                else if arg-3 is "open":
+
+                                    guiCreateBank(player, {_player}, "&8Arland Banker", 1)
+                                    send "&2[ECONOMY] » &fOpened the bank of &2%{_player}%&f."  
 
                                 else:
                                     send "&2[ECONOMY] » &cThis command option does not exist."
@@ -135,7 +140,7 @@ on tab complete of "/economy":
     set {_u} to uuid of {_user}
     if {level::%{_u}%} is set:
 
-        if tab arg-3 is not "add" or "remove" or "check": # add new options 
+        if tab arg-3 is not "add" or "remove", "open" or "check": # add new options 
             clear {_tabCompletion::*}
-            set {_tabCompletion::*} to ("add", "remove", "check") # add new options 
+            set {_tabCompletion::*} to ("add", "remove", "check", "open") # add new options 
             set tab completions for position 3 to {_tabCompletion::*}

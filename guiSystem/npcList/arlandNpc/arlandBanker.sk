@@ -2,4 +2,4 @@ on npc rightclick:
     
     if npc id of target is 2:
 
-        guiCreateBank(player, "&8Arland Banker", 1)
+        guiCreateBank(player, player, "&8Arland Banker", 1)

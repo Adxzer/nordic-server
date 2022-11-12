@@ -1,0 +1,18 @@
+on death:
+
+    set {_name} to coreGetEntity(name of victim)
+
+    if {_name} is "Chad":
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+        set {_percentage} to 100
+        set {_min} to 4
+        set {_max} to 10
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Enormous Shroom":
+                set {_drop} to loop-value
+
+        set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})
+        coreKillDrop(attacker, {_amount}, {_drop})

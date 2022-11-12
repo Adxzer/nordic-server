@@ -306,7 +306,7 @@ function coreDamageBoost(player: player, tool: item) :: number:
     set {_u} to uuid of {_player}
     set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
 
-    if {_type::1} is "Damaging Tool" or "Archer Tool":
+    if {_type::1} is "Damaging Tool", "Magical Tool" or "Archer Tool":
 
         set {_lore::*} to {_tool}'s lore
         loop {_lore::*}:
@@ -380,7 +380,7 @@ function coreCriticalChance(player: player, tool: item) :: boolean:
     set {_u} to uuid of {_player}
     set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
 
-    if {_type::1} is "Damaging Tool" or "Archer Tool":
+    if {_type::1} is "Damaging Tool", "Magical Tool" or "Archer Tool":
 
         set {_lore::*} to {_tool}'s lore
         loop {_lore::*}:

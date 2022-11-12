@@ -170,11 +170,14 @@ function guiMerchantOptions(player: player, name: string, item: item, type: stri
 
     open (metadata tag "options" of {_player}) to {_player}
 
-function guiCreateBank(player: player, name: string, number: integer):
+function guiCreateBank(player: player, target: offline player, name: string, number: integer):
 
-    set metadata tag "bank" of {_player} to chest with 6 row named "%{_name}% Page %{_number}%"
+    if {_player} is {_target}:
+        set metadata tag "bank" of {_player} to chest with 6 row named "%{_name}% Page %{_number}%"
+    else:
+        set metadata tag "bank" of {_player} to chest with 6 row named "%{_name}% Page %{_number}% (%{_target}%)"
 
-    set {_u} to uuid of {_player}
+    set {_u} to uuid of {_target}
     set {previousBank::%{_u}%} to {_name}
     set {_borderIndex} to 0
     set {_slot} to 0
@@ -364,11 +367,22 @@ on inventory click:
                     if index of event-slot is 52: 
                         set {_save} to {_number} - 1
 
+                    set {_split::*} to split uncolored name of event-inventory at " "
+                    if {_split::5} is set:
+                        set {_name::*} to split {_split::5} at "("
+                        set {_name2::*} to split {_name::2} at ")"
+                        set {_player} to {_name2::1} parsed as offline player
+                        set {_u} to uuid of {_player}
+                        
+                    else:
+                        set {_u} to uuid of player
+                        set {_player} to player
+
                     loop 35 times:
-                        set {bank::%{_save}%::%{_slot}%::%player's uuid%} to slot {_slot} of player's current inventory
+                        set {bank::%{_save}%::%{_slot}%::%{_u}%} to slot {_slot} of player's current inventory
                         add 1 to {_slot}
 
-                    guiCreateBank(player, {previousBank::%player's uuid%}, {_number})
+                    guiCreateBank(player, {_player}, {previousBank::%player's uuid%}, {_number})
             else if index of event-slot is 51:
                 if name of player's inventory contains "Remote":
                     open (metadata tag "menu" of player) to player
@@ -659,7 +673,7 @@ on inventory click:
         else if index of event-slot is 39:
 
             if player has permission "skript.rank":
-                guiCreateBank(player, "&8Remote Banker", 1)
+                guiCreateBank(player, player, "&8Remote Banker", 1)
         else if index of event-slot is 41:
 
             if player has permission "skript.rank":
@@ -776,11 +790,23 @@ on inventory close:
     if event-inventory = (metadata tag "bank" of player): 
 
         set {_split::*} to uncolored name of event-inventory split at "Page "
-        set {_save} to {_split::2} parsed as integer
+        set {_int::*} to split {_split::2} at " "
+        set {_save} to {_int::1} parsed as integer
         set {_slot} to 0
 
+        set {_split2::*} to uncolored name of event-inventory split at " "
+        if {_split2::5} is set:
+            set {_name::*} to split {_split2::5} at "("
+            set {_name2::*} to split {_name::2} at ")"
+            set {_player} to {_name2::1} parsed as offline player
+            set {_u} to uuid of {_player}
+                        
+        else:
+            set {_u} to uuid of player
+            set {_player} to player
+
         loop 35 times:
-            set {bank::%{_save}%::%{_slot}%::%player's uuid%} to slot {_slot} of player's current inventory
+            set {bank::%{_save}%::%{_slot}%::%{_u}%} to slot {_slot} of player's current inventory
             add 1 to {_slot}
     else if event-inventory = (metadata tag "buyer" of player): 
 

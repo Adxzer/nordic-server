@@ -1,0 +1,8 @@
+command /sound [<text>]:
+    permission: skript.admin
+    permission message: Unknown command. Type "/help" for help.
+    trigger:
+        if arg-1 is set:
+            play sound arg-1 with volume 0.2 to player
+        else:
+            send "&3[SOUND] » &cPlease specify a sound."

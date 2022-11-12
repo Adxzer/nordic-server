@@ -42,7 +42,7 @@ on rightclick:
             else if uncolored loop-value contains "Damage:":
                 set {_damage::*} to split uncolored loop-value at " +"
                 set {_damage} to {_damage::2} parsed as an integer
-            else if uncolored loop-value contains "Mana Cost:":
+            else if uncolored loop-value contains "Expense:":
                 set {_mana::*} to split uncolored loop-value at "✦"
                 set {_mana} to {_mana::2} parsed as an integer
             else if uncolored loop-value contains "Cooldown:":
@@ -51,7 +51,7 @@ on rightclick:
                 set {_cooldown} to {_cooldown::1} parsed as an integer
             else if loop-value contains "Level":
                 set {_level::*} to split uncolored loop-value at "⚗"
-                set {_level} to {_level::2} parsed as an integer
+                set {_level} to {_level::2}
 
         if {_ability} is set:
 
@@ -119,14 +119,17 @@ on leftclick:
                 set {_abilityTemp::*} to split uncolored loop-value at ": "
                 set {_ability::*} to split {_abilityTemp::2} at " ("
                 set {_ability} to {_ability::1}
-            else if uncolored loop-value contains "Mana Cost:":
+            else if uncolored loop-value contains "Expense:":
                 set {_mana::*} to split uncolored loop-value at "✦"
                 set {_mana} to {_mana::2} parsed as an integer
             else if uncolored loop-value contains "Cooldown:":
                 set {_cooldownTemp::*} to split uncolored loop-value at ": "
                 set {_cooldown::*} to split {_cooldownTemp::2} at " "
                 set {_cooldown} to {_cooldown::1} parsed as an integer
-        
+            else if loop-value contains "Level":
+                set {_level::*} to split uncolored loop-value at "⚗"
+                set {_level} to {_level::2}
+
         if {_ability} is set:
 
             if {_ability::2} is "Left Click)":

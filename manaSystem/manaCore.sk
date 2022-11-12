@@ -1,3 +1,60 @@
+function manaRaycast(player: player, length: number, tool: item):
+
+    set {_x} to 0
+    set {_l} to 0
+    
+    loop {_length} times:
+        add 1 to {_x}
+        add 0.25 to {_l}
+        set {_rg%{_x}%} to location {_l} meters infront of {_player}
+        set {_rg%{_x}%} to location 1.25 meters above {_rg%{_x}%}
+
+    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+    loop {_itemList::*}:
+        if uncolored name of loop-value is "Basic Spell":
+            set {_basicSpell} to loop-value
+        else if uncolored name of loop-value is "Vital Spell":
+            set {_vitalSpell} to loop-value
+            set {_pierce} to true
+        else if uncolored name of loop-value is "Aesir Flinger":
+            set {_aesirFlinger} to loop-value
+    play sound "ENTITY_RAVAGER_ATTACK" with volume 0.1 to {_player}
+
+    set {_x} to 0
+    loop {_length} times:
+        add 1 to {_x}
+        # add sound
+        # get tool and check if the parsed tool is function input
+        if {_tool} is {_basicSpell}:
+            draw 1 of dust using dustTransition(rgb(110, 90, 84), rgb(71, 62, 59), 2) at {_rg%{_x}%} 
+        else if {_tool} is {_vitalSpell}:
+            draw 1 of dust using dustTransition(rgb(60, 89, 31), rgb(86, 74, 53), 2) at {_rg%{_x}%} 
+        else if {_tool} is {_aesirFlinger}:
+            if {_x} >= 37:
+                draw 1 of dust using dustTransition(rgb(252, 162, 131), rgb(252, 100, 0), 2) at {_rg%{_x}%} 
+            else if {_x} >= 17:
+                draw 1 of dust using dustTransition(rgb(15, 135, 116), rgb(20, 178, 131), 2) at {_rg%{_x}%} 
+            else:
+                draw 1 of dust using dustTransition(rgb(22, 125, 132), rgb(20, 103, 109), 2) at {_rg%{_x}%}
+
+        loop entities in radius 1.5 around {_rg%{_x}%}:
+            loop-entity is not {_player}
+            make {_player} damage loop-entity by 0
+            if {_tool} is {_aesirFlinger}:
+                draw 0.1 of explosion at loop-entity
+                play sound "ENTITY_GENERIC_EXPLODE" with volume 0.2 at loop-entity
+                loop all entities in radius 4 of loop-entity:
+                    if loop-value-2 is not player:
+                        make {_player} damage loop-value-2 by 0
+
+            if {_pierce} is not true:
+                stop
+        
+        loop blocks in radius 0.5 around {_rg%{_x}%}:
+            if loop-block is not tall grass, short grass, snow layer, air or water:
+                stop    
+    play sound "BLOCK_REDSTONE_TORCH_BURNOUT" with volume 0.1 to {_player}
+
 command /mana [<text>] [<text>] [<text>] [<text>] [<text>]:
     permission: op
     permission message: Unknown command. Type "/help" for help.
@@ -148,3 +205,57 @@ on rightclick:
                 send action bar coreGetActionBar(player, "&cYou already have max mana!") to player
                 wait 1 second
                 set {actionBarSet::%{_u}%} to false
+    else if uncolored {_lore::1} is "Magical Tool.":
+
+        set {_u} to uuid of player
+        set {_lore::*} to lore of player's tool
+
+        loop {_lore::*}:
+            if uncolored loop-value contains "Expense":
+                set {_splitCost::*} to split uncolored loop-value at "✦"
+                set {_cost} to {_splitCost::2} parsed as integer
+            else if uncolored loop-value contains "Range":
+                set {_splitRange::*} to split uncolored loop-value at " "
+                set {_range} to {_splitRange::2} parsed as integer
+
+            else if uncolored loop-value contains "Cooldown":
+                set {_splitCooldown::*} to split uncolored loop-value at " "
+                set {_cooldown} to {_splitCooldown::2} parsed as integer
+            else if loop-value contains "Level":
+                set {_level::*} to split uncolored loop-value at "⚗"
+                set {_level} to {_level::2}
+
+        if {level::%{_u}%} >= {_level::2} parsed as integer:
+
+            if {mana::currentMana::%{_u}%} >= {_cost}:
+
+                set {_tool} to uncolored name of player's tool
+                set {_item} to player's tool
+
+                if {mana::%{_tool}%::cooldown::%{_u}%} is true:
+                    set {actionBarSet::%{_u}%} to true
+                    send action bar coreGetActionBar(player, "&cThis item has a cooldown!") to player
+                    wait 1 second
+                    set {actionBarSet::%{_u}%} to false
+                    stop trigger
+
+                else:
+                    set {mana::%{_tool}%::cooldown::%{_u}%} to true
+                    remove {_cost} from {mana::currentMana::%{_u}%}
+                    manaRaycast(player, {_range}, {_item})
+                    wait "%{_cooldown}% seconds" parsed as timespan
+                    set {mana::%{_tool}%::cooldown::%{_u}%} to false
+
+            else:
+                set {actionBarSet::%{_u}%} to true
+                send action bar coreGetActionBar(player, "&cNot enough mana!") to player
+                wait 1 second
+                set {actionBarSet::%{_u}%} to false
+                stop trigger
+
+        else:
+            set {actionBarSet::%{_u}%} to true
+            send action bar coreGetActionBar(player, "&cNot requried level!") to player
+            wait 1 second
+            set {actionBarSet::%{_u}%} to false
+            stop trigger
