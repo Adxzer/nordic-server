@@ -19,15 +19,15 @@ on damage:
             else if {_name} is "Red Mushroomite":
                 set {_damage} to 14 * {_critical}
             else if {_name} is "Jockey Skeleton":
-                set {_damage} to 17 * {_critical}
+                set {_damage} to 16 * {_critical}
             else if {_name} is "Revenant Spider":
-                set {_damage} to 19 * {_critical}
+                set {_damage} to 17 * {_critical}
             else if {_name} is "Jockey Spider":
-                set {_damage} to 23 * {_critical}
+                set {_damage} to 19 * {_critical}
             else if {_name} is "Chad":
-                set {_damage} to 31 * {_critical}
+                set {_damage} to 33 * {_critical}
 
-            if {_name} is "Brown Mushroomite", "Red Mushroomite", "Jockey Skeleton", "Revenant Spider" or "Jockey Spider":
+            if {_name} is "Brown Mushroomite", "Red Mushroomite", "Jockey Skeleton", "Revenant Spider", "Jockey Spider" or "Chad":
                 if victim is not blocking:
                     set {_final} to coreDamagePlayer(victim, {_damage})
                     set damage to {_final}

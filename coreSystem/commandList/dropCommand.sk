@@ -1,0 +1,21 @@
+command /drop:
+    trigger:
+        if player's tool is not air:
+            if uncolored name of player's tool is not "Remote Menu" or "Quest Book":
+                if difference between {drop::%player's uuid%} and now is less than 10 seconds:
+                    set {_item} to player's tool
+                    set {_amount} to item amount of player's tool
+                    drop {_item} at location(player's x coordinate, player's y coordinate + 3, player's z coordinate, world "world")
+                    remove {_item} from player
+                    if {_amount} is greater than 1:
+                        send "&3[DROP] » &fYou have dropped &3%{_amount}%x %uncolored name of {_item}%&f." to player
+                    else:
+                        send "&3[DROP] » &fYou have dropped &3%uncolored name of {_item}%&f." to player
+                    play sound "ENTITY_POLAR_BEAR_STEP" with volume 0.2 to player
+                else:
+                    set {drop::%player's uuid%} to now
+                    send "&3[DROP] » &fConfirming... type &3/drop &fagain to drop your item!"
+            else:
+                send "&3[DROP] » &cYou cannot drop this item!" to player
+        else:
+            send "&3[DROP] » &cYou are not holding an item!" to player

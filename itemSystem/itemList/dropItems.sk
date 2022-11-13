@@ -23,6 +23,7 @@ on load:
     set {_bone} to bone named "&fBone" with lore "&7Crafting Ingredient.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL"
     set {_rootedSkin} to rabbit hide named "&aRooted Skin" with lore "&7Crafting Ingredient.", "", "&a★&8☆☆☆☆" and "&a&lUNIQUE"
     set {_hay} to hay bale named "&aHay" with lore "&7Crafting Ingredient.", "", "&a★&8☆☆☆☆" and "&a&lUNIQUE"
+    set {_pellucid} to heart of the sea named "&6Pellucid" with lore "&7Crafting Ingredient.", "",  "&6★&8☆☆☆☆" and "&6&lLEGENDARY"
 
     # 2 Star
     set {_goldIngot} to gold ingot named "&aGold Ingot" with lore "&7Crafting Ingredient.", "", "&a★★&8☆☆☆" and "&a&lUNIQUE"
@@ -54,6 +55,45 @@ on load:
     # 4 Star
     set {_spiderHeart} to charcoal named "&9Spider Heart" with lore "&7Crafting Ingredient.", "",  "&9★★★★&8☆" and "&9&lRARE"
 
+# Ostvik
+
+    # 1 Star
+    set {_natureBrace} to sunflower named "&6Nature Brace" with lore "&7Crafting Ingredient.", "",  "&6★&8☆☆☆☆" and "&6&lLEGENDARY"
+
+    # 2 Star
+    set {_lavaWeb} to crimson roots named "&9Lava Web" with lore "&7Crafting Ingredient.", "",  "&9★★&8☆☆☆" and "&9&lRARE"
+    set {_infernalite} to netherite scrap named "&5Infernalite" with lore "&7Crafting Ingredient.", "",  "&5★★&8☆☆☆" and "&5&lEPIC"
+    set {_blemish} to gunpowder named "&6Blemish" with lore "&7Crafting Ingredient.", "",  "&6★★&8☆☆☆" and "&6&lLEGENDARY"
+    set {_fadedRose} to wither rose named "&aFaded Rose" with lore "&7Crafting Ingredient.", "",  "&a★★&8☆☆☆" and "&a&lUNIQUE"
+
+    # 3 Star
+    set {_wart} to nether wart named "&fWart" with lore "&7Crafting Ingredient.", "",  "&f★★★&8☆☆" and "&f&lNORMAL"
+    set {_spikes} to nether quartz named "&aSpikes" with lore "&7Crafting Ingredient.", "",  "&a★★★&8☆☆" and "&a&lUNIQUE"
+
+    # 4 Star
+    set {_inuredDemis} to melon seeds named "&5Inured Demis" with lore "&7Crafting Ingredient.", "",  "&5★★★★&8☆" and "&5&lEPIC"
+    set {_goldNugget} to gold nugget named "&fGold Nugget" with lore "&7Crafting Ingredient.", "",  "&f★★★★&8☆" and "&f&lNORMAL"
+
+# Dundret
+
+    # 1 Star
+    set {_deityShard} to amethyst shard named "&6Deity Shard" with lore "&7Crafting Ingredient.", "",  "&6★&8☆☆☆☆" and "&6&lLEGENDARY"
+
+    # 2 Star
+    set {_firm} to nautilus shell named "&5Firm" with lore "&7Crafting Ingredient.", "",  "&5★★&8☆☆☆" and "&5&lEPIC"
+    set {_berries} to sweet berries named "&fBerries" with lore "&7Crafting Ingredient.", "",  "&f★★&8☆☆☆" and "&f&lNORMAL"
+    set {_graspLeaf} to azalea leaves named "&9Grasp Leaf" with lore "&7Crafting Ingredient.", "",  "&9★★&8☆☆☆" and "&9&lRARE"
+
+    # 3 Star
+    set {_twine} to glow lichen named "&5Twine" with lore "&7Crafting Ingredient.", "",  "&5★★★&8☆☆" and "&5&lEPIC"
+    set {_frozenIce} to ice named "&aFrozen Ice" with lore "&7Crafting Ingredient.", "",  "&a★★★&8☆☆" and "&a&lNORMAL"
+    set {_mossHunk} to moss block named "&9Moss Hunk" with lore "&7Crafting Ingredient.", "",  "&9★★★&8☆☆" and "&9&lRARE"
+    set {_deityCrystal} to amethyst cluster named "&6Deity Crystal" with lore "&7Crafting Ingredient.", "",  "&6★★★&8☆☆" and "&6&lLEGENDARY"
+
+    # 4 Star
+    set {_iceShard} to prismarine shard named "&fIce Shard" with lore "&7Crafting Ingredient.", "",  "&f★★★★&8☆" and "&f&lNORMAL"
+    set {_mossTurf} to large fern named "&aMoss Turf" with lore "&7Crafting Ingredient.", "",  "&a★★★★&8☆" and "&a&lNORMAL"
+
 # Boss
 
-    set {items::dropItems::*} to ({_prototypeDrop}, {_rawBeef}, {_rawMutton}, {_rawChicken}, {_egg}, {_rottenFlesh}, {_arrow}, {_seeds}, {_wheat}, {_leather}, {_wool}, {_feather}, {_bone}, {_rootedSkin}, {_hay}, {_potato}, {_goldIngot}, {_rootedHeart}, {_platinumTeeth}, {_redMushroom}, {_brownMushroom}, {_string}, {_potato}, {_carrot}, {_web}, {_livingEssence}, {_stuffedPotato}, {_gleamingCarrot}, {_enormousShroom}, {_spiderHeart})
+    set {items::dropItems::*} to ({_prototypeDrop}, {_rawBeef}, {_rawMutton}, {_rawChicken}, {_egg}, {_rottenFlesh}, {_arrow}, {_seeds}, {_wheat}, {_leather}, {_wool}, {_feather}, {_bone}, {_rootedSkin}, {_hay}, {_glossyBerry}, {_pellucid}, {_potato}, {_goldIngot}, {_rootedHeart}, {_ardour}, {_platinumTeeth}, {_redMushroom}, {_brownMushroom}, {_string}, {_potato}, {_carrot}, {_web}, {_livingEssence}, {_stuffedPotato}, {_gleamingCarrot}, {_enormousShroom}, {_spiderHeart}, {_natureBrace}, {_lavaWeb}, {_infernalite}, {_blemish}, {_fadedRose}, {_wart}, {_spikes}, {_inuredDemis}, {_shinyApple}, {_goldNugget}, {_deityShard}, {_firm}, {_berries}, {_graspLeaf}, {_twine}, {_frozenIce}, {_mossHunk}, {_deityCrystal}, {_iceShard}, {_mossTurf})

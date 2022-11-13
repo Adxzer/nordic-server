@@ -144,7 +144,7 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                                 if arg-4 is set:
 
-                                    set {_player} to arg-3 parsed as player
+                                    set {_player} to arg-2 parsed as offline player
                                     set {_u} to uuid of {_player}
 
                                     if {boss::%arg-1%::%{_u}%} is not set:
@@ -293,7 +293,7 @@ on inventory click:
 on load: # add new options
     set {_groot} to bossGetGrootChunks()
     set {_chad} to bossGetChadChunks()
-    broadcast "%{_groot}% | %{_chad}%"
+    # broadcast "%{_groot}% | %{_chad}%"
     if {_groot} is 0:
         make console execute command "boss groot deactivate"
     if {_chad} is 0:
@@ -312,8 +312,8 @@ on tab complete of "/boss":
         set tab completions for position 2 to {_tabCompletion::*}
 
     if tab arg-2 is "user":
+        clear {_tabCompletion::*}
         loop players:
-            clear {_tabCompletion::*}
             add loop-value to {_tabCompletion::*}
             set tab completions for position 3 to {_tabCompletion::*}
 
