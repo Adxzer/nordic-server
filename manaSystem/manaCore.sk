@@ -88,16 +88,17 @@ function manaRaycast(player: player, length: number, tool: item):
                 if {_x} >= ({_length} / 10) * 5.5:
                     draw 1 of dust using dustTransition({_rgb1::5}, {_rgb2::5}, 0.8) at {_rg%{_x}%}
                 else if {_x} >= ({_length} / 10) * 5:
-                    draw 1 of dust using dustTransition({_rgb1::4}, {_rgb2::4}, 1) at {_rg%{_x}%}
+                    draw 1 of dust using dustTransition({_rgb1::4}, {_rgb2::4}, 0.95) at {_rg%{_x}%}
                 else if {_x} >= ({_length} / 10) * 4:
-                    draw 1 of dust using dustTransition({_rgb1::3}, {_rgb2::3}, 1.5) at {_rg%{_x}%}
+                    draw 1 of dust using dustTransition({_rgb1::3}, {_rgb2::3}, 1.1) at {_rg%{_x}%}
                 else if {_x} >= ({_length} / 10) * 3.7:
-                    draw 1 of dust using dustTransition({_rgb1::2}, {_rgb2::2}, 1.8) at {_rg%{_x}%}
+                    draw 1 of dust using dustTransition({_rgb1::2}, {_rgb2::2}, 1.3) at {_rg%{_x}%}
                 else:
-                    draw 1 of dust using dustTransition({_rgb1::1}, {_rgb2::1}, 2) at {_rg%{_x}%}
+                    draw 1 of dust using dustTransition({_rgb1::1}, {_rgb2::1}, 1.5) at {_rg%{_x}%}
+            else:
+                stop loop
             add 1 to {_counter}
-
-
+        
         loop entities in radius {_radius} around {_rg%{_x}%}:
             if loop-entity is not {_player}:
                 make {_player} damage loop-entity by 0
@@ -107,18 +108,19 @@ function manaRaycast(player: player, length: number, tool: item):
                         draw 1 of explosion at loop-entity
                         play sound "ENTITY_GENERIC_EXPLODE" with volume 0.2 at loop-entity
                     loop all entities in radius 4 of loop-entity:
-                        if loop-entity-2 is not player:
+                        if loop-entity-2 is not player or villager:
                             make {_player} damage loop-entity-2 by 0
                 if {_tool} is {_transientFlinger} or {_serratedStaff}:
                     if {_teleport} is not true:
                         set {_teleport} to true
                         play sound "ENTITY_ENDERMAN_TELEPORT" with volume 0.2 at loop-entity
                     loop all entities in radius 5 of loop-entity:
-                        if loop-entity-2 is not player:
-                            teleport loop-entity-2 to loop-entity-1
+                        if loop-entity-2 is not player or villager:
+                            if uncolored name of loop-entity-1 and loop-entity-2 does not contain "BOSS":
+                                teleport loop-entity-2 to loop-entity-1
 
-            if {_pierce} is not true:
-                stop
+                if {_pierce} is not true:
+                    stop
         
         loop blocks in radius 0.5 around {_rg%{_x}%}:
             if loop-block is not tall grass, short grass, snow layer, air or water:

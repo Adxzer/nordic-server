@@ -14,6 +14,25 @@ on join:
     else:
         set join message to ""
 
+    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+    loop player's inventory:
+        if {_itemList::*} does not contain 1 of loop-value:
+            if uncolored name of loop-value is not "Quest Book" or "Remote Menu":
+                set {_message} to true
+                add loop-value to {_itemsRemoved::*}
+                remove loop-value from player's inventory
+
+    if {_message} is true:
+        set {_send} to "&4Items removed: "
+        set {_counter} to 1
+        loop {_itemsRemoved::*}:
+            if {_counter} is not size of {_itemsRemoved::*}:
+                set {_send} to "%{_send}%&7%loop-value%, "
+            else:
+                set {_send} to "%{_send}%&7%loop-value%." 
+            add 1 to {_counter}
+        send formatted "<tooltip:%{_send}%>&4[CLEARED] » &fYou had &4illegal &fitems that were removed from your inventory!"
+
     set {health::currentHearts::%player's uuid%} to {health::maxHearts::%player's uuid%}
     set {mana::currentMana::%player's uuid%} to {mana::maxMana::%player's uuid%}
     set {combat::%player's uuid%} to false
