@@ -1,0 +1,82 @@
+function iceDrop(player: player) :: number:
+    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+    loop {_itemList::*}:
+        if uncolored name of loop-value contains "Shovel" or "Pickaxe":
+            add loop-value to {_items::*}
+ 
+    set {_xp} to 1
+    set {_boost} to coreBreakBoost({_player}, ({_player}'s tool), ({_items::*}))
+
+    loop {_itemList::*}:
+        if uncolored name of loop-value is "Ice Shard":
+            set {_drop} to loop-value
+
+    set {_return} to coreBreakDrop({_player}, ({_player}'s tool), ({_items::*}), {_drop}, 1 + {_boost}, 2 + {_boost}, {_xp})
+    return {_return}
+
+
+on arm swing:
+
+    if player's target block is ice, packed ice or blue ice:
+
+        set {_lore::*} to lore of player's tool
+        loop {_lore::*}:
+            if loop-value contains "Efficiency":
+                set {_eff::*} to split uncolored loop-value at " "
+                set {_eff} to {_eff::2}
+            if loop-value contains "Level":
+                set {_level::*} to split uncolored loop-value at "⚗"
+                set {_level} to {_level::2}
+
+        if {_eff} is "V":
+            set {_effiency} to 5
+        else if {_eff} is "IV":
+            set {_effiency} to 4
+        else if {_eff} is "III":
+            set {_effiency} to 3
+        else if {_eff} is "II":
+            set {_effiency} to 2
+        else if {_eff} is "I":
+            set {_effiency} to 1
+        else:
+            set {_effiency} to 0
+
+
+        if {level::%player's uuid%} >= {_level::2} parsed as integer:
+
+            if {mining::%player's target block%::%player's uuid%} >= 6:
+                set {_lore::*} to lore of player's tool
+                loop {_lore::*}:
+                    if loop-value contains "Level":
+                        set {_level::*} to split uncolored loop-value at "⚗"
+                        set {_level} to {_level::2}
+
+                clear {mining::%player's target block%::%player's uuid%}
+                iceDrop(player)
+
+                if player's target block is ice:
+                    set {_type} to ice
+                else if player's target block is packed ice:
+                    set {_type} to packed ice
+                else if player's target block is blue ice:
+                    set {_type} to blue ice
+                remove mining stage at player's target block
+                set {_location} to location of player's target block
+                play sound "BLOCK_STONE_BREAK" with volume 0.3 to player
+                set block at player's target block to bedrock
+                wait 2 minutes
+                set block at {_location} to {_type}
+
+            else:
+
+                if {mining::%player's target block%::%player's uuid%} is set:
+                    set {_mining} to {mining::%player's target block%::%player's uuid%} + {_effiency} / 3
+                else:
+                    set {_mining} to {_effiency} / 3
+
+                if {_eff} is set:
+                    set {mining::%player's target block%::%player's uuid%} to {_mining}
+                    show mining stage {mining::%player's target block%::%player's uuid%} at player's target block
+                else:
+                    remove mining stage at player's target block

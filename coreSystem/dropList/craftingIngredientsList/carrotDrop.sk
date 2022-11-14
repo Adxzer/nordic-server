@@ -6,23 +6,25 @@ function carrotDrop(player: player) :: number:
             add loop-value to {_items::*}
  
     set {_xp} to 1
-    set {_boost} to coreHarvestBoost({_player}, ({_player}'s tool), ({_items::*}))
+    set {_boost} to coreBreakBoost({_player}, ({_player}'s tool), ({_items::*}))
 
     loop {_itemList::*}:
         if uncolored name of loop-value is "Carrot":
             set {_drop} to loop-value
 
-    set {_return} to coreHarvestDrop({_player}, ({_player}'s tool), ({_items::*}), {_drop}, 1 + {_boost}, 2 + {_boost}, {_xp})
+    set {_return} to coreBreakDrop({_player}, ({_player}'s tool), ({_items::*}), {_drop}, 1 + {_boost}, 2 + {_boost}, {_xp})
     return {_return}
 
 on break:
     
     if event-block is carrots[age=7]:
 
-        cancel drops
-        set event-block to carrot plant
+        if {quests::luckyCarrot::interaction::%player's uuid%::6} is not false:
 
-        carrotDrop(player)
-        
-        wait 2 minutes
-        set event-block to ripe carrot plant
+            cancel drops
+            set event-block to carrot plant
+
+            carrotDrop(player)
+            
+            wait 2 minutes
+            set event-block to ripe carrot plant

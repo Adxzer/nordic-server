@@ -208,12 +208,12 @@ function coreKillDrop(player: player, amount: number, drop: item):
         coreCheckLevel({_player})
         set {actionBarSet::%{_u}%} to true
 
-function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward: item, min: number, max: number, experience: number) :: number:
+function coreBreakDrop(player: player, tool: item, allowed: itemtypes, reward: item, min: number, max: number, experience: number) :: number:
     
     set {_u} to uuid of {_player}
     set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
 
-    if {_type::1} is "Harvesting Tool":
+    if {_type::1} is "Harvesting Tool" or "Mining Tool":
 
         loop {_allowed::*}:
             if uncolored name of {_tool} is uncolored name of loop-value:
@@ -243,7 +243,7 @@ function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward:
 
             else:
                 set {actionBarSet::%{_u}%} to true
-                send action bar coreGetActionBar({_player}, "&cNot requried level!") to {_player}
+                send action bar coreGetActionBar({_player}, "&cNot required level!") to {_player}
                 coreEndActionBar({_player})
                 set {actionBarSet::%{_u}%} to false
     else:
@@ -261,12 +261,12 @@ function coreHarvestDrop(player: player, tool: item, allowed: itemtypes, reward:
             set {actionBarSet::%{_u}%} to false
 
 
-function coreHarvestBoost(player: player, tool: item, allowed: itemtypes) :: number:
+function coreBreakBoost(player: player, tool: item, allowed: itemtypes) :: number:
 
     set {_u} to uuid of {_player}
     set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
 
-    if {_type::1} is "Harvesting Tool":
+    if {_type::1} is "Harvesting Tool" or "Mining Tool":
 
         loop {_allowed::*}:
             if uncolored name of {_tool} is uncolored name of loop-value:
@@ -277,8 +277,8 @@ function coreHarvestBoost(player: player, tool: item, allowed: itemtypes) :: num
             
             set {_lore::*} to {_tool}'s lore
             loop {_lore::*}:
-                if loop-value contains "Crops":
-                    set {_harvest::*} to split uncolored loop-value at "+"
+                if loop-value contains "Crops" or "Ores":
+                    set {_break::*} to split uncolored loop-value at "+"
                 else if loop-value contains "Double Drop":
                     set {_doubleDrop::*} to split uncolored loop-value at ": "
                     set {_double::*} to split {_doubleDrop::2} at "%%"
@@ -293,13 +293,13 @@ function coreHarvestBoost(player: player, tool: item, allowed: itemtypes) :: num
                     set {_random} to random integer between 1 and 100
 
                     if {_random} is between 1 and {_double}:
-                        return round({_harvest::2} parsed as integer * 2)
+                        return round({_break::2} parsed as integer * 2)
 
                     else:
-                        return round({_harvest::2} parsed as integer)
+                        return round({_break::2} parsed as integer)
 
                 else:
-                    return round({_harvest::2} parsed as integer)
+                    return round({_break::2} parsed as integer)
 
 function coreDamageBoost(player: player, tool: item) :: number:
 
@@ -320,7 +320,7 @@ function coreDamageBoost(player: player, tool: item) :: number:
 
         else:
             set {actionBarSet::%{_u}%} to true
-            send action bar coreGetActionBar({_player}, "&cNot requried level!") to {_player}
+            send action bar coreGetActionBar({_player}, "&cNot required level!") to {_player}
             wait 1 seconds
             set {actionBarSet::%{_u}%} to false
 
@@ -398,6 +398,7 @@ function coreCriticalChance(player: player, tool: item) :: boolean:
 
             if {_random} is between 1 and {_chance}:
                 return true
+
 
 every 1 seconds:
 

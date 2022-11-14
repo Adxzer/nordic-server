@@ -327,7 +327,7 @@ on rightclick:
 
         else:
             set {actionBarSet::%{_u}%} to true
-            send action bar coreGetActionBar(player, "&cNot requried level!") to player
+            send action bar coreGetActionBar(player, "&cNot required level!") to player
             wait 1 second
             set {actionBarSet::%{_u}%} to false
             stop trigger
