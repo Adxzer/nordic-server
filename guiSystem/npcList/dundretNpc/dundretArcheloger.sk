@@ -1,0 +1,23 @@
+on npc rightclick:
+    
+    if npc id of target is 29:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Rock Shovel":
+                set {_rockShovel} to loop-value 
+            else if uncolored name of loop-value is "Frost Shovel":
+                set {_frostShovel} to loop-value 
+            else if uncolored name of loop-value is "Glaze Shovel":
+                set {_glazeShovel} to loop-value 
+            else if uncolored name of loop-value is "Moss Hunk":
+                set {_mossHunk} to loop-value 
+            else if uncolored name of loop-value is "Grasp Leaf":
+                set {_graspLeaf} to loop-value 
+            else if uncolored name of loop-value is "Frozen Ice":
+                set {_frozenIce} to loop-value 
+            else if uncolored name of loop-value is "Deity Crystal":
+                set {_deityCrystal} to loop-value
+
+        guiCreateMerchant(player, "&8Dundret Archeologer", ({_rockShovel}, {_frostShovel}, {_glazeShovel}, air, air, {_mossHunk}, {_graspLeaf}, air, air, air, {_frozenIce}, {_deityCrystal}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &78x Frozen Ice:&8- &714x Moss Hunk", "&8- &716x Frozen Ice:&8- &728x Moss Hunk:&8- &74x Grasp Leaf", "&8- &764x Frozen Ice:&8- &748x Moss Hunk:&8- &712x Grasp Leaf", "", "", "&8- &748x Moss Turf", "&8- &76x Moss Chunk:&8- &7128x Ice Shard", "", "", "", "&8- &7194x Ice Shard", "&8- &732x Frozen Ice:&8- &724x Grasp Leaf"))

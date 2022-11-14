@@ -14,16 +14,16 @@ on damage:
             chance of 10%:
                 set {_critical} to 2
 
-            if {_name} is "Dunter Stray":
+            if {_name} is "Dundret Stray":
                 set {_damage} to 62 * {_critical}
-            else if {_name} is "Dunter Iceologer":
+            else if {_name} is "Dundret Iceologer":
                 set {_damage} to 77 * {_critical}
-            else if {_name} is "Dunter Lushbloom":
+            else if {_name} is "Dundret Lushbloom":
                 set {_damage} to 92 * {_critical}
-            else if {_name} is "Dunter Grasp":
+            else if {_name} is "Dundret Grasp":
                 set {_damage} to 135 * {_critical}
 
-            if {_name} is "Dunter Stray", "Dunter Iceologer", "Dunter Lushbloom" or "Dunter Grasp":
+            if {_name} is "Dundret Stray", "Dundret Iceologer", "Dundret Lushbloom" or "Dundret Grasp":
                 if victim is not blocking:
                     set {_final} to coreDamagePlayer(victim, {_damage})
                     set damage to {_final}

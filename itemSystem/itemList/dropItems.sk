@@ -86,7 +86,7 @@ on load:
 
     # 3 Star
     set {_twine} to glow lichen named "&5Twine" with lore "&7Crafting Ingredient.", "",  "&5★★★&8☆☆" and "&5&lEPIC"
-    set {_frozenIce} to ice named "&aFrozen Ice" with lore "&7Crafting Ingredient.", "",  "&a★★★&8☆☆" and "&a&lNORMAL"
+    set {_frozenIce} to ice named "&aFrozen Ice" with lore "&7Crafting Ingredient.", "",  "&a★★&8☆☆☆" and "&a&lNORMAL"
     set {_mossHunk} to moss block named "&9Moss Hunk" with lore "&7Crafting Ingredient.", "",  "&9★★★&8☆☆" and "&9&lRARE"
     set {_deityCrystal} to amethyst cluster named "&6Deity Crystal" with lore "&7Crafting Ingredient.", "",  "&6★★★&8☆☆" and "&6&lLEGENDARY"
     set {_iceVein} to twisting vines named "&9Ice Vein" with lore "&7Crafting Ingredient.", "",  "&9★★★&8☆☆" and "&9&lRARE"
