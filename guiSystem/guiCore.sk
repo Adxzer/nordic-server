@@ -109,7 +109,10 @@ function guiMerchantOptions(player: player, name: string, item: item, type: stri
                 set {_loreItemTwoIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemTwoNumber}%x %{_splitTwo::2}%"
             
             if {_loreItemThreeIndex}th line of lore of {_item} is not "%{_type::1}% 1x (Left Click)" or "":
-                set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
+                if "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%" contains "0x":
+                    set {_loreItemThreeIndex}th line of lore of {_item} to ""
+                else:
+                    set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
 
             set slot {_itemIndex} of metadata tag "options" of {_player} to {_item}
         else if {_itemIndex} is 12:
@@ -122,7 +125,10 @@ function guiMerchantOptions(player: player, name: string, item: item, type: stri
                 set {_loreItemTwoIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemTwoNumber}%x %{_splitTwo::2}%"
             
             if {_loreItemThreeIndex}th line of lore of {_item} is not "%{_type::1}% 4x (Left Click)" or "":
-                set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
+                if "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%" contains "0x":
+                    set {_loreItemThreeIndex}th line of lore of {_item} to ""
+                else:
+                    set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
 
             set slot {_itemIndex} of metadata tag "options" of {_player} to {_item}
         else if {_itemIndex} is 13:
@@ -135,7 +141,10 @@ function guiMerchantOptions(player: player, name: string, item: item, type: stri
                 set {_loreItemTwoIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemTwoNumber}%x %{_splitTwo::2}%"
             
             if {_loreItemThreeIndex}th line of lore of {_item} is not "%{_type::1}% 16x (Left Click)" or "":
-                set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
+                if "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%" contains "0x":
+                    set {_loreItemThreeIndex}th line of lore of {_item} to ""
+                else:
+                    set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
 
             set slot {_itemIndex} of metadata tag "options" of {_player} to {_item}
         else if {_itemIndex} is 14:
@@ -148,7 +157,10 @@ function guiMerchantOptions(player: player, name: string, item: item, type: stri
                 set {_loreItemTwoIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemTwoNumber}%x %{_splitTwo::2}%"
             
             if {_loreItemThreeIndex}th line of lore of {_item} is not "%{_type::1}% 32x (Left Click)" or "":
-                set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
+                if "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%" contains "0x":
+                    set {_loreItemThreeIndex}th line of lore of {_item} to ""
+                else:
+                    set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
 
             set slot {_itemIndex} of metadata tag "options" of {_player} to {_item}
         else if {_itemIndex} is 15:       
@@ -161,7 +173,10 @@ function guiMerchantOptions(player: player, name: string, item: item, type: stri
                 set {_loreItemTwoIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemTwoNumber}%x %{_splitTwo::2}%"
             
             if {_loreItemThreeIndex}th line of lore of {_item} is not "%{_type::1}% 64x (Left Click)" or "":
-                set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
+                if "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%" contains "0x":
+                    set {_loreItemThreeIndex}th line of lore of {_item} to ""
+                else:
+                    set {_loreItemThreeIndex}th line of lore of {_item} to "&8- &7%item amount of {_item} * {_itemThreeNumber}%x %{_splitThree::2}%"
 
             set slot {_itemIndex} of metadata tag "options" of {_player} to {_item}
             

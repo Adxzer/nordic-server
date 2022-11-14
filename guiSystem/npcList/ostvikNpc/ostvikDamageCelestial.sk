@@ -1,0 +1,15 @@
+on npc rightclick:
+    
+    if npc id of target is 27:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Infernalite":
+                set {_infernalite} to loop-value 
+            else if uncolored name of loop-value is "Shiny Apple":
+                set {_shinyApple} to loop-value 
+            else if uncolored name of loop-value is "Blemish":
+                set {_blemish} to loop-value 
+                
+        guiCreateMerchant(player, "&8Damage Celestial", ({_shinyApple}, {_infernalite}, {_blemish}), ("buy", "buy", "buy"), ("&8- &714x Gold Ingot:&8- &728x Red Apple", "&8- &72x Platinum Teeth:&8- &74x Gold Ingot:&8- &7248x Rotten Flesh", "&8- &76x Shiny Apple:&8- &74x Infernlite"))

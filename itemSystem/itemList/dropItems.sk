@@ -89,6 +89,7 @@ on load:
     set {_frozenIce} to ice named "&aFrozen Ice" with lore "&7Crafting Ingredient.", "",  "&a★★★&8☆☆" and "&a&lNORMAL"
     set {_mossHunk} to moss block named "&9Moss Hunk" with lore "&7Crafting Ingredient.", "",  "&9★★★&8☆☆" and "&9&lRARE"
     set {_deityCrystal} to amethyst cluster named "&6Deity Crystal" with lore "&7Crafting Ingredient.", "",  "&6★★★&8☆☆" and "&6&lLEGENDARY"
+    set {_iceVein} to twisting vines named "&9Ice Vein" with lore "&7Crafting Ingredient.", "",  "&9★★★&8☆☆" and "&9&lRARE"
 
     # 4 Star
     set {_iceShard} to prismarine shard named "&fIce Shard" with lore "&7Crafting Ingredient.", "",  "&f★★★★&8☆" and "&f&lNORMAL"
@@ -96,4 +97,4 @@ on load:
 
 # Boss
 
-    set {items::dropItems::*} to ({_prototypeDrop}, {_rawBeef}, {_rawMutton}, {_rawChicken}, {_egg}, {_rottenFlesh}, {_arrow}, {_seeds}, {_wheat}, {_leather}, {_wool}, {_feather}, {_bone}, {_rootedSkin}, {_hay}, {_glossyBerry}, {_pellucid}, {_potato}, {_goldIngot}, {_rootedHeart}, {_ardour}, {_platinumTeeth}, {_redMushroom}, {_brownMushroom}, {_string}, {_potato}, {_carrot}, {_web}, {_livingEssence}, {_stuffedPotato}, {_gleamingCarrot}, {_enormousShroom}, {_spiderHeart}, {_natureBrace}, {_lavaWeb}, {_infernalite}, {_blemish}, {_fadedRose}, {_wart}, {_spikes}, {_inuredDemis}, {_shinyApple}, {_goldNugget}, {_deityShard}, {_firm}, {_berries}, {_graspLeaf}, {_twine}, {_frozenIce}, {_mossHunk}, {_deityCrystal}, {_iceShard}, {_mossTurf})
+    set {items::dropItems::*} to ({_prototypeDrop}, {_rawBeef}, {_rawMutton}, {_rawChicken}, {_egg}, {_rottenFlesh}, {_arrow}, {_seeds}, {_wheat}, {_leather}, {_wool}, {_feather}, {_bone}, {_rootedSkin}, {_hay}, {_glossyBerry}, {_pellucid}, {_potato}, {_goldIngot}, {_rootedHeart}, {_ardour}, {_platinumTeeth}, {_redMushroom}, {_brownMushroom}, {_string}, {_potato}, {_carrot}, {_web}, {_livingEssence}, {_stuffedPotato}, {_gleamingCarrot}, {_enormousShroom}, {_spiderHeart}, {_natureBrace}, {_lavaWeb}, {_infernalite}, {_blemish}, {_fadedRose}, {_wart}, {_spikes}, {_inuredDemis}, {_shinyApple}, {_goldNugget}, {_deityShard}, {_iceVein}, {_firm}, {_berries}, {_graspLeaf}, {_twine}, {_frozenIce}, {_mossHunk}, {_deityCrystal}, {_iceShard}, {_mossTurf})

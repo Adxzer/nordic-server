@@ -1,0 +1,15 @@
+on npc rightclick:
+    
+    if npc id of target is 26:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Ardour":
+                set {_ardour} to loop-value 
+            else if uncolored name of loop-value is "Glossy Berry":
+                set {_glossyBerry} to loop-value 
+            else if uncolored name of loop-value is "Pellucid":
+                set {_pellucid} to loop-value 
+                
+        guiCreateMerchant(player, "&8Mana Celestial", ({_glossyBerry}, {_ardour}, {_pellucid}), ("buy", "buy", "buy"), ("&8- &732x Gleaming Carrot:&8- &7124x Berries:&8- &732x Lava Web", "&8- &78x Enormous Shroom:&8- &74x Crystalline:&8- &72x Living Essence", "&8- &74x Glossy Berry:&8- &72x Ardour"))
