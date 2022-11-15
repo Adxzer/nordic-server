@@ -1,0 +1,30 @@
+
+function abilityCheckVenom(player: player) :: boolean:
+
+    set {_u} to uuid of {_player}
+
+    if uncolored name of {_player}'s tool is not "Dim Bow":
+        set {actionBarSet::%{_u}%} to true
+        send action bar coreGetActionBar({_player}, "&cMust hold the Dim Bow!") to {_player}
+        coreEndActionBar({_player})
+        return false
+    else if {_player}'s inventory does not contain 1 of arrow:
+        set {actionBarSet::%{_u}%} to true
+        send action bar coreGetActionBar({_player}, "&cNeed 1 arrow!") to {_player}
+        coreEndActionBar({_player})
+        return false
+    else:
+        return true
+
+function abilityUseVenom(player: player) :: boolean:
+
+    set {_u} to uuid of {_player}
+    if uncolored name of {_player}'s tool is "Dim Bow":
+        make {_player} shoot an arrow at speed 3
+        remove arrow from {_player}
+        play sound "ENTITY_WANDERING_TRADER_DRINK_POTION" with volume 0.2 to {_player}
+
+on projectile hit:
+    
+    if uncolored name of shooter's tool is "Dim Bow":
+        apply potion of slowness 4 to victim for 20 seconds

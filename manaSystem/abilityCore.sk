@@ -15,7 +15,7 @@ function abilityUse(player: player, ability: string, cooldown: integer, mana: in
 function abilityCheckOtherActive(player: player) :: boolean:
     
     set {_u} to uuid of {_player}
-    set {_list::*} to ("transmission", "explosion", "sight", "shine" and "restore")
+    set {_list::*} to ("transmission", "explosion", "sight", "shine", "venom", "expiry" and "restore")
     
     loop {_list::*}:
 
@@ -78,6 +78,10 @@ on rightclick:
                                 else if {_ability} is "Explosion":
                                     if abilityCheckExplosion(player, {_damage}) is not false:
                                         abilityUse(player, {_ability}, {_cooldown}, {_mana})
+                                else if {_ability} is "Expiry":
+                                    if abilityCheckExpiry(player) is not false:
+                                        abilityUse(player, {_ability}, {_cooldown}, {_mana})
+                                        abilityUseExpiry(player)
                                 else if {_ability} is "Sight":
                                     if abilityCheckSight(player) is not false:
                                         abilityUse(player, {_ability}, {_cooldown}, {_mana})
@@ -152,6 +156,10 @@ on leftclick:
                                     if abilityCheckShine(player) is not false:
                                         abilityUse(player, {_ability}, {_cooldown}, {_mana})
                                         abilityUseShine(player)
+                                else if {_ability} is "Venom":
+                                    if abilityCheckVenom(player) is not false:
+                                        abilityUse(player, {_ability}, {_cooldown}, {_mana})
+                                        abilityUseVenom(player)
 
                             else:
                                 set {actionBarSet::%{_u}%} to true
