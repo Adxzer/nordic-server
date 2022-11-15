@@ -20,7 +20,7 @@ function abilityUseVenom(player: player) :: boolean:
 
     set {_u} to uuid of {_player}
     if uncolored name of {_player}'s tool is "Dim Bow":
-        make {_player} shoot an arrow at speed 3
+        make {_player} shoot an arrow at speed 2.5
         remove arrow from {_player}
         play sound "ENTITY_WANDERING_TRADER_DRINK_POTION" with volume 0.2 to {_player}
 

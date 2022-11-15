@@ -1,0 +1,13 @@
+on npc rightclick:
+    
+    if npc id of target is 30:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Gold Ingot":
+                set {_goldIngot} to loop-value 
+            else if uncolored name of loop-value is "Lava Web":
+                set {_lavaWeb} to loop-value 
+                
+        guiCreateMerchant(player, "&8Ostvik Guardian", ({_goldIngot}, {_lavaWeb}, {_inuredDemis}), ("buy", "buy", "buy"), ("&8- &7124x Gold Nugget", "&8- &7248x Wart"))

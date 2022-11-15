@@ -1,0 +1,25 @@
+on npc rightclick:
+    
+    if npc id of target is 22:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Teplate Cap":
+                set {_teplateCap} to loop-value 
+            else if uncolored name of loop-value is "Teplate Tunic":
+                set {_teplateTunic} to loop-value 
+            else if uncolored name of loop-value is "Teplate Pants":
+                set {_teplatePants} to loop-value 
+            else if uncolored name of loop-value is "Teplate Boots":
+                set {_teplateBoots} to loop-value 
+            else if uncolored name of loop-value is "Ruinous Skull":
+                set {_ruinousSkull} to loop-value 
+            else if uncolored name of loop-value is "Ruinous Chestplate":
+                set {_ruinousChestplate} to loop-value 
+            else if uncolored name of loop-value is "Ruinous Leggings":
+                set {_ruinousLeggings} to loop-value 
+            else if uncolored name of loop-value is "Ruinous Boots":
+                set {_ruinousBoots} to loop-value 
+
+        guiCreateMerchant(player, "&8Ostvik Armor Merchant", ({_teplateCap}, {_teplateTunic}, {_teplatePants}, {_teplateBoots}, air, {_ruinousSkull}, {_ruinousChestplate}, {_ruinousLeggings}, {_ruinousBoots}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &76x Gemstone:&8- &712x Gold Ingot:&8- &74x Inured Demis", "&8- &710x Gemstone:&8- &716x Gold Ingot:&8- &76x Inured Demis", "&8- &78x Gemstone:&8- &714x Gold Ingot:&8- &75x Inured Demis", "&8- &74x Gemstone:&8- &78x Gold Ingot:&8- &73x Inured Demis", "", "&8- &716x Gemstone:&8- &718x Gold Ingot:&8- &724x Lava Web", "&8- &720x Gemstone:&8- &722x Gold Ingot:&8- &728x Lava Web", "&8- &718x Gemstone:&8- &720x Gold Ingot:&8- &726x Lava Web", "&8- &714x Gemstone:&8- &716x Gold Ingot:&8- &722x Lava Web"))

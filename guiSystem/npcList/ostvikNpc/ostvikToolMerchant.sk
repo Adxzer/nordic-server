@@ -1,0 +1,17 @@
+on npc rightclick:
+    
+    if npc id of target is 23:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Teplate Sticks":
+                set {_teplateSticks} to loop-value 
+            else if uncolored name of loop-value is "Perish Sword":
+                set {_perishSword} to loop-value 
+            else if uncolored name of loop-value is "Dim Bow":
+                set {_dimeBow} to loop-value 
+            else if uncolored name of loop-value is "Binary Spell":
+                set {_binarySpell} to loop-value 
+
+        guiCreateMerchant(player, "&8Ostvik Tool Merchant", ({_teplateSticks}, {_perishSword}, air, air, air, {_dimeBow}, air, air, air, air, {_binarySpell}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &715x Gemstone:&8- &718x Gold Ingot:&8- &77x Inured Demis", "&8- &723x Gemstone:&8- &740x Gold Ingot:&8- &792x Faded Rose", "", "", "", "&8- &719x Gemstone:&8- &736x Spikes:&8- &778x Faded Rose", "", "", "", "", "&8- &724x Gemstone:&8- &752x Gold Ingot:&8- &746x Spikes"))

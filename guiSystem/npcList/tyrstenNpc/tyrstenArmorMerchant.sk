@@ -15,11 +15,11 @@ on npc rightclick:
                 set {_orgoneBoots} to loop-value 
             else if uncolored name of loop-value is "Remedial Skull":
                 set {_remedialSkull} to loop-value 
-            else if uncolored name of loop-value is "Remedial Tunic":
-                set {_remedialTunic} to loop-value 
+            else if uncolored name of loop-value is "Remedial Chestplate":
+                set {_remedialChestplate} to loop-value 
             else if uncolored name of loop-value is "Remedial Pants":
                 set {_remedialPants} to loop-value 
             else if uncolored name of loop-value is "Remedial Boots":
                 set {_remedialBoots} to loop-value 
 
-        guiCreateMerchant(player, "&8Tyrsten Armor Merchant", ({_orgoneSkull}, {_orgoneTunic}, {_orgonePants}, {_orgoneBoots}, air, {_remedialSkull}, {_remedialTunic}, {_remedialPants}, {_remedialBoots}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &78x Gemstone:&8- &742x Red Mushroom:&8- &738x Brown Mushroom", "&8- &76x Gemstone:&8- &764x Red Mushroom:&8- &760x Brown Mushroom", "&8- &74x Gemstone:&8- &755x Red Mushroom:&8- &751x Brown Mushroom", "&8- &75x Gemstone:&8- &736x Red Mushroom:&8- &732x Brown Mushroom", "", "&8- &78x Gemstone:&8- &75x Enormous Shroom:&8- &722x Web", "&8- &76x Gemstone:&8- &78x Enormous Shroom:&8- &732x Web", "&8- &74x Gemstone:&8- &76x Enormous Shroom:&8- &726x Web", "&8- &75x Gemstone:&8- &74x Enormous Shroom:&8- &718x Web"))
+        guiCreateMerchant(player, "&8Tyrsten Armor Merchant", ({_orgoneSkull}, {_orgoneTunic}, {_orgonePants}, {_orgoneBoots}, air, {_remedialSkull}, {_remedialChestplate}, {_remedialPants}, {_remedialBoots}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &78x Gemstone:&8- &742x Red Mushroom:&8- &738x Brown Mushroom", "&8- &76x Gemstone:&8- &764x Red Mushroom:&8- &760x Brown Mushroom", "&8- &74x Gemstone:&8- &755x Red Mushroom:&8- &751x Brown Mushroom", "&8- &75x Gemstone:&8- &736x Red Mushroom:&8- &732x Brown Mushroom", "", "&8- &78x Gemstone:&8- &75x Enormous Shroom:&8- &722x Web", "&8- &76x Gemstone:&8- &78x Enormous Shroom:&8- &732x Web", "&8- &74x Gemstone:&8- &76x Enormous Shroom:&8- &726x Web", "&8- &75x Gemstone:&8- &74x Enormous Shroom:&8- &718x Web"))
