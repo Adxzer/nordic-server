@@ -8,4 +8,3 @@ function abilityUseExpiry(player: player) :: boolean:
 
     shoot wither skull from {_player} at speed 3 # fix
     play sound "ENTITY_WITHER_HURT" with volume 0.2 to {_player}
-
