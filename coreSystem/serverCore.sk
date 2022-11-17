@@ -307,7 +307,7 @@ function coreDamageBoost(player: player, tool: item) :: number:
     set {_type::*} to split uncolored 1st line of lore of {_tool} at "."
 
     if {_type::1} is "Damaging Tool", "Magical Tool" or "Archer Tool":
-
+        
         set {_lore::*} to {_tool}'s lore
         loop {_lore::*}:
             if loop-value contains "Damage":

@@ -22,7 +22,7 @@ on damage:
                 set attacker's attack speed attribute to {_attackSpeed}
 
             spawn armor stand at victim with nbt "{Invisible:1,NoGravity:1,Small:1,Pose:{Head:[45f,0f,0f]}}"
-
+            
             if {_damage} is not set:
 
                 if {ability::sight::status::%attacker's uuid%} is true:

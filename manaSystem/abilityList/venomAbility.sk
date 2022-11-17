@@ -20,11 +20,17 @@ function abilityUseVenom(player: player) :: boolean:
 
     set {_u} to uuid of {_player}
     if uncolored name of {_player}'s tool is "Dim Bow":
+        set {ability::venom::status::%{_u}%} to true
         make {_player} shoot an arrow at speed 2.5
         remove arrow from {_player}
         play sound "ENTITY_WANDERING_TRADER_DRINK_POTION" with volume 0.2 to {_player}
+        wait 2.5 seconds
+        set {ability::venom::status::%{_u}%} to false
 
 on projectile hit:
     
+    set {_u} to uuid of shooter 
+
     if uncolored name of shooter's tool is "Dim Bow":
-        apply potion of slowness 4 to victim for 20 seconds
+        if {ability::venom::status::%{_u}%} is true:
+            apply potion of slowness 4 to victim for 20 seconds
