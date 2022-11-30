@@ -30,7 +30,7 @@ function abilityUseVenom(player: player) :: boolean:
 on projectile hit:
     
     set {_u} to uuid of shooter 
-
+    
     if uncolored name of shooter's tool is "Dim Bow":
         if {ability::venom::status::%{_u}%} is true:
             apply potion of slowness 4 to victim for 20 seconds

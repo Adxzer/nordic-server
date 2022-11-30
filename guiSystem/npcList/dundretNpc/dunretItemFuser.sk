@@ -1,0 +1,5 @@
+on npc rightclick:
+    
+    if npc id of target is 25:
+
+        guiCreateItemFuser(player, "&8Item Fuser")

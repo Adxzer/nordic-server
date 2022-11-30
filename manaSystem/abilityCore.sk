@@ -34,7 +34,7 @@ on rightclick:
         
         set {_lore::*} to lore of player's tool
         set {_u} to uuid of player
-
+        
         loop {_lore::*}:
             if uncolored loop-value contains "Item Ability:":
                 set {_abilityTemp::*} to split uncolored loop-value at ": "
@@ -50,14 +50,15 @@ on rightclick:
                 set {_cooldownTemp::*} to split uncolored loop-value at ": "
                 set {_cooldown::*} to split {_cooldownTemp::2} at " "
                 set {_cooldown} to {_cooldown::1} parsed as an integer
-            else if loop-value contains "Level":
+            else if uncolored loop-value contains "Level":
                 set {_level::*} to split uncolored loop-value at "⚗"
-
+                set {_level} to {_level::2} parsed as integer
+        
         if {_ability} is set:
-
+            
             if {_ability::2} is "Right Click)":
-                
-                if {level::%{_u}%} <= {_level} parsed as integer:
+
+                if {level::%{_u}%} >= {_level}:
 
                     if {ability::%{_ability}%::%player's uuid%} is true:
                         set {actionBarSet::%{_u}%} to true
@@ -110,6 +111,7 @@ on rightclick:
                             stop trigger
 
                 else:
+                    broadcast "certainly this is not it RIGHTT?"
                     set {actionBarSet::%{_u}%} to true
                     send action bar coreGetActionBar(player, "&cNot required level!") to player
                     wait 1 second
@@ -135,7 +137,7 @@ on leftclick:
                 set {_cooldownTemp::*} to split uncolored loop-value at ": "
                 set {_cooldown::*} to split {_cooldownTemp::2} at " "
                 set {_cooldown} to {_cooldown::1} parsed as an integer
-            else if loop-value contains "Level":
+            else if uncolored loop-value contains "Level":
                 set {_level::*} to split uncolored loop-value at "⚗"
                 set {_level} to {_level::2} parsed as integer
 
@@ -143,7 +145,7 @@ on leftclick:
             
             if {_ability::2} is "Left Click)":
 
-                if {level::%{_u}%} <= {_level} parsed as integer:
+                if {level::%{_u}%} <= {_level}:
 
                     if {ability::%{_ability}%::%player's uuid%} is true:
                         set {actionBarSet::%{_u}%} to true
