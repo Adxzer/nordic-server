@@ -839,30 +839,42 @@ on inventory click:
                     add slot {_counter} of player's current inventory to {_items::*}
                     add 1 to {_counter}
                 
-                loop {_items::*}:
-                    broadcast "%loop-value%"
+                set {_boundItem} to checkFuseItem({_items::*})
+                if {_boundItem} is not "none":
+
+                    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+                    loop {_itemList::*}:
+                        if uncolored name of loop-value is {_boundItem}:
+                            set {_giveItem} to loop-value
+                            stop loop
+
+                    set {_counter} to 21
+                    loop 3 times:
+                        remove 1 of slot {_counter} of player's current inventory from slot {_counter} of player's current inventory
+                        add 1 to {_counter}
+                    give player {_giveItem}
+                    play sound "ENTITY_FIREWORK_ROCKET_BLAST" with volume 0.2 to player
+                    play sound "ENTITY_FIREWORK_ROCKET_BLAST_FAR" with volume 0.2 to player
+                    play sound "ENTITY_ANVIL_USE" with volume 0.2 to player
 
         else:
 
             if event-slot is not air:
 
-                set {_item} to event-slot
-                set {_value} to getValidFuse({_item})
-                if {_value} is true:
-                    
-                    set {_counter} to 21
+                set {_item} to event-slot                    
+                set {_counter} to 21
 
-                    loop 3 times:
+                loop 3 times:
 
-                        if slot {_counter} of player's current inventory is air:
+                    if slot {_counter} of player's current inventory is air:
 
-                            set event-slot to air
-                            set slot {_counter} of player's current inventory to {_item}
-                            broadcast "ymca"
-                            stop loop
+                        set event-slot to air
+                        set slot {_counter} of player's current inventory to {_item}
+                        broadcast "ymca"
+                        stop loop
 
-                        else:
-                            add 1 to {_counter}
+                    else:
+                        add 1 to {_counter}
 
 on inventory close:
 
@@ -891,6 +903,13 @@ on inventory close:
 
         set {_counter} to 0
         loop 8 times:
+            if slot {_counter} of player's current inventory is not air:
+                give player slot {_counter} of player's current inventory
+            add 1 to {_counter}
+    else if event-inventory = (metadata tag "fuser" of player): 
+
+        set {_counter} to 21
+        loop 3 times:
             if slot {_counter} of player's current inventory is not air:
                 give player slot {_counter} of player's current inventory
             add 1 to {_counter}

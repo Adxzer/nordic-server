@@ -144,6 +144,51 @@ function getSellValue(item: item, amount: number) :: number:
     else if uncolored name of {_item} is "Remedial Boots":
         return 83 * {_amount}
 
+function checkFuseItem(items: itemtypes) :: string:
+    
+    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+    loop {_itemList::*}:
+        if uncolored name of loop-value is "Deity Crystal":
+            set {_deityCrystal} to loop-value
+        else if uncolored name of loop-value is "Teplate Sticks":
+            set {_teplateSticks} to loop-value
+        else if uncolored name of loop-value is "Teplate Cap":
+            set {_teplateCap} to loop-value 
+        else if uncolored name of loop-value is "Teplate Tunic":
+            set {_teplateTunic} to loop-value 
+        else if uncolored name of loop-value is "Teplate Pants":
+            set {_teplatePants} to loop-value 
+        else if uncolored name of loop-value is "Teplate Boots":
+            set {_teplateBoots} to loop-value
+        else if uncolored name of loop-value is "Pellucid":
+            set {_pellucid} to loop-value
+        else if uncolored name of loop-value is "Nature Brace":
+            set {_natureBrace} to loop-value
+        else if uncolored name of loop-value is "Blemish":
+            set {_blemish} to loop-value
+    
+    loop {_items::*}:
+        if uncolored name of loop-value is uncolored name of {_deityCrystal}:
+            set {_clear} to true
+            
+    if {_clear} is true:
+
+        loop {_items::*}:
+            if uncolored name of loop-value is uncolored name of {_teplateSticks}:
+                set {_tool} to true
+
+        if {_tool}, {_armor} or {_bow} is true:
+
+            loop {_items::*}:
+                if uncolored name of loop-value is uncolored name of {_pellucid}:
+                    set {_mana} to true
+
+            if {_mana}, {_damage} or {_archer} is true:
+
+                if {_mana} and {_tool} is true:
+                    return "Serrated Staff"
+
+    return "none"
 
 command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
     permission: op
