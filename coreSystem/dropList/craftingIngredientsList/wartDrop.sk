@@ -1,0 +1,28 @@
+function wartDrop(player: player) :: number:
+    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+    loop {_itemList::*}:
+        if uncolored name of loop-value contains "Hoe":
+            add loop-value to {_items::*}
+ 
+    set {_xp} to 1
+    set {_boost} to coreBreakBoost({_player}, ({_player}'s tool), ({_items::*}))
+
+    loop {_itemList::*}:
+        if uncolored name of loop-value is "Wart":
+            set {_drop} to loop-value
+
+    set {_return} to coreBreakDrop({_player}, ({_player}'s tool), ({_items::*}), {_drop}, 1 + {_boost}, 2 + {_boost}, {_xp})
+    return {_return}
+
+on break:
+    
+    if event-block is nether_wart[age=3]:
+
+        cancel drops
+        set event-block to nether wart plant
+
+        wartDrop(player)
+        
+        wait 2 minutes
+        set event-block to ripe nether wart plant

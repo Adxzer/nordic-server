@@ -27,4 +27,5 @@ on projectile hit:
 
     if uncolored name of shooter's tool is "Heroic Bow":
         if {ability::bolt::status::%{_u}%} is true:
-            strike lightning at victim
+            if victim is not player:
+                strike lightning at victim

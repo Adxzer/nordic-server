@@ -2,7 +2,7 @@ on death:
 
     set {_name} to coreGetEntity(name of victim)
 
-    if {_name} is "Skeleton", "Jockey Skeleton", "Skeleton Ghoul" or "Crypto Ghoul":
+    if {_name} is "Skeleton", "Jockey Skeleton", "Skeleton Ghoul", "Crypto Ghoul", "Wither Minion" or "Wither Skeleton":
 
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 

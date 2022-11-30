@@ -11,7 +11,7 @@ on death:
         set {_max} to 1
 
         loop {_itemList::*}:
-            if uncolored name of loop-value is "Golden Ingot":
+            if uncolored name of loop-value is "Gold Ingot":
                 set {_drop} to loop-value
 
         set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})

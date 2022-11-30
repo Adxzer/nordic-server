@@ -145,7 +145,7 @@ on leftclick:
             
             if {_ability::2} is "Left Click)":
 
-                if {level::%{_u}%} <= {_level}:
+                if {level::%{_u}%} >= {_level}:
 
                     if {ability::%{_ability}%::%player's uuid%} is true:
                         set {actionBarSet::%{_u}%} to true

@@ -1,0 +1,24 @@
+on death:
+
+    set {_name} to coreGetEntity(name of victim)
+
+    if {_name} is "Wither Skeleton":
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+        set {_percentage} to 0.1
+        set {_min} to 1
+        set {_max} to 1
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Perish Sword":
+                set {_drop} to loop-value
+
+        set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})
+        coreKillDrop(attacker, {_amount}, {_drop})
+
+        if {_amount} is greater than 0:
+            if {boost::luck::%attacker's uuid%} is greater than 0:
+                send "&3[DROP] » &fYou just got a %uncolored name of {_drop}%! &7[&22x✤&7] - [&3%{_percentage} * 2%%%&7]" to attacker
+            else:
+                send "&3[DROP] » &fYou just got a %uncolored name of {_drop}%! &7[&3%{_percentage}%%%&7]" to attacker

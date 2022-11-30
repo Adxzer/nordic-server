@@ -2,16 +2,16 @@ on death:
 
     set {_name} to coreGetEntity(name of victim)
 
-    if {_name} is "Zombie", "Zombie Ghoul", "Red Mushroomite", "Brown Mushroomite", "Baby Piglin", "Zombified Piglin", "Iceologer", "Grasp", "Lushbloom" or "Crypto Ghoul":
+    if {_name} is "Baby Piglin" or "Zombified Pilgin":
 
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 
         set {_percentage} to 100
-        set {_min} to 1
-        set {_max} to 4
+        set {_min} to 3
+        set {_max} to 7
 
         loop {_itemList::*}:
-            if uncolored name of loop-value is "Rotten Flesh":
+            if uncolored name of loop-value is "Gold Ingot":
                 set {_drop} to loop-value
 
         set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})

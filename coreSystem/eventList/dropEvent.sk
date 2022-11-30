@@ -1,21 +1,3 @@
 on drop:
 
     cancel event
-    send "&3[DROP] » &cUse /drop to drop items!"
-
-every 10 minutes:
-
-    broadcast "&3[DROP] » &fClearing all drops in &330 seconds&f!"
-    wait 15 seconds
-    broadcast "&3[DROP] » &fClearing all drops in &315 seconds&f!"
-    wait 12 seconds
-    broadcast "&3[DROP] » &fClearing all drops in &33 seconds&f!"
-    wait 1 second
-    broadcast "&3[DROP] » &fClearing all drops in &32 seconds&f!"
-    wait 1 second
-    broadcast "&3[DROP] » &fClearing all drops in &31 second&f!"
-    wait 1 second
-    broadcast "&3[DROP] » &fAll drops have been cleared!"
-    loop all entities in world "world":
-        if loop-entity is a dropped item:
-            delete loop-entity
