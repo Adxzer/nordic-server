@@ -1,0 +1,5 @@
+on npc rightclick:
+    
+    if npc id of target is 31:
+
+        guiCreateBank(player, player, "&8Ostvik Banker", 1)

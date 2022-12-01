@@ -4,51 +4,72 @@ on damage:
     
         cancel event
     
-    if victim is not a player:
+    if victim and attacker is player:
 
-        if attacker is not a player:
+        if coreGetPlayerRegion(victim) is "safe" or "arland":
 
             cancel event
+            stop trigger
+    
+    set damage to 0
+
+    set {_damage} to coreDamageBoost(attacker, (attacker's tool))
+    set {_attackSpeed} to coreAttackSpeedBoost(attacker, (attacker's tool))
+    set {_criticalHit} to coreCriticalChance(attacker, (attacker's tool))
+
+    if {_attackSpeed} is set:
+        set attacker's attack speed attribute to {_attackSpeed}
+
+    spawn armor stand at victim with nbt "{Invisible:1,NoGravity:1,Small:1,Pose:{Head:[45f,0f,0f]}}"
+
+    if {_damage} is not set:
+
+        if {ability::sight::status::%attacker's uuid%} is true:
+
+            set display name of last spawned armor stand to "&72" 
+            if victim and attacker is player:
+                add (2 / {health::maxHearts::%victim's uuid%} ) * 10 to damage
+                coreDamagePlayer(victim, 2)
+            else:
+                add 1 to damage
 
         else:
 
-            set damage to 0
-
-            set {_damage} to coreDamageBoost(attacker, (attacker's tool))
-            set {_attackSpeed} to coreAttackSpeedBoost(attacker, (attacker's tool))
-            set {_criticalHit} to coreCriticalChance(attacker, (attacker's tool))
-
-            if {_attackSpeed} is set:
-                set attacker's attack speed attribute to {_attackSpeed}
-
-            spawn armor stand at victim with nbt "{Invisible:1,NoGravity:1,Small:1,Pose:{Head:[45f,0f,0f]}}"
-            
-            if {_damage} is not set:
-
-                if {ability::sight::status::%attacker's uuid%} is true:
-                    add 1 to damage
-                    set display name of last spawned armor stand to "&72" 
-                
-                else:
-                    add 0.5 to damage
-                    set display name of last spawned armor stand to "&71"
+            set display name of last spawned armor stand to "&71" 
+            if victim and attacker is player:
+                add (1 / {health::maxHearts::%victim's uuid%} ) * 10 to damage
+                coreDamagePlayer(victim, 1)
             else:
+                add 0.5 to damage
+
+    else:
             
-                if {ability::sight::status::%attacker's uuid%} is true:
-                    set {_processedDamage} to {_damage} * 2
+        if {ability::sight::status::%attacker's uuid%} is true:
+            set {_processedDamage} to {_damage} * 2
 
-                else:
-                    set {_processedDamage} to {_damage}
+        else:
+            set {_processedDamage} to {_damage}
 
-                if {_criticalHit} is true:
-                    add {_processedDamage} to damage
-                    set display name of last spawned armor stand to "&c%{_processedDamage} * 2%"
-                else:
-                    add {_processedDamage} / 2 to damage
-                    set display name of last spawned armor stand to "&7%{_processedDamage}%"
+        if {_criticalHit} is true:
+            
+            set display name of last spawned armor stand to "&c%{_processedDamage} * 2%"
+            if victim and attacker is player:
+                add ({_processedDamage} * 2 / {health::maxHearts::%victim's uuid%} ) * 10 to damage
+                coreDamagePlayer(victim, {_processedDamage} * 2)
+            else:
+                add {_processedDamage} to damage
 
-            wait 1 second
-            kill all armor stands
+        else:
+            
+            set display name of last spawned armor stand to "&c%{_processedDamage}%"
+            if victim and attacker is player:
+                add ({_processedDamage} / {health::maxHearts::%victim's uuid%} ) * 10 to damage
+                coreDamagePlayer(victim, {_processedDamage})
+            else:
+                add {_processedDamage} / 2 to damage
+
+    wait 1 second
+    kill all armor stands
 
     if {combat::%victim's uuid%} is true:
         stop trigger

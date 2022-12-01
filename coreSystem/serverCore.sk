@@ -122,6 +122,8 @@ function coreGetPlayerRegion(player: player) :: string:
         return "dundret"     
     else if coreCheckRegion({_player}, location(-166, 59, -75, world "world"), location(49, 0, -305, world "world")) is true:
         return "tyrsten"
+    else if coreCheckRegion({_player}, location(24, 61, 61, world "world"), location(-58, 1, -27, world "world")) is true:
+        return "safe" 
     else if coreCheckRegion({_player}, location(98, 73, -140, world "world"), location(-116, 5, 142, world "world")) is true:
         return "ostvik"           
     else if coreCheckRegion({_player}, location(-332, 47, 100, world "world"), location(-134, 1, -164, world "world")) is true:
