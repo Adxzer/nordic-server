@@ -1,0 +1,5 @@
+command /memory:
+    permission: skript.admin
+    permission message: Unknown command. Type "/help" for help.
+    trigger:
+        send "&3[MEMORY] » &f%memory used%/%memory max% (%memory used percentage%%%)"

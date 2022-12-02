@@ -1,0 +1,95 @@
+on place:
+
+    if {souls::bindactive::%player's uuid%} is true:
+
+        if player's tool is player head:
+
+            set {_location} to "%event-block's x-coordinate%, %event-block's y-coordinate%, %event-block's z-coordinate%"
+            set {souls::bindlist::%{soulcounter}%} to {_location}
+            send "<##122289>[SOUL] » &fYou have added (<##122289>%{_location}%&f) to the soul list."
+            add 1 to {soulcounter} 
+
+on break:
+
+    if {souls::bindactive::%player's uuid%} is true:
+
+        if event-block is player head:
+
+            loop {souls::bindlist::*}:
+
+                if loop-value is "%event-block's x-coordinate%, %event-block's y-coordinate%, %event-block's z-coordinate%":
+
+                    remove loop-value from {souls::bindlist::*}
+                    send "<##122289>[SOUL] » &fYou have removed (<##122289>%event-block's x-coordinate%, %event-block's y-coordinate%, %event-block's z-coordinate%&f) from the soul list."
+
+on rightclick:
+
+    if event-block is player head:
+
+        set {_location} to "%event-block's x-coordinate%, %event-block's y-coordinate%, %event-block's z-coordinate%"
+        loop {souls::bindlist::*}:
+
+            if loop-value is {_location}:
+                
+                loop {souls::list::%player's uuid%::*}:
+                    
+                    if loop-value-2 is {_location}:
+                        send "<##122289>[SOUL] » &cYou have already found this soul lantern."
+                        set {_stop} to true
+                        stop loop
+                
+                if {_stop} is not true:
+                    send "<##122289>[SOUL] » &fYou just found a soul lantern and gained &c+1❤&f."
+                    add 1 to {souls::lanterns::amount::%player's uuid%}
+                    set {souls::list::%player's uuid%::%{souls::lanterns::amount::%player's uuid%}%} to {_location}
+                    stop loop
+
+command /soul [<text>] [<text>]:
+    permission: op
+    permission message: Unknown command. Type "/help" for help.
+    trigger:
+
+        if arg-1 is set:
+
+            if arg-1 is "get":
+
+                give player player skull with nbt "{display:{Name:""Soul Lantern""},SkullOwner:{Id:""bef9b773-51f2-4d18-bcbb-986a645e584c"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7ImlkIjoiOTM4NDM1M2E0YWUwNGZlNDkzOTcxYjU4N2RmNzdmMTIiLCJ0eXBlIjoiU0tJTiIsInVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTU4MGU1Y2Q5NzBjMWRlZDk3M2QwYzEzOWJlNDE4YjA3NTVlMDcxMzM0NWQ3MTZlZDU5NDI0NGE1M2U2ZTEzZCIsInByb2ZpbGVJZCI6IjgwMThhYjAwYjJhZTQ0Y2FhYzliZjYwZWY5MGY0NWU1IiwidGV4dHVyZUlkIjoiOTU4MGU1Y2Q5NzBjMWRlZDk3M2QwYzEzOWJlNDE4YjA3NTVlMDcxMzM0NWQ3MTZlZDU5NDI0NGE1M2U2ZTEzZCJ9fSwiY2FwZSI6bnVsbCwic2tpbiI6eyJpZCI6IjkzODQzNTNhNGFlMDRmZTQ5Mzk3MWI1ODdkZjc3ZjEyIiwidHlwZSI6IlNLSU4iLCJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzk1ODBlNWNkOTcwYzFkZWQ5NzNkMGMxMzliZTQxOGIwNzU1ZTA3MTMzNDVkNzE2ZWQ1OTQyNDRhNTNlNmUxM2QiLCJwcm9maWxlSWQiOiI4MDE4YWIwMGIyYWU0NGNhYWM5YmY2MGVmOTBmNDVlNSIsInRleHR1cmVJZCI6Ijk1ODBlNWNkOTcwYzFkZWQ5NzNkMGMxMzliZTQxOGIwNzU1ZTA3MTMzNDVkNzE2ZWQ1OTQyNDRhNTNlNmUxM2QifX0=""}]}}}" named "<##122289>Soul Lantern &7(Place while binded)"
+
+            else if arg-1 is "bind":
+
+                if arg-2 is set:
+
+                    if arg-2 is "true":
+
+                        set {souls::bindactive::%player's uuid%} to true
+                        send "<##122289>[SOUL] » &fSoulbind is now <##122289>enabled&f, you can now place or break souls to get them added or removed to the list."
+
+                    else if arg-2 is "false":
+
+                        set {souls::bindactive::%player's uuid%} to false
+                        send "<##122289>[SOUL] » &fSoulbind is now <##122289>disabled&f, you can no longer place or break souls to get them added or removed to the list."
+                    else:
+                        send "<##122289>[SOUL] » &cThis command option does not exist." 
+
+                else:
+                    send "<##122289>[SOUL] » &cPlease specify a command option." 
+
+            else if arg-1 is "list":
+
+                set {_counter} to 1
+                send "<##122289>[SOUL] » &fSoul list:"
+                loop {souls::bindlist::*}:
+                    send "<##122289>[SOUL] » &f%{_counter}%. %loop-value%"
+                    add 1 to {_counter}
+
+            else if arg-1 is "clear":
+
+                send "<##122289>[SOUL] » &fYou have cleared all soul lanterns." 
+                clear {souls::bindlist::*}
+                clear {souls::list::*}
+
+            else:
+                send "<##122289>[SOUL] » &cThis command option does not exist."
+
+        else:
+            send "<##122289>[SOUL] » &cPlease specify a command option." 
