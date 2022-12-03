@@ -1,3 +1,36 @@
+function getPlayerTag(player: player) :: string:
+
+    set {_login} to difference between now and {_player}'s first login
+    
+    if {_login} is greater than 1 year:
+        return "an overlord"
+    else if {_login} is greater than 6 months:
+        return "a god"
+    else if {_login} is greater than 5 months:
+        return "an emperor"
+    else if {_login} is greater than 4 months:
+        return "a king"
+    else if {_login} is greater than 3 months:
+        return "a prince"
+    else if {_login} is greater than 2 months:
+        return "a duke"
+    else if {_login} is greater than 1 month:
+        return "a bishop"
+    else if {_login} is greater than 2 weeks:
+        return "a warrior"
+    else if {_login} is greater than 1 week:
+        return "a knight"
+    else if {_login} is greater than 3 days:
+        return "a noble"
+    else if {_login} is greater than 1 day:
+        return "an amateur"
+    else if {_login} is greater than 12 hours:
+        return "a civilian"
+    else if {_login} is greater than 6 hours:
+        return "a specialist"
+    else:
+        return "peaseant"
+
 command /stats [<text>]:
     trigger:
 
@@ -9,7 +42,7 @@ command /stats [<text>]:
             if {_player} is offline player:
 
                 set {_time} to {_player}'s first login formatted as "dd/MM/yyyy"
-                send formatted "<tooltip:%{_player}'s prefix%%{_player}%%nl%&7Joined: &f%{_time}%%nl%&7Level: &3⚗%{level::%player's uuid%}%>&3[STATS] » &fHover to see the stats of &3%{_player}%&f!"
+                send formatted "<tooltip:%{_player}'s prefix%%{_player}%%nl%&7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤%nl%&7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦%nl%&7Souls: <##122289>%{souls::lanterns::amount::%player's uuid%}%/%{souls::globalamount}%☽%nl%%nl%&7Level: &3⚗%{level::%player's uuid%}%%nl%&7Joined: &f%{_time}%%nl%%nl%&7This player is %getPlayerTag({_player})%.>&3[STATS] » &fHover to see the stats of &3%{_player}%&f!"
 
             else:
                 send "&3[STATS] » &c%{_player}% is not a valid player!"
@@ -17,8 +50,10 @@ command /stats [<text>]:
         else:
 
             set {_player} to player
+            set {_u} to uuid of {_player}
+
             set {_time} to {_player}'s first login formatted as "dd/MM/yyyy"
-            send formatted "<tooltip:%{_player}'s prefix%%{_player}%%nl%&7Joined: &f%{_time}%%nl%&7Level: &3⚗%{level::%player's uuid%}%>&3[STATS] » &fHover to see the stats of &3yourself&f!"
+            send formatted "<tooltip:%{_player}'s prefix%%{_player}%%nl%&7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤%nl%&7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦%nl%&7Souls: <##122289>%{souls::lanterns::amount::%player's uuid%}%/%{souls::globalamount}%☽%nl%%nl%&7Level: &3⚗%{level::%player's uuid%}%%nl%&7Joined: &f%{_time}%%nl%%nl%&7This player is %getPlayerTag({_player})%.>&3[STATS] » &fHover to see the stats of &3yourself&f!"
 
 on tab complete of "/stats":
 

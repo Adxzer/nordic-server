@@ -143,6 +143,85 @@ function getSellValue(item: item, amount: number) :: number:
         return 99 * {_amount}
     else if uncolored name of {_item} is "Remedial Boots":
         return 83 * {_amount}
+    else if uncolored name of {_item} is "Serrated Skull":
+        return 132 * {_amount}
+    else if uncolored name of {_item} is "Serrated Tunic":
+        return 162 * {_amount}
+    else if uncolored name of {_item} is "Serrated Pants":
+        return 148 * {_amount}
+    else if uncolored name of {_item} is "Serrated Boots":
+        return 123 * {_amount}
+    else if uncolored name of {_item} is "Vicious Skull":
+        return 132 * {_amount}
+    else if uncolored name of {_item} is "Vicious Tunic":
+        return 162 * {_amount}
+    else if uncolored name of {_item} is "Vicious Pants":
+        return 148 * {_amount}
+    else if uncolored name of {_item} is "Vicious Boots":
+        return 123 * {_amount}
+    else if uncolored name of {_item} is "Heroic Skull":
+        return 132 * {_amount}
+    else if uncolored name of {_item} is "Heroic Tunic":
+        return 162 * {_amount}
+    else if uncolored name of {_item} is "Heroic Pants":
+        return 148 * {_amount}
+    else if uncolored name of {_item} is "Heroic Boots":
+        return 123 * {_amount}
+    else if uncolored name of {_item} is "Pellucid":
+        return 75 * {_amount}
+    else if uncolored name of {_item} is "Nature Brace":
+        return 82 * {_amount}
+    else if uncolored name of {_item} is "Blemish":
+        return 94 * {_amount}
+    else if uncolored name of {_item} is "Faded Rose":
+        return 23 * {_amount}
+    else if uncolored name of {_item} is "Infernalite":
+        return 31 * {_amount}
+    else if uncolored name of {_item} is "Spikes":
+        return 7 * {_amount}
+    else if uncolored name of {_item} is "Lava Web":
+        return 28 * {_amount}
+    else if uncolored name of {_item} is "Teplate Cap":
+        return 44 * {_amount}
+    else if uncolored name of {_item} is "Teplate Tunic":
+        return 52 * {_amount}
+    else if uncolored name of {_item} is "Teplate Pants":
+        return 48 * {_amount}
+    else if uncolored name of {_item} is "Teplate Boots":
+        return 40 * {_amount}
+    else if uncolored name of {_item} is "Inured Demis":
+        return 23 * {_amount}
+    else if uncolored name of {_item} is "Gold Nugget":
+        return 3 * {_amount}
+    else if uncolored name of {_item} is "Teplate Sticks":
+        return 66 * {_amount}
+    else if uncolored name of {_item} is "Deity Shard":
+        return 124 * {_amount}
+    else if uncolored name of {_item} is "Deity Crystal":
+        return 272 * {_amount}
+    else if uncolored name of {_item} is "Firm":
+        return 68 * {_amount}
+    else if uncolored name of {_item} is "Berries":
+        return 5 * {_amount}
+    else if uncolored name of {_item} is "Grasp Leaf":
+        return 83 * {_amount}
+    else if uncolored name of {_item} is "Twine":
+        return 43 * {_amount}
+    else if uncolored name of {_item} is "Frozen Ice":
+        return 48 * {_amount}
+    else if uncolored name of {_item} is "Moss Hunk":
+        return 34 * {_amount}
+    else if uncolored name of {_item} is "Ice Vein":
+        return 89 * {_amount}
+    else if uncolored name of {_item} is "Moss Turf":
+        return 4 * {_amount}
+    else if uncolored name of {_item} is "Ardour":
+        return 81 * {_amount}
+    else if uncolored name of {_item} is "Glossy Berry":
+        return 55 * {_amount}
+    else if uncolored name of {_item} is "Shiny Apple":
+        return 61 * {_amount}
+
 
 function checkFuseItem(items: itemtypes) :: string:
     
@@ -176,17 +255,57 @@ function checkFuseItem(items: itemtypes) :: string:
         loop {_items::*}:
             if uncolored name of loop-value is uncolored name of {_teplateSticks}:
                 set {_tool} to true
+            else if uncolored name of loop-value is uncolored name of {_teplateCap}:
+                set {_cap} to true
+            else if uncolored name of loop-value is uncolored name of {_teplateTunic}:
+                set {_tunic} to true
+            else if uncolored name of loop-value is uncolored name of {_teplatePants}:
+                set {_pants} to true
+            else if uncolored name of loop-value is uncolored name of {_teplateBoots}:
+                set {_boots} to true
 
         if {_tool}, {_armor} or {_bow} is true:
 
             loop {_items::*}:
                 if uncolored name of loop-value is uncolored name of {_pellucid}:
                     set {_mana} to true
+                else if uncolored name of loop-value is uncolored name of {_natureBrace}:
+                    set {_archer} to true
+                else if uncolored name of loop-value is uncolored name of {_blemish}:
+                    set {_damage} to true
 
             if {_mana}, {_damage} or {_archer} is true:
 
                 if {_mana} and {_tool} is true:
                     return "Serrated Staff"
+                else if {_mana} and {_cap} is true:
+                    return "Serrated Skull"
+                else if {_mana} and {_tunic} is true:
+                    return "Serrated Tunic"
+                else if {_mana} and {_pants} is true:
+                    return "Serrated Pants"
+                else if {_mana} and {_boots} is true:
+                    return "Serrated Boots"
+                else if {_archer} and {_tool} is true:
+                    return "Heroic Bow"
+                else if {_archer} and {_cap} is true:
+                    return "Heroic Skull"
+                else if {_archer} and {_tunic} is true:
+                    return "Heroic Tunic"
+                else if {_archer} and {_pants} is true:
+                    return "Heroic Pants"
+                else if {_archer} and {_boots} is true:
+                    return "Heroic Boots"
+                else if {_damage} and {_tool} is true:
+                    return "Vicious Axe"
+                else if {_damage} and {_cap} is true:
+                    return "Vicious Skull"
+                else if {_damage} and {_tunic} is true:
+                    return "Vicious Tunic"
+                else if {_damage} and {_pants} is true:
+                    return "Vicious Pants"
+                else if {_damage} and {_boots} is true:
+                    return "Vicious Boots"
 
     return "none"
 
