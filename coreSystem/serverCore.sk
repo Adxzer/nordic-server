@@ -409,7 +409,7 @@ every 1 seconds:
         
             if {health::customHearts::%loop-player's uuid%} is not set:
                 set {_boost} to coreArmorBoost(loop-player, helmet of loop-player) + coreArmorBoost(loop-player, chestplate of loop-player) + coreArmorBoost(loop-player, leggings of loop-player) + coreArmorBoost(loop-player, boots of loop-player)
-                set {health::maxHearts::%loop-player's uuid%} to {_boost} + 20 + ({level::%loop-player's uuid%} * 2)
+                set {health::maxHearts::%loop-player's uuid%} to {_boost} + {souls::lanterns::amount::%loop-player's uuid%} + 20 + ({level::%loop-player's uuid%} * 2)
 
                 coreRegenerateHealth(loop-player)
 

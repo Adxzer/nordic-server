@@ -343,7 +343,7 @@ on rightclick:
             set {_functionValue} to "%{xp::%player's uuid%}%/%{_next}%"
             if {_borderIndex} is 13:
 
-                set {_placeItem} to ("%player%" parsed as offline player)'s head named "&aYour Stats" with lore "&7View your current stats and the", "&7experience you require to level up.", "", "&7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤" and "&7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦" and ""
+                set {_placeItem} to ("%player%" parsed as offline player)'s head named "&aYour Stats" with lore "&7View your current stats and the", "&7experience you require to level up.", "", "&7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤" and "&7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦", "&7Souls: <##122289>%{souls::lanterns::amount::%player's uuid%}%/%{souls::globalamount}%☽" and ""
                 if {boost::luck::%{_u}%} or {boost::experience::%{_u}%} is greater than 0:
 
                     add "&7Boost:" to lore of {_placeItem}

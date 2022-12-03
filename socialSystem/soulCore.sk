@@ -5,9 +5,9 @@ on place:
         if player's tool is player head:
 
             set {_location} to "%event-block's x-coordinate%, %event-block's y-coordinate%, %event-block's z-coordinate%"
-            set {souls::bindlist::%{soulcounter}%} to {_location}
+            set {souls::bindlist::%{souls::globalamount}%} to {_location}
             send "<##122289>[SOUL] » &fYou have added (<##122289>%{_location}%&f) to the soul list."
-            add 1 to {soulcounter} 
+            add 1 to {souls::globalamount} 
 
 on break:
 
@@ -21,6 +21,7 @@ on break:
 
                     remove loop-value from {souls::bindlist::*}
                     send "<##122289>[SOUL] » &fYou have removed (<##122289>%event-block's x-coordinate%, %event-block's y-coordinate%, %event-block's z-coordinate%&f) from the soul list."
+                    remove 1 from {souls::globalamount}
 
 on rightclick:
 
@@ -76,20 +77,42 @@ command /soul [<text>] [<text>]:
 
             else if arg-1 is "list":
 
-                set {_counter} to 1
-                send "<##122289>[SOUL] » &fSoul list:"
+                set {_counter} to 0
                 loop {souls::bindlist::*}:
-                    send "<##122289>[SOUL] » &f%{_counter}%. %loop-value%"
                     add 1 to {_counter}
+
+                if {_counter} is not 0:
+                    set {_counter} to 1
+                    send "<##122289>[SOUL] » &fSoul list:"
+                    loop {souls::bindlist::*}:
+                        send "<##122289>[SOUL] » &f%{_counter}%. %loop-value%"
+                        add 1 to {_counter}
+                else:
+                    send "<##122289>[SOUL] » &cSoul list is empty."
 
             else if arg-1 is "clear":
 
                 send "<##122289>[SOUL] » &fYou have cleared all soul lanterns." 
                 clear {souls::bindlist::*}
                 clear {souls::list::*}
+                clear {souls::lanterns::amount::*}
+                set {souls::globalamount} to 0
 
             else:
                 send "<##122289>[SOUL] » &cThis command option does not exist."
 
         else:
             send "<##122289>[SOUL] » &cPlease specify a command option." 
+
+on tab complete of "/soul":
+
+    if tab arg-1 is not "get", "bind", "list" or "clear": # add new options  
+        clear {_tabCompletion::*}
+        set {_tabCompletion::*} to ("get", "bind", "list" and "clear") # add new options
+        set tab completions for position 1 to {_tabCompletion::*}
+
+    if tab arg-1 is "bind":
+        if tab arg-2 is not "true" or "false": # add new options  
+            clear {_tabCompletion::*}
+            set {_tabCompletion::*} to ("true", "false") # add new options
+            set tab completions for position 2 to {_tabCompletion::*}

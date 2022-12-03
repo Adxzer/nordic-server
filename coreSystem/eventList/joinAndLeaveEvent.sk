@@ -7,6 +7,9 @@ on join:
         teleport player to location(-204, 4, 75, world "world", 90, 0)
         set {level::%player's uuid%} to 1
 
+    if {souls::lanterns::amount::%player's uuid%} is not set:
+        set {souls::lanterns::amount::%player's uuid%} to 0
+
     if {vanish::%player's uuid%} is not true:
         if {level::%player's uuid%} is set:
             set join message to "&a[JOIN] + &fWelcome back to the server &a%player%&f."
