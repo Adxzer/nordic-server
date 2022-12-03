@@ -45,7 +45,7 @@ on rightclick:
                     set {souls::list::%player's uuid%::%{souls::lanterns::amount::%player's uuid%}%} to {_location}
                     stop loop
 
-command /soul [<text>] [<text>]:
+command /soul [<text>] [<text>] [<text>] [<text>]:
     permission: op
     permission message: Unknown command. Type "/help" for help.
     trigger:
@@ -98,6 +98,30 @@ command /soul [<text>] [<text>]:
                 clear {souls::lanterns::amount::*}
                 set {souls::globalamount} to 0
 
+            else if arg-1 is "remove":
+
+                if arg-2, arg-3 and arg-4 is set:
+                    
+                    set {_location} to "%arg-2%, %arg-3%, %arg-4%"
+
+                    loop {souls::bindlist::*}:
+
+                        if loop-value is {_location}: 
+                            remove {_location} from {souls::bindlist::*}
+                            send "<##122289>[SOUL] » &fYou have removed (<##122289>%{_location}%&f) from the soul list."
+                            remove 1 from {souls::globalamount}
+                            set {_send} to false
+                            stop loop
+
+                        else:
+                            set {_send} to true
+                    
+                    if {_send} is true:
+                        send "<##122289>[SOUL] » &cThis location is not in the soul list."
+
+                else:
+                    send "<##122289>[SOUL] » &cPlease specify a location."
+
             else:
                 send "<##122289>[SOUL] » &cThis command option does not exist."
 
@@ -106,9 +130,9 @@ command /soul [<text>] [<text>]:
 
 on tab complete of "/soul":
 
-    if tab arg-1 is not "get", "bind", "list" or "clear": # add new options  
+    if tab arg-1 is not "get", "bind", "list", "remove" or "clear": # add new options  
         clear {_tabCompletion::*}
-        set {_tabCompletion::*} to ("get", "bind", "list" and "clear") # add new options
+        set {_tabCompletion::*} to ("get", "bind", "list", "remove" and "clear") # add new options
         set tab completions for position 1 to {_tabCompletion::*}
 
     if tab arg-1 is "bind":
