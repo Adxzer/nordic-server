@@ -6,3 +6,6 @@ on load:
     set {quests::luckyCarrot::quota::*} to ("Deliver a year's worth of carrots to Dalur.", "Assist Dalur in finding the golden carrot.") 
     set {quests::conjecture::quota::*} to ("Give Oliver 1x Enormous Shroom.", "Supply Oliver with 2x Rooted Skin.") 
     set {quests::healthyCure::quota::*} to ("Get one red apple and one brownie for Mari.") 
+    set {quests::botany::quota::*} to ("Defeat Zombified Piglins and return with 30x Gold Ingots.", "Turn Wart into Lava Web and give Virpi it.", "Give the Lava Queen Virpi Inured Demis by defeating Draug.") 
+    set {quests::shadeMatter::quota::*} to ("Kill wither skeletons and minions in return to Rigmor with 246x Faded Rose.") 
+    set {quests::lastBreath::quota::*} to ("Kill the final boss Odin.") 

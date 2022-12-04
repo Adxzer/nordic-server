@@ -6,3 +6,6 @@ on load:
     set {quests::luckyCarrot::name} to "Lucky Carrot"
     set {quests::conjecture::name} to "Conjecture"
     set {quests::healthyCure::name} to "Healthy Cure"
+    set {quests::botany::name} to "Botany"
+    set {quests::shadeMatter::name} to "Shade Matter"
+    set {quests::lastBreath::name} to "Last Breath"

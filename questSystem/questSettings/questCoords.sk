@@ -6,3 +6,6 @@ on load:
     set {quests::luckyCarrot::coords} to "-152 4 -86"
     set {quests::conjecture::coords} to "-101 4 -97"
     set {quests::healthyCure::coords} to "1 4 -195"
+    set {quests::botany::coords} to "20 12 -132"
+    set {quests::shadeMatter::coords} to "-49 8 107"
+    set {quests::lastBreath::coords} to "-107 12 78"

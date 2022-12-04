@@ -6,3 +6,6 @@ on load:
     set {quests::luckyCarrot::objective} to "Aid Dalur in his farming endeavors and in his search for the golden carrot."
     set {quests::conjecture::objective} to "Investigate the suspicion regarding the magic in the forest."
     set {quests::healthyCure::objective} to "Save mary from death."
+    set {quests::botany::objective} to "Help the Lava Queen Virpi in the clearing up of Ostvik in the great reward of the lava core."
+    set {quests::shadeMatter::objective} to "Assist Rigmor in his harvest of Faded Roses so he can darkify the great lava lake."
+    set {quests::lastBreath::objective} to "Finish what Tyr and Thor wasn't able to do and end Odin for the last time."

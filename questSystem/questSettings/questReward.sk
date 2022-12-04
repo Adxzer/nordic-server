@@ -6,3 +6,6 @@ on load:
     set {quests::luckyCarrot::reward} to "7x Gemstone"
     set {quests::conjecture::reward} to "Living Essence"
     set {quests::healthyCure::reward} to "3x Crystalline and 2x Gemstone"
+    set {quests::botany::reward} to "Blemish"
+    set {quests::shadeMatter::reward} to "Teplate Kit"
+    set {quests::lastBreath::reward} to "3x Crystalline and 2x Gemstone"
