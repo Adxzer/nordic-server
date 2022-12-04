@@ -1,0 +1,83 @@
+on npc rightclick:
+    
+    if npc id of target is 32:
+
+        questTalk(player)
+        
+        if {quests::botany::talked::%player's uuid%} is not true:
+            set {quests::botany::interaction::%player's uuid%::*} to (false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
+            set {quests::botany::talked::%player's uuid%} to true
+            set {quests::botany::completed::%player's uuid%} to false
+
+        if {quests::botany::interaction::%player's uuid%::1} is false:
+            send "%{quests::botany::dialouge::1}%"
+            set {quests::botany::interaction::%player's uuid%::1} to true  
+        else if {quests::botany::interaction::%player's uuid%::2} is false:  
+            send "%{quests::botany::dialouge::2}%"
+            set {quests::botany::interaction::%player's uuid%::2} to true
+        else if {quests::botany::interaction::%player's uuid%::3} is false:  
+            send "%{quests::botany::dialouge::3}%"
+            set {quests::botany::interaction::%player's uuid%::3} to true
+            questNew(player, {quests::botany::name})
+        else if {quests::botany::interaction::%player's uuid%::4} is false:
+            if player's inventory contains 30 of gold ingot:
+                send "%{quests::botany::dialouge::5}%"
+                set {quests::botany::interaction::%player's uuid%::4} to true
+                set {quests::botany::interaction::%player's uuid%::5} to true
+                remove 30 of gold ingot from player
+            else:
+                send "%{quests::botany::dialouge::4}%"
+        else if {quests::botany::interaction::%player's uuid%::6} is false:  
+            send "%{quests::botany::dialouge::6}%"
+            set {quests::botany::interaction::%player's uuid%::6} to true
+        else if {quests::botany::interaction::%player's uuid%::7} is false:  
+            send "%{quests::botany::dialouge::7}%"
+            set {quests::botany::interaction::%player's uuid%::7} to true
+        else if {quests::botany::interaction::%player's uuid%::8} is false:  
+            send "%{quests::botany::dialouge::8}%"
+            set {quests::botany::interaction::%player's uuid%::8} to true
+        else if {quests::botany::interaction::%player's uuid%::9} is false:  
+            send "%{quests::botany::dialouge::9}%"
+            set {quests::botany::interaction::%player's uuid%::9} to true
+        else if {quests::botany::interaction::%player's uuid%::10} is false:
+            if player's inventory contains crimson roots:
+                send "%{quests::botany::dialouge::11}%"
+                set {quests::botany::interaction::%player's uuid%::10} to true
+                set {quests::botany::interaction::%player's uuid%::11} to true
+                remove crimson roots from player
+            else:
+                send "%{quests::botany::dialouge::10}%"
+        else if {quests::botany::interaction::%player's uuid%::12} is false:  
+            send "%{quests::botany::dialouge::12}%"
+            set {quests::botany::interaction::%player's uuid%::12} to true
+        else if {quests::botany::interaction::%player's uuid%::13} is false:  
+            send "%{quests::botany::dialouge::13}%"
+            set {quests::botany::interaction::%player's uuid%::13} to true
+        else if {quests::botany::interaction::%player's uuid%::14} is false:  
+            send "%{quests::botany::dialouge::14}%"
+            set {quests::botany::interaction::%player's uuid%::14} to true
+        else if {quests::botany::interaction::%player's uuid%::15} is false:  
+            send "%{quests::botany::dialouge::15}%"
+            set {quests::botany::interaction::%player's uuid%::15} to true
+        else if {quests::botany::interaction::%player's uuid%::16} is false:  
+            send "%{quests::botany::dialouge::16}%"
+            set {quests::botany::interaction::%player's uuid%::16} to true
+        else if {quests::botany::interaction::%player's uuid%::17} is false:  
+            if player's inventory contains melon seeds:
+                send "%{quests::botany::dialouge::18}%"
+                set {quests::botany::interaction::%player's uuid%::18} to true
+                set {quests::botany::interaction::%player's uuid%::17} to true
+                set {quests::botany::completed::%player's uuid%} to true
+                set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+                loop {_itemList::*}:
+                    if uncolored name of loop-value is "Blemish":
+                        set {_blemish} to loop-value
+                remove melon seeds from player
+                give player {_blemish}
+                wait 3 seconds
+                questComplete(player, ({quests::botany::name}, {quests::botany::reward}))
+            else:
+                send "%{quests::botany::dialouge::17}%"
+        else if {quests::botany::interaction::%player's uuid%::19} is false:  
+            send "%{quests::botany::dialouge::19}%"
+

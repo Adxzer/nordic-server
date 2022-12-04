@@ -8,4 +8,4 @@ on load:
     set {quests::healthyCure::start} to "Talk to Mari to start this quest."
     set {quests::botany::start} to "Talk to Virpi to start this quest."
     set {quests::shadeMatter::start} to "Talk to Rigmor to start this quest."
-    set {quests::lastBreath::start} to "Talk to Mari to start this quest."
+    set {quests::lastBreath::start} to "Talk to Tyr to start this quest."

@@ -94,7 +94,7 @@ on rightclick:
     
         set metadata tag "quest" of player to chest with 6 row named "&8Quest Book"
         
-        set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot", "conjecture", "healthyCure") # add new quests
+        set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot", "conjecture", "healthyCure", "botany", "shadeMatter", "lastBreath") # add new quests
 
         set {_borderIndex} to 0
         set {_questIndex} to 1
@@ -149,12 +149,10 @@ on rightclick:
             if {_borderControl} is not 7, 8, 16, 17, 25, 26, 34, 35, 43, 44, 52 or 53:
                 if questBookGetQuest(player, {_quests::%{_notTalkedIndex}%}) is gray dye:
                     set slot {_notTalkedPlaceIndex} of metadata tag "quest" of player to questBookGetQuest(player, {_quests::%{_notTalkedIndex}%})
-                    add 1 to {_notTalkedPlaceIndex}
                     add 1 to {_notTalkedIndex}
                 
-                else:
-                    add 1 to {_notTalkedIndex}
 
+            add 1 to {_notTalkedPlaceIndex}
             add 1 to {_borderControl}
 
         open (metadata tag "quest" of player) to player
@@ -187,7 +185,7 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                             if arg-3 is set:
 
-                                set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot", "conjecture", "healthyCure") # add new quests
+                                set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot", "conjecture", "healthyCure", "botany", "shadeMatter", "lastBreath") # add new quests
 
                                 if arg-3 is "clear":
                                     send "&a[QUEST] » &fYou cleared all of &a%arg-2%&f's quiz progress."
@@ -280,7 +278,7 @@ on tab complete of "/quest":
             set {_tabCompletion::*} to ("clear", "set", "list") # add new options 
             set tab completions for position 3 to {_tabCompletion::*}
 
-    set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot", "conjecture", "healthyCure") # add new quests 
+    set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot", "conjecture", "healthyCure", "botany", "shadeMatter", "lastBreath") # add new quests 
     loop {_quests::*}:
         if tab arg-4 is loop-value:
             set {_quest} to true
