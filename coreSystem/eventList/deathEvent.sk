@@ -10,7 +10,7 @@ on death:
         teleport victim to location(-141, 31, 62, world "world", 90, 0)
     else if {_region} is "tyrsten":
         teleport victim to location(-64, 4, -192, world "world", -90, 0)
-    else if {_region} is "ostvik":
+    else if {_region} is "ostvik" or "safe":
         teleport victim to location(-5, 7, -21, world "world", 0, 0)
     else if {_region} is "arland":
         teleport victim to location(-200, 4, -36, world "world", -90, 0)

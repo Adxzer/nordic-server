@@ -221,7 +221,16 @@ function getSellValue(item: item, amount: number) :: number:
         return 55 * {_amount}
     else if uncolored name of {_item} is "Shiny Apple":
         return 61 * {_amount}
-
+    
+    set {_list::*} to "Woodland Tree", "Spiritual Prompt", "Basalt Slag" and "Divinity Cake"
+    set {_check::*} to " I", " II", " III", " IV" and " V"
+    loop {_list::*}:
+        if uncolored name of {_item} is uncolored loop-value:
+            return 0
+        else:
+            loop {_check::*}:
+                if uncolored name of {_item} is uncolored "%loop-value-1%%loop-value-2%":
+                    return 0
 
 function checkFuseItem(items: itemtypes) :: string:
     

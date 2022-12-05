@@ -1,3 +1,26 @@
+function bossGetOdinChunks() :: integer:
+
+    set {_odin} to 0
+
+    loop all entities in chunk at location(-141, 40, 108, world "world") and location(-147, 40, 107, world "world"):
+        set {_split::*} to split uncolored name of loop-value at " "
+        if {_split::2} is "Odin":
+            add 1 to {_odin}
+
+    return {_odin}
+
+
+function bossGetDraugChunks() :: integer:
+
+    set {_draug} to 0
+
+    loop all entities in chunk at location(22, 6, 82, world "world"), location(22, 6, 76, world "world"), location(25, 8, 61, world "world"), location(33, 5, 62, world "world"), location(15, 5, 75, world "world") and location(35, 6, 70, world "world"):
+        set {_split::*} to split uncolored name of loop-value at " "
+        if {_split::2} is "Draug":
+            add 1 to {_draug}
+
+    return {_draug}
+
 function bossGetChadChunks() :: integer:
 
     set {_chad} to 0
@@ -50,7 +73,7 @@ function bossCreateRewards(player: player, name: string, rewards: strings, boss:
         set {_split::*} to split {_items} at ":"
 
         set {_squared} to loop-number ^ 3
-
+        
         set lore of {_loopItem} to "&7Rewards for killing the %{_boss}% boss.", "", "&7Current Kills: &c%{boss::%{_boss}%::%{_u}%}%", "&7Kills Needed: &c%{_squared}%", "" and "&7&nRewards:"
 
         add "&8- &7%{_split::1}%" to lore of {_loopItem}
@@ -90,14 +113,16 @@ function bossCreateCore(player: player, name: string):
     set {_u} to uuid of {_player}
     set {_borderIndex} to 0
     set {_loopIndex} to 20
-    set {_bosses::*} to ("groot", "chad") 
+    set {_bosses::*} to ("groot", "chad", "draug", "odin") 
 
     loop {_bosses::*}:
         if {boss::%loop-value%::%{_u}%} is not set:
             set {boss::%loop-value%::%{_u}%} to 0
 
-    set {_gui::groot} to dead bush named "&aGroot Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the forest and the lightning.", "", "&7Defeated: &c%{boss::groot::%{_u}%}%", "" and "&eView (Left Click)"
+    set {_gui::groot} to dead bush named "&aGroot Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the forest and the woodland.", "", "&7Defeated: &c%{boss::groot::%{_u}%}%", "" and "&eView (Left Click)"
     set {_gui::chad} to red mushroom named "&aChad Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the mushroom forest.", "", "&7Defeated: &c%{boss::chad::%{_u}%}%", "" and "&eView (Left Click)"
+    set {_gui::draug} to crimson roots named "&aDraug Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the red darkness.", "", "&7Defeated: &c%{boss::draug::%{_u}%}%", "" and "&eView (Left Click)"
+    set {_gui::odin} to feather named "&aOdin Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the godly spirits.", "", "&7Defeated: &c%{boss::odin::%{_u}%}%", "" and "&eView (Left Click)"
     set {_gui::soon} to gray dye named "&fComing soon..." with lore "&7There are still more challenges and rewards" and "&7to come, stay tuned for future updates."
 
     loop 54 times:
@@ -132,7 +157,7 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
 
         if arg-1 is set:
 
-            if arg-1 is "groot" or "chad": # add new options
+            if arg-1 is "groot", "chad", "draug" or "odin": # add new options
 
                 if arg-2 is set:
 
@@ -144,7 +169,7 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                                 if arg-4 is set:
 
-                                    set {_player} to arg-2 parsed as offline player
+                                    set {_player} to arg-3 parsed as offline player
                                     set {_u} to uuid of {_player}
 
                                     if {boss::%arg-1%::%{_u}%} is not set:
@@ -218,6 +243,18 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
                             if {_boss} is 0:
                                 make console execute command "mm m spawn BossChad world,6,4,-166"
                             else:
+                                make console execute command "boss groot activate"   
+                        else if arg-1 is "Draug":
+                            set {_boss} to bossGetDraugChunks()
+                            if {_boss} is 0:
+                                make console execute command "mm m spawn BossDraug world,25,6,70"
+                            else:
+                                make console execute command "boss groot activate"   
+                        else if arg-1 is "Odin":
+                            set {_boss} to bossGetOdinChunks()
+                            if {_boss} is 0:
+                                make console execute command "mm m spawn BossOdin world,-144,40,107"
+                            else:
                                 make console execute command "boss groot activate"                            
                     else if arg-2 is "activate": 
 
@@ -242,13 +279,13 @@ on inventory click:
         cancel event
 
         if index of event-slot is 20:
-            bossCreateRewards(player, "&8Groot Rewards", ("1x Wheat:2x Emerald", "1x Carrot", "1x Carrot", "1x Carrot", "1x Carrot"), "groot", event-item)
+            bossCreateRewards(player, "&8Groot Rewards", ("1x Woodland Tree:4x Gemstone", "1x Woodland Tree:6x Gemstone", "1x Woodland Tree:12x Gemstone", "1x Woodland Tree:24x Gemstone", "1x Woodland Tree:48x Gemstone"), "groot", event-item)
         else if index of event-slot is 21:
-            bossCreateRewards(player, "&8Chad Rewards", ("1x Wheat:2x Emerald", "1x Carrot", "1x Carrot", "1x Carrot", "1x Carrot"), "chad", event-item)
-        # else if index of event-slot is 22:
-            # broadcast "pepe"
-        # else if index of event-slot is 23:
-            # broadcast "pepe"
+            bossCreateRewards(player, "&8Chad Rewards", ("1x Spiritual Prompt:6x Gemstone", "1x Spiritual Prompt:9x Gemstone", "1x Spiritual Prompt:18x Gemstone", "1x Spiritual Prompt:36x Gemstone", "1x Spiritual Prompt:72x Gemstone"), "chad", event-item)
+        else if index of event-slot is 22:
+            bossCreateRewards(player, "&8Draug Rewards", ("1x Basalt Slag:9x Gemstone", "1x Basalt Slag:14x Gemstone", "1x Basalt Slag:28x Gemstone", "1x Basalt Slag:56x Gemstone", "1x Basalt Slag:112x Gemstone"), "draug", event-item)
+        else if index of event-slot is 23:
+            bossCreateRewards(player, "&8Odin Rewards", ("1x Divinity Cake:14x Gemstone", "1x Divinity Cake:21x Gemstone", "1x Divinity Cake:42x Gemstone", "1x Divinity Cake:84x Gemstone", "1x Divinity Cake:168x Gemstone"), "odin", event-item)
         # else if index of event-slot is 24:
             # broadcast "pepe"
         else if index of event-slot is 49:
@@ -280,6 +317,8 @@ on inventory click:
 
             if {boss::%{_boss}%::%{_u}%} >= {_squared}:
                 if {boss::%{_boss}%::claimed::%{_squared}%::%{_u}%} is not true:
+                    set {_itemRewardNumber::*} to split uncolored name of event-item at " "
+                    set name of {_itemOne} to "%name of {_itemOne}% %{_itemRewardNumber::3}%" 
                     give player {_itemOne} and {_itemTwo}
                     set {boss::%{_boss}%::claimed::%{_squared}%::%{_u}%} to true
                 else:
@@ -293,17 +332,22 @@ on inventory click:
 on load: # add new options
     set {_groot} to bossGetGrootChunks()
     set {_chad} to bossGetChadChunks()
-    # broadcast "%{_groot}% | %{_chad}%"
+    set {_draug} to bossGetDraugChunks()
+    set {_odin} to bossGetOdinChunks()
     if {_groot} is 0:
         make console execute command "boss groot deactivate"
     if {_chad} is 0:
         make console execute command "boss chad deactivate"
-
+    if {_draug} is 0:
+        make console execute command "boss draug deactivate"
+    if {_odin} is 0:
+        make console execute command "boss odin deactivate"
+        
 on tab complete of "/boss":
 
-    if tab arg-1 is not "groot" or "chad": # add new options  
+    if tab arg-1 is not "groot", "chad", "draug" or "odin": # add new options  
         clear {_tabCompletion::*}
-        set {_tabCompletion::*} to ("groot" and "chad") # add new options
+        set {_tabCompletion::*} to ("groot", "chad", "draug" and "odin") # add new options
         set tab completions for position 1 to {_tabCompletion::*}
 
     if tab arg-2 is not "user", "deactivate" or "activate": # add new options  
