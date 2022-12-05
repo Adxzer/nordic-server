@@ -1,0 +1,60 @@
+on npc rightclick:
+    
+    if npc id of target is 33:
+
+        questTalk(player)
+
+        if {quests::shadeMatter::talked::%player's uuid%} is not true:
+            set {quests::shadeMatter::interaction::%player's uuid%::*} to (false, false, false, false, false, false, false, false, false)
+            set {quests::shadeMatter::talked::%player's uuid%} to true
+            set {quests::shadeMatter::completed::%player's uuid%} to false
+
+        if {quests::shadeMatter::interaction::%player's uuid%::1} is false:
+            send "%{quests::shadeMatter::dialouge::1}%"
+            set {quests::shadeMatter::interaction::%player's uuid%::1} to true  
+        else if {quests::shadeMatter::interaction::%player's uuid%::2} is false:  
+            send "%{quests::shadeMatter::dialouge::2}%"
+            set {quests::shadeMatter::interaction::%player's uuid%::2} to true
+        else if {quests::shadeMatter::interaction::%player's uuid%::3} is false:  
+            send "%{quests::shadeMatter::dialouge::3}%"
+            set {quests::shadeMatter::interaction::%player's uuid%::3} to true
+        else if {quests::shadeMatter::interaction::%player's uuid%::4} is false:  
+            send "%{quests::shadeMatter::dialouge::4}%"
+            set {quests::shadeMatter::interaction::%player's uuid%::4} to true
+        else if {quests::shadeMatter::interaction::%player's uuid%::5} is false:  
+            send "%{quests::shadeMatter::dialouge::5}%"
+            set {quests::shadeMatter::interaction::%player's uuid%::5} to true
+        else if {quests::shadeMatter::interaction::%player's uuid%::6} is false:  
+            send "%{quests::shadeMatter::dialouge::6}%"
+            set {quests::shadeMatter::interaction::%player's uuid%::6} to true
+            questNew(player, {quests::shadeMatter::name})
+        else if {quests::shadeMatter::interaction::%player's uuid%::7} is false:  
+            if player's inventory contains 246 of wither rose:
+                set {quests::shadeMatter::interaction::%player's uuid%::7} to true
+                send "%{quests::shadeMatter::dialouge::8}%"
+                set {quests::shadeMatter::interaction::%player's uuid%::8} to true
+                set {quests::shadeMatter::completed::%player's uuid%} to true
+                set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+                loop {_itemList::*}:
+                    if uncolored name of loop-value is "Gemstone":
+                        set {_gemstone} to loop-value
+                    else if uncolored name of loop-value is "Teplate Cap":
+                        set {_teplateCap} to loop-value 
+                    else if uncolored name of loop-value is "Teplate Tunic":
+                        set {_teplateTunic} to loop-value 
+                    else if uncolored name of loop-value is "Teplate Pants":
+                        set {_teplatePants} to loop-value 
+                    else if uncolored name of loop-value is "Teplate Boots":
+                        set {_teplateBoots} to loop-value 
+                    else if uncolored name of loop-value is "Teplate Sticks":
+                        set {_teplateSticks} to loop-value 
+                remove 246 of wither rose from player
+                give player 12 of {_gemstone}
+                give player {_teplateCap}, {_teplateTunic}, {_teplatePants}, {_teplateBoots}, {_teplateSticks}
+                wait 3 seconds
+                questComplete(player, ({quests::shadeMatter::name}, {quests::shadeMatter::reward}))
+            else:
+                send "%{quests::shadeMatter::dialouge::7}%"
+        else if {quests::shadeMatter::interaction::%player's uuid%::9} is false:  
+            send "%{quests::shadeMatter::dialouge::9}%"
+

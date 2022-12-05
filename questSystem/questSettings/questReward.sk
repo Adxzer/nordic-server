@@ -7,5 +7,5 @@ on load:
     set {quests::conjecture::reward} to "Living Essence"
     set {quests::healthyCure::reward} to "3x Crystalline and 2x Gemstone"
     set {quests::botany::reward} to "Blemish"
-    set {quests::shadeMatter::reward} to "Teplate Kit"
+    set {quests::shadeMatter::reward} to "Teplate Kit and 12x Gemstone"
     set {quests::lastBreath::reward} to "3x Crystalline and 2x Gemstone"
