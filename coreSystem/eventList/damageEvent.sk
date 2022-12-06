@@ -11,6 +11,9 @@ on damage:
             cancel event
             stop trigger
     
+    if attacker is not player:
+        stop trigger
+
     set damage to 0
 
     set {_damage} to coreDamageBoost(attacker, (attacker's tool))

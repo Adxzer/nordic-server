@@ -29,7 +29,7 @@ on damage:
 
             if {_name} is "Zombie", "Skeleton", "Zombie Ghoul", "Skeleton Ghoul", "Crypto Ghoul" or "Groot":
                 if victim is not blocking:
-                    set {_final} to coreDamagePlayer(victim, {_damage})
+                    set {_final} to coreDamagePlayer(victim, ({_damage} / {health::maxHearts::%victim's uuid%}) * 10)
                     set damage to {_final}
                 else:
                     set damage to 0

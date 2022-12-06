@@ -22,10 +22,12 @@ on damage:
                 set {_damage} to 48 * {_critical}
             else if {_name} is "Wither Skeleton":
                 set {_damage} to 56 * {_critical}
+            else if {_name} is "Draug":
+                set {_damage} to 64 * {_critical}
 
             if {_name} is "Baby Piglin", "Zombified Piglin", "Wither Minion" or "Wither Skeleton":
                 if victim is not blocking:
-                    set {_final} to coreDamagePlayer(victim, {_damage})
+                    set {_final} to coreDamagePlayer(victim, ({_damage} / {health::maxHearts::%victim's uuid%}) * 10)
                     set damage to {_final}
                 else:
                     set damage to 0

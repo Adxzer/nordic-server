@@ -22,10 +22,12 @@ on damage:
                 set {_damage} to 92 * {_critical}
             else if {_name} is "Dundret Grasp":
                 set {_damage} to 135 * {_critical}
+            else if {_name} is "Odin":
+                set {_damage} to 161 * {_critical}
 
-            if {_name} is "Dundret Stray", "Dundret Iceologer", "Dundret Lushbloom" or "Dundret Grasp":
+            if {_name} is "Dundret Stray", "Dundret Iceologer", "Dundret Lushbloom", "Dundret Grasp" or "Odin":
                 if victim is not blocking:
-                    set {_final} to coreDamagePlayer(victim, {_damage})
+                    set {_final} to coreDamagePlayer(victim, ({_damage} / {health::maxHearts::%victim's uuid%}) * 10)
                     set damage to {_final}
                 else:
                     set damage to 0
