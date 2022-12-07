@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Zombified Piglin":
 
-        set {_xp} to 80
+        set {_xp} to 160
         coreAddXp(attacker, {_xp})

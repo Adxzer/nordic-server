@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Zombie Ghoul":
 
-        set {_xp} to 15
+        set {_xp} to 30
         coreAddXp(attacker, {_xp})

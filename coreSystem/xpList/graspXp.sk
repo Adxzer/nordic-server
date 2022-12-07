@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Grasp":
 
-        set {_xp} to 195
+        set {_xp} to 390
         coreAddXp(attacker, {_xp})

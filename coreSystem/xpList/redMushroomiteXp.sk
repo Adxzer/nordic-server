@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Red Mushroomite":
 
-        set {_xp} to 20
+        set {_xp} to 40
         coreAddXp(attacker, {_xp})

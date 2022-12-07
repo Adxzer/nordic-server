@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Revenant Spider":
 
-        set {_xp} to 25
+        set {_xp} to 50
         coreAddXp(attacker, {_xp})

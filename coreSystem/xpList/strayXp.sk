@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Stray":
 
-        set {_xp} to 130
+        set {_xp} to 240
         coreAddXp(attacker, {_xp})

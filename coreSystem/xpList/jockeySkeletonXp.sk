@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Jockey Skeleton":
 
-        set {_xp} to 30
+        set {_xp} to 60
         coreAddXp(attacker, {_xp})

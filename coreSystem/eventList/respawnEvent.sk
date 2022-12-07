@@ -5,4 +5,15 @@ on respawn:
             add item amount of loop-value to {_value}
     if {_value} is greater than 20:
         remove ({_value} / 3) of emerald from player
-        send "&c[DEATH] » &fYou died and lost &c%floor({_value} / 3)%x Gems&f." to player
+        set {_emerald} to true
+
+    set {_xp} to {xp::%player's uuid%}
+    if {_remove} is greater than 5:
+        set {xp::%player's uuid%} to {_xp} - round({_xp} / 5)
+        if {_emerald} is true:
+            send "&c[DEATH] » &fYou died and lost &c%{_remove}%&f experience and &c%floor({_value} / 3)%x Gems&f." to player
+        else:
+            send "&c[DEATH] » &fYou died and lost &c%{_remove}%&f experience&f." to player
+    else:
+        if {_emerald} is true:
+            send "&c[DEATH] » &fYou died and lost &c%floor({_value} / 3)%x Gems&f." to player

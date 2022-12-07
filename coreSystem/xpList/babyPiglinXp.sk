@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Baby Piglin":
 
-        set {_xp} to 55
+        set {_xp} to 110
         coreAddXp(attacker, {_xp})

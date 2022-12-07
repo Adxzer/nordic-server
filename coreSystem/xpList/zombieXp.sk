@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Zombie":
 
-        set {_xp} to 6
+        set {_xp} to 12
         coreAddXp(attacker, {_xp})

@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Iceologer":
 
-        set {_xp} to 155
+        set {_xp} to 310
         coreAddXp(attacker, {_xp})

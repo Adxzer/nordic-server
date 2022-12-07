@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Lushbloom":
 
-        set {_xp} to 170
+        set {_xp} to 340
         coreAddXp(attacker, {_xp})

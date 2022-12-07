@@ -57,8 +57,6 @@ function getSellValue(item: item, amount: number) :: number:
         return 13 * {_amount}
     else if uncolored name of {_item} is "Leather":
         return 1 * {_amount}
-    else if uncolored name of {_item} is "Potato":
-        return 1 * {_amount}
     else if uncolored name of {_item} is "Platinum Teeth":
         return 42 * {_amount}
     else if uncolored name of {_item} is "Raw Beef":

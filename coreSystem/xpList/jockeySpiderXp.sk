@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Jockey Spider":
 
-        set {_xp} to 35
+        set {_xp} to 70
         coreAddXp(attacker, {_xp})

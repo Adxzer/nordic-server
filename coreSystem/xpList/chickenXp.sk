@@ -4,5 +4,5 @@ on death:
 
     if {_name} is "Chicken":
 
-        set {_xp} to 2
+        set {_xp} to 4
         coreAddXp(attacker, {_xp})
