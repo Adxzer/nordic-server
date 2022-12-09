@@ -4,5 +4,7 @@ on death:
 
     if {_name} is "Groot":
 
-        set {_xp} to 420
+        set {_xp} to 240
+        add 1 to {boss::groot::%attacker's uuid%}
         coreAddXp(attacker, {_xp})
+        coreCheckLevel(attacker)

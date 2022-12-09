@@ -57,7 +57,7 @@ on break:
 
         if {quests::animalFood::interaction::%player's uuid%::6} is false:
 
-            if {quests::animalFood::wheat::%player's uuid%} >= 192:
+            if {quests::animalFood::wheat::%player's uuid%} >= 250:
                 set {quests::animalFood::interaction::%player's uuid%::6} to true
                 set {quests::animalFood::interaction::%player's uuid%::5} to true
                 send "&a[QUEST] » &fYou have finished the quest &aAnimal Food&f, talk to Eirik to claim your rewards." to player

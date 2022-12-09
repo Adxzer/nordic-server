@@ -1,0 +1,23 @@
+command /stuck:
+    trigger:
+
+        if {combat::%player's uuid%} is not true:
+
+            set {_region} to coreGetPlayerRegion(player)
+            if {_region} is "dundret":
+                teleport player to location(-141, 31, 62, world "world", 90, 0)
+            else if {_region} is "tyrsten":
+                teleport player to location(-64, 4, -192, world "world", -90, 0)
+            else if {_region} is "ostvik" or "safe":
+                teleport player to location(-5, 7, -21, world "world", 0, 0)
+            else if {_region} is "arland":
+                teleport player to location(-200, 4, -36, world "world", -90, 0)
+            
+            if {_region} is "none":
+                teleport player to location(-204, 7, 75, world "world", 90, 0)
+            else if {_region} is not set:
+                teleport player to location(-204, 7, 75, world "world", 90, 0)
+            send "&3[STUCK] » &fHopefully you are now unstuck, if not please contact a support."
+
+        else:
+            send "&3[STUCK] » &cYou cannot perform this command in combat."

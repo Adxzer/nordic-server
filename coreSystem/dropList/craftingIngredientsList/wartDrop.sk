@@ -13,7 +13,7 @@ function wartDrop(player: player) :: number:
             set {_drop} to loop-value
 
     set {_return} to coreBreakDrop({_player}, ({_player}'s tool), ({_items::*}), {_drop}, 1 + {_boost}, 2 + {_boost}, {_xp})
-    return {_return}
+    return floor({_return})
 
 on break:
     

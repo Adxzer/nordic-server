@@ -4,5 +4,7 @@ on death:
 
     if {_name} is "Odin":
 
-        set {_xp} to 5040
+        set {_xp} to 1040
+        add 1 to {boss::odin::%attacker's uuid%}
         coreAddXp(attacker, {_xp})
+        coreCheckLevel(attacker)

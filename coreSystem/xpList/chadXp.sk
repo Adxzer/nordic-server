@@ -4,5 +4,7 @@ on death:
 
     if {_name} is "Chad":
 
-        set {_xp} to 1080
+        set {_xp} to 480
+        add 1 to {boss::chad::%attacker's uuid%}
         coreAddXp(attacker, {_xp})
+        coreCheckLevel(attacker)

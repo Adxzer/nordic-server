@@ -1,3 +1,7 @@
 command /discord:
     trigger:
         send formatted "<tooltip:&7Join our discord by clicking on the message.><link:https://discord.gg/V5xgJK6ZxR>&3[DISCORD] » &fClick here to join our discord server!"
+
+        
+every 6 minutes:
+    broadcast "&3[DISCORD] » &fDid you know you can link your discord account to your minecraft account for an &d2x Experience Boost&f by typing &3/link&f?"

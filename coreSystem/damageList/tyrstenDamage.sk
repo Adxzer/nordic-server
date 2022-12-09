@@ -15,17 +15,17 @@ on damage:
                 set {_critical} to 2
 
             if {_name} is "Brown Mushroomite":
-                set {_damage} to 14 * {_critical}
+                set {_damage} to 18 * {_critical}
             else if {_name} is "Red Mushroomite":
-                set {_damage} to 14 * {_critical}
+                set {_damage} to 18 * {_critical}
             else if {_name} is "Jockey Skeleton":
-                set {_damage} to 16 * {_critical}
+                set {_damage} to 20 * {_critical}
             else if {_name} is "Revenant Spider":
-                set {_damage} to 17 * {_critical}
+                set {_damage} to 21 * {_critical}
             else if {_name} is "Jockey Spider":
-                set {_damage} to 19 * {_critical}
+                set {_damage} to 23 * {_critical}
             else if {_name} is "Chad":
-                set {_damage} to 33 * {_critical}
+                set {_damage} to 37 * {_critical}
 
             if {_name} is "Brown Mushroomite", "Red Mushroomite", "Jockey Skeleton", "Revenant Spider", "Jockey Spider", "Chad" or "Odin":
                 if victim is not blocking:

@@ -1,4 +1,6 @@
 command /beta [<text>]:
+    permission: op
+    permission message: Unknown command. Type "/help" for help.
     trigger:
 
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})

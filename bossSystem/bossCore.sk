@@ -219,7 +219,7 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                     else if arg-2 is "deactivate": 
 
-                        send "&4[BOSS] » &fDeactivated the &4%arg-1% &cspawner."  
+                        send "&4[BOSS] » &fDeactivated the &4%arg-1% &fspawner."  
                         make console execute command "hd setline Boss%arg-1%Cooldown 2 &75 minute(s)"
                         
                         set {_minutes} to 5
@@ -235,27 +235,27 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
                         if arg-1 is "Groot":
                             set {_boss} to bossGetGrootChunks()
                             if {_boss} is 0:
-                                make console execute command "mm m spawn BossGroot world,-226,16,-136"
+                                make console execute command "mm m spawn BossGroot 1 world,-226,16,-136"
                             else:
                                 make console execute command "boss groot activate"
                         else if arg-1 is "Chad":
                             set {_boss} to bossGetChadChunks()
                             if {_boss} is 0:
-                                make console execute command "mm m spawn BossChad world,6,4,-166"
+                                make console execute command "mm m spawn BossChad 1 world,6,4,-166"
                             else:
-                                make console execute command "boss groot activate"   
+                                make console execute command "boss chad activate"   
                         else if arg-1 is "Draug":
                             set {_boss} to bossGetDraugChunks()
                             if {_boss} is 0:
-                                make console execute command "mm m spawn BossDraug world,25,6,70"
+                                make console execute command "mm m spawn BossDraug 1 world,25,6,70"
                             else:
-                                make console execute command "boss groot activate"   
+                                make console execute command "boss draug activate"   
                         else if arg-1 is "Odin":
                             set {_boss} to bossGetOdinChunks()
                             if {_boss} is 0:
-                                make console execute command "mm m spawn BossOdin world,-144,40,107"
+                                make console execute command "mm m spawn BossOdin 1 world,-144,40,107"
                             else:
-                                make console execute command "boss groot activate"                            
+                                make console execute command "boss odin activate"                            
                     else if arg-2 is "activate": 
 
                         send "&4[BOSS] » &fActivated the &4%arg-1%&f spawner."  
@@ -328,7 +328,7 @@ on inventory click:
 
         else if index of event-slot is 49:
             open (metadata tag "boss" of player) to player
-
+ 
 on load: # add new options
     set {_groot} to bossGetGrootChunks()
     set {_chad} to bossGetChadChunks()

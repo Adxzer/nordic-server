@@ -223,6 +223,7 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                         if {vanish::%player's uuid%} is not true:
                             hide player from all players
                             set {vanish::%player's uuid%} to true
+                            add {vanish::%player's uuid%} to {vanish::players::*}
                             send "<##9EBD6E>[STAFF] » &fYou are now <##9EBD6E>vanished&f."
 
                         else:
@@ -232,6 +233,7 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                         if {vanish::%player's uuid%} is true:
                             reveal player from all players
                             set {vanish::%player's uuid%} to false
+                            remove {vanish::%player's uuid%} from {vanish::players::*}
                             send "<##9EBD6E>[STAFF] » &fYou left vanish and you are now <##9EBD6E>revealed&f for other players."
                         else:
                             send "<##9EBD6E>[STAFF] » &cYou are not in vanish."
@@ -247,6 +249,13 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
 
         else:
             send "<##9EBD6E>[STAFF] » &cPlease specify a command option."
+
+every 3 minutes:
+
+    loop all players:
+        if {vanish::%loop-player's uuid%} is true:
+            hide loop-player from all players
+            send "<##9EBD6E>[STAFF] » &fYou currently vanished from all players&f." to loop-player
 
 on tab complete of "/staff":
 

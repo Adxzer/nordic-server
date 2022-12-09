@@ -52,7 +52,7 @@ function manaRaycast(player: player, length: number, tool: item):
     else if {_tool} is {_binarySpell}:
         play sound "ENTITY_BLAZE_SHOOT" with volume 0.1 to {_player}
         set {_rgb1::*} to (rgb(156, 55, 30), rgb(199, 66, 34), rgb(219, 71, 35), rgb(235, 74, 35), rgb(247, 74, 32))
-        set {_rgb2::*} to (rgb(166, 126, 33), rgb(179, 136, 36), rgb(207, 157, 41), rgb(222, 168, 42), rgb(237, 180, 45))
+        set {_rgb2::*} to (rgb(19, 20, 20), rgb(36, 38, 38), rgb(51, 54, 54), rgb(45, 46, 46), rgb(38, 38, 38))
         set {_offset::*} to (0, -0.3, 0, 0, 0.3, 0)
         set {_radius} to 2
     else if {_tool} is {_serratedStaff}:

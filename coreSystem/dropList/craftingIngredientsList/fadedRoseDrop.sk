@@ -6,9 +6,9 @@ on death:
 
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 
-        set {_percentage} to 35
-        set {_min} to 1
-        set {_max} to 2
+        set {_percentage} to 65
+        set {_min} to 2
+        set {_max} to 3
 
         loop {_itemList::*}:
             if uncolored name of loop-value is "Faded Rose":

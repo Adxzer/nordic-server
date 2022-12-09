@@ -7,9 +7,9 @@ on load:
 # Arland
 
     # 0 Star
-    set {_rawBeef} to raw beef named "&fRaw Beef" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
-    set {_rawMutton} to raw mutton named "&fRaw Mutton" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
-    set {_rawChicken} to raw chicken named "&fRaw Chicken" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
+    set {_rawBeef} to beef named "&fRaw Beef" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
+    set {_rawMutton} to mutton named "&fRaw Mutton" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
+    set {_rawChicken} to chicken named "&fRaw Chicken" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
     set {_egg} to egg named "&aEgg" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&a&lUNIQUE"
     set {_rottenFlesh} to rotten flesh named "&fRotten Flesh" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"
     set {_arrow} to arrow named "&fArrow" with lore "&7Crafting Ingredient.", "", "&8☆☆☆☆☆" and "&f&lNORMAL"

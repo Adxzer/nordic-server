@@ -1,5 +1,11 @@
 on join:
 
+    if {vanish::%player's uuid%} is not true:
+        if {level::%player's uuid%} is set:
+            set join message to "&a[JOIN] + &fWelcome back to the server &a%player%&f."
+    else:
+        set join message to ""
+
     if {level::%player's uuid%} is not set:
         add 1 to {joins}
         set join message to "&a[FIRST JOIN] ☄ &fEveryone welcome &a%player%&f that just joined the server for the first time. &7[&a##%{joins}%&7]"
@@ -9,13 +15,9 @@ on join:
 
     if {souls::lanterns::amount::%player's uuid%} is not set:
         set {souls::lanterns::amount::%player's uuid%} to 0
-
-    if {vanish::%player's uuid%} is not true:
-        if {level::%player's uuid%} is set:
-            set join message to "&a[JOIN] + &fWelcome back to the server &a%player%&f."
     
-    else:
-        set join message to ""
+    loop {vanish::players::*}:
+        hide loop-value from player
 
     set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
     loop player's inventory:

@@ -870,7 +870,6 @@ on inventory click:
 
                         set event-slot to air
                         set slot {_counter} of player's current inventory to {_item}
-                        broadcast "ymca"
                         stop loop
 
                     else:

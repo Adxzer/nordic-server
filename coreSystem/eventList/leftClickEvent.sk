@@ -1,0 +1,4 @@
+on left click:
+    
+    if event-block is flower pot:
+        cancel event

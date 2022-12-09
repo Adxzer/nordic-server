@@ -128,6 +128,8 @@ function coreGetPlayerRegion(player: player) :: string:
         return "ostvik"           
     else if coreCheckRegion({_player}, location(-332, 47, 100, world "world"), location(-134, 1, -164, world "world")) is true:
         return "arland"
+    else:
+        return "none"
 
 function coreDamagePlayer(player: player, damage: number) :: number:
 

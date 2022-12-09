@@ -1,0 +1,4 @@
+on shoot:
+
+    if projectile is arrow:
+        add "{pickup:0b}" to the nbt of projectile

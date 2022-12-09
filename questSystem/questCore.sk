@@ -130,30 +130,21 @@ on rightclick:
                     set slot {_borderIndex} of metadata tag "quest" of player to black stained glass pane named "&8Border"
             
             else:
-                if questBookGetQuest(player, {_quests::%{_questIndex}%}) is book:
-                    set slot {_placeIndex} of metadata tag "quest" of player to questBookGetQuest(player, {_quests::%{_questIndex}%})
-                    add 1 to {_placeIndex}
-                    add 1 to {_questIndex}
-                
+                if {_placeIndex} is not 7 or 8:
+                    if questBookGetQuest(player, {_quests::%{_questIndex}%}) is book:
+                        set slot {_placeIndex} of metadata tag "quest" of player to questBookGetQuest(player, {_quests::%{_questIndex}%})
+                        add 1 to {_placeIndex}
+                        add 1 to {_questIndex}
+                    else if questBookGetQuest(player, {_quests::%{_questIndex}%}) is gray dye:
+                        set slot {_placeIndex} of metadata tag "quest" of player to questBookGetQuest(player, {_quests::%{_questIndex}%})
+                        add 1 to {_placeIndex}
+                        add 1 to {_questIndex}
+                    else if questBookGetQuest(player, {_quests::%{_questIndex}%}) is air:
+                        add 1 to {_questIndex}
                 else:
-                    add 1 to {_questIndex}
+                    add 1 to {_placeIndex}
 
             add 1 to {_borderIndex}
-
-        set {_notTalkedPlaceIndex} to {_placeIndex} 
-        set {_borderControl} to 0
-        set {_notTalkedIndex} to 1
-
-        loop 54 times:
-            
-            if {_borderControl} is not 7, 8, 16, 17, 25, 26, 34, 35, 43, 44, 52 or 53:
-                if questBookGetQuest(player, {_quests::%{_notTalkedIndex}%}) is gray dye:
-                    set slot {_notTalkedPlaceIndex} of metadata tag "quest" of player to questBookGetQuest(player, {_quests::%{_notTalkedIndex}%})
-                    add 1 to {_notTalkedIndex}
-                
-
-            add 1 to {_notTalkedPlaceIndex}
-            add 1 to {_borderControl}
 
         open (metadata tag "quest" of player) to player
 

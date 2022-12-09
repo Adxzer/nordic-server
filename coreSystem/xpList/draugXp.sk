@@ -4,5 +4,7 @@ on death:
 
     if {_name} is "Draug":
 
-        set {_xp} to 2520
+        set {_xp} to 720
+        add 1 to {boss::draug::%attacker's uuid%}
         coreAddXp(attacker, {_xp})
+        coreCheckLevel(attacker)

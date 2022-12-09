@@ -6,3 +6,4 @@ on death:
 
         set {_xp} to 240
         coreAddXp(attacker, {_xp})
+        coreCheckLevel(attacker)
