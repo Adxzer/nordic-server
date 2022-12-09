@@ -1,6 +1,6 @@
 on damage:
 
-    if damage cause is fall:
+    if damage cause is fall or contact:
     
         cancel event
     

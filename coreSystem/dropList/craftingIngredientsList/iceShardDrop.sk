@@ -27,8 +27,8 @@ on arm swing:
                 set {_eff} to {_eff::2}
             if loop-value contains "Level":
                 set {_level::*} to split uncolored loop-value at "⚗"
-                set {_level} to {_level::2}
-
+                set {_level} to {_level::2} parsed as integer
+        
         if {_eff} is "V":
             set {_effiency} to 5
         else if {_eff} is "IV":
@@ -40,17 +40,14 @@ on arm swing:
         else if {_eff} is "I":
             set {_effiency} to 1
         else:
-            set {_effiency} to 0
+            set {_effiency} to 1
 
+        if {_level} is not set:
+            set {_level} to 0
 
-        if {level::%player's uuid%} >= {_level::2} parsed as integer:
+        if {level::%player's uuid%} >= {_level}:
 
             if {mining::%player's target block%::%player's uuid%} >= 6:
-                set {_lore::*} to lore of player's tool
-                loop {_lore::*}:
-                    if loop-value contains "Level":
-                        set {_level::*} to split uncolored loop-value at "⚗"
-                        set {_level} to {_level::2}
 
                 clear {mining::%player's target block%::%player's uuid%}
                 iceDrop(player)
@@ -75,8 +72,10 @@ on arm swing:
                 else:
                     set {_mining} to {_effiency} / 3
 
-                if {_eff} is set:
-                    set {mining::%player's target block%::%player's uuid%} to {_mining}
-                    show mining stage {mining::%player's target block%::%player's uuid%} at player's target block
-                else:
-                    remove mining stage at player's target block
+                set {mining::%player's target block%::%player's uuid%} to {_mining}
+                show mining stage {mining::%player's target block%::%player's uuid%} at player's target block
+        else:
+            set {actionBarSet::%player's uuid%} to true
+            send action bar coreGetActionBar(player, "&cNot required level!") to player
+            coreEndActionBar(player)
+            set {actionBarSet::%player's uuid%} to false

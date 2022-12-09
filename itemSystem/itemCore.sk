@@ -171,6 +171,8 @@ function getSellValue(item: item, amount: number) :: number:
         return 82 * {_amount}
     else if uncolored name of {_item} is "Blemish":
         return 94 * {_amount}
+    else if uncolored name of {_item} is "Wart":
+        return 0 * {_amount}
     else if uncolored name of {_item} is "Faded Rose":
         return 23 * {_amount}
     else if uncolored name of {_item} is "Infernalite":
@@ -200,7 +202,7 @@ function getSellValue(item: item, amount: number) :: number:
     else if uncolored name of {_item} is "Firm":
         return 68 * {_amount}
     else if uncolored name of {_item} is "Berries":
-        return 5 * {_amount}
+        return 0 * {_amount}
     else if uncolored name of {_item} is "Grasp Leaf":
         return 83 * {_amount}
     else if uncolored name of {_item} is "Twine":

@@ -14,18 +14,18 @@ on damage:
             chance of 10%:
                 set {_critical} to 2
 
-            if {_name} is "Dundret Stray":
-                set {_damage} to 62 * {_critical}
-            else if {_name} is "Dundret Iceologer":
+            if {_name} is "Stray":
+                set {_damage} to 72 * {_critical}
+            else if {_name} is "Iceologer":
                 set {_damage} to 77 * {_critical}
-            else if {_name} is "Dundret Lushbloom":
-                set {_damage} to 92 * {_critical}
-            else if {_name} is "Dundret Grasp":
-                set {_damage} to 135 * {_critical}
+            else if {_name} is "Lushbloom":
+                set {_damage} to 82 * {_critical}
+            else if {_name} is "Grasp":
+                set {_damage} to 75 * {_critical}
             else if {_name} is "Odin":
                 set {_damage} to 161 * {_critical}
 
-            if {_name} is "Dundret Stray", "Dundret Iceologer", "Dundret Lushbloom", "Dundret Grasp" or "Odin":
+            if {_name} is "Stray", "Iceologer", "Lushbloom", "Grasp" or "Odin":
                 if victim is not blocking:
                     set {_final} to coreDamagePlayer(victim, ({_damage} / {health::maxHearts::%victim's uuid%}) * 10)
                     set damage to {_final}
