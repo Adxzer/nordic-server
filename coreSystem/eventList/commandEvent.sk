@@ -1,0 +1,4 @@
+on command:
+    
+    if command is "me" or "minecraft:me":
+        cancel event

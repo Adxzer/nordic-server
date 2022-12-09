@@ -306,7 +306,7 @@ function checkFuseItem(items: itemtypes) :: string:
                 else if {_archer} and {_boots} is true:
                     return "Heroic Boots"
                 else if {_damage} and {_tool} is true:
-                    return "Vicious Axe"
+                    return "Vicious Blade"
                 else if {_damage} and {_cap} is true:
                     return "Vicious Skull"
                 else if {_damage} and {_tunic} is true:
