@@ -12,4 +12,4 @@ on npc rightclick:
             else if uncolored name of loop-value is "Pellucid":
                 set {_pellucid} to loop-value 
                 
-        guiCreateMerchant(player, "&8Mana Celestial", ({_glossyBerry}, {_ardour}, {_pellucid}), ("buy", "buy", "buy"), ("&8- &732x Gleaming Carrot:&8- &7124x Berries:&8- &732x Lava Web", "&8- &78x Enormous Shroom:&8- &74x Crystalline:&8- &72x Living Essence", "&8- &74x Glossy Berry:&8- &72x Ardour"))
+        guiCreateMerchant(player, "&8Mana Celestial", ({_glossyBerry}, {_ardour}, {_pellucid}), ("buy", "buy", "buy"), ("&8- &732x Gleaming Carrot:&8- &7124x Berries:&8- &732x Lava Web", "&8- &78x Enormous Shroom:&8- &79x Crystalline:&8- &72x Living Essence", "&8- &74x Glossy Berry:&8- &72x Ardour"))

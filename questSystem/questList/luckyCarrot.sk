@@ -78,7 +78,7 @@ on break:
 
             else:
                 cancel drops
-                set event-block to carrot
+                set event-block to carrot plant
 
                 set {_carrot} to carrotDrop(player)
                 add {_carrot} to {quests::luckyCarrot::carrot::%player's uuid%}

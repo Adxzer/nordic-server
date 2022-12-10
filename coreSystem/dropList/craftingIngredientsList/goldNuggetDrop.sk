@@ -7,11 +7,11 @@ on death:
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 
         set {_percentage} to 100
-        set {_min} to 3
-        set {_max} to 7
+        set {_min} to 21
+        set {_max} to 30
 
         loop {_itemList::*}:
-            if uncolored name of loop-value is "Gold Ingot":
+            if uncolored name of loop-value is "Gold Nugget":
                 set {_drop} to loop-value
 
         set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})

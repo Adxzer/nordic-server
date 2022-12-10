@@ -113,6 +113,7 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                                             
                                                 if {_player} is not banned:
                                                     ban {_player} due to "Banned by server moderator, to appeal your mute join our discord."
+                                                    kick {_player} due to "Banned by server moderator, to appeal your mute join our discord."
                                                     send "<##9EBD6E>[STAFF] » &fYou have banned <##9EBD6E>%{_player}%&f."
 
                                                 else:

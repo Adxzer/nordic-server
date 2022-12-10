@@ -40,7 +40,7 @@ on arm swing:
         else if {_eff} is "I":
             set {_effiency} to 1
         else:
-            set {_effiency} to 1
+            set {_effiency} to 0.5
 
         if {_level} is not set:
             set {_level} to 0

@@ -198,7 +198,7 @@ function guiCreateBank(player: player, target: offline player, name: string, num
     set {_slot} to 0
     set {_start} to {_number}
 
-    loop 35 times:
+    loop 36 times:
         set slot {_slot} of metadata tag "bank" of {_player} to {bank::%{_start}%::%{_slot}%::%{_u}%}
         add 1 to {_slot}
 
@@ -325,6 +325,15 @@ function guiCheckItemLore(player: player):
         clear lore of slot 8 of {_player}'s current inventory
         set lore of slot 8 of {_player}'s current inventory to "&7Currently no items, add", "&7items to sell them.", "" and "&cEmpty grid!"
 
+function guiEditFuserLore(player: player, list: itemtypes):
+
+    set {_max} to size of lore of slot 25 of {_player}'s current inventory
+    set {_boundItem} to checkFuseItem({_list::*})
+    if {_boundItem} is not "none":
+        set {_max}th line of lore of slot 25 of {_player}'s current inventory to "&eFuse (Left Click)"
+    else:
+        set {_max}th line of lore of slot 25 of {_player}'s current inventory to "&cNot a valid recipe!"
+
 on rightclick:
 
     if uncolored name of event-item is "Remote Menu":
@@ -336,7 +345,7 @@ on rightclick:
         
         loop 54 times:
 
-            if {_borderIndex} is not 10, 13, 16, 19, 25, 28, 31, 34, 37, 39, 41 or 43:
+            if {_borderIndex} is not 10, 13, 16, 19, 25, 28, 34, 37, 39, 41 or 43:
                 set slot {_borderIndex} of metadata tag "menu" of player to black stained glass pane named "&8Border"
 
             set {_next} to 25 * ({level::%player's uuid%} * {level::%player's uuid%}) + 175 * {level::%player's uuid%}
@@ -357,10 +366,12 @@ on rightclick:
 
                 set slot {_borderIndex} of metadata tag "menu" of player to {_placeItem}
 
-
-
-            if {_borderIndex} is 31:
+            if {_borderIndex} is 22:
                 set slot {_borderIndex} of metadata tag "menu" of player to diamond named "&aStore" with lore "&7The primary way to support the development", "&7of the server and the expantion of the game.", "" and "&eView (Left Click)"
+
+            if player's name is "Adaxer":
+                if {_borderIndex} is 31:
+                    set slot {_borderIndex} of metadata tag "menu" of player to enchanting table named "&aBestiary" with lore "&7View your bestiary and all", "&7the items you have discovered.", "" and "&eView (Left Click)"
 
             if {_borderIndex} is 39 or 41:
                 if player has permission "skript.rank":
@@ -417,7 +428,7 @@ on inventory click:
                         set {_u} to uuid of player
                         set {_player} to player
 
-                    loop 35 times:
+                    loop 36 times:
                         set {bank::%{_save}%::%{_slot}%::%{_u}%} to slot {_slot} of player's current inventory
                         add 1 to {_slot}
 
@@ -707,8 +718,11 @@ on inventory click:
     else if event-inventory = (metadata tag "menu" of player):
         cancel event
 
-        if index of event-slot is 31:
+        if index of event-slot is 22:
             send formatted "<tooltip:&7View our store by clicking the message.><link:https://nordicrpg.tebex.io>&3[STORE] » &fClick here to view our store!"
+        else if index of event-slot is 31:
+            if player's name is "Adaxer":
+                bestiaryCreateItem(player, "&8Remote Bestiary")
         else if index of event-slot is 39:
 
             if player has permission "skript.rank":
@@ -831,6 +845,11 @@ on inventory click:
                 set {_item} to event-slot
                 set event-slot to air
                 give player {_item}
+                set {_counter} to 21
+                loop 3 times:
+                    add slot {_counter} of player's current inventory to {_itemCheck::*}
+                    add 1 to {_counter}
+                guiEditFuserLore(player, {_itemCheck::*})
 
             if index of event-slot is 25:
 
@@ -853,6 +872,11 @@ on inventory click:
                         remove 1 of slot {_counter} of player's current inventory from slot {_counter} of player's current inventory
                         add 1 to {_counter}
                     give player {_giveItem}
+                    set {_counter} to 21
+                    loop 3 times:
+                        add slot {_counter} of player's current inventory to {_itemCheck::*}
+                        add 1 to {_counter}
+                    guiEditFuserLore(player, {_itemCheck::*})
                     play sound "ENTITY_FIREWORK_ROCKET_BLAST" with volume 0.2 to player
                     play sound "ENTITY_FIREWORK_ROCKET_BLAST_FAR" with volume 0.2 to player
                     play sound "ENTITY_ANVIL_USE" with volume 0.2 to player
@@ -870,6 +894,11 @@ on inventory click:
 
                         set event-slot to air
                         set slot {_counter} of player's current inventory to {_item}
+                        set {_counter} to 21
+                        loop 3 times:
+                            add slot {_counter} of player's current inventory to {_itemCheck::*}
+                            add 1 to {_counter}
+                        guiEditFuserLore(player, {_itemCheck::*})
                         stop loop
 
                     else:
@@ -895,7 +924,7 @@ on inventory close:
             set {_u} to uuid of player
             set {_player} to player
 
-        loop 35 times:
+        loop 36 times:
             set {bank::%{_save}%::%{_slot}%::%{_u}%} to slot {_slot} of player's current inventory
             add 1 to {_slot}
     else if event-inventory = (metadata tag "buyer" of player): 

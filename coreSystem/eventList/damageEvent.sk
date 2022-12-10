@@ -29,7 +29,7 @@ on damage:
 
         if {ability::sight::status::%attacker's uuid%} is true:
 
-            set display name of last spawned armor stand to "&72" 
+            set display name of last spawned armor stand to "&c2" 
             if victim and attacker is player:
                 add (2 / {health::maxHearts::%victim's uuid%} ) * 10 to damage
                 coreDamagePlayer(victim, 2)
@@ -64,7 +64,7 @@ on damage:
 
         else:
             
-            set display name of last spawned armor stand to "&c%{_processedDamage}%"
+            set display name of last spawned armor stand to "&7%{_processedDamage}%"
             if victim and attacker is player:
                 add ({_processedDamage} / {health::maxHearts::%victim's uuid%} ) * 10 to damage
                 coreDamagePlayer(victim, {_processedDamage})

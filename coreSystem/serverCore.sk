@@ -281,7 +281,7 @@ function coreBreakBoost(player: player, tool: item, allowed: itemtypes) :: numbe
             
             set {_lore::*} to {_tool}'s lore
             loop {_lore::*}:
-                if loop-value contains "Crops" or "Ores":
+                if loop-value contains "Crops" or "Ore":
                     set {_break::*} to split uncolored loop-value at "+"
                 else if loop-value contains "Double Drop":
                     set {_doubleDrop::*} to split uncolored loop-value at ": "
