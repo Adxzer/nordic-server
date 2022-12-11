@@ -3,5 +3,5 @@ on right click:
     if player's tool is a egg or trident:
         cancel event
     
-    if event-block is barrel or anvil:
+    if event-block is flower pot, barrel or anvil:
         cancel event

@@ -29,9 +29,10 @@ on join:
     loop player's inventory:
         if {_itemList::*} does not contain 1 of loop-value:
             if uncolored name of loop-value is not "Quest Book" or "Remote Menu":
-                set {_message} to true
-                add loop-value to {_itemsRemoved::*}
-                remove loop-value from player's inventory
+                if uncolored name of loop-value does not contain "Woodland Tree", "Spiritual Prompt", "Basalt Slag" or "Divinity Cake":
+                    set {_message} to true
+                    add loop-value to {_itemsRemoved::*}
+                    remove loop-value from player's inventory
 
     if {_message} is true:
         set {_send} to "&4Items removed: "
@@ -47,8 +48,8 @@ on join:
     set {health::currentHearts::%player's uuid%} to {health::maxHearts::%player's uuid%}
     set {mana::currentMana::%player's uuid%} to {mana::maxMana::%player's uuid%}
     set {combat::%player's uuid%} to false
-    set slot 7 of player's inventory to book named "&aQuest Book" with lore "&7View all your active quests and", "&7how many you have left to finish.", "" and "&eView (Left Click)"
-    set slot 8 of player's inventory to nether star named "&aRemote Menu" with lore "&7A remote menu to access special", "&7features and view your current stats.", "" and "&eLeft (Left Click)"
+    set slot 7 of player's inventory to book named "&aQuest Book" with lore "&7View all your active quests and", "&7how many you have left to finish.", "" and "&eView (Right Click)"
+    set slot 8 of player's inventory to nether star named "&aRemote Menu" with lore "&7A remote menu to access special", "&7features and view your current stats.", "" and "&eLeft (Right Click)"
 
     while player is online:
 

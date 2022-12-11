@@ -370,7 +370,7 @@ on rightclick:
                 set slot {_borderIndex} of metadata tag "menu" of player to diamond named "&aStore" with lore "&7The primary way to support the development", "&7of the server and the expantion of the game.", "" and "&eView (Left Click)"
 
             if {_borderIndex} is 31:
-                if {level::%{_u}%} is greater than 5:
+                if {level::%{_u}%} is greater than 4:
                     set {_list::*} to {bestiary::Farming::*}, {bestiary::Mining::*}, {bestiary::Slaying::*} and {bestiary::Boss::*}
                     set {_all} to size of {_list::*}
                     loop {_list::*}:
@@ -733,7 +733,8 @@ on inventory click:
         if index of event-slot is 22:
             send formatted "<tooltip:&7View our store by clicking the message.><link:https://nordicrpg.tebex.io>&3[STORE] » &fClick here to view our store!"
         else if index of event-slot is 31:
-            bestiaryCreateItem(player, "&8Remote Bestiary")
+            if {level::%player's uuid%} is greater than 4:
+                bestiaryCreateItem(player, "&8Remote Bestiary")
         else if index of event-slot is 39:
 
             if player has permission "skript.rank":

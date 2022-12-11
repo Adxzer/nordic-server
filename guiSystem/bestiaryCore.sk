@@ -51,12 +51,13 @@ function bestiaryCreateItem(player: player, name: string):
 function bestiaryCheckItem(player: player, item: string, amount: number):
 
     set {_u} to uuid of {_player}
-    if {bestiary::%{_item}%::collected::%{_u}%} is not set:
-        set {bestiary::%{_item}%::collected::%{_u}%} to 0
-        if {level::%{_u}%} is greater than 5:
-            send "<##8bc0e8>[BESTIARY] » &fNew item discovered! <##8bc0e8>%{_item}%&f has now been added to your bestiary." to {_player}
-    
-    add {_amount} to {bestiary::%{_item}%::collected::%{_u}%}
+    if {_amount} is greater than 0:
+        if {bestiary::%{_item}%::collected::%{_u}%} is not set:
+            set {bestiary::%{_item}%::collected::%{_u}%} to 0
+            if {level::%{_u}%} is greater than 4:
+                send "<##8bc0e8>[BESTIARY] » &fNew item discovered! <##8bc0e8>%{_item}%&f has now been added to your bestiary." to {_player}
+        
+        add {_amount} to {bestiary::%{_item}%::collected::%{_u}%}
 
 function bestiaryGetFormat(number: number) :: text:
 
@@ -92,7 +93,7 @@ function bestiaryGetItemLore(player: player, target: string) :: item:
             if {bestiary::%{_target}%::collected::%{_u}%} is not set:
                 return gray dye named "&c%{_target}%" with lore "&7You have not yet discovered this item", "&7and have therefore no progress."
 
-            set {_collected} to {bestiary::%{_target}%::collected::%{_u}%}
+            set {_collected} to round({bestiary::%{_target}%::collected::%{_u}%})
             set {_rank} to bestiaryGetRank({_player}, {bestiary::%{_target}%::collected::*}, {_target})
             
             if {_collected} is between 0 and 1000:
@@ -102,22 +103,22 @@ function bestiaryGetItemLore(player: player, target: string) :: item:
                 set {_progress} to 1000
             else if {_collected} is between 1001 and 5000:
                 set {_last} to "&7You are a %{_target}% &enovice&7."
-                add "&7Collected: &e%bestiaryGetFormat(round({_collected}))%", "&7Ranked &e##%{_rank}%", "", {_last} to lore of {_return} 
+                add "&7Collected: &e%bestiaryGetFormat({_collected})%", "&7Ranked &e##%{_rank}%", "", {_last} to lore of {_return} 
                 set {_addBar} to "&e▌"
                 set {_progress} to 5000
             else if {_collected} is between 5001 and 25000:
                 set {_last} to "&7You are a %{_target}% &badequate&7."
-                add "&7Collected: &b%bestiaryGetFormat(round({_collected}))%", "&7Ranked &b##%{_rank}%", "", {_last} to lore of {_return} 
+                add "&7Collected: &b%bestiaryGetFormat({_collected})%", "&7Ranked &b##%{_rank}%", "", {_last} to lore of {_return} 
                 set {_addBar} to "&b▌"
                 set {_progress} to 25000
             else if {_collected} is between 25001 and 100000:
                 set {_last} to "&7You are a %{_target}% &aproficient&7."
-                add "&7Collected: &9%bestiaryGetFormat(round({_collected}))%", "&7Ranked &9##%{_rank}%", "", {_last} to lore of {_return} 
+                add "&7Collected: &9%bestiaryGetFormat({_collected})%", "&7Ranked &9##%{_rank}%", "", {_last} to lore of {_return} 
                 set {_addBar} to "&9▌"
                 set {_progress} to 100000
             else:
                 set {_last} to "&7You are a %{_target}% &3expert&7."
-                add "&7Collected: &3%bestiaryGetFormat(round({_collected}))%", "&7Ranked &3##%{_rank}%", "", {_last} to lore of {_return} 
+                add "&7Collected: &3%bestiaryGetFormat({_collected})%", "&7Ranked &3##%{_rank}%", "", {_last} to lore of {_return} 
                 set {_addBar} to "&3▌"
                 
             set name of {_return} to "&a%{_target}%"
