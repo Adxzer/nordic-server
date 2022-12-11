@@ -1,3 +1,24 @@
+on death:
+
+    set {_name} to coreGetEntity(name of victim)
+
+    if {_name} is "Ice Shard":
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+        set {_percentage} to 70
+        set {_min} to 8
+        set {_max} to 18
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Ice Shard":
+                set {_drop} to loop-value
+
+        set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})
+        bestiaryCheckItem(attacker, (uncolored name of {_drop}), {_amount})
+        coreKillDrop(attacker, {_amount}, {_drop})
+
+
 function iceDrop(player: player) :: number:
     set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 
@@ -15,7 +36,6 @@ function iceDrop(player: player) :: number:
     set {_return} to coreBreakDrop({_player}, ({_player}'s tool), ({_items::*}), {_drop}, 1 + {_boost}, 2 + {_boost}, {_xp})
     bestiaryCheckItem({_player}, (uncolored name of {_drop}), floor({_return}))
     return {_return}
-
 
 on arm swing:
 

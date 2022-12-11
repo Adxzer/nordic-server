@@ -496,6 +496,9 @@ on inventory click:
                         set {_type::*} to split loop-value at " "
                         stop loop
 
+                if event-item is diamond axe:
+                    set {_type::1} to "Buy"
+
                 if uncolored {_type::1} is "Sell":      
                     
                     if player's inventory contains {_item}:

@@ -1,0 +1,14 @@
+command /show:
+    trigger:
+
+        if player's tool is not air, book or nether star:
+
+            set {_item} to player's tool
+            set {_lore::*} to lore of {_item}
+            set {_show} to name of player's tool
+            loop {_lore::*}:
+                set {_show} to "%{_show}%%nl%%loop-value%"
+            send formatted "%player's prefix%%player%&f is showing off their <tooltip:%{_show}%>%name of player's tool%&f." to all players
+
+        else:
+            send "&3[SHOW] » &cThis command doesn't work with that item!"

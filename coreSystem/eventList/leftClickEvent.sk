@@ -1,4 +1,4 @@
 on left click:
     
-    if event-block is flower pot:
+    if event-block is flower pot, smoker, furnace or blast furnace:
         cancel event

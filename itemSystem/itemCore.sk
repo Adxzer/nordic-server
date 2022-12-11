@@ -180,7 +180,7 @@ function getSellValue(item: item, amount: number) :: number:
     else if uncolored name of {_item} is "Wart":
         return 0 * {_amount}
     else if uncolored name of {_item} is "Faded Rose":
-        return 23 * {_amount}
+        return 4 * {_amount}
     else if uncolored name of {_item} is "Infernalite":
         return 31 * {_amount}
     else if uncolored name of {_item} is "Spikes":
@@ -196,13 +196,13 @@ function getSellValue(item: item, amount: number) :: number:
     else if uncolored name of {_item} is "Teplate Boots":
         return 40 * {_amount}
     else if uncolored name of {_item} is "Inured Demis":
-        return 23 * {_amount}
+        return 13 * {_amount}
     else if uncolored name of {_item} is "Gold Nugget":
         return 0 * {_amount}
     else if uncolored name of {_item} is "Teplate Sticks":
         return 66 * {_amount}
     else if uncolored name of {_item} is "Deity Shard":
-        return 124 * {_amount}
+        return 25 * {_amount}
     else if uncolored name of {_item} is "Deity Crystal":
         return 272 * {_amount}
     else if uncolored name of {_item} is "Firm":
