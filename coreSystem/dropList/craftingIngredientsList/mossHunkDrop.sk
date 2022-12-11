@@ -15,6 +15,7 @@ on death:
                 set {_drop} to loop-value
 
         set {_amount} to coreRandomNumber(attacker, {_min}, {_max}, {_percentage})
+        bestiaryCheckItem(attacker, (uncolored name of {_drop}), {_amount})
         coreKillDrop(attacker, {_amount}, {_drop})
 
         if {_amount} is greater than 0:

@@ -13,6 +13,7 @@ function berriesDrop(player: player) :: number:
             set {_drop} to loop-value
 
     set {_return} to coreBreakDrop({_player}, ({_player}'s tool), ({_items::*}), {_drop}, 1 + {_boost}, 3 + {_boost}, {_xp})
+    bestiaryCheckItem({_player}, (uncolored name of {_drop}), floor({_return}))
     return {_return}
 
 on rightclick:

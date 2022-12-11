@@ -7,7 +7,7 @@ function bestiaryCreateItem(player: player, name: string):
 
     loop 54 times:
 
-        if {_borderIndex} is not 21, 22, 23, 31 or 49:
+        if {_borderIndex} is not 21, 22, 23, 31 or 58:
             set slot {_borderIndex} of metadata tag "bestiary" of {_player} to black stained glass pane named "&8Border"
 
         if {_borderIndex} is 10, 16, 19, 25, 28, 34, 37, 38, 42 or 43:
@@ -16,19 +16,213 @@ function bestiaryCreateItem(player: player, name: string):
         if {_borderIndex} is 49:
             set slot {_borderIndex} of metadata tag "bestiary" of {_player} to barrier named "&cClose"
 
-        if {_borderIndex} is 21:
-            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone hoe named "&aFarming" with lore "&7View your farming bestiary", "&7and items you have discovered.", "", "&7Collection: &f0/0", "&f▌▌▌▌▌▌&7▌▌▌▌▌▌▌▌▌", "", "&eView (Left Click)" with all flags hidden
+        if {_borderIndex} is 21, 22, 23 or 31:
+            set {_list::*} to "Farming", "Slaying", "Mining" and "Boss"
+            loop {_list::*}:
+                set {guiSystem/bestiaryCore._%loop-value-2%::_collected} to 0
+                set {guiSystem/bestiaryCore._%loop-value-2%::_progress} to 0
+                loop {bestiary::%loop-value-2%::*}:
+                    if {bestiary::%loop-value-3%::collected::%{_u}%} is set:
+                        add 1 to {guiSystem/bestiaryCore._%loop-value-2%::_collected}
+                    add 1 to {guiSystem/bestiaryCore._%loop-value-2%::_progress}
+                set {guiSystem/bestiaryCore._%loop-value-2%::_addBar} to ""
+                loop 15 times:
+                    if {guiSystem/bestiaryCore._%loop-value-2%::_collected} >= ({guiSystem/bestiaryCore._%loop-value-2%::_progress} / 15) * loop-value-3:
+                        set {guiSystem/bestiaryCore._%loop-value-2%::_addBar} to "%{guiSystem/bestiaryCore._%loop-value-2%::_addBar}%&f▌"
+                    else:
+                        set {guiSystem/bestiaryCore._%loop-value-2%::_addBar} to "%{guiSystem/bestiaryCore._%loop-value-2%::_addBar}%&7▌"
 
+        if {_borderIndex} is 21:
+            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone hoe named "&aFarming" with lore "&7View your farming bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Farming::_collected}%/%{guiSystem/bestiaryCore._Farming::_progress}%", {guiSystem/bestiaryCore._Farming::_addBar}, "" and "&eView (Left Click)" with all flags hidden
+            
         if {_borderIndex} is 22:
-            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone sword named "&aSlaying" with lore "&7View your slaying bestiary", "&7and items you have discovered.", "", "&7Collection: &f0/0", "&f▌▌▌▌▌▌&7▌▌▌▌▌▌▌▌▌", "", "&eView (Left Click)" with all flags hidden
+            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone sword named "&aSlaying" with lore "&7View your slaying bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Slaying::_collected}%/%{guiSystem/bestiaryCore._Farming::_progress}%", {guiSystem/bestiaryCore._Slaying::_addBar}, "", "&eView (Left Click)" with all flags hidden
 
         if {_borderIndex} is 23:
-            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone pickaxe named "&aMining" with lore "&7View your mining bestiary", "&7and items you have discovered.", "", "&7Collection: &f0/0", "&f▌▌▌▌▌▌&7▌▌▌▌▌▌▌▌▌", "", "&eView (Left Click)" with all flags hidden
+            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone pickaxe named "&aMining" with lore "&7View your mining bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Mining::_collected}%/%{guiSystem/bestiaryCore._Mining::_progress}%", {guiSystem/bestiaryCore._Mining::_addBar}, "", "&eView (Left Click)" with all flags hidden
 
         if {_borderIndex} is 31:
-            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to wither skeleton skull named "&aBoss" with lore "&7View your boss bestiary", "&7and items you have discovered.", "", "&7Collection: &f0/0", "&f▌▌▌▌▌▌&7▌▌▌▌▌▌▌▌▌", "", "&eView (Left Click)" with all flags hidden
-
+            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to wither skeleton skull named "&aBoss" with lore "&7View your boss bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Boss::_collected}%/%{guiSystem/bestiaryCore._Boss::_progress}%", {guiSystem/bestiaryCore._Boss::_addBar}, "", "&eView (Left Click)" with all flags hidden
 
         add 1 to {_borderIndex}
 
     open (metadata tag "bestiary" of {_player}) to {_player}
+
+function bestiaryCheckItem(player: player, item: string, amount: number):
+
+    set {_u} to uuid of {_player}
+    if {bestiary::%{_item}%::collected::%{_u}%} is not set:
+        set {bestiary::%{_item}%::collected::%{_u}%} to 0
+        if {level::%{_u}%} is greater than 5:
+            send "<##8bc0e8>[BESTIARY] » &fNew item discovered! <##8bc0e8>%{_item}%&f has now been added to your bestiary." to {_player}
+    
+    add {_amount} to {bestiary::%{_item}%::collected::%{_u}%}
+
+function bestiaryGetFormat(number: number) :: text:
+
+    set {_s::*} to "|K|M|B|T" split at "|"
+    if {_number} < 1000:
+        return "%{_number}%"
+    else:
+        return "%({_n})/(1000^(min(floor(log({_n})/3), size of {_s::*})))%%{_s::%min((floor(log({_n})/3 + 1)), size of {_s::*})%}%"   
+
+function bestiaryGetRank(player: player, list: numbers, target: string) :: integer:
+
+    set {_u} to uuid of {_player}
+    set {_top::*} to sorted indices of {_list::*} in descending order
+
+    loop {_top::*}:
+        add 1 to {_rank}
+        set {_collected} to {bestiary::%{_target}%::collected::%{_u}%}
+        if {_collected} is {_list::%loop-value%}:
+            return {_rank}
+            stop loop
+
+function bestiaryGetItemLore(player: player, target: string) :: item:
+
+    set {_u} to uuid of {_player}
+
+    loop {items::dropItems::*}:
+        if uncolored name of loop-value is {_target}:
+            set {_return} to loop-value
+        
+            clear lore of {_return}
+            add "&7Here is your %{_target}% progression and", "&7progress to the next skill level.", "" to lore of {_return} 
+    
+            if {bestiary::%{_target}%::collected::%{_u}%} is not set:
+                return gray dye named "&c%{_target}%" with lore "&7You have not yet discovered this item", "&7and have therefore no progress."
+
+            set {_collected} to {bestiary::%{_target}%::collected::%{_u}%}
+            set {_rank} to bestiaryGetRank({_player}, {bestiary::%{_target}%::collected::*}, {_target})
+            
+            if {_collected} is between 0 and 1000:
+                set {_last} to "&7You are a %{_target}% &8beginner&7."
+                add "&7Collected: &8%bestiaryGetFormat({_collected})%", "&7Ranked &8##%{_rank}%", "", {_last} to lore of {_return} 
+                set {_addBar} to "&8▌"
+                set {_progress} to 1000
+            else if {_collected} is between 1001 and 5000:
+                set {_last} to "&7You are a %{_target}% &enovice&7."
+                add "&7Collected: &e%bestiaryGetFormat(round({_collected}))%", "&7Ranked &e##%{_rank}%", "", {_last} to lore of {_return} 
+                set {_addBar} to "&e▌"
+                set {_progress} to 5000
+            else if {_collected} is between 5001 and 25000:
+                set {_last} to "&7You are a %{_target}% &badequate&7."
+                add "&7Collected: &b%bestiaryGetFormat(round({_collected}))%", "&7Ranked &b##%{_rank}%", "", {_last} to lore of {_return} 
+                set {_addBar} to "&b▌"
+                set {_progress} to 25000
+            else if {_collected} is between 25001 and 100000:
+                set {_last} to "&7You are a %{_target}% &aproficient&7."
+                add "&7Collected: &9%bestiaryGetFormat(round({_collected}))%", "&7Ranked &9##%{_rank}%", "", {_last} to lore of {_return} 
+                set {_addBar} to "&9▌"
+                set {_progress} to 100000
+            else:
+                set {_last} to "&7You are a %{_target}% &3expert&7."
+                add "&7Collected: &3%bestiaryGetFormat(round({_collected}))%", "&7Ranked &3##%{_rank}%", "", {_last} to lore of {_return} 
+                set {_addBar} to "&3▌"
+                
+            set name of {_return} to "&a%{_target}%"
+
+            set {_bar} to ""
+            loop (length of {_last} - 4) times:
+                if {_progress} is set:
+                    if {_collected} >= ({_progress} / (length of {_last} - 4)) * loop-number:
+                        set {_bar} to "%{_bar}%%{_addBar}%"
+                    else:
+                        set {_bar} to "%{_bar}%&7▌"
+                else:
+                    set {_bar} to "%{_bar}%%{_addBar}%"
+
+            add "%{_bar}%" to lore of {_return}
+
+            return {_return}
+            stop loop
+
+function bestiaryCreateSection(player: player, id: string, name: string, items: strings):
+
+    set metadata tag "%{_id}%" of {_player} to chest with 6 row named "%{_name}%"
+    
+    set {_u} to uuid of {_player}
+    set {_borderIndex} to 0
+
+    loop 54 times:
+
+        if {_borderIndex} is not 11, 12, 13, 14, 15, 20, 21, 22, 23, 24, 29, 30, 31, 32 or 33:
+            set slot {_borderIndex} of metadata tag "%{_id}%" of {_player} to black stained glass pane named "&8Border"
+
+        if {_borderIndex} is 10, 16, 19, 25, 28, 34, 37 or 43:
+            set slot {_borderIndex} of metadata tag "%{_id}%" of {_player} to gray stained glass pane named "&7Border"
+
+        if {_borderIndex} is 49:
+            set slot {_borderIndex} of metadata tag "%{_id}%" of {_player} to barrier named "&cClose"
+
+        if {_borderIndex} is 50 or 48:
+            set {_page::*} to split "%{_name}%" at "Page "
+            set {_page} to {_page::2} parsed as integer
+            
+            if {_page} is 1 or 2:
+                if {_borderIndex} is 50:
+                    set slot {_borderIndex} of metadata tag "%{_id}%" of {_player} to arrow named "&fPage %{_page} + 1%" with lore "&7Go to the next page", "&7of this bestiary.", "", "&eNext (Left Click)" with all flags hidden
+
+            if {_page} is 2 or 3:
+                if {_borderIndex} is 48:
+                    set slot {_borderIndex} of metadata tag "%{_id}%" of {_player} to arrow named "&fPage %{_page} - 1%" with lore "&7Go to the previous page", "&7of this bestiary.", "", "&ePrevious (Left Click)" with all flags hidden
+
+
+            set {_startIndex} to 11
+            set {_itemIndex} to 15 * ({_page} - 1) + 1
+            loop (size of {_items::*}) + 8 times:
+                if {_startIndex} is not 16, 17, 18, 19, 25, 26, 27 or 28:
+                    set slot {_startIndex} of metadata tag "%{_id}%" of {_player} to bestiaryGetItemLore({_player}, {_items::%{_itemIndex}%})
+                    add 1 to {_itemIndex}
+                add 1 to {_startIndex}
+
+        add 1 to {_borderIndex}
+
+    open (metadata tag "%{_id}%" of {_player}) to {_player}
+
+on inventory click:
+
+    if event-inventory = (metadata tag "bestiary" or "bestiarySection" of player):
+
+        set {bestiary::Farming::*} to ("Raw Beef", "Raw Mutton", "Raw Chicken", "Egg", "Wheat", "Leather", "Wool", "Feather", "Potato", "Carrot", "Wart", "Berries")
+        set {bestiary::Slaying::*} to ("Rotten Flesh", "Arrow", "Bone", "Platinum Teeth", "Red Mushroom", "Brown Mushroom", "String", "Web", "Spikes", "Faded Rose", "Gold Nugget", "Grasp Leaf", "Moss Hunk", "Moss Turf")
+        set {bestiary::Mining::*} to ("Ice Shard")
+        set {bestiary::Boss::*} to ("Rooted Skin", "Rooted Heart", "Enormous Shroom", "Inured Demis", "Deity Shard")
+
+    if event-inventory = (metadata tag "bestiary" of player):
+
+        cancel event
+
+        if index of event-slot is 49:
+            open (metadata tag "menu" of player) to player
+        else if index of event-slot is 21:
+            bestiaryCreateSection(player, "bestiarySection", "&8Farming Bestiary Page 1", {bestiary::Farming::*})
+        else if index of event-slot is 22:
+            bestiaryCreateSection(player, "bestiarySection", "&8Slaying Bestiary Page 1", {bestiary::Slaying::*})
+        else if index of event-slot is 23:
+            bestiaryCreateSection(player, "bestiarySection", "&8Mining Bestiary Page 1", {bestiary::Mining::*})
+        else if index of event-slot is 31:
+            bestiaryCreateSection(player, "bestiarySection", "&8Boss Bestiary Page 1", {bestiary::Boss::*})
+
+
+    else if event-inventory = (metadata tag "bestiarySection" of player):
+
+        cancel event
+
+        if index of event-slot is 49:
+            open (metadata tag "bestiary" of player) to player
+        else if index of event-slot is 50 or 48:
+
+            set {_name::*} to split uncolored name of event-inventory at " "
+            set {_page} to {_name::4} parsed as integer
+            set {_name} to {_name::1}
+
+            set {_list::*} to {bestiary::%{_name}%::*}
+            
+            if index of event-slot is 50:
+                if {_page} is not 3:
+                    add 1 to {_page}
+            else if index of event-slot is 48:
+                if {_page} is not 1:
+                    remove 1 from {_page}
+            bestiaryCreateSection(player, "bestiarySection", "&8%{_name}% Bestiary Page %{_page}%", {_list::*})

@@ -80,7 +80,7 @@ on rightclick:
                         if {quests::%loop-value-2%::completed::%player's uuid%} is true:
                             add 1 to {_completed}
 
-                    add "&7You currently have finished %{_completed}%/%size of {_quests::*}%", "&7of all the quests in the game." and "" to lore of {_questProgress}
+                    add "&7You are currently have finished %{_completed}%/%size of {_quests::*}%", "&7of all the quests in the game." and "" to lore of {_questProgress}
 
                     loop 10 times:
                         if {_completed} >= (size of {_quests::*} / 10) * loop-number-2:

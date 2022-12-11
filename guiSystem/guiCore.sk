@@ -345,7 +345,7 @@ on rightclick:
         
         loop 54 times:
 
-            if {_borderIndex} is not 10, 13, 16, 19, 25, 28, 34, 37, 39, 41 or 43:
+            if {_borderIndex} is not 10, 13, 16, 19, 25, 28, 31, 34, 37, 39, 41 or 43:
                 set slot {_borderIndex} of metadata tag "menu" of player to black stained glass pane named "&8Border"
 
             set {_next} to 25 * ({level::%player's uuid%} * {level::%player's uuid%}) + 175 * {level::%player's uuid%}
@@ -369,9 +369,22 @@ on rightclick:
             if {_borderIndex} is 22:
                 set slot {_borderIndex} of metadata tag "menu" of player to diamond named "&aStore" with lore "&7The primary way to support the development", "&7of the server and the expantion of the game.", "" and "&eView (Left Click)"
 
-            if player's name is "Adaxer":
-                if {_borderIndex} is 31:
-                    set slot {_borderIndex} of metadata tag "menu" of player to enchanting table named "&aBestiary" with lore "&7View your bestiary and all", "&7the items you have discovered.", "" and "&eView (Left Click)"
+            if {_borderIndex} is 31:
+                if {level::%{_u}%} is greater than 5:
+                    set {_list::*} to {bestiary::Farming::*}, {bestiary::Mining::*}, {bestiary::Slaying::*} and {bestiary::Boss::*}
+                    set {_all} to size of {_list::*}
+                    loop {_list::*}:
+                        if {bestiary::%loop-value-2%::collected::%{_u}%} is set:
+                            add 1 to {_progress}
+                    set {_bar} to ""
+                    loop 15 times:
+                        if {_progress} >= ({_all} / 15) * loop-value-2:
+                            set {_bar} to "%{_bar}%&f▌"
+                        else:
+                            set {_bar} to "%{_bar}%&7▌"
+                    set slot {_borderIndex} of metadata tag "menu" of player to enchanting table named "&aBestiary" with lore "&7View your bestiary and all", "&7the items you have discovered.", "", "&7Collected: &f%{_progress}%/%{_all}%", "%{_bar}%", "" and "&eView (Left Click)"
+                else:
+                    set slot {_borderIndex} of metadata tag "menu" of player to gray dye named "&fAccess denied" with lore "&7You are not the required level to", "&7access this feature.", "" and "&cMust be level 5!"
 
             if {_borderIndex} is 39 or 41:
                 if player has permission "skript.rank":
@@ -380,14 +393,13 @@ on rightclick:
                     else if {_borderIndex} is 41:
                         set slot {_borderIndex} of metadata tag "menu" of player to compass named "&aTeleport" with lore "&7While not in combat this menu gives", "&7you instant access to all the parts of the map.", "" and "&eView (Left Click)"
                 else:
-                    set slot {_borderIndex} of metadata tag "menu" of player to gray dye named "&fNo Access" with lore "&7You currently lack access to this feature and", "&7you can unlock it by supporting the server.", "" and "&cInherit permissions!"
+                    set slot {_borderIndex} of metadata tag "menu" of player to gray dye named "&fAccess denied" with lore "&7You currently lack access to this feature and", "&7you can unlock it by supporting the server.", "" and "&cInherit permissions!"
 
             if {_borderIndex} is 10, 16, 19, 25, 28, 34, 37 or 43:
                 set slot {_borderIndex} of metadata tag "menu" of player to gray stained glass pane named "&7Border"
 
 
             add 1 to {_borderIndex}
-
 
         open (metadata tag "menu" of player) to player
 
@@ -721,8 +733,7 @@ on inventory click:
         if index of event-slot is 22:
             send formatted "<tooltip:&7View our store by clicking the message.><link:https://nordicrpg.tebex.io>&3[STORE] » &fClick here to view our store!"
         else if index of event-slot is 31:
-            if player's name is "Adaxer":
-                bestiaryCreateItem(player, "&8Remote Bestiary")
+            bestiaryCreateItem(player, "&8Remote Bestiary")
         else if index of event-slot is 39:
 
             if player has permission "skript.rank":
