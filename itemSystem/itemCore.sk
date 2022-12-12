@@ -325,7 +325,7 @@ function checkFuseItem(items: itemtypes) :: string:
     return "none"
 
 command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
-    permission: op
+    permission: skript.admin
     permission message: Unknown command. Type "/help" for help.
     trigger:
 
