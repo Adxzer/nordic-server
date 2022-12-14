@@ -14,7 +14,7 @@ on chat:
             cancel event
             send "&4[STAFF] » &cYou are currently muted and can not speak in the chat."
         else:
-            if player's group is "admin", "viking" or "master":
+            if player's group is "admin", "viking", "owner" or "mod":
                 set {_message::*} to ("&8 »", "&f%message%")
 
             else:

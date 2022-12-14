@@ -6,7 +6,7 @@ on death:
 
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 
-        set {_percentage} to 7
+        set {_percentage} to 45
         set {_min} to 1
         set {_max} to 1
 

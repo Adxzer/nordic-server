@@ -25,7 +25,7 @@ on damage:
             else if {_name} is "Crypto Ghoul":
                 set {_damage} to 11 * {_critical}
             else if {_name} is "Groot":
-                set {_damage} to 17 * {_critical}
+                set {_damage} to (39 * {_critical} * ({level::%victim's uuid%} / 5))
 
             if {_name} is "Zombie", "Skeleton", "Zombie Ghoul", "Skeleton Ghoul", "Crypto Ghoul" or "Groot":
                 if victim is not blocking:

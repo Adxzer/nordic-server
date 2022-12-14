@@ -219,43 +219,52 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                     else if arg-2 is "deactivate": 
 
-                        send "&4[BOSS] » &fDeactivated the &4%arg-1% &fspawner."  
-                        make console execute command "hd setline Boss%arg-1%Cooldown 2 &75 minute(s)"
+                        if arg-1 is "Groot":
+                            set {_boss} to bossGetGrootChunks()
+                            set {_commandOne} to "mm m spawn BossGroot 1 world,-226,16,-136"
+                            set {_commandTwo} to "boss groot activate"
+                        else if arg-1 is "Chad":
+                            set {_boss} to bossGetChadChunks()
+                            set {_commandOne} to "mm m spawn BossChad 1 world,6,4,-166"
+                            set {_commandTwo} to "boss chad activate"
+                        else if arg-1 is "Draug":
+                            set {_boss} to bossGetDraugChunks()
+                            set {_commandOne} to "mm m spawn BossDraug 1 world,25,6,70"
+                            set {_commandTwo} to "boss draug activate"
+                        else if arg-1 is "Odin":
+                            set {_boss} to bossGetOdinChunks()
+                            set {_commandOne} to "mm m spawn BossOdin 1 world,-144,40,107"
+                            set {_commandTwo} to "boss odin activate"
+
+
+                        if {_boss} is 0:
+                            send "&4[BOSS] » &fDeactivated the &4%arg-1% &fspawner."  
+                            make console execute command "hd setline Boss%arg-1%Cooldown 2 &75 minute(s)"
+                        else:
+                            make console execute command {_commandTwo}
+                            stop trigger
                         
                         set {_minutes} to 5
 
                         loop 5 times:
-                            wait 1 minute
-                            remove 1 from {_minutes}
-                            make console execute command "hd setline Boss%arg-1%Cooldown 2 &7%{_minutes}% minute(s)"
+                            if {_boss} is 0:
+                                wait 1 minute
+                                remove 1 from {_minutes}
+                                make console execute command "hd setline Boss%arg-1%Cooldown 2 &7%{_minutes}% minute(s)"
+                            else:
+                                make console execute command {_commandTwo}
+                                stop trigger
 
                         make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
-                        make console execute command "mm m kill Boss%arg-1%"
-                        
-                        if arg-1 is "Groot":
-                            set {_boss} to bossGetGrootChunks()
-                            if {_boss} is 0:
-                                make console execute command "mm m spawn BossGroot 1 world,-226,16,-136"
-                            else:
-                                make console execute command "boss groot activate"
-                        else if arg-1 is "Chad":
-                            set {_boss} to bossGetChadChunks()
-                            if {_boss} is 0:
-                                make console execute command "mm m spawn BossChad 1 world,6,4,-166"
-                            else:
-                                make console execute command "boss chad activate"   
-                        else if arg-1 is "Draug":
-                            set {_boss} to bossGetDraugChunks()
-                            if {_boss} is 0:
-                                make console execute command "mm m spawn BossDraug 1 world,25,6,70"
-                            else:
-                                make console execute command "boss draug activate"   
-                        else if arg-1 is "Odin":
-                            set {_boss} to bossGetOdinChunks()
-                            if {_boss} is 0:
-                                make console execute command "mm m spawn BossOdin 1 world,-144,40,107"
-                            else:
-                                make console execute command "boss odin activate"                            
+
+                        if {_boss} is 0:
+                            make console execute command "mm m kill Boss%arg-1%"
+                            wait 2 seconds
+                            make console execute command {_commandOne}
+                        else:
+                            make console execute command {_commandTwo}
+
+                       
                     else if arg-2 is "activate": 
 
                         send "&4[BOSS] » &fActivated the &4%arg-1%&f spawner."  
@@ -271,7 +280,7 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
                 send "&4[BOSS] » &cThis command option does not exist."
 
         else:
-            send "&4[BOSS] » &cPlease specify a command option."
+            send "&4[BOSS] » &cPlease specify a command option."    
 
 on inventory click:
 
@@ -329,6 +338,13 @@ on inventory click:
         else if index of event-slot is 49:
             open (metadata tag "boss" of player) to player
  
+every 30 seconds:
+    set {_groot} to bossGetGrootChunks()
+    set {_chad} to bossGetChadChunks()
+    set {_draug} to bossGetDraugChunks()
+    set {_odin} to bossGetOdinChunks()
+    send "&4[BOSS] » &fGroot: &c%{_groot}% &fChad: &c%{_chad}% &fDraug: &c%{_draug}% &fOdin: &c%{_odin}%" to console
+
 on load: # add new options
     set {_groot} to bossGetGrootChunks()
     set {_chad} to bossGetChadChunks()

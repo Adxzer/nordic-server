@@ -23,7 +23,7 @@ on damage:
             else if {_name} is "Wither Skeleton":
                 set {_damage} to 52 * {_critical}
             else if {_name} is "Draug":
-                set {_damage} to 64 * {_critical}
+                set {_damage} to (242 * {_critical} * ({level::%victim's uuid%} / 25))
 
             if {_name} is "Baby Piglin", "Zombified Piglin", "Wither Minion", "Draug" or "Wither Skeleton":
                 if victim is not blocking:

@@ -25,7 +25,7 @@ on damage:
             else if {_name} is "Jockey Spider":
                 set {_damage} to 23 * {_critical}
             else if {_name} is "Chad":
-                set {_damage} to 37 * {_critical}
+                set {_damage} to (87 * {_critical} * ({level::%victim's uuid%} / 10))
 
             if {_name} is "Brown Mushroomite", "Red Mushroomite", "Jockey Skeleton", "Revenant Spider", "Jockey Spider", "Chad" or "Odin":
                 if victim is not blocking:

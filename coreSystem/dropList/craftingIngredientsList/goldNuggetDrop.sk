@@ -2,7 +2,7 @@ on death:
 
     set {_name} to coreGetEntity(name of victim)
 
-    if {_name} is "Baby Piglin" or "Zombified Pilgin":
+    if {_name} is "Baby Piglin" or "Zombified Piglin":
 
         set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 

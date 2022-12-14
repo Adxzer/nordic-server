@@ -210,16 +210,16 @@ function bestiaryGetItemLore(player: player, target: string) :: item:
                 set {_addBar} to "&9▌"
                 set {_progress} to 100000
             else:
-                set {_last} to "&7You are a %{_target}% &3expert&7."
-                add "&7Collected: &3%bestiaryGetFormat({_collected})%", "&7Ranked: &3##%{_rank}%", "", {_last} to lore of {_return} 
-                set {_addBar} to "&3▌"
+                set {_last} to "&7You are a %{_target}% &6expert&7."
+                add "&7Collected: &6%bestiaryGetFormat({_collected})%", "&7Ranked: &6##%{_rank}%", "", {_last} to lore of {_return} 
+                set {_addBar} to "&6▌"
                 
             set name of {_return} to "&a%{_target}%"
 
             set {_bar} to ""
             loop (length of {_last} - 4) times:
                 if {_progress} is set:
-                    if {_collected} >= ({_progress} / (length of {_last} - 4)) * loop-number:
+                    if {_collected} >= (({_progress}) / ((length of {_last} - 4)) * loop-number):
                         set {_bar} to "%{_bar}%%{_addBar}%"
                     else:
                         set {_bar} to "%{_bar}%&7▌"
@@ -328,4 +328,32 @@ on inventory click:
     else if event-inventory = (metadata tag "bestiaryLeaderboard" of player):
         cancel event
         if index of event-slot is 49:
-            open (metadata tag "bestiary" of player) to player
+
+            set {_name::*} to split uncolored name of event-inventory at " Leaderboard"
+            set {_name} to {_name::1}
+
+            loop {bestiary::Farming::*}:
+                if {_name} is loop-value:
+                    set {_farming} to true
+
+            loop {bestiary::Slaying::*}:
+                if {_name} is loop-value:
+                    set {_slaying} to true
+
+            loop {bestiary::Mining::*}:
+                if {_name} is loop-value:
+                    set {_mining} to true
+
+            loop {bestiary::Boss::*}:
+                if {_name} is loop-value:
+                    set {_boss} to true
+
+            if {_farming} is true:
+                bestiaryCreateSection(player, "bestiarySection", "&8Farming Bestiary Page 1", {bestiary::Farming::*})
+            else if {_slaying} is true:
+                bestiaryCreateSection(player, "bestiarySection", "&8Slaying Bestiary Page 1", {bestiary::Slaying::*})
+            else if {_mining} is true:
+                bestiaryCreateSection(player, "bestiarySection", "&8Mining Bestiary Page 1", {bestiary::Mining::*})
+            else if {_boss} is true:
+                bestiaryCreateSection(player, "bestiarySection", "&8Boss Bestiary Page 1", {bestiary::Boss::*})
+        

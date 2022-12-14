@@ -23,7 +23,7 @@ on damage:
             else if {_name} is "Grasp":
                 set {_damage} to 75 * {_critical}
             else if {_name} is "Odin":
-                set {_damage} to 161 * {_critical}
+                set {_damage} to (261 * {_critical} * ({level::%victim's uuid%} / 35))
 
             if {_name} is "Stray", "Iceologer", "Lushbloom", "Grasp" or "Odin":
                 if victim is not blocking:
