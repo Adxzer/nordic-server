@@ -35,48 +35,48 @@ command /boost [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                                                     if arg-4 is "experience":
                                                         add {_value} to {boost::experience::%{_u}%} 
-                                                        send "&d[BOOST] » &fYou have added &d%round({_value} / 60)% minutes&f to &d%{_player}%&f's &d%arg-4% boost." to player
+                                                        send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &fYou have added <##5EB6B6>%round({_value} / 60)% minutes&f to <##5EB6B6>%{_player}%&f's <##5EB6B6>%arg-4% boost." to player
                                                     else if arg-4 is "luck":
                                                         add {_value} to {boost::luck::%{_u}%}
-                                                        send "&d[BOOST] » &fYou have added &d%round({_value} / 60)% minutes&f to &d%{_player}%&f's &d%arg-4% boost." to player
+                                                        send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &fYou have added <##5EB6B6>%round({_value} / 60)% minutes&f to <##5EB6B6>%{_player}%&f's <##5EB6B6>%arg-4% boost." to player
                                             
                                             else if arg-3 is "check":
-                                                send "&d[BOOST] » &fThe current &d%arg-4%&f boost for &d%{_player}%&f is &d%round({boost::%arg-4%::%{_u}%} / 60)% minutes&f or &d%{boost::%arg-4%::%{_u}%}%&f seconds." to player
+                                                send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &fThe current <##5EB6B6>%arg-4%&f boost for <##5EB6B6>%{_player}%&f is <##5EB6B6>%round({boost::%arg-4%::%{_u}%} / 60)% minutes&f or <##5EB6B6>%{boost::%arg-4%::%{_u}%}%&f seconds." to player
                                             
                                             else:
-                                                send "&d[BOOST] » &cPlease specify an integer."     
+                                                send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &cPlease specify an integer."     
                                         
                                         else:
-                                            send "&d[BOOST] » &cThis command option does not exist."                 
+                                            send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &cThis command option does not exist."                 
                                     
                                     else:
-                                        send "&d[BOOST] » &cPlease specify a command option."                                
+                                        send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &cPlease specify a command option."                                
                                 
                                 else if arg-3 is "clear":
-                                    send "&d[BOOST] » &fYou have cleared &d%{_player}%&f's boosts." to player
+                                    send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &fYou have cleared <##5EB6B6>%{_player}%&f's boosts." to player
                                     clear {boost::luck::%{_u}%}
                                     clear {boost::experience::%{_u}%}
 
                                 else:
-                                    send "&d[BOOST] » &cThis command option does not exist."
+                                    send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &cThis command option does not exist."
 
                             else:
-                                send "&d[BOOST] » &cPlease specify a command option."
+                                send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &cPlease specify a command option."
 
                         else:
-                            send "&d[BOOST] » &cThis player has never been on the server."
+                            send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &cThis player has never been on the server."
 
                     else:
-                        send "&d[BOOST] » &cThis player does not exist."
+                        send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &cThis player does not exist."
 
                 else:
-                    send "&d[BOOST] » &cPlease specify a player."  
+                    send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &cPlease specify a player."  
 
             else:
-                send "&d[BOOST] » &cThis command option does not exist."
+                send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &cThis command option does not exist."
 
         else:
-            send "&d[BOOST] » &cPlease specify a command option."
+            send "<##508a7f>[<##5EB6B6>&lBOOST<##508a7f>] » &cPlease specify a command option."
 
 on tab complete of "/boost":
 

@@ -11,4 +11,4 @@ command /show:
             send formatted "%player's prefix%%player%&f is showing off their <tooltip:%{_show}%>%name of player's tool%&f." to all players
 
         else:
-            send "&3[SHOW] » &cThis command doesn't work with that item!"
+            send "<##508a7f>[<##5EB6B6>&lSHOW<##508a7f>] » &cThis command doesn't work with that item!"

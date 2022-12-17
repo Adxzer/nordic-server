@@ -3,6 +3,6 @@ command /shout [<text>]:
     permission message: Unknown command. Type "/help" for help.
     trigger:
         if arg-1 is set:
-            broadcast formatted "<tooltip:&7Shouted by %player% %now formatted as "M/dd/yy"%.>&3[SHOUT] » &f%arg-1%"
+            broadcast formatted "<tooltip:&7Shouted by %player% %now formatted as "M/dd/yy"%.><##508a7f>[<##5EB6B6>&lSHOUT<##508a7f>] » &f%arg-1%"
         else:
-            send "&3[SHOUT] » &cPlease specify a message."
+            send "<##508a7f>[<##5EB6B6>&lSHOUT<##508a7f>] » &cPlease specify a message."

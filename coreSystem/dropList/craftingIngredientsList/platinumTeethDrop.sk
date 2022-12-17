@@ -20,6 +20,6 @@ on death:
 
         if {_amount} is greater than 0:
             if {boost::luck::%attacker's uuid%} is greater than 0:
-                send "&3[DROP] » &fYou just got a %uncolored name of {_drop}%! &7[&22x✤&7] - [&3%{_percentage} * 2%%%&7]" to attacker
+                send "<##508a7f>[<##5EB6B6>&lDROP<##508a7f>] » &fYou just got a %uncolored name of {_drop}%! &7[&22x✤&7] - [<##5EB6B6>%{_percentage} * 2%%%&7]" to attacker
             else:
-                send "&3[DROP] » &fYou just got a %uncolored name of {_drop}%! &7[&3%{_percentage}%%%&7]" to attacker
+                send "<##508a7f>[<##5EB6B6>&lDROP<##508a7f>] » &fYou just got a %uncolored name of {_drop}%! &7[<##5EB6B6>%{_percentage}%%%&7]" to attacker

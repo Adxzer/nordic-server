@@ -31,6 +31,26 @@ function getPlayerTag(player: player) :: string:
     else:
         return "a peaseant"
 
+function sendPlayerStats(target: player, player: player):
+
+    set {_u} to uuid of {_player}
+    set {_time} to {_player}'s first login formatted as "dd/MM/yyyy"
+
+    send "&7&m                                                                  " to {_target}
+    send "" to {_target}
+    send "  %{_player}'s prefix%%{_player}%" to {_target}
+    send "" to {_target}
+    send "    &7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤" to {_target}
+    send "    &7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦" to {_target}
+    send "    &7Souls: <##122289>%{souls::lanterns::amount::%{_player}'s uuid%}%/%{souls::globalamount}%☽" to {_target}
+    send "" to {_target}
+    send "    &7Level: &3⚗%{level::%{_player}'s uuid%}%" to {_target}
+    send "    &7Joined: &f%{_time}%" to {_target}
+    send "" to {_target}
+    send "  &7This player is %getPlayerTag({_player})%." to {_target}
+    send "" to {_target}
+    send "&7&m                                                                  " to {_target}
+
 command /stats [<text>]:
     trigger:
 
@@ -41,19 +61,20 @@ command /stats [<text>]:
 
             if {_player} is offline player:
 
-                set {_time} to {_player}'s first login formatted as "dd/MM/yyyy"
-                send formatted "<tooltip:%{_player}'s prefix%%{_player}%%nl%&7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤%nl%&7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦%nl%&7Souls: <##122289>%{souls::lanterns::amount::%{_player}'s uuid%}%/%{souls::globalamount}%☽%nl%%nl%&7Level: &3⚗%{level::%{_player}'s uuid%}%%nl%&7Joined: &f%{_time}%%nl%%nl%&7This player is %getPlayerTag({_player})%.>&3[STATS] » &fHover to see the stats of &3%{_player}%&f!"
+                #set {_time} to {_player}'s first login formatted as "dd/MM/yyyy"
+                #send formatted "<tooltip:%{_player}'s prefix%%{_player}%%nl%&7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤%nl%&7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦%nl%&7Souls: <##122289>%{souls::lanterns::amount::%{_player}'s uuid%}%/%{souls::globalamount}%☽%nl%%nl%&7Level: &3⚗%{level::%{_player}'s uuid%}%%nl%&7Joined: &f%{_time}%%nl%%nl%&7This player is %getPlayerTag({_player})%.>&3[STATS] » &fHover to see the stats of &3%{_player}%&f!"
+                sendPlayerStats(player, {_player})
 
             else:
-                send "&3[STATS] » &c%{_player}% is not a valid player!"
+                send "<##508a7f>[<##5EB6B6>&LSTATS<##508a7f>] » <##5EB6B6>%{_player}% is not a valid player!"
 
         else:
 
             set {_player} to player
-            set {_u} to uuid of {_player}
-
-            set {_time} to {_player}'s first login formatted as "dd/MM/yyyy"
-            send formatted "<tooltip:%{_player}'s prefix%%{_player}%%nl%&7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤%nl%&7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦%nl%&7Souls: <##122289>%{souls::lanterns::amount::%{_player}'s uuid%}%/%{souls::globalamount}%☽%nl%%nl%&7Level: &3⚗%{level::%{_player}'s uuid%}%%nl%&7Joined: &f%{_time}%%nl%%nl%&7This player is %getPlayerTag({_player})%.>&3[STATS] » &fHover to see the stats of &3yourself&f!"
+            #set {_u} to uuid of {_player}
+            sendPlayerStats(player, {_player})
+            #set {_time} to {_player}'s first login formatted as "dd/MM/yyyy"
+            #send formatted "<tooltip:%{_player}'s prefix%%{_player}%%nl%&7Health: &c%coreRoundTo({health::currentHearts::%{_u}%}, 1)%/%{health::maxHearts::%{_u}%}%❤%nl%&7Mana: &6%coreRoundTo({mana::currentMana::%{_u}%}, 1)%/%{mana::maxMana::%{_u}%}%✦%nl%&7Souls: <##122289>%{souls::lanterns::amount::%{_player}'s uuid%}%/%{souls::globalamount}%☽%nl%%nl%&7Level: &3⚗%{level::%{_player}'s uuid%}%%nl%&7Joined: &f%{_time}%%nl%%nl%&7This player is %getPlayerTag({_player})%.>&3[STATS] » &fHover to see the stats of &3yourself&f!"
 
 on tab complete of "/stats":
 

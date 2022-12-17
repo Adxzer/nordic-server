@@ -29,64 +29,64 @@ command /health [<text>] [<text>] [<text>] [<text>] [<text>]:
                                                 set {_value} to arg-5 parsed as integer
 
                                                 if arg-5 parsed as integer is integer:
-                                                    send "&c[HEALTH] » &fYou set &c%arg-2%&f's max hearts to &c%arg-5%&f."
+                                                    send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » &fYou set <##5EB6B6>%arg-2%&f's max hearts to <##5EB6B6>%arg-5%&f."
                                                     set {health::maxHearts::%{_u}%} to {_value}
                                                     set {health::currentHearts::%{_u}%} to {health::maxHearts::%{_u}%}
                                                     set {health::customHearts::%{_u}%} to {health::maxHearts::%{_u}%}
                                                     heal player by 10 hearts
 
                                                 else:
-                                                    send "&c[HEALTH] » &cThis argument must be an integer."
+                                                    send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » <##5EB6B6>This argument must be an integer."
 
                                             else:
-                                                send "&c[HEALTH] » &cPlease specify an integer."
+                                                send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » <##5EB6B6>Please specify an integer."
                                         else if arg-4 is "clear":
 
                                             if {health::customHearts::%{_u}%} is set:
-                                                send "&c[HEALTH] » &fYou cleared &c%arg-2%&f's custom hearts&f."
+                                                send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » &fYou cleared <##5EB6B6>%arg-2%&f's custom hearts&f."
                                                 clear {health::customHearts::%{_u}%}
                                                 set {health::currentHearts::%{_u}%} to {health::maxHearts::%{_u}%}
 
                                             else:
-                                                send "&c[HEALTH] » &cThere is no custom health for this player."                                            
+                                                send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » <##5EB6B6>There is no custom health for this player."                                            
                                         else if arg-4 is "check":
 
                                             if {health::customHearts::%{_u}%} is set:
-                                                send "&c[HEALTH] » &fThe custom hearts of &c%arg-2%&f is &c%{health::customHearts::%{_u}%}%&f."
+                                                send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » &fThe custom hearts of <##5EB6B6>%arg-2%&f is <##5EB6B6>%{health::customHearts::%{_u}%}%&f."
                                             
                                             else:
-                                                send "&c[HEALTH] » &cThere is no custom health for this player."
+                                                send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » <##5EB6B6>There is no custom health for this player."
 
                                         else:
-                                            send "&c[HEALTH] » &cThis command option does not exist."
+                                            send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » <##5EB6B6>This command option does not exist."
 
                                     else:
-                                        send "&c[HEALTH] » &cThis command option does not exist."
+                                        send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » <##5EB6B6>This command option does not exist."
                                 else if arg-3 is "regen":
-                                    send "&c[HEALTH] » &fRegenerated &c%arg-2%&f's health."
+                                    send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » &fRegenerated <##5EB6B6>%arg-2%&f's health."
                                     set {health::currentHearts::%{_u}%} to {health::maxHearts::%{_u}%}
                                     heal player by 10 hearts
 
                                 else:
-                                    send "&c[HEALTH] » &cThis command option does not exist."
+                                    send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » <##5EB6B6>This command option does not exist."
 
                             else:
-                                send "&c[HEALTH] » &cPlease specify a command option."
+                                send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » <##5EB6B6>Please specify a command option."
 
                         else:
-                            send "&6[MANA] » &cThis player has never been on the server."
+                            send "&6[MANA] » <##5EB6B6>This player has never been on the server."
 
                     else:
-                        send "&c[HEALTH] » &cThis player does not exist."
+                        send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » <##5EB6B6>This player does not exist."
 
                 else:
-                    send "&c[HEALTH] » &cPlease specify a player."  
+                    send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » <##5EB6B6>Please specify a player."  
 
             else:
-                send "&c[HEALTH] » &cThis command option does not exist."
+                send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » <##5EB6B6>This command option does not exist."
 
         else:
-            send "&c[HEALTH] » &cPlease specify a command option."
+            send "<##508a7f>[<##5EB6B6>&lHEALTH<##508a7f>] » <##5EB6B6>Please specify a command option."
 
 on tab complete of "/health":
 
@@ -149,6 +149,6 @@ on rightclick:
             else:
 
                 set {actionBarSet::%{_u}%} to true
-                send action bar coreGetActionBar(player, "&cYou already have max health!") to player
+                send action bar coreGetActionBar(player, "<##5EB6B6>You already have max health!") to player
                 wait 1 second
                 set {actionBarSet::%{_u}%} to false

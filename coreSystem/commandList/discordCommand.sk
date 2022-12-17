@@ -1,12 +1,11 @@
 command /discord:
     trigger:
-        send formatted "<tooltip:&7Join our discord by clicking on the message.><link:https://discord.gg/V5xgJK6ZxR>&3[DISCORD] » &fClick here to join our discord server!"
-
+        send formatted "<tooltip:&7Join our discord by clicking on the message.><link:https://discord.gg/V5xgJK6ZxR><##508a7f>[<##5EB6B6>&lDISCORD<##508a7f>] » &fClick here to join our discord server!"
         
 every 4 minutes:
     
     set {_random} to random integer between 1 and 2
     if {_random} is between 1 and 1.5:
-        broadcast "&3[DISCORD] » &fDid you know you can link your discord account to your minecraft account for an &d2x Experience Boost&f by typing &3/link&f?"
+        broadcast "<##508a7f>[<##5EB6B6>&lDISCORD<##508a7f>] » &fDid you know you can link your discord account to your minecraft account for an &d2x Experience Boost&f by typing <##5EB6B6>/link&f?"
     else if {_random} is 1.5 and 2:
-        broadcast "&3[DISCORD] » &fIf you want to support the server type &3/buy&f, all funds raised will be used to expand the server."
+        broadcast "<##508a7f>[<##5EB6B6>&lDISCORD<##508a7f>] » &fIf you want to support the server type <##5EB6B6>/buy&f, all funds raised will be used to expand the server."

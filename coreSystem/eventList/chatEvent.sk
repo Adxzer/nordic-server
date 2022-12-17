@@ -3,7 +3,7 @@ on chat:
     if {muteChat} is true:
 
         if player does not have permission "skript.mod" or "skript.admin":
-            send "&4[STAFF] » &cThe chat is currently muted."
+            send "<##508a7f>[<##5EB6B6>&lSTAFF<##508a7f>] » &cThe chat is currently muted."
             cancel event
         else:
             set chat format to "%player's prefix%%player%&7%{_message::1}% %{_message::2}%"     
@@ -12,7 +12,7 @@ on chat:
         
         if {mute::%player's uuid%} is true:
             cancel event
-            send "&4[STAFF] » &cYou are currently muted and can not speak in the chat."
+            send "<##508a7f>[<##5EB6B6>&lSTAFF<##508a7f>] » &cYou are currently muted and can not speak in the chat."
         else:
             if player's group is "admin", "viking", "owner" or "mod":
                 set {_message::*} to ("&8 »", "&f%message%")

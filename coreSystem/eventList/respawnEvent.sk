@@ -11,9 +11,9 @@ on respawn:
     if {_remove} is greater than 5:
         set {xp::%player's uuid%} to {_xp} - round({_xp} / 5)
         if {_emerald} is true:
-            send "&c[DEATH] » &fYou died and lost &c%{_remove}%&f experience and &c%floor({_value} / 3)%x Gems&f." to player
+            send "<##508a7f>[<##5EB6B6>&lDEATH<##508a7f>] » &fYou died and lost <##5EB6B6>%{_remove}%&f experience and <##5EB6B6>%floor({_value} / 3)%x Gems&f." to player
         else:
-            send "&c[DEATH] » &fYou died and lost &c%{_remove}%&f experience&f." to player
+            send "<##508a7f>[<##5EB6B6>&lDEATH<##508a7f>] » &fYou died and lost <##5EB6B6>%{_remove}%&f experience&f." to player
     else:
         if {_emerald} is true:
-            send "&c[DEATH] » &fYou died and lost &c%floor({_value} / 3)%x Gems&f." to player
+            send "<##508a7f>[<##5EB6B6>&lDEATH<##508a7f>] » &fYou died and lost <##5EB6B6>%floor({_value} / 3)%x Gems&f." to player

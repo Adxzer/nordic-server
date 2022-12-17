@@ -29,35 +29,35 @@ command /rank [<text>] [<text>] [<text>] [<text>]:
                                                 stop loop
 
                                         if {_continue} is true:
-                                            send "&5[RANK] » &fYou set &5%arg-2%&f's rank to &5%arg-4%&f."
+                                            send "<##508a7f>[<##5EB6B6>&lRANK<##508a7f>] » &fYou set <##5EB6B6>%arg-2%&f's rank to <##5EB6B6>%arg-4%&f."
                                             make console execute command "lp user %arg-2% parent set %arg-4%"
 
                                         else:
-                                            send "&5[RANK] » &cThis argument must be an string."
+                                            send "<##508a7f>[<##5EB6B6>&lRANK<##508a7f>] » &cThis argument must be an string."
 
                                     else:
-                                        send "&5[RANK] » &cPlease specify a valid rank."
+                                        send "<##508a7f>[<##5EB6B6>&lRANK<##508a7f>] » &cPlease specify a valid rank."
 
                                 else:
-                                    send "&5[RANK] » &cThis command option does not exist."
+                                    send "<##508a7f>[<##5EB6B6>&lRANK<##508a7f>] » &cThis command option does not exist."
 
                             else:
-                                send "&5[RANK] » &cPlease specify a command option."
+                                send "<##508a7f>[<##5EB6B6>&lRANK<##508a7f>] » &cPlease specify a command option."
 
                         else:
-                            send "&5[RANK] » &cThis player has never been on the server."
+                            send "<##508a7f>[<##5EB6B6>&lRANK<##508a7f>] » &cThis player has never been on the server."
 
                     else:
-                        send "&5[RANK] » &cThis player does not exist."
+                        send "<##508a7f>[<##5EB6B6>&lRANK<##508a7f>] » &cThis player does not exist."
 
                 else:
-                    send "&5[RANK] » &cPlease specify a player."  
+                    send "<##508a7f>[<##5EB6B6>&lRANK<##508a7f>] » &cPlease specify a player."  
 
             else:
-                send "&5[RANK] » &cThis command option does not exist."
+                send "<##508a7f>[<##5EB6B6>&lRANK<##508a7f>] » &cThis command option does not exist."
 
         else:
-            send "&5[RANK] » &cPlease specify a command option."
+            send "<##508a7f>[<##5EB6B6>&lRANK<##508a7f>] » &cPlease specify a command option."
 
 on tab complete of "/rank":
 

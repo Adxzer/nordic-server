@@ -1,8 +1,22 @@
+function sendJoinMessage(target: player):
+
+    send "&7&m                                                                  " to {_target}
+    send "" to {_target}
+    send " &8███████" to {_target}
+    send " &8██&3█&8█&3█&8██ &7Welcome to &f&lNordic&3&lRPG&7!" to {_target}
+    send " &8█&3█████&8█ &7The best RPG experience on Minehut." to {_target}
+    send " &8█&3█████&8█" to {_target}
+    send " &8██&3███&8██ &3/&fdiscord &7- to get in touch with the community." to {_target}
+    send " &8███&3█&8███ &3/&fbuy &7- to support the growth of the server." to {_target}
+    send " &8███████" to {_target}
+    send "" to {_target}
+    send "&7&m                                                                  " to {_target}
+
 on join:
 
     if {vanish::%player's uuid%} is not true:
         if {level::%player's uuid%} is set:
-            set join message to "&a[JOIN] + &fWelcome back to the server &a%player%&f."
+            set join message to "&8[&a+&8] &7%player%"
     else:
         set join message to ""
 
@@ -11,7 +25,8 @@ on join:
 
     if {level::%player's uuid%} is not set:
         add 1 to {joins}
-        set join message to "&a[FIRST JOIN] ☄ &fEveryone welcome &a%player%&f that just joined the server for the first time. &7[&a##%{joins}%&7]"
+        set join message to "&8[&a☄&8] &fEveryone welcome &a%player%&f to the server for the very first time! &7[&a##%{joins}%&7]"
+        sendJoinMessage(player)
         set {level::%player's uuid%} to 1
         teleport player to location(-204, 4, 75, world "world", 90, 0)
         set {level::%player's uuid%} to 1
@@ -43,7 +58,7 @@ on join:
             else:
                 set {_send} to "%{_send}%&7%loop-value%." 
             add 1 to {_counter}
-        send formatted "<tooltip:%{_send}%>&4[CLEARED] » &fYou had &4illegal &fitems that were removed from your inventory!"
+        send formatted "<tooltip:%{_send}%><##508a7f>[<##5EB6B6>&lCLEARED<##508a7f>] » &fYou had <##5EB6B6>illegal &fitems that were removed from your inventory!"
 
     set {health::currentHearts::%player's uuid%} to {health::maxHearts::%player's uuid%}
     set {mana::currentMana::%player's uuid%} to {mana::maxMana::%player's uuid%}
@@ -52,6 +67,34 @@ on join:
     set slot 8 of player's inventory to nether star named "&aRemote Menu" with lore "&7A remote menu to access special", "&7features and view your current stats.", "" and "&eLeft (Right Click)"
 
     while player is online:
+
+        set {_emeralds} to 0
+        loop player's inventory:
+            if loop-value is emerald:
+                add item amount of loop-value to {_emeralds}
+            else if loop-value is emerald block:
+                add item amount of loop-value * 64 to {_emeralds}
+
+        set {_next} to 25 * ({level::%player's uuid%} * {level::%player's uuid%}) + 175 * {level::%player's uuid%}
+        set {_input} to "%{xp::%player's uuid%}%/%{_next}%"
+
+        set {_color::*} to split player's prefix at "&r"
+
+        set title of player's scoreboard to "&f&lNordic&3&lRPG"
+        set line 14 of player's scoreboard to "&8beta-0.2.8"
+        set line 13 of player's scoreboard to ""
+        set line 12 of player's scoreboard to "&fPlayer:"
+        set line 11 of player's scoreboard to "&8▎ &7User:%{_color::2}%%player%"
+        set line 10 of player's scoreboard to "&8▎ &7Economy: &a%{_emeralds}%$"
+        set line 9 of player's scoreboard to "&8▎ &7Level: &3⚗%{level::%player's uuid%}%"
+        set line 8 of player's scoreboard to "&8▎ &7Xp: %coreReturnCharacterBar(player, {_input})%"
+        set line 7 of player's scoreboard to ""
+        set line 6 of player's scoreboard to "&fServer:"
+        set line 5 of player's scoreboard to "&8▎ &7Online: <##5EB6B6>%number of all players%/%max players%"
+        set line 4 of player's scoreboard to "&8▎ &7Store: <##5EB6B6>/buy"
+        set line 3 of player's scoreboard to "&8▎ &7Discord: <##5EB6B6>/discord"
+        set line 2 of player's scoreboard to ""
+        set line 1 of player's scoreboard to " &eNordicRPG.minehut.gg"
 
         set player's tablist header to "%nl%&f&lNordic&3&lRPG%nl%"
         set player's tablist footer to  "%nl%&fOnline: &3%number of all players%/%max players%%nl%&eNordicRPG.minehut.gg%nl%                                             "    
@@ -62,7 +105,7 @@ on join:
 on leave:
 
     if {vanish::%player's uuid%} is not true:
-        set leave message to "&c[LEAVE] - &fHope to see you soon &c%player%&f."
+        set leave message to "&8[&c-&8] &7%player%"
     else:
         set leave message to ""
 

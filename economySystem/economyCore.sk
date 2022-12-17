@@ -42,7 +42,7 @@ command /economy [<text>] [<text>] [<text>] [<text>]:
                                                     give {_player} {_value} of {items::economyItems::1}
                                                     if {_block} is not set:
                                                         set {_block} to 0
-                                                    send "&2[ECONOMY] » &fYou added &2%{_block}%x Gemstone&f and &2%{_value}%x Emerald&f to &2%arg-2%&f's balance."
+                                                    send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &fYou added <##5EB6B6>%{_block}%x Gemstone&f and <##5EB6B6>%{_value}%x Emerald&f to <##5EB6B6>%arg-2%&f's balance."
                                                 else if arg-3 is "remove":
 
                                                     if {_block} is not set:
@@ -62,25 +62,25 @@ command /economy [<text>] [<text>] [<text>] [<text>]:
                                                         if {_containsGem} >= {_value}:
                                                             remove {_block} of {items::economyItems::2} from {_player}
                                                             remove {_value} of {items::economyItems::1} from {_player}
-                                                            send "&2[ECONOMY] » &fYou removed &2%{_block}%x Gemstone&f and &2%{_value}%x Emerald&f from &2%arg-2%&f's balance."
+                                                            send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &fYou removed <##5EB6B6>%{_block}%x Gemstone&f and <##5EB6B6>%{_value}%x Emerald&f from <##5EB6B6>%arg-2%&f's balance."
 
                                                         else:
-                                                            send "&2[ECONOMY] » &cThe player does not have enough to complete this action."     
+                                                            send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cThe player does not have enough to complete this action."     
 
                                                     else:
-                                                        send "&2[ECONOMY] » &cThe player does not have enough to complete this action."                                    
+                                                        send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cThe player does not have enough to complete this action."                                    
                                                 
                                                 else:
-                                                    send "&2[ECONOMY] » &cThis command option does not exist."
+                                                    send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cThis command option does not exist."
 
                                             else:
-                                                send "&2[ECONOMY] » &cThis argument can not be more than 5000."
+                                                send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cThis argument can not be more than 5000."
 
                                         else:
-                                            send "&2[ECONOMY] » &cThis argument must be an integer."
+                                            send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cThis argument must be an integer."
 
                                     else:
-                                        send "&2[ECONOMY] » &cPlease specify an integer."
+                                        send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cPlease specify an integer."
                                 else if arg-3 is "check":
 
                                     set {_value} to 0
@@ -92,36 +92,36 @@ command /economy [<text>] [<text>] [<text>] [<text>]:
                                             add item amount of loop-value to {_value}
 
                                     if {_value} > 0:
-                                        send "&2[ECONOMY] » &fThe balance of &2%arg-2%&f's is &2%{_block}%x Gemstone&f and &2%{_value}%x Emerald&f."
+                                        send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &fThe balance of <##5EB6B6>%arg-2%&f's is <##5EB6B6>%{_block}%x Gemstone&f and <##5EB6B6>%{_value}%x Emerald&f."
                                     
                                     else:
-                                        send "&2[ECONOMY] » &cThe player does not have any balance in their inventory."
+                                        send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cThe player does not have any balance in their inventory."
 
                                 else if arg-3 is "open":
 
                                     guiCreateBank(player, {_player}, "&8Arland Banker", 1)
-                                    send "&2[ECONOMY] » &fOpened the bank of &2%{_player}%&f."  
+                                    send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &fOpened the bank of <##5EB6B6>%{_player}%&f."  
 
                                 else:
-                                    send "&2[ECONOMY] » &cThis command option does not exist."
+                                    send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cThis command option does not exist."
 
                             else:
-                                send "&2[ECONOMY] » &cPlease specify a command option."
+                                send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cPlease specify a command option."
 
                         else:
-                            send "&2[ECONOMY] » &cThis player has never been on the server."
+                            send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cThis player has never been on the server."
 
                     else:
-                        send "&2[ECONOMY] » &cThis player does not exist."
+                        send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cThis player does not exist."
 
                 else:
-                    send "&2[ECONOMY] » &cPlease specify a player."  
+                    send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cPlease specify a player."  
 
             else:
-                send "&2[ECONOMY] » &cThis command option does not exist."
+                send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cThis command option does not exist."
 
         else:
-            send "&2[ECONOMY] » &cPlease specify a command option."
+            send "<##508a7f>[<##5EB6B6>&lECONOMY<##508a7f>] » &cPlease specify a command option."
 
 on tab complete of "/economy":
 

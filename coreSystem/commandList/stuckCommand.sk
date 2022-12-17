@@ -17,7 +17,7 @@ command /stuck:
                 teleport player to location(-204, 7, 75, world "world", 90, 0)
             else if {_region} is not set:
                 teleport player to location(-204, 7, 75, world "world", 90, 0)
-            send "&3[STUCK] » &fHopefully you are now unstuck, if not please contact a support."
+            send "<##508a7f>[<##5EB6B6>&lSTUCK<##508a7f>] » &fHopefully you are now unstuck, if not please contact a support."
 
         else:
-            send "&3[STUCK] » &cYou cannot perform this command in combat."
+            send "<##508a7f>[<##5EB6B6>&lSTUCK<##508a7f>] » &cYou cannot perform this command in combat."

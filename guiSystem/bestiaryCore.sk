@@ -28,9 +28,9 @@ function bestiaryCreateItem(player: player, name: string):
                 set {guiSystem/bestiaryCore._%loop-value-2%::_addBar} to ""
                 loop 15 times:
                     if {guiSystem/bestiaryCore._%loop-value-2%::_collected} >= ({guiSystem/bestiaryCore._%loop-value-2%::_progress} / 15) * loop-value-3:
-                        set {guiSystem/bestiaryCore._%loop-value-2%::_addBar} to "%{guiSystem/bestiaryCore._%loop-value-2%::_addBar}%&f▌"
+                        set {guiSystem/bestiaryCore._%loop-value-2%::_addBar} to "%{guiSystem/bestiaryCore._%loop-value-2%::_addBar}%&f&m "
                     else:
-                        set {guiSystem/bestiaryCore._%loop-value-2%::_addBar} to "%{guiSystem/bestiaryCore._%loop-value-2%::_addBar}%&7▌"
+                        set {guiSystem/bestiaryCore._%loop-value-2%::_addBar} to "%{guiSystem/bestiaryCore._%loop-value-2%::_addBar}%&7&m "
 
         if {_borderIndex} is 21:
             set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone hoe named "&aFarming" with lore "&7View your farming bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Farming::_collected}%/%{guiSystem/bestiaryCore._Farming::_progress}%", {guiSystem/bestiaryCore._Farming::_addBar}, "" and "&eView (Left Click)" with all flags hidden
@@ -146,7 +146,7 @@ function bestiaryCheckItem(player: player, item: string, amount: number):
         if {bestiary::%{_item}%::collected::%{_u}%} is not set:
             set {bestiary::%{_item}%::collected::%{_u}%} to 0
             if {level::%{_u}%} is greater than 4:
-                send "<##8bc0e8>[BESTIARY] » &fNew item discovered! <##8bc0e8>%{_item}%&f has now been added to your bestiary." to {_player}
+                send "<##508a7f>[<##5EB6B6>&LBESTIARY<##508a7f>] » &fNew item discovered! <##5EB6B6>%{_item}%&f has now been added to your bestiary." to {_player}
         
         add {_amount} to {bestiary::%{_item}%::collected::%{_u}%}
 
@@ -192,37 +192,37 @@ function bestiaryGetItemLore(player: player, target: string) :: item:
             if {_collected} is between 0 and 1000:
                 set {_last} to "&7You are a %{_target}% &8beginner&7."
                 add "&7Collected: &8%bestiaryGetFormat({_collected})%", "&7Ranked: &8##%{_rank}%", "", {_last} to lore of {_return} 
-                set {_addBar} to "&8▌"
+                set {_addBar} to "&8&m "
                 set {_progress} to 1000
             else if {_collected} is between 1001 and 5000:
                 set {_last} to "&7You are a %{_target}% &enovice&7."
                 add "&7Collected: &e%bestiaryGetFormat({_collected})%", "&7Ranked: &e##%{_rank}%", "", {_last} to lore of {_return} 
-                set {_addBar} to "&e▌"
+                set {_addBar} to "&e&m "
                 set {_progress} to 5000
             else if {_collected} is between 5001 and 25000:
                 set {_last} to "&7You are a %{_target}% &badequate&7."
                 add "&7Collected: &b%bestiaryGetFormat({_collected})%", "&7Ranked: &b##%{_rank}%", "", {_last} to lore of {_return} 
-                set {_addBar} to "&b▌"
+                set {_addBar} to "&b&m "
                 set {_progress} to 25000
             else if {_collected} is between 25001 and 100000:
                 set {_last} to "&7You are a %{_target}% &9proficient&7."
                 add "&7Collected: &9%bestiaryGetFormat({_collected})%", "&7Ranked: &9##%{_rank}%", "", {_last} to lore of {_return} 
-                set {_addBar} to "&9▌"
+                set {_addBar} to "&9&m "
                 set {_progress} to 100000
             else:
                 set {_last} to "&7You are a %{_target}% &6expert&7."
                 add "&7Collected: &6%bestiaryGetFormat({_collected})%", "&7Ranked: &6##%{_rank}%", "", {_last} to lore of {_return} 
-                set {_addBar} to "&6▌"
+                set {_addBar} to "&6&m "
                 
             set name of {_return} to "&a%{_target}%"
 
             set {_bar} to ""
-            loop (length of {_last} - 4) times:
+            loop (length of {_last} + 2) times:
                 if {_progress} is set:
-                    if {_collected} >= (({_progress}) / ((length of {_last} - 4)) * loop-number):
+                    if {_collected} >= (({_progress}) / ((length of {_last} + 2)) * loop-number):
                         set {_bar} to "%{_bar}%%{_addBar}%"
                     else:
-                        set {_bar} to "%{_bar}%&7▌"
+                        set {_bar} to "%{_bar}%&7&m "
                 else:
                     set {_bar} to "%{_bar}%%{_addBar}%"
 

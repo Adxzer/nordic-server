@@ -25,38 +25,38 @@ command /level [<text>] [<text>] [<text>] [<text>]:
                                         set {_value} to arg-4 parsed as integer
 
                                         if arg-4 parsed as integer is integer:
-                                            send "&3[LEVEL] » &fYou set &3%arg-2%&f's level to &3%arg-4%&f."
+                                            send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &fYou set <##5EB6B6>%arg-2%&f's level to <##5EB6B6>%arg-4%&f."
                                             set {level::%{_u}%} to {_value}
                                             set {xp::%{_u}%} to 0
 
                                         else:
-                                            send "&3[LEVEL] » &cThis argument must be an integer."
+                                            send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &cThis argument must be an integer."
 
                                     else:
-                                        send "&3[LEVEL] » &cPlease specify an integer."
+                                        send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &cPlease specify an integer."
                                 else if arg-3 is "check":
-                                    send "&3[LEVEL] » &fThe level of &3%arg-2%&f is &3%{level::%{_u}%}%&f."
+                                    send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &fThe level of <##5EB6B6>%arg-2%&f is <##5EB6B6>%{level::%{_u}%}%&f."
                                 
                                 else:
-                                    send "&3[LEVEL] » &cThis command option does not exist."
+                                    send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &cThis command option does not exist."
 
                             else:
-                                send "&3[LEVEL] » &cPlease specify a command option."
+                                send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &cPlease specify a command option."
 
                         else:
-                            send "&3[LEVEL] » &cThis player does not have a level set."
+                            send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &cThis player does not have a level set."
 
                     else:
-                        send "&3[LEVEL] » &cThis player does not exist."
+                        send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &cThis player does not exist."
 
                 else:
-                    send "&3[LEVEL] » &cPlease specify a player."  
+                    send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &cPlease specify a player."  
 
             else:
-                send "&3[LEVEL] » &cThis command option does not exist."
+                send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &cThis command option does not exist."
 
         else:
-            send "&3[LEVEL] » &cPlease specify a command option."
+            send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &cPlease specify a command option."
 
 on tab complete of "/level":
 

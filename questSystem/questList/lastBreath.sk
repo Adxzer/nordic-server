@@ -67,5 +67,5 @@ on death:
         if {quests::lastBreath::interaction::%attacker's uuid%::10} is true:
 
             if {quests::lastBreath::interaction::%attacker's uuid%::12} is false:
-                send "&a[QUEST] » &fYou have finished the quest &aLast Breath&f, talk to Odin to claim your rewards." to attacker
+                send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fYou have finished the quest &aLast Breath&f, talk to Odin to claim your rewards." to attacker
                 set {quests::lastBreath::interaction::%attacker's uuid%::12} to true

@@ -375,7 +375,7 @@ command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                                                             if arg-3 is "give":
                                                                 give {_player} {_amount} of {_give}
-                                                                send "&b[ITEM] » &fYou gave &b%arg-6%x %uncolored name of {_give}%&f to &b%arg-2%&f."
+                                                                send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &fYou gave <##5EB6B6>%arg-6%x %uncolored name of {_give}%&f to <##5EB6B6>%arg-2%&f."
                                                             else if arg-3 is "take":
 
                                                                 loop player's inventory:
@@ -385,19 +385,19 @@ command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                                                                 if {_contains} is true:                            
                                                                     remove {_amount} of {_give} from {_player} 
-                                                                    send "&b[ITEM] » &fYou took &b%arg-6%x %uncolored name of {_give}%&f from &b%arg-2%&f."
+                                                                    send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &fYou took <##5EB6B6>%arg-6%x %uncolored name of {_give}%&f from <##5EB6B6>%arg-2%&f."
 
                                                                 else:
-                                                                    send "&b[ITEM] » &cThe player does not have this item."
+                                                                    send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cThe player does not have this item."
                                                                                                     
                                                             else:
-                                                                send "&b[ITEM] » &cThis command option does not exist." 
+                                                                send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cThis command option does not exist." 
 
                                                     else if arg-6 is not set:
 
                                                         if arg-3 is "give":
                                                             give {_player} {_give}
-                                                            send "&b[ITEM] » &fYou gave &b1x %uncolored name of {_give}%&f to &b%arg-2%&f."
+                                                            send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &fYou gave <##5EB6B6>1x %uncolored name of {_give}%&f to <##5EB6B6>%arg-2%&f."
                                                         else if arg-3 is "take":
 
                                                             loop player's inventory:
@@ -407,49 +407,49 @@ command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                                                             if {_contains} is true:                            
                                                                 remove {_give} from {_player} 
-                                                                send "&b[ITEM] » &fYou took &b1x %uncolored name of {_give}%&f from &b%arg-2%&f."
+                                                                send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &fYou took <##5EB6B6>1x %uncolored name of {_give}%&f from <##5EB6B6>%arg-2%&f."
 
                                                             else:
-                                                                send "&b[ITEM] » &cThe player does not have this item."
+                                                                send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cThe player does not have this item."
                                                                                                     
                                                         else:
-                                                            send "&b[ITEM] » &cThis command option does not exist."  
+                                                            send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cThis command option does not exist."  
                                                                 
                                                     else:
-                                                        send "&b[ITEM] » &cThis command option does not exist."   
+                                                        send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cThis command option does not exist."   
 
                                                 else:
-                                                    send "&b[ITEM] » &cThis item does not exist."
+                                                    send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cThis item does not exist."
                                                     
                                             else:
-                                                send "&b[ITEM] » &cPlease specify an item."
+                                                send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cPlease specify an item."
 
                                         else:
-                                            send "&b[ITEM] » &cThis command option does not exist."
+                                            send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cThis command option does not exist."
 
                                     else:
-                                        send "&b[ITEM] » &cPlease specify a command option."
+                                        send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cPlease specify a command option."
 
                                 else:
-                                    send "&b[ITEM] » &cThis command option does not exist."
+                                    send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cThis command option does not exist."
 
                             else:
-                                send "&b[ITEM] » &cPlease specify a command option."
+                                send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cPlease specify a command option."
 
                         else:
-                            send "&b[ITEM] » &cThis player has never been on the server."
+                            send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cThis player has never been on the server."
 
                     else:
-                        send "&b[ITEM] » &cThis player does not exist."
+                        send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cThis player does not exist."
 
                 else:
-                    send "&b[ITEM] » &cPlease specify a player."  
+                    send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cPlease specify a player."  
 
             else:
-                send "&b[ITEM] » &cThis command option does not exist."
+                send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cThis command option does not exist."
 
         else:
-            send "&b[ITEM] » &cPlease specify a command option."
+            send "<##508a7f>[<##5EB6B6>&lITEM<##508a7f>] » &cPlease specify a command option."
 
 on tab complete of "/item":
 

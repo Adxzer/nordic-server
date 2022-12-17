@@ -5,4 +5,4 @@ command /sound [<text>]:
         if arg-1 is set:
             play sound arg-1 with volume 0.2 to player
         else:
-            send "&3[SOUND] » &cPlease specify a sound."
+            send "<##508a7f>[<##5EB6B6>&lSOUND<##508a7f>] » &cPlease specify a sound."

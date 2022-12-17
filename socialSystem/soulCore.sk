@@ -6,7 +6,7 @@ on place:
 
             set {_location} to "%event-block's x-coordinate%, %event-block's y-coordinate%, %event-block's z-coordinate%"
             set {souls::bindlist::%{souls::globalamount}%} to {_location}
-            send "<##122289>[SOUL] » &fYou have added (<##122289>%{_location}%&f) to the soul list."
+            send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &fYou have added (<##5EB6B6>%{_location}%&f) to the soul list."
             add 1 to {souls::globalamount} 
 
 on break:
@@ -20,7 +20,7 @@ on break:
                 if loop-value is "%event-block's x-coordinate%, %event-block's y-coordinate%, %event-block's z-coordinate%":
 
                     remove loop-value from {souls::bindlist::*}
-                    send "<##122289>[SOUL] » &fYou have removed (<##122289>%event-block's x-coordinate%, %event-block's y-coordinate%, %event-block's z-coordinate%&f) from the soul list."
+                    send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &fYou have removed (<##5EB6B6>%event-block's x-coordinate%, %event-block's y-coordinate%, %event-block's z-coordinate%&f) from the soul list."
                     remove 1 from {souls::globalamount}
 
 on rightclick:
@@ -35,12 +35,12 @@ on rightclick:
                 loop {souls::list::%player's uuid%::*}:
                     
                     if loop-value-2 is {_location}:
-                        send "<##122289>[SOUL] » &cYou have already found this soul lantern."
+                        send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &cYou have already found this soul lantern."
                         set {_stop} to true
                         stop loop
                 
                 if {_stop} is not true:
-                    send "<##122289>[SOUL] » &fYou just found a soul lantern and gained &c+1❤&f."
+                    send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &fYou just found a soul lantern and gained &c+1❤&f."
                     add 1 to {souls::lanterns::amount::%player's uuid%}
                     set {souls::list::%player's uuid%::%{souls::lanterns::amount::%player's uuid%}%} to {_location}
                     stop loop
@@ -54,7 +54,7 @@ command /soul [<text>] [<text>] [<text>] [<text>]:
 
             if arg-1 is "get":
 
-                give player player skull with nbt "{display:{Name:""Soul Lantern""},SkullOwner:{Id:""bef9b773-51f2-4d18-bcbb-986a645e584c"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7ImlkIjoiOTM4NDM1M2E0YWUwNGZlNDkzOTcxYjU4N2RmNzdmMTIiLCJ0eXBlIjoiU0tJTiIsInVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTU4MGU1Y2Q5NzBjMWRlZDk3M2QwYzEzOWJlNDE4YjA3NTVlMDcxMzM0NWQ3MTZlZDU5NDI0NGE1M2U2ZTEzZCIsInByb2ZpbGVJZCI6IjgwMThhYjAwYjJhZTQ0Y2FhYzliZjYwZWY5MGY0NWU1IiwidGV4dHVyZUlkIjoiOTU4MGU1Y2Q5NzBjMWRlZDk3M2QwYzEzOWJlNDE4YjA3NTVlMDcxMzM0NWQ3MTZlZDU5NDI0NGE1M2U2ZTEzZCJ9fSwiY2FwZSI6bnVsbCwic2tpbiI6eyJpZCI6IjkzODQzNTNhNGFlMDRmZTQ5Mzk3MWI1ODdkZjc3ZjEyIiwidHlwZSI6IlNLSU4iLCJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzk1ODBlNWNkOTcwYzFkZWQ5NzNkMGMxMzliZTQxOGIwNzU1ZTA3MTMzNDVkNzE2ZWQ1OTQyNDRhNTNlNmUxM2QiLCJwcm9maWxlSWQiOiI4MDE4YWIwMGIyYWU0NGNhYWM5YmY2MGVmOTBmNDVlNSIsInRleHR1cmVJZCI6Ijk1ODBlNWNkOTcwYzFkZWQ5NzNkMGMxMzliZTQxOGIwNzU1ZTA3MTMzNDVkNzE2ZWQ1OTQyNDRhNTNlNmUxM2QifX0=""}]}}}" named "<##122289>Soul Lantern &7(Place while binded)"
+                give player player skull with nbt "{display:{Name:""Soul Lantern""},SkullOwner:{Id:""bef9b773-51f2-4d18-bcbb-986a645e584c"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7ImlkIjoiOTM4NDM1M2E0YWUwNGZlNDkzOTcxYjU4N2RmNzdmMTIiLCJ0eXBlIjoiU0tJTiIsInVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTU4MGU1Y2Q5NzBjMWRlZDk3M2QwYzEzOWJlNDE4YjA3NTVlMDcxMzM0NWQ3MTZlZDU5NDI0NGE1M2U2ZTEzZCIsInByb2ZpbGVJZCI6IjgwMThhYjAwYjJhZTQ0Y2FhYzliZjYwZWY5MGY0NWU1IiwidGV4dHVyZUlkIjoiOTU4MGU1Y2Q5NzBjMWRlZDk3M2QwYzEzOWJlNDE4YjA3NTVlMDcxMzM0NWQ3MTZlZDU5NDI0NGE1M2U2ZTEzZCJ9fSwiY2FwZSI6bnVsbCwic2tpbiI6eyJpZCI6IjkzODQzNTNhNGFlMDRmZTQ5Mzk3MWI1ODdkZjc3ZjEyIiwidHlwZSI6IlNLSU4iLCJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzk1ODBlNWNkOTcwYzFkZWQ5NzNkMGMxMzliZTQxOGIwNzU1ZTA3MTMzNDVkNzE2ZWQ1OTQyNDRhNTNlNmUxM2QiLCJwcm9maWxlSWQiOiI4MDE4YWIwMGIyYWU0NGNhYWM5YmY2MGVmOTBmNDVlNSIsInRleHR1cmVJZCI6Ijk1ODBlNWNkOTcwYzFkZWQ5NzNkMGMxMzliZTQxOGIwNzU1ZTA3MTMzNDVkNzE2ZWQ1OTQyNDRhNTNlNmUxM2QifX0=""}]}}}" named "<##5EB6B6>Soul Lantern &7(Place while binded)"
 
             else if arg-1 is "bind":
 
@@ -63,17 +63,17 @@ command /soul [<text>] [<text>] [<text>] [<text>]:
                     if arg-2 is "true":
 
                         set {souls::bindactive::%player's uuid%} to true
-                        send "<##122289>[SOUL] » &fSoulbind is now <##122289>enabled&f, you can now place or break souls to get them added or removed to the list."
+                        send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &fSoulbind is now <##5EB6B6>enabled&f, you can now place or break souls to get them added or removed to the list."
 
                     else if arg-2 is "false":
 
                         set {souls::bindactive::%player's uuid%} to false
-                        send "<##122289>[SOUL] » &fSoulbind is now <##122289>disabled&f, you can no longer place or break souls to get them added or removed to the list."
+                        send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &fSoulbind is now <##5EB6B6>disabled&f, you can no longer place or break souls to get them added or removed to the list."
                     else:
-                        send "<##122289>[SOUL] » &cThis command option does not exist." 
+                        send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &cThis command option does not exist." 
 
                 else:
-                    send "<##122289>[SOUL] » &cPlease specify a command option." 
+                    send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &cPlease specify a command option." 
 
             else if arg-1 is "list":
 
@@ -83,16 +83,16 @@ command /soul [<text>] [<text>] [<text>] [<text>]:
 
                 if {_counter} is not 0:
                     set {_counter} to 1
-                    send "<##122289>[SOUL] » &fSoul list:"
+                    send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &fSoul list:"
                     loop {souls::bindlist::*}:
-                        send "<##122289>[SOUL] » &f%{_counter}%. %loop-value%"
+                        send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &f%{_counter}%. %loop-value%"
                         add 1 to {_counter}
                 else:
-                    send "<##122289>[SOUL] » &cSoul list is empty."
+                    send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &cSoul list is empty."
 
             else if arg-1 is "clear":
 
-                send "<##122289>[SOUL] » &fYou have cleared all soul lanterns." 
+                send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &fYou have cleared all soul lanterns." 
                 clear {souls::bindlist::*}
                 clear {souls::list::*}
                 clear {souls::lanterns::amount::*}
@@ -108,7 +108,7 @@ command /soul [<text>] [<text>] [<text>] [<text>]:
 
                         if loop-value is {_location}: 
                             remove {_location} from {souls::bindlist::*}
-                            send "<##122289>[SOUL] » &fYou have removed (<##122289>%{_location}%&f) from the soul list."
+                            send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &fYou have removed (<##5EB6B6>%{_location}%&f) from the soul list."
                             remove 1 from {souls::globalamount}
                             set {_send} to false
                             stop loop
@@ -117,16 +117,16 @@ command /soul [<text>] [<text>] [<text>] [<text>]:
                             set {_send} to true
                     
                     if {_send} is true:
-                        send "<##122289>[SOUL] » &cThis location is not in the soul list."
+                        send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &cThis location is not in the soul list."
 
                 else:
-                    send "<##122289>[SOUL] » &cPlease specify a location."
+                    send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &cPlease specify a location."
 
             else:
-                send "<##122289>[SOUL] » &cThis command option does not exist."
+                send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &cThis command option does not exist."
 
         else:
-            send "<##122289>[SOUL] » &cPlease specify a command option." 
+            send "<##508a7f>[<##5EB6B6>&lSOUL<##508a7f>] » &cPlease specify a command option." 
 
 on tab complete of "/soul":
 

@@ -184,38 +184,38 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
                                             if arg-5 parsed as integer is integer:
 
                                                 if arg-4 is "set":
-                                                    send "&4[BOSS] » &fYou set &4%arg-3%&f's %arg-1% boss kills to &4%arg-5%&f."
+                                                    send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &fYou set <##5EB6B6>%arg-3%&f's %arg-1% boss kills to <##5EB6B6>%arg-5%&f."
                                                     set {boss::%arg-1%::%{_u}%} to {_value}
                                                 else if arg-4 is "add":
-                                                    send "&4[BOSS] » &fYou added %arg-5% to &4%arg-3%&f's %arg-1% boss kills."
+                                                    send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &fYou added %arg-5% to <##5EB6B6>%arg-3%&f's %arg-1% boss kills."
                                                     add {_value} to {boss::%arg-1%::%{_u}%}
                                                 else if arg-4 is "remove":
-                                                    send "&4[BOSS] » &fYou removed %arg-5% from &4%arg-3%&f's %arg-1% boss kills."
+                                                    send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &fYou removed %arg-5% from <##5EB6B6>%arg-3%&f's %arg-1% boss kills."
                                                     remove {_value} from {boss::%arg-1%::%{_u}%}
                                             else:
-                                                send "&4[BOSS] » &cThis argument must be an integer."
+                                                send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &cThis argument must be an integer."
 
                                         else:
-                                            send "&4[BOSS] » &cPlease specify an integer."
+                                            send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &cPlease specify an integer."
                                     else if arg-4 is "check":
-                                        send "&4[BOSS] » &fThe %arg-1% boss kills of &4%arg-3%&f is &4%{boss::%arg-1%::%{_u}%}%&f."
+                                        send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &fThe %arg-1% boss kills of <##5EB6B6>%arg-3%&f is <##5EB6B6>%{boss::%arg-1%::%{_u}%}%&f."
                                     else if arg-4 is "clear":
-                                        send "&4[BOSS] » &fYou cleared &4%arg-3%&f's %arg-1% boss kills."
+                                        send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &fYou cleared <##5EB6B6>%arg-3%&f's %arg-1% boss kills."
                                         set {boss::%arg-1%::%{_u}%} to 0
                                         loop 5 times:
                                             set {_squared} to loop-number ^ 3
                                             set {boss::%arg-1%::claimed::%{_squared}%::%{_u}%} to false
                                     else:
-                                        send "&4[BOSS] » &cThis command option does not exist."
+                                        send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &cThis command option does not exist."
 
                                 else:
-                                    send "&4[BOSS] » &cPlease specify a command option."
+                                    send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &cPlease specify a command option."
 
                             else:
-                                send "&4[BOSS] » &cThis player does not exist."
+                                send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &cThis player does not exist."
 
                         else:
-                            send "&4[BOSS] » &cPlease specify a player."  
+                            send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &cPlease specify a player."  
 
                     else if arg-2 is "deactivate": 
 
@@ -238,7 +238,7 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
 
 
                         if {_boss} is 0:
-                            send "&4[BOSS] » &fDeactivated the &4%arg-1% &fspawner."  
+                            send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &fDeactivated the <##5EB6B6>%arg-1% &fspawner."  
                             make console execute command "hd setline Boss%arg-1%Cooldown 2 &75 minute(s)"
                         else:
                             make console execute command {_commandTwo}
@@ -267,20 +267,20 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
                        
                     else if arg-2 is "activate": 
 
-                        send "&4[BOSS] » &fActivated the &4%arg-1%&f spawner."  
+                        send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &fActivated the <##5EB6B6>%arg-1%&f spawner."  
                         make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
 
                     else:
-                        send "&4[BOSS] » &cThis command option does not exist."
+                        send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &cThis command option does not exist."
 
                 else:
-                    send "&4[BOSS] » &cPlease specify a command option."
+                    send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &cPlease specify a command option."
 
             else:
-                send "&4[BOSS] » &cThis command option does not exist."
+                send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &cThis command option does not exist."
 
         else:
-            send "&4[BOSS] » &cPlease specify a command option."    
+            send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &cPlease specify a command option."    
 
 on inventory click:
 
@@ -337,13 +337,6 @@ on inventory click:
 
         else if index of event-slot is 49:
             open (metadata tag "boss" of player) to player
- 
-every 30 seconds:
-    set {_groot} to bossGetGrootChunks()
-    set {_chad} to bossGetChadChunks()
-    set {_draug} to bossGetDraugChunks()
-    set {_odin} to bossGetOdinChunks()
-    send "&4[BOSS] » &fGroot: &c%{_groot}% &fChad: &c%{_chad}% &fDraug: &c%{_draug}% &fOdin: &c%{_odin}%" to console
 
 on load: # add new options
     set {_groot} to bossGetGrootChunks()

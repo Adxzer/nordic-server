@@ -46,7 +46,7 @@ function coreCheckLevel(player: player):
         add 1 to {level::%{_u}%}
         set {xp::%{_u}%} to 0
         play sound "ENTITY_PLAYER_LEVELUP" with volume 0.2 to {_player}
-        send "&3[LEVEL] » &fYou just leveled up to level &3%{level::%{_u}%}%&f and gained &c+2❤ &fand &6+1✦&f." to {_player}
+        send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &fYou just leveled up to level &3%{level::%{_u}%}%&f and gained &c+2❤ &fand &6+1✦&f." to {_player}
 
 function coreAddXp(player: player, experience: number):
 
@@ -81,11 +81,11 @@ function coreGetLevelBar(player: player) :: string:
     set {_bar} to ""
     set {_formula} to 25 * ({level::%{_u}%} * {level::%{_u}%}) + 175 * {level::%{_u}%}
 
-    loop 10 times:
-        if {xp::%{_u}%} >= ({_formula} / 10) * loop-number:
-            set {_bar} to "%{_bar}%&3▌"
+    loop 13 times:
+        if {xp::%{_u}%} >= ({_formula} / 13) * loop-number:
+            set {_bar} to "%{_bar}%&3&m "
         else:
-            set {_bar} to "%{_bar}%&7▌"
+            set {_bar} to "%{_bar}%&7&m "
     return {_bar}
 
 function coreGetEntity(string: string) :: string:

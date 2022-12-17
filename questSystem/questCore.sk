@@ -1,13 +1,13 @@
 function questNew(player: player, string: string):
 
     send "" to {_player}
-    send "&a[QUEST] » &fYou have started the quest &a%{_string}%&f. Check your Quest Book to gain additional information how to finish this quest." to {_player}
+    send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fYou have started the quest <##5EB6B6>%{_string}%&f. Check your Quest Book to gain additional information how to finish this quest." to {_player}
     send "" to {_player}
 
 function questComplete(player: player, strings: strings):
 
     send "" to {_player}
-    send "&a[QUEST] » &fYou have successfully completed the quest &a%{_strings::1}%&f. As a reward for completing the quest you gained %{_strings::2}%." to {_player}
+    send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fYou have successfully completed the quest <##5EB6B6>%{_strings::1}%&f. As a reward for completing the quest you gained %{_strings::2}%." to {_player}
     send "" to {_player}
 
 function questTalk(player: player):
@@ -27,7 +27,7 @@ function questBookGetQuest(player: player, quest: string) :: item:
     if {quests::%{_quest}%::completed::%{_u}%} is false:
 
         set {_talked} to {quests::%{_quest}%::interaction::%{_u}%::1}
-        set {_book} to book named "&a%{quests::%{_quest}%::name}%" with lore "&7%{quests::%{_quest}%::objective}%", ""
+        set {_book} to book named "<##5EB6B6>%{quests::%{_quest}%::name}%" with lore "&7%{quests::%{_quest}%::objective}%", ""
 
         add "&7&nObjective:" to lore of {_book}
         
@@ -72,7 +72,7 @@ on rightclick:
                     set slot {_borderIndex} of metadata tag "quest" of player to barrier named "&cClose"
                 else if {_borderIndex} is 35:
                 
-                    set {_questProgress} to paper named "&aQuest Progress"
+                    set {_questProgress} to paper named "<##5EB6B6>Quest Progress"
                     set {_completed} to 0
                     set {_bar} to ""
 
@@ -82,11 +82,11 @@ on rightclick:
 
                     add "&7You are currently have finished %{_completed}%/%size of {_quests::*}%", "&7of all the quests in the game." and "" to lore of {_questProgress}
 
-                    loop 10 times:
-                        if {_completed} >= (size of {_quests::*} / 10) * loop-number-2:
-                            set {_bar} to "%{_bar}%&f▌"
+                    loop 13 times:
+                        if {_completed} >= (size of {_quests::*} / 13) * loop-number-2:
+                            set {_bar} to "%{_bar}%&f&m "
                         else:
-                            set {_bar} to "%{_bar}%&7▌"
+                            set {_bar} to "%{_bar}%&7&m "
 
                     add "%{_bar}%" to lore of {_questProgress}
                     set slot {_borderIndex} of metadata tag "quest" of player to {_questProgress}
@@ -144,19 +144,19 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
                                 set {_quests::*} to ("firstSlay", "animalFood", "rootedChallenge", "mysteryItem", "luckyCarrot", "conjecture", "healthyCure", "botany", "shadeMatter", "lastBreath") # add new quests
 
                                 if arg-3 is "clear":
-                                    send "&a[QUEST] » &fYou cleared all of &a%arg-2%&f's quiz progress."
+                                    send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fYou cleared all of <##5EB6B6>%arg-2%&f's quiz progress."
                                     loop {_quests::*}:
                                         clear {quests::%loop-value%::talked::%{_u}%}
                                         clear {quests::%loop-value%::completed::%{_u}%}
                                         clear {quests::%loop-value%::interaction::%{_u}%::*} 
                                 else if arg-3 is "list":
-                                    send "&a[QUEST] » &fShowing quest status for &a%arg-2%&f..."
+                                    send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fShowing quest status for <##5EB6B6>%arg-2%&f..."
                                     loop {_quests::*}:
                                         if {quests::%loop-value%::completed::%{_u}%} is true:
-                                            set {_completed::%loop-value%} to "&f%loop-value% - &acompleted"
+                                            set {_completed::%loop-value%} to "&f%loop-value% - <##5EB6B6>completed"
                                         else:
                                             set {_completed::%loop-value%} to "&f%loop-value% - &cnot completed"
-                                        send "&a[QUEST] » &f%{_completed::%loop-value%}%&f."
+                                        send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &f%{_completed::%loop-value%}%&f."
                                 else if arg-3 is "set":
 
                                     if arg-4 is set:
@@ -171,46 +171,46 @@ command /quest [<text>] [<text>] [<text>] [<text>] [<text>]:
                                             if arg-5 is set:
 
                                                 if arg-5 is "true":
-                                                    send "&a[QUEST] » &fYou magically finished the quest &a%arg-4% &ffor &a%arg-2%.&f"
+                                                    send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fYou magically finished the quest <##5EB6B6>%arg-4% &ffor <##5EB6B6>%arg-2%.&f"
                                                     set {quests::%arg-4%::interaction::%{_u}%::*} to (true, true, true, true, false)
                                                     set {quests::%arg-4%::talked::%{_u}%} to true
                                                     set {quests::%arg-4%::completed::%{_u}%} to true
                                                 else if arg-5 is "false":
-                                                    send "&a[QUEST] » &fYou cleared the progress of quest &a%arg-4% &ffor &a%arg-2%.&f"
+                                                    send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fYou cleared the progress of quest <##5EB6B6>%arg-4% &ffor <##5EB6B6>%arg-2%.&f"
                                                     clear {quests::%arg-4%::talked::%{_u}%}
                                                     clear {quests::%arg-4%::completed::%{_u}%}
                                                     clear {quests::%arg-4%::interaction::%{_u}%::*}
                                                 else:
-                                                    send "&a[QUEST] » &cPlease specify true or false."
+                                                    send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &cPlease specify true or false."
 
                                             else:
-                                                send "&a[QUEST] » &cThis command option does not exist."
+                                                send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &cThis command option does not exist."
 
                                         else:
-                                            send "&a[QUEST] » &cThis quest does not exist."
+                                            send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &cThis quest does not exist."
 
                                     else:
-                                        send "&a[QUEST] » &cThis command option does not exist."
+                                        send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &cThis command option does not exist."
                                 else:
-                                    send "&a[QUEST] » &cThis command option does not exist."  
+                                    send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &cThis command option does not exist."  
 
                             else:
-                                send "&a[QUEST] » &cPlease specify a command option."
+                                send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &cPlease specify a command option."
 
                         else:
-                            send "&a[QUEST] » &cThis player has never been on the server."
+                            send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &cThis player has never been on the server."
 
                     else:
-                        send "&a[QUEST] » &cThis player does not exist."
+                        send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &cThis player does not exist."
 
                 else:
-                    send "&a[QUEST] » &cPlease specify a player."  
+                    send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &cPlease specify a player."  
 
             else:
-                send "&a[QUEST] » &cThis command option does not exist."
+                send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &cThis command option does not exist."
 
         else:
-            send "&a[QUEST] » &cPlease specify a command option."
+            send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &cPlease specify a command option."
 
 on tab complete of "/quest":
 

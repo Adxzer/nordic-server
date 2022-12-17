@@ -377,11 +377,11 @@ on rightclick:
                         if {bestiary::%loop-value-2%::collected::%{_u}%} is set:
                             add 1 to {_progress}
                     set {_bar} to ""
-                    loop 15 times:
-                        if {_progress} >= ({_all} / 15) * loop-value-2:
-                            set {_bar} to "%{_bar}%&f▌"
+                    loop 20 times:
+                        if {_progress} >= ({_all} / 20) * loop-value-2:
+                            set {_bar} to "%{_bar}%&f&m "
                         else:
-                            set {_bar} to "%{_bar}%&7▌"
+                            set {_bar} to "%{_bar}%&7&m "
                     set slot {_borderIndex} of metadata tag "menu" of player to enchanting table named "&aBestiary" with lore "&7View your bestiary and all", "&7the items you have discovered.", "", "&7Collected: &f%{_progress}%/%{_all}%", "%{_bar}%", "" and "&eView (Left Click)"
                 else:
                     set slot {_borderIndex} of metadata tag "menu" of player to gray dye named "&fAccess denied" with lore "&7You are not the required level to", "&7access this feature.", "" and "&cMust be level 5!"
@@ -549,7 +549,7 @@ on inventory click:
                         if player's inventory have space for {_saddles} of saddle:
                             give {_itemOne}, {_itemTwo} and {_itemThree} to player
                         else:
-                            send "&c[WARNING] » &fYou don't have any space in your inventory for that action."
+                            send "<##508a7f>[<##5EB6B6>&lWARNING<##508a7f>] » &fYou don't have any space in your inventory for that action."
                             give player {_item}
                 else if uncolored {_type::1} is "Buy":
 
@@ -601,7 +601,7 @@ on inventory click:
                         if player's inventory have space for 1 saddle:
                             give player {_item}
                         else:
-                            send "&c[WARNING] » &fYou don't have any space in your inventory for that action."
+                            send "<##508a7f>[<##5EB6B6>&lWARNING<##508a7f>] » &fYou don't have any space in your inventory for that action."
                             give player {_itemOne}, {_itemTwo} and {_itemThree}
             else if click type is right mouse button:
 
@@ -681,7 +681,7 @@ on inventory click:
                         if player's inventory have space for {_saddles} of saddle:
                             give {_itemOne}, {_itemTwo} and {_itemThree} to player
                         else:
-                            send "&c[WARNING] » &fYou don't have any space in your inventory for that action."
+                            send "<##508a7f>[<##5EB6B6>&lWARNING<##508a7f>] » &fYou don't have any space in your inventory for that action."
                             give player {_item}
                 else if uncolored {_type::1} is "Buy":
                     
@@ -728,7 +728,7 @@ on inventory click:
                         if player's inventory have space for 1 saddle:
                             give player {_item}
                         else:
-                            send "&c[WARNING] » &fYou don't have any space in your inventory for that action."
+                            send "<##508a7f>[<##5EB6B6>&lWARNING<##508a7f>] » &fYou don't have any space in your inventory for that action."
                             give player {_itemOne}, {_itemTwo} and {_itemThree}
     else if event-inventory = (metadata tag "menu" of player):
         cancel event
