@@ -1,6 +1,7 @@
 on damage:
 
-    if damage cause is fall or contact:
+
+    if "%damage cause%" is "fall", "lightning" or "contact":
     
         cancel event
     

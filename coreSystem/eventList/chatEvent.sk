@@ -20,4 +20,35 @@ on chat:
             else:
                 set {_message::*} to ("&8 »", "&7%message%")
 
-            set chat format to "%player's prefix%%player%&7%{_message::1}% %{_message::2}%"        
+            loop sorted indices of {level::*} in descending order:
+
+                add 1 to {_counter}
+                if {_counter} is less than 4:
+                    if player's uuid is loop-value:
+                        set {_color} to "&5"
+                else if {_counter} is less than 11:
+                    if player's uuid is loop-value:
+                        set {_color} to "&6"
+                else:
+                    stop loop
+
+            set {_list::*} to {bestiary::Farming::*}, {bestiary::Slaying::*}, {bestiary::Mining::*} and {bestiary::Boss::*}
+            loop {_list::*}:
+
+                loop sorted indices of {bestiary::%loop-value%::collected::*} in descending order:
+                    add 1 to {_counter}
+                    if {_counter} is 1:
+                        if loop-value-2 is player's uuid:
+                            add 1 to {_check}
+                            exit 1 loop
+
+            if {_check} is set:
+                set {_top} to " [&e🔥%{_check}%&8]"
+
+            if {_color} is not set:
+                set {_color} to "&3"
+
+            if {_top} is not set:
+                set {_top} to ""
+
+            set chat format to "&8[%{_color}%⚗%{level::%player's uuid%}%&8]%{_top}% %player's prefix%%player%&7%{_message::1}% %{_message::2}%"

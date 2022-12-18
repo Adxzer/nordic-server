@@ -14,4 +14,4 @@ on npc rightclick:
             else if uncolored name of loop-value is "Nature Brace":
                 set {_natureBrace} to loop-value 
 
-        guiCreateMerchant(player, "&8Archer Celestial", ({_iceVein}, {_firm}, {_twine}, {_natureBrace}), ("buy", "buy", "buy", "buy"), ("&8- &724x Frozen Ice:&8- &71x Ardour", "&8- &796x Bone:&8- &742x Spikes:&8- &7142x Feather", "&8- &724x Cobweb:&8- &772x String:&8- &7128x Wool", "&8- &73x Twine:&8- &72x Firm:&8- &74x Ice Vein"))
+        guiCreateMerchant(player, "&8Archer Celestial", ({_iceVein}, {_firm}, {_twine}, {_natureBrace}), ("buy", "buy", "buy", "buy"), ("&8- &724x Frozen Ice:&8- &71x Ardour", "&8- &796x Bone:&8- &742x Spikes:&8- &7142x Feather", "&8- &724x Web:&8- &772x String:&8- &7128x Wool", "&8- &73x Twine:&8- &72x Firm:&8- &74x Ice Vein"))

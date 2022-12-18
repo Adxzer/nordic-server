@@ -33,16 +33,20 @@ function bestiaryCreateItem(player: player, name: string):
                         set {guiSystem/bestiaryCore._%loop-value-2%::_addBar} to "%{guiSystem/bestiaryCore._%loop-value-2%::_addBar}%&7&m "
 
         if {_borderIndex} is 21:
-            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone hoe named "&aFarming" with lore "&7View your farming bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Farming::_collected}%/%{guiSystem/bestiaryCore._Farming::_progress}%", {guiSystem/bestiaryCore._Farming::_addBar}, "" and "&eView (Left Click)" with all flags hidden
+            set {_farmingString} to "Farming"
+            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone hoe named "&aFarming" with lore "&7View your farming bestiary", "&7and items you have discovered.", "","&7Collection: &f%{guiSystem/bestiaryCore._Farming::_collected}%/%{guiSystem/bestiaryCore._Farming::_progress}%", {guiSystem/bestiaryCore._Farming::_addBar}, "" and "&eView (Left Click)" with all flags hidden
             
         if {_borderIndex} is 22:
+            set {_slayingString} to "Slaying"
             set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone sword named "&aSlaying" with lore "&7View your slaying bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Slaying::_collected}%/%{guiSystem/bestiaryCore._Slaying::_progress}%", {guiSystem/bestiaryCore._Slaying::_addBar}, "", "&eView (Left Click)" with all flags hidden
 
         if {_borderIndex} is 23:
+            set {_miningString} to "Mining"
             set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone pickaxe named "&aMining" with lore "&7View your mining bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Mining::_collected}%/%{guiSystem/bestiaryCore._Mining::_progress}%", {guiSystem/bestiaryCore._Mining::_addBar}, "", "&eView (Left Click)" with all flags hidden
 
         if {_borderIndex} is 31:
-            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to wither skeleton skull named "&aBoss" with lore "&7View your boss bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Boss::_collected}%/%{guiSystem/bestiaryCore._Boss::_progress}%", {guiSystem/bestiaryCore._Boss::_addBar}, "", "&eView (Left Click)" with all flags hidden
+            set {_bossString} to "Boss"
+            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to wither skeleton skull named "&aBoss" with lore "&7View your boss bestiary", "&7and items you have discovered.",  "", "&7Collection: &f%{guiSystem/bestiaryCore._Boss::_collected}%/%{guiSystem/bestiaryCore._Boss::_progress}%", {guiSystem/bestiaryCore._Boss::_addBar}, "", "&eView (Left Click)" with all flags hidden
 
         add 1 to {_borderIndex}
 
@@ -54,7 +58,6 @@ function bestiaryGetLeaderboardRank(position: number, target: string) :: string:
         add 1 to {_counter}
         if {_counter} is {_position}:
             return loop-value
-
 
 function bestiaryGetLeaderboardItem(player: player, position: number, return: string, target: string) :: item:
 
@@ -170,7 +173,6 @@ function bestiaryGetRank(player: player, target: string) :: integer:
             add 1 to {_rank}
         else:
             return {_rank}
-
 
 function bestiaryGetItemLore(player: player, target: string) :: item:
 

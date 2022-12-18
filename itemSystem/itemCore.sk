@@ -216,7 +216,7 @@ function getSellValue(item: item, amount: number) :: number:
     else if uncolored name of {_item} is "Twine":
         return 43 * {_amount}
     else if uncolored name of {_item} is "Frozen Ice":
-        return 48 * {_amount}
+        return 8 * {_amount}
     else if uncolored name of {_item} is "Moss Hunk":
         return 34 * {_amount}
     else if uncolored name of {_item} is "Ice Vein":

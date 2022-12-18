@@ -25,7 +25,7 @@ function potatoDrop(player: player) :: number:
         if uncolored name of loop-value contains "Hoe":
             add loop-value to {_items::*}
  
-    set {_xp} to 1
+    set {_xp} to 3
     set {_boost} to coreBreakBoost({_player}, ({_player}'s tool), ({_items::*}))
 
     loop {_itemList::*}:
