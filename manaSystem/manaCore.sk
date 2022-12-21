@@ -314,7 +314,7 @@ on rightclick:
                 else:
                     set {mana::%{_tool}%::cooldown::%{_u}%} to true
                     remove {_cost} from {mana::currentMana::%{_u}%}
-                    manaRaycast(player, {_range}, {_item})
+                    manaRaycast(player, {_range} * 3, {_item})
                     wait "%{_cooldown}% seconds" parsed as timespan
                     set {mana::%{_tool}%::cooldown::%{_u}%} to false
 

@@ -366,6 +366,10 @@ on rightclick:
 
                 set slot {_borderIndex} of metadata tag "menu" of player to {_placeItem}
 
+            if {_borderIndex} is 21:
+                if player's name is "Adaxer":
+                    set slot {_borderIndex} of metadata tag "menu" of player to clock named "&aCalendar" with lore "&7Upcoming events and much more", "&7can be viewed here!", "", "&7Next event: ", "&7Starting in:", "" and "&eView (Left Click)"
+
             if {_borderIndex} is 22:
                 set slot {_borderIndex} of metadata tag "menu" of player to diamond named "&aStore" with lore "&7The primary way to support the development", "&7of the server and the expantion of the game.", "" and "&eView (Left Click)"
 

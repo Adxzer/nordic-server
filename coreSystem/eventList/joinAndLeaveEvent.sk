@@ -43,11 +43,14 @@ on join:
     set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
     loop player's inventory:
         if {_itemList::*} does not contain 1 of loop-value:
-            if uncolored name of loop-value is not "Quest Book" or "Remote Menu":
-                if uncolored name of loop-value does not contain "Woodland Tree", "Spiritual Prompt", "Basalt Slag" or "Divinity Cake":
-                    set {_message} to true
-                    add loop-value to {_itemsRemoved::*}
-                    remove loop-value from player's inventory
+            if uncolored name of loop-value does not contain "Woodland Tree", "Spiritual Prompt", "Basalt Slag" or "Divinity Cake":
+                set {_message} to true
+                add loop-value to {_itemsRemoved::*}
+                remove loop-value from player's inventory
+
+    loop {_itemsRemoved::*}:
+        if loop-value is nether star or book:
+            remove loop-value from {_itemsRemoved::*}
 
     if {_message} is true:
         set {_send} to "&4Items removed: "
@@ -58,7 +61,8 @@ on join:
             else:
                 set {_send} to "%{_send}%&7%loop-value%." 
             add 1 to {_counter}
-        send formatted "<tooltip:%{_send}%><##508a7f>[<##5EB6B6>&lCLEARED<##508a7f>] » &fYou had <##5EB6B6>illegal &fitems that were removed from your inventory!"
+        if uncolored {_send} is not "Items removed: ":
+            send formatted "<tooltip:%{_send}%><##508a7f>[<##5EB6B6>&lCLEARED<##508a7f>] » &fYou had <##5EB6B6>illegal &fitems that were removed from your inventory!"
 
     set {health::currentHearts::%player's uuid%} to {health::maxHearts::%player's uuid%}
     set {mana::currentMana::%player's uuid%} to {mana::maxMana::%player's uuid%}
@@ -66,11 +70,45 @@ on join:
     set slot 7 of player's inventory to book named "&aQuest Book" with lore "&7View all your active quests and", "&7how many you have left to finish.", "" and "&eView (Right Click)"
     set slot 8 of player's inventory to nether star named "&aRemote Menu" with lore "&7A remote menu to access special", "&7features and view your current stats.", "" and "&eLeft (Right Click)"
 
+    toggle scoreboard of all players on
     while player is online:
 
         set player's tablist header to "%nl%&f&lNordic&3&lRPG%nl%"
-        set player's tablist footer to  "%nl%&fOnline: &3%number of all players%/%max players%%nl%&eNordicRPG.minehut.gg%nl%                                             "    
+        set player's tablist footer to  "%nl%&f%dateGetMonth({month})% &3%dateGetDay({_day})% &f%dateGetYear({year})%%nl%&fOnline: &3%number of all players%/%max players%%nl%&eNordicRPG.minehut.gg%nl%                                             "    
         set player's tablist name to "%player's prefix%%player%"
+
+        if player's name is "Adaxer":
+
+            set {_gems} to 0
+            loop player's inventory:
+                if loop-value is emerald:
+                    add item amount of loop-value to {_gems}
+                else if loop-value is emerald block:
+                    add (item amount of loop-value * 64) to {_gems}
+
+            if length of "%{minute}%" is 1:
+                set {_minute} to "0%{minute}%"
+            else:
+                set {_minute} to {minute}
+
+            if {event::winter::status} is true:
+                set {_default} to 0
+
+            else:
+                set {_default} to 0
+                set line 4 of player's scoreboard to " &3Holiday"
+                set line 3 of player's scoreboard to " &7None"
+                set line 2 of player's scoreboard to ""
+                set line 1 of player's scoreboard to "&eNordicRPG.minehut.gg"
+
+            set title of player's scoreboard to "&f&lNordic&3&lRPG"
+            set line (10 + {_default}) of player's scoreboard to "&8beta-0.2.9"
+            set line (9 + {_default}) of player's scoreboard to ""
+            set line (8 + {_default}) of player's scoreboard to " &f%dateGetMonth({month})% %dateGetDay({_day})%"
+            set line (7 + {_default}) of player's scoreboard to " &7%{hour}%:%{_minute}% %dateGetTime({hour})%"
+            set line (6 + {_default}) of player's scoreboard to "   &a$%{_gems}%"
+            set line (5 + {_default}) of player's scoreboard to ""
+
 
         wait 1 second
 

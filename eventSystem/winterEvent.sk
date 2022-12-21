@@ -1,0 +1,42 @@
+function loadWinterStand():
+
+    # Terracotta Decorations
+    set block at location(-178, 5, -38, world "world") to minecraft:red_terracotta
+    set block at location(-178, 4, -38, world "world") to minecraft:red_terracotta
+    set block at location(-177, 5, -39, world "world") to minecraft:green_terracotta
+    set block at location(-177, 4, -39, world "world") to minecraft:snow_block
+    set block at location(-172, 5, -40, world "world") to minecraft:red_terracotta
+    set block at location(-172, 4, -40, world "world") to minecraft:red_terracotta
+    set block at location(-172, 4, -41, world "world") to minecraft:red_terracotta
+
+    # Snow
+    set block at location(-179, 4, -38, world "world") to minecraft:snow[layers=1]
+    set block at location(-178, 5, -39, world "world") to minecraft:snow[layers=1]
+    set block at location(-179, 4, -36, world "world") to minecraft:snow[layers=1]
+    set block at location(-178, 4, -35, world "world") to minecraft:snow[layers=1]
+    set block at location(-177, 7, -37, world "world") to minecraft:snow[layers=1]
+    set block at location(-177, 7, -39, world "world") to minecraft:snow[layers=1]
+    set block at location(-177, 4, -37, world "world") to minecraft:snow[layers=1]
+    set block at location(-176, 7, -40, world "world") to minecraft:snow[layers=1]
+    set block at location(-175, 4, -38, world "world") to minecraft:snow[layers=1]
+    set block at location(-174, 4, -37, world "world") to minecraft:snow[layers=1]
+    set block at location(-174, 4, -39, world "world") to minecraft:snow[layers=1]
+    set block at location(-174, 4, -41, world "world") to minecraft:snow[layers=1]
+    set block at location(-174, 7, -38, world "world") to minecraft:snow[layers=1]
+    set block at location(-174, 8, -40, world "world") to minecraft:snow[layers=1]
+    set block at location(-174, 5, -42, world "world") to minecraft:snow[layers=1]
+    set block at location(-174, 4, -43, world "world") to minecraft:snow[layers=1]
+    set block at location(-173, 8, -41, world "world") to minecraft:snow[layers=1]
+    set block at location(-173, 4, -40, world "world") to minecraft:snow[layers=1]
+    set block at location(-172, 4, -43, world "world") to minecraft:snow[layers=1]
+    set block at location(-171, 4, -40, world "world") to minecraft:snow[layers=1]
+
+    # Other
+    set block at location(-176, 5, -40, world "world") to minecraft:soul_lantern
+
+command /load [<text>]:
+    permission: op
+    trigger:
+        loadDefaultStand()
+        if arg-1 is "winter":
+            loadWinterStand()

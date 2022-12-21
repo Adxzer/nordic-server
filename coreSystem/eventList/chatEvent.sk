@@ -37,10 +37,55 @@ on chat:
                 loop sorted indices of {bestiary::%loop-value%::collected::*} in descending order:
                     if loop-value-2 is player's uuid:
                         add 1 to {_check}
+                        add loop-value-1 to {_check::*}
                     exit 1 loop
+            
 
             if {_check} is set:
                 set {_top} to " [&e🔥%{_check}%&8]"
+
+                loop {bestiary::Farming::*}:
+                    loop {_check::*}:
+                        if loop-value-1 is loop-value-2:
+                            add 1 to {_checkTwo}
+                if {_checkTwo} is size of {bestiary::Farming::*}:
+                    set {_trident} to true
+                else:
+                    set {_trident} to false
+
+                set {_checkTwo} to 0
+                loop {bestiary::Slaying::*}:
+                    loop {_check::*}:
+                        if loop-value-1 is loop-value-2:
+                            add 1 to {_checkTwo}
+                if {_checkTwo} is size of {bestiary::Slaying::*}:
+                    set {_trident} to true
+                else:
+                    set {_trident} to false
+
+                set {_checkTwo} to 0
+                loop {bestiary::Mining::*}:
+                    loop {_check::*}:
+                        if loop-value-1 is loop-value-2:
+                            add 1 to {_checkTwo}
+                if {_checkTwo} is size of {bestiary::Mining::*}:
+                    set {_trident} to true
+                else:
+                    set {_trident} to false
+
+                set {_checkTwo} to 0
+                loop {bestiary::Boss::*}:
+                    loop {_check::*}:
+                        if loop-value-1 is loop-value-2:
+                            add 1 to {_checkTwo}
+
+                if {_checkTwo} is size of {bestiary::Boss::*}:
+                    set {_trident} to true
+                else:
+                    set {_trident} to false
+
+                if {_trident} is true:
+                    set {_top} to " [<##7DB8F8>🔱%{_check}%&8]"
 
             if {_color} is not set:
                 set {_color} to "&3"

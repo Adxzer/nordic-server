@@ -1,0 +1,112 @@
+
+function loadDefaultStand():
+
+    # Remove Winter Snow
+    set block at location(-179, 4, -38, world "world") to minecraft:air
+    set block at location(-178, 5, -39, world "world") to minecraft:air
+    set block at location(-179, 4, -36, world "world") to minecraft:air
+    set block at location(-178, 4, -35, world "world") to minecraft:air
+    set block at location(-177, 7, -37, world "world") to minecraft:air
+    set block at location(-177, 7, -39, world "world") to minecraft:air
+    set block at location(-177, 4, -37, world "world") to minecraft:air
+    set block at location(-176, 7, -40, world "world") to minecraft:air
+    set block at location(-175, 4, -38, world "world") to minecraft:air
+    set block at location(-174, 4, -37, world "world") to minecraft:air
+    set block at location(-174, 4, -39, world "world") to minecraft:air
+    set block at location(-174, 4, -41, world "world") to minecraft:air
+    set block at location(-174, 7, -38, world "world") to minecraft:air
+    set block at location(-174, 8, -40, world "world") to minecraft:air
+    set block at location(-174, 5, -42, world "world") to minecraft:air
+    set block at location(-174, 4, -43, world "world") to minecraft:air
+    set block at location(-173, 8, -41, world "world") to minecraft:air
+    set block at location(-173, 4, -40, world "world") to minecraft:air
+    set block at location(-172, 4, -43, world "world") to minecraft:air
+    set block at location(-171, 4, -40, world "world") to minecraft:air
+
+    # Remove Winter Other
+    set block at location(-176, 5, -40, world "world") to minecraft:air
+
+        # Spruce Wood
+    set block at location(-172, 4, -39, world "world") to minecraft:spruce_wood[axis=y]
+    set block at location(-172, 5, -39, world "world") to minecraft:spruce_wood[axis=y]
+    set block at location(-173, 4, -42, world "world") to minecraft:spruce_wood[axis=y]
+    set block at location(-173, 5, -42, world "world") to minecraft:spruce_wood[axis=y]
+    set block at location(-173, 6, -42, world "world") to minecraft:spruce_wood[axis=y]
+    set block at location(-173, 7, -42, world "world") to minecraft:spruce_wood[axis=y]
+    set block at location(-177, 4, -40, world "world") to minecraft:spruce_wood[axis=y]
+    set block at location(-177, 5, -40, world "world") to minecraft:spruce_wood[axis=y]
+    set block at location(-178, 4, -37, world "world") to minecraft:spruce_wood[axis=y]
+    set block at location(-178, 5, -37, world "world") to minecraft:spruce_wood[axis=y]
+    set block at location(-178, 6, -37, world "world") to minecraft:spruce_wood[axis=y]
+    set block at location(-178, 7, -37, world "world") to minecraft:spruce_wood[axis=y]
+
+        # Green Terracotta
+    set block at location(-178, 5, -38, world "world") to minecraft:green_terracotta
+    set block at location(-178, 4, -38, world "world") to minecraft:green_terracotta
+    set block at location(-177, 5, -39, world "world") to minecraft:green_terracotta
+    set block at location(-177, 4, -39, world "world") to minecraft:green_terracotta
+    set block at location(-172, 5, -40, world "world") to minecraft:green_terracotta
+    set block at location(-172, 4, -40, world "world") to minecraft:green_terracotta
+    set block at location(-172, 4, -41, world "world") to minecraft:green_terracotta
+
+        # Spruce slabs and stairs
+    set block at location(-174, 4, -42, world "world") to minecraft:spruce_stairs[facing=east,half=top,shape=straight]
+    set block at location(-176, 4, -40, world "world") to minecraft:spruce_stairs[facing=west,half=top,shape=straight]
+    set block at location(-175, 4, -40, world "world") to minecraft:spruce_slab[type=top]
+    set block at location(-175, 4, -41, world "world") to minecraft:spruce_slab[type=top]
+    set block at location(-173, 6, -38, world "world") to minecraft:spruce_slab[type=bottom]
+    set block at location(-173, 6, -39, world "world") to minecraft:spruce_slab[type=top]
+    set block at location(-173, 7, -40, world "world") to minecraft:spruce_slab[type=bottom]
+    set block at location(-174, 6, -38, world "world") to minecraft:spruce_slab[type=top]
+    set block at location(-174, 7, -39, world "world") to minecraft:spruce_slab[type=bottom]
+    set block at location(-174, 7, -40, world "world") to minecraft:spruce_slab[type=top]
+    set block at location(-175, 6, -38, world "world") to minecraft:spruce_slab[type=bottom]
+    set block at location(-175, 6, -39, world "world") to minecraft:spruce_slab[type=top]
+    set block at location(-175, 7, -40, world "world") to minecraft:spruce_slab[type=bottom]
+    set block at location(-176, 6, -37, world "world") to minecraft:spruce_slab[type=bottom]
+    set block at location(-176, 6, -38, world "world") to minecraft:spruce_slab[type=top]
+    set block at location(-176, 6, -39, world "world") to minecraft:spruce_slab[type=bottom]
+    set block at location(-177, 6, -37, world "world") to minecraft:spruce_slab[type=top]
+    set block at location(-177, 7, -38, world "world") to minecraft:spruce_slab[type=bottom]
+
+        # Cobblestone slabs
+    set block at location(-178, 8, -37, world "world") to minecraft:cobblestone_slab[type=bottom]
+    set block at location(-178, 7, -38, world "world") to minecraft:cobblestone_slab[type=bottom]
+    set block at location(-177, 6, -39, world "world") to minecraft:cobblestone_slab[type=top]
+    set block at location(-177, 6, -40, world "world") to minecraft:cobblestone_slab[type=bottom]
+    set block at location(-176, 6, -40, world "world") to minecraft:cobblestone_slab[type=top]
+    set block at location(-175, 7, -41, world "world") to minecraft:cobblestone_slab[type=bottom]
+    set block at location(-174, 7, -41, world "world") to minecraft:cobblestone_slab[type=top]
+    set block at location(-173, 7, -41, world "world") to minecraft:cobblestone_slab[type=double]
+    set block at location(-173, 8, -42, world "world") to minecraft:cobblestone_slab[type=bottom]
+    set block at location(-172, 7, -41, world "world") to minecraft:cobblestone_slab[type=bottom]
+    set block at location(-172, 6, -40, world "world") to minecraft:cobblestone_slab[type=top]
+    set block at location(-172, 6, -39, world "world") to minecraft:cobblestone_slab[type=bottom]
+
+        # Spruce fence
+    set block at location(-173, 5, -43, world "world") to minecraft:spruce_fence[south=true]
+    set block at location(-172, 5, -42, world "world") to minecraft:spruce_fence[south=true,west=true]
+    set block at location(-172, 5, -41, world "world") to minecraft:spruce_fence[north=true,south=true]
+    set block at location(-172, 6, -42, world "world") to minecraft:spruce_fence[west=true]
+    set block at location(-173, 5, -38, world "world") to minecraft:spruce_fence
+    set block at location(-176, 5, -37, world "world") to minecraft:spruce_fence
+    set block at location(-178, 5, -36, world "world") to minecraft:spruce_fence[north=true]
+    set block at location(-178, 6, -36, world "world") to minecraft:spruce_fence[north=true]
+    set block at location(-179, 5, -37, world "world") to minecraft:spruce_fence[east=true]
+
+        # Stone Wall
+    set block at location(-173, 4, -43, world "world") to minecraft:cobblestone_wall[up=true,south=tall]
+    set block at location(-172, 4, -42, world "world") to minecraft:cobblestone_wall[up=true,south=tall,west=tall]
+    set block at location(-172, 6, -41, world "world") to minecraft:cobblestone_wall[up=true]
+    set block at location(-173, 4, -38, world "world") to minecraft:cobblestone_wall
+    set block at location(-176, 4, -37, world "world") to minecraft:cobblestone_wall
+    set block at location(-178, 4, -36, world "world") to minecraft:cobblestone_wall[up=true,north=tall]
+    set block at location(-179, 4, -37, world "world") to minecraft:cobblestone_wall[up=true,east=tall]
+    set block at location(-178, 4, -40, world "world") to minecraft:cobblestone_wall[up=true,east=low]
+    set block at location(-177, 4, -41, world "world") to minecraft:cobblestone_wall[up=true,south=tall]
+    set block at location(-177, 5, -41, world "world") to minecraft:cobblestone_wall[up=true,south=tall]
+
+        # Other
+    set block at location(-178, 4, -39, world "world") to minecraft:oak_leaves
+    set block at location(-178, 6, -38, world "world") to minecraft:oak_leaves
+
