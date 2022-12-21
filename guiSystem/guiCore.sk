@@ -366,12 +366,14 @@ on rightclick:
 
                 set slot {_borderIndex} of metadata tag "menu" of player to {_placeItem}
 
-            if {_borderIndex} is 21:
-                if player's name is "Adaxer":
-                    set slot {_borderIndex} of metadata tag "menu" of player to clock named "&aCalendar" with lore "&7Upcoming events and much more", "&7can be viewed here!", "", "&7Next event: ", "&7Starting in:", "" and "&eView (Left Click)"
-
             if {_borderIndex} is 22:
-                set slot {_borderIndex} of metadata tag "menu" of player to diamond named "&aStore" with lore "&7The primary way to support the development", "&7of the server and the expantion of the game.", "" and "&eView (Left Click)"
+                if player's name is "Adaxer":
+
+                    set {_next::*} to dateGetNextEvent(1) split at ":"
+                    set {_name} to {_next::1}
+                    set {_year} to uncolored {_next::2}
+
+                    set slot {_borderIndex} of metadata tag "menu" of player to clock named "&aCalendar" with lore "&7Upcoming events and much more", "&7can be viewed here!", "", "&7Next event: %{_name}%", "&7Starting in: &f%dateGetTimeTo({_year})%", "" and "&eView (Left Click)"
 
             if {_borderIndex} is 31:
                 if {level::%{_u}%} is greater than 4:
@@ -738,7 +740,7 @@ on inventory click:
         cancel event
 
         if index of event-slot is 22:
-            send formatted "<tooltip:&7View our store by clicking the message.><link:https://nordicrpg.tebex.io>&3[STORE] » &fClick here to view our store!"
+            dateCreateCalendar(player, "&8Remote Calendar")
         else if index of event-slot is 31:
             if {level::%player's uuid%} is greater than 4:
                 bestiaryCreateItem(player, "&8Remote Bestiary")
