@@ -40,30 +40,6 @@ on join:
         loop {vanish::players::*}:
             hide loop-value from all players    
 
-    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
-    loop player's inventory:
-        if {_itemList::*} does not contain 1 of loop-value:
-            if uncolored name of loop-value does not contain "Woodland Tree", "Spiritual Prompt", "Basalt Slag" or "Divinity Cake":
-                set {_message} to true
-                add loop-value to {_itemsRemoved::*}
-                remove loop-value from player's inventory
-
-    loop {_itemsRemoved::*}:
-        if loop-value is nether star or book:
-            remove loop-value from {_itemsRemoved::*}
-
-    if {_message} is true:
-        set {_send} to "&4Items removed: "
-        set {_counter} to 1
-        loop {_itemsRemoved::*}:
-            if {_counter} is not size of {_itemsRemoved::*}:
-                set {_send} to "%{_send}%&7%loop-value%, "
-            else:
-                set {_send} to "%{_send}%&7%loop-value%." 
-            add 1 to {_counter}
-        if uncolored {_send} is not "Items removed: ":
-            send formatted "<tooltip:%{_send}%><##508a7f>[<##5EB6B6>&lCLEARED<##508a7f>] » &fYou had <##5EB6B6>illegal &fitems that were removed from your inventory!"
-
     set {health::currentHearts::%player's uuid%} to {health::maxHearts::%player's uuid%}
     set {mana::currentMana::%player's uuid%} to {mana::maxMana::%player's uuid%}
     set {combat::%player's uuid%} to false
@@ -91,24 +67,35 @@ on join:
             else:
                 set {_minute} to {minute}
 
-            if {event::winter::status} is true:
-                set {_default} to 0
+            if {event::farming::status} is true:
+
+                set {_default} to 1
+                clear scoreboard of player
+                if {event::farming::collected::%player's uuid%} is not set:
+                    set {event::farming::collected::%player's uuid%} to 0
+                set {_ending} to dateGetTimeTo(uncolored "%dateGetMonth({month})% %dateGetDay(31)% %dateGetYear({year})%")
+                set line 5 of player's scoreboard to " &eFarming Festival"
+                set line 4 of player's scoreboard to "  &7Collected: &6%{event::farming::collected::%player's uuid%}%"
+                set line 3 of player's scoreboard to "   &7Left: &6%{_ending}%"
+                set line 2 of player's scoreboard to ""
+                set line 1 of player's scoreboard to "&eNordicRPG.minehut.gg"
 
             else:
+
                 set {_default} to 0
+                clear scoreboard of player
                 set line 4 of player's scoreboard to " &3Holiday"
-                set line 3 of player's scoreboard to " &7None"
+                set line 3 of player's scoreboard to "  &7None"
                 set line 2 of player's scoreboard to ""
                 set line 1 of player's scoreboard to "&eNordicRPG.minehut.gg"
 
             set title of player's scoreboard to "&f&lNordic&3&lRPG"
-            set line (10 + {_default}) of player's scoreboard to "&8beta-0.2.9"
+            set line (10 + {_default}) of player's scoreboard to "&8beta-0.3.1"
             set line (9 + {_default}) of player's scoreboard to ""
             set line (8 + {_default}) of player's scoreboard to " &f%dateGetMonth({month})% %dateGetDay({day})%"
             set line (7 + {_default}) of player's scoreboard to " &7%{hour}%:%{_minute}% %dateGetTime({hour})%"
             set line (6 + {_default}) of player's scoreboard to "   &a$%{_gems}%"
             set line (5 + {_default}) of player's scoreboard to ""
-
 
         wait 1 second
 

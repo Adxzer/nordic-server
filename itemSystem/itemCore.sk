@@ -242,7 +242,7 @@ function getSellValue(item: item, amount: number) :: number:
 
 function checkFuseItem(items: itemtypes) :: string:
     
-    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+    set {_itemList::*} to ({items::armorItems::*}, {items::reforgeItems::*}, {items::bossItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
     loop {_itemList::*}:
         if uncolored name of loop-value is "Deity Crystal":
             set {_deityCrystal} to loop-value
@@ -350,7 +350,7 @@ command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
 
                                     if arg-4 is set:
 
-                                        if arg-4 is "economy", "drop", "tool", "consumable" or "armor":
+                                        if arg-4 is "economy", "drop", "boss", "reforge", "tool", "consumable" or "armor":
 
                                             if arg-5 is set:
 
@@ -473,7 +473,7 @@ on tab complete of "/item":
             set {_tabCompletion::*} to ("give", "take") # add new options 
             set tab completions for position 3 to {_tabCompletion::*}
 
-    set {_categories::*} to ("economy", "drop", "tool", "armor", "consumable") # add new categories 
+    set {_categories::*} to ("economy", "drop", "boss", "reforge", "tool", "armor", "consumable") # add new categories 
     if tab arg-3 is "give" or "take":
         set tab completions for position 4 to {_categories::*} 
     loop {_categories::*}:

@@ -1,0 +1,10 @@
+on load:
+
+# Boss
+
+    set {_woodlandTree} to jungle sapling of unbreaking 1 named "&cWoodland Tree" with lore "&7Boss Reward.", "", "&7A reward granted from slaying", "&7the Groot boss.", "", "&c★&8☆☆☆☆" and "&c&lSPECIAL" with all flags hidden
+    set {_spiritualPrompt} to turtle egg of unbreaking 1 named "&cSpiritual Prompt" with lore "&7Boss Reward.", "", "&7A reward granted from slaying", "&7the Chad boss.", "",  "&c★★&8☆☆☆" and "&c&lSPECIAL" with all flags hidden
+    set {_basaltSlag} to fire charge of unbreaking 1 named "&cBasalt Slag" with lore "&7Boss Reward.", "", "&7A reward granted from slaying", "&7the Draug boss.", "",  "&c★★★&8☆☆" and "&c&lSPECIAL" with all flags hidden
+    set {_divinityCake} to cake of unbreaking 1 named "&cDivinity Cake" with lore "&7Boss Reward.", "", "&7A reward granted from slaying", "&7the Odin boss.", "",  "&c★★★★&8☆" and "&c&lSPECIAL" with all flags hidden
+
+    set {items::bossItems::*} to ({_woodlandTree}, {_spiritualPrompt}, {_basaltSlag}, {_divinityCake})

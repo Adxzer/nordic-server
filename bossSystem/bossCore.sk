@@ -1,48 +1,3 @@
-function bossGetOdinChunks() :: integer:
-
-    set {_odin} to 0
-
-    loop all entities in chunk at location(-141, 40, 108, world "world") and location(-147, 40, 107, world "world"):
-        set {_split::*} to split uncolored name of loop-value at " "
-        if {_split::2} is "Odin":
-            add 1 to {_odin}
-
-    return {_odin}
-
-
-function bossGetDraugChunks() :: integer:
-
-    set {_draug} to 0
-
-    loop all entities in chunk at location(22, 6, 82, world "world"), location(22, 6, 76, world "world"), location(25, 8, 61, world "world"), location(33, 5, 62, world "world"), location(15, 5, 75, world "world") and location(35, 6, 70, world "world"):
-        set {_split::*} to split uncolored name of loop-value at " "
-        if {_split::2} is "Draug":
-            add 1 to {_draug}
-
-    return {_draug}
-
-function bossGetChadChunks() :: integer:
-
-    set {_chad} to 0
-
-    loop all entities in chunk at location(7, 4, -165, world "world"), location(7, 4, -158, world "world"), location(-2, 6, -158, world "world") and location(-3, 7, -169, world "world"):
-        set {_split::*} to split uncolored name of loop-value at " "
-        if {_split::2} is "Chad":
-            add 1 to {_chad}
-
-    return {_chad}
-
-function bossGetGrootChunks() :: integer:
-
-    set {_groot} to 0
-
-    loop all entities in chunk at location(-232, 21, -132, world "world"), location(-219, 21, -132, world "world"), location(-232, 15, -132, world "world") and location(-219, 15, -132, world "world"):
-        set {_split::*} to split uncolored name of loop-value at " "
-        if {_split::2} is "Groot":
-            add 1 to {_groot}
-
-    return {_groot}
-
 function bossCreateRewards(player: player, name: string, rewards: strings, boss: string, item: item):
 
     set metadata tag "type" of {_player} to chest with 6 row named "%{_name}%"
@@ -66,7 +21,7 @@ function bossCreateRewards(player: player, name: string, rewards: strings, boss:
 
     loop 5 times:
 
-        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+        set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::bossItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 
         set {_items} to {_rewards::%loop-number%}
         set {_loopItem} to {_item}
@@ -218,58 +173,49 @@ command /boss [<text>] [<text>] [<text>] [<text>] [<text>]:
                             send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &cPlease specify a player."  
 
                     else if arg-2 is "deactivate": 
-
+                            
                         if arg-1 is "Groot":
-                            set {_boss} to bossGetGrootChunks()
                             set {_commandOne} to "mm m spawn BossGroot 1 world,-226,16,-136"
-                            set {_commandTwo} to "boss groot activate"
+                            set {_boss} to "groot"
                         else if arg-1 is "Chad":
-                            set {_boss} to bossGetChadChunks()
                             set {_commandOne} to "mm m spawn BossChad 1 world,6,4,-166"
-                            set {_commandTwo} to "boss chad activate"
+                            set {_boss} to "chad"
                         else if arg-1 is "Draug":
-                            set {_boss} to bossGetDraugChunks()
                             set {_commandOne} to "mm m spawn BossDraug 1 world,25,6,70"
-                            set {_commandTwo} to "boss draug activate"
+                            set {_boss} to "draug"
                         else if arg-1 is "Odin":
-                            set {_boss} to bossGetOdinChunks()
                             set {_commandOne} to "mm m spawn BossOdin 1 world,-144,40,107"
-                            set {_commandTwo} to "boss odin activate"
+                            set {_boss} to "odin"
 
+                        if {boss::%{_boss}%::spawned} is greater than 0:
+                            remove 1 from {boss::%{_boss}%::spawned}
 
-                        if {_boss} is 0:
-                            send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &fDeactivated the <##5EB6B6>%arg-1% &fspawner."  
-                            make console execute command "hd setline Boss%arg-1%Cooldown 2 &75 minute(s)"
-                        else:
-                            make console execute command {_commandTwo}
-                            stop trigger
-                        
-                        set {_minutes} to 5
+                        set {_amount} to {boss::%{_boss}%::spawned}
+                        if {_amount} is 0:
 
-                        loop 5 times:
-                            if {_boss} is 0:
-                                wait 1 minute
-                                remove 1 from {_minutes}
-                                make console execute command "hd setline Boss%arg-1%Cooldown 2 &7%{_minutes}% minute(s)"
+                            set {_amount} to {boss::%{_boss}%::spawned}
+                            if {_amount} is 0:
+                                send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &fDeactivated the <##5EB6B6>%arg-1% &fspawner."  
+                                make console execute command "hd setline Boss%arg-1%Cooldown 2 &75 minute(s)"
                             else:
-                                make console execute command {_commandTwo}
+                                make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
                                 stop trigger
+                            
+                            set {_minutes} to 5
 
-                        make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
+                            loop 5 times:
+                                set {_amount} to {boss::%{_boss}%::spawned}
+                                if {_amount} is 0:
+                                    wait 1 minute
+                                    remove 1 from {_minutes}
+                                    make console execute command "hd setline Boss%arg-1%Cooldown 2 &7%{_minutes}% minute(s)"
+                                else:
+                                    make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
+                                    stop trigger
 
-                        if {_boss} is 0:
-                            make console execute command "mm m kill Boss%arg-1%"
-                            wait 2 seconds
+                            make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
+                            add 1 to {boss::%{_boss}%::spawned}
                             make console execute command {_commandOne}
-                        else:
-                            make console execute command {_commandTwo}
-
-                       
-                    else if arg-2 is "activate": 
-
-                        send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &fActivated the <##5EB6B6>%arg-1%&f spawner."  
-                        make console execute command "hd setline Boss%arg-1%Cooldown 2 &7None"
-
                     else:
                         send "<##508a7f>[<##5EB6B6>&lBOSS<##508a7f>] » &cThis command option does not exist."
 
@@ -314,7 +260,7 @@ on inventory click:
             set {_splitOne::*} to uncolored split {_splitOneFirst::2} at "x "
             set {_splitTwo::*} to uncolored split {_splitTwoFirst::2} at "x "
 
-            set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+            set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::bossItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
             loop {_itemList::*}:
                 if uncolored name of loop-value is {_splitOne::2}:
                     set {_itemOne} to {_splitOne::1} parsed as integer of loop-value
@@ -338,18 +284,18 @@ on inventory click:
         else if index of event-slot is 49:
             open (metadata tag "boss" of player) to player
 
+every 20 seconds:
+    send "GROOT: %{boss::groot::spawned}% | CHAD: %{boss::chad::spawned}% | DRAUG: %{boss::draug::spawned}% | ODIN: %{boss::odin::spawned}%" to console
+
 on load: # add new options
-    set {_groot} to bossGetGrootChunks()
-    set {_chad} to bossGetChadChunks()
-    set {_draug} to bossGetDraugChunks()
-    set {_odin} to bossGetOdinChunks()
-    if {_groot} is 0:
+
+    if {boss::groot::spawned} is 0:
         make console execute command "boss groot deactivate"
-    if {_chad} is 0:
+    if {boss::chad::spawned} is 0:
         make console execute command "boss chad deactivate"
-    if {_draug} is 0:
+    if {boss::draug::spawned} is 0:
         make console execute command "boss draug deactivate"
-    if {_odin} is 0:
+    if {boss::odin::spawned} is 0:
         make console execute command "boss odin deactivate"
         
 on tab complete of "/boss":

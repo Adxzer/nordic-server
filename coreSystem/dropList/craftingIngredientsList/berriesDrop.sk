@@ -1,18 +1,14 @@
 function berriesDrop(player: player) :: number:
     set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
 
-    loop {_itemList::*}:
-        if uncolored name of loop-value contains "Hoe":
-            add loop-value to {_items::*}
- 
     set {_xp} to 5
-    set {_boost} to coreBreakBoost({_player}, ({_player}'s tool), ({_items::*}))
+    set {_boost} to coreBreakBoost({_player}, ({_player}'s tool))
 
     loop {_itemList::*}:
         if uncolored name of loop-value is "Berries":
             set {_drop} to loop-value
 
-    set {_return} to coreBreakDrop({_player}, ({_player}'s tool), ({_items::*}), {_drop}, 1 + {_boost}, 3 + {_boost}, {_xp})
+    set {_return} to coreBreakDrop({_player}, ({_player}'s tool), {_drop}, 1 + {_boost}, 3 + {_boost}, {_xp})
     bestiaryCheckItem({_player}, (uncolored name of {_drop}), floor({_return}))
     return {_return}
 

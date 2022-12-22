@@ -1,0 +1,115 @@
+function reforgeCreateInterface(player: player, name: string):
+
+    set metadata tag "reforge" of {_player} to chest with 6 row named "%{_name}%"
+    
+    set {_u} to uuid of {_player}
+    set {_borderIndex} to 0
+
+    loop 54 times:
+
+        if {_borderIndex} is not 13 or 30:
+            set slot {_borderIndex} of metadata tag "reforge" of {_player} to black stained glass pane named "&8Border"
+
+        if {_borderIndex} is 10, 16, 19, 25, 28, 34, 37, 43:
+            set slot {_borderIndex} of metadata tag "reforge" of {_player} to gray stained glass pane named "&7Border"
+
+        if {_borderIndex} is 31:
+            set slot {_borderIndex} of metadata tag "reforge" of {_player} to anvil named "&fReforge Item" with lore "&7Click your items to insert", "&7them and reforge them.", "", "&cNot a valid reforge!"
+
+        add 1 to {_borderIndex}
+
+    open (metadata tag "reforge" of {_player}) to {_player}
+
+function reforgeGetValidInput(tool: item, stone: item) :: string:
+    
+    if uncolored name of {_tool} is "Rock Shovel", "Frost Shovel" or "Glaze Shovel":
+
+        if uncolored name of {_stone} is "Icicle Stone":
+            return "Ravishing:Ore 2"
+        
+    if uncolored name of {_tool} contains "Hoe":
+
+        if uncolored name of {_stone} is "Charming Stone":
+            return "Charming:Crops 3"
+    
+    return "none"
+
+function reforgeGetLore(player: player, tool: item, stone: item):
+
+    set {_max} to size of lore of slot 31 of {_player}'s current inventory
+    set {_boundItem} to reforgeGetValidInput({_tool}, {_stone})
+    if {_boundItem} is not "none":
+        set {_max}th line of lore of slot 31 of {_player}'s current inventory to "&eReforge (Left Click)"
+    else:
+        set {_max}th line of lore of slot 31 of {_player}'s current inventory to "&cNot a valid reforge!"
+
+
+on inventory click:
+
+    if uncolored name of player's current inventory contains "Reforger":
+        cancel event
+    
+        if event-inventory = (metadata tag "reforge" of player):
+
+            if index of event-slot is 30 or 13:
+
+                set {_item} to event-slot
+                set event-slot to air
+                give player {_item}
+                reforgeGetLore(player, slot 13 of player's current inventory, slot 30 of player's current inventory)
+
+            if index of event-slot is 31:
+
+                set {_boundItem} to reforgeGetValidInput(slot 13 of player's current inventory, slot 30 of player's current inventory)
+                if {_boundItem} is not "none":
+
+                    set {_item} to slot 13 of player's current inventory
+                    set {_lore::*} to lore of {_item}
+                    
+                    set {_split::*} to split {_boundItem} at ":"
+                    set {_attributes::*} to split {_split::2} at " "
+                    set {_name} to {_split::1}
+
+                    loop {_lore::*}:
+                        add 1 to {_counter}
+                        if loop-value contains {_attributes::1}:
+                            set {_counter}th line of lore of {_item} to "%loop-value% &8(%{_name}% +%{_attributes::2}%)"
+                            stop loop
+                    set name of {_item} to "%first 2 characters of name of {_item}%%{_name}% %name of {_item}%"
+
+                    remove 1 of slot 30 of player's current inventory from slot 30 of player's current inventory
+                    remove 1 of slot 13 of player's current inventory from slot 13 of player's current inventory
+                    give player {_item}
+                    reforgeGetLore(player, slot 13 of player's current inventory, slot 30 of player's current inventory)
+                    play sound "ENTITY_FIREWORK_ROCKET_BLAST" with volume 0.2 to player
+                    play sound "BLOCK_BEACON_POWER_SELECT" with volume 0.2 to player
+                    play sound "ENTITY_ANVIL_USE" with volume 0.2 to player
+
+        else:
+
+            if event-slot is not air:
+
+                set {_item} to event-slot                    
+                set {_counter} to 1
+                set {_numbers::*} to 30, 13
+
+                loop 2 times:
+
+                    if slot {_numbers::%{_counter}%} of player's current inventory is air:
+
+                        set event-slot to air
+                        set slot {_numbers::%{_counter}%} of player's current inventory to {_item}
+                        reforgeGetLore(player, slot 13 of player's current inventory, slot 30 of player's current inventory)
+                        stop loop
+
+                    else:
+                        add 1 to {_counter}
+
+on inventory close:
+
+    if event-inventory = (metadata tag "reforge" of player): 
+
+        if slot 13 of player's current inventory is not air:
+            give player slot 13 of player's current inventory
+        if slot 30 of player's current inventory is not air:
+            give player slot 30 of player's current inventory

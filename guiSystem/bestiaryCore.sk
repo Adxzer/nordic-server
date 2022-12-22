@@ -150,7 +150,9 @@ function bestiaryCheckItem(player: player, item: string, amount: number):
             set {bestiary::%{_item}%::collected::%{_u}%} to 0
             if {level::%{_u}%} is greater than 4:
                 send "<##508a7f>[<##5EB6B6>&LBESTIARY<##508a7f>] » &fNew item discovered! <##5EB6B6>%{_item}%&f has now been added to your bestiary." to {_player}
-        
+        if {event::farming::status} is true:
+            if {_item} is in {bestiary::Farming::*}:
+                add {_amount} to {event::farming::collected::%{_u}%}
         add {_amount} to {bestiary::%{_item}%::collected::%{_u}%}
 
 function bestiaryGetFormat(number: number) :: text:

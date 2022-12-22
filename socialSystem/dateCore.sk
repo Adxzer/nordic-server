@@ -1,7 +1,36 @@
+function dateStartFarmingFestival():
+
+    set {event::farming::status} to true
+    add 1 to {event::farming::amount}
+    clear {event::farming::collected::*}
+
+function dateEndFarmingFestival():
+
+    set {event::farming::status} to false
+
 function dateCheckHour(day: integer):
     
     if {event::farming::status} is true:
         make console execute command "hd setline eventLeaderboard 2 &7Current farming leaderboard:"
+        set {_counter} to 0
+        loop sorted indices of {event::farming::collected::*} in descending order:
+
+            add 1 to {_counter}
+            if {_counter} is less than 6:
+
+                set {_user} to loop-value parsed as offline player
+                set {_u} to uuid of {_user}
+                make console execute command "hd setline eventLeaderboard %{_counter} + 2% &6%{_counter}%## &7%{_user}% &e%bestiaryGetFormat(round({event::farming::collected::%{_u}%}))%"
+            else:
+                stop
+
+        set {_times} to {_counter}
+        set {_counter} to 0
+        if {_counter} is not 5:
+            # 2
+            loop 5 times:
+                add 1 to {_counter}
+                make console execute command "hd setline eventLeaderboard %{_times} + {_counter} + 2% &6%{_times} + {_counter}%## &7None &e0"    
 
     else:
         make console execute command "hd setline eventLeaderboard 2 &7There is currently no active event"
@@ -13,7 +42,6 @@ function dateCheckHour(day: integer):
             set {_name} to {_next::1}
             set {_year} to uncolored {_next::2}
             make console execute command "hd setline eventLeaderboard %{_counter} + 4% %{_name}% &7(&f%dateGetTimeTo({_next::2})%&7)"
-        
 
     send "The hour have been checked." to console
 
@@ -22,11 +50,11 @@ function dateCheckDay(day: integer):
     if {_day} is 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 or 30:
         if {month} is 4, 7 or 10:
             if {event::farming::status} is false:
-                set {event::farming::status} to true
+                dateStartFarmingFestival()
         else:
-            set {event::farming::status} to false
+            dateEndFarmingFestival()
     else:
-        set {event::farming::status} to false
+        dateEndFarmingFestival()
 
     send "The day have been checked." to console
 
@@ -76,6 +104,33 @@ function dateGetMonth(month: integer) :: string:
     else if {month} = 12:
         return "Dec"
 
+function dateGetMonthInteger(month: string) :: integer:
+
+    if {_month} is "Jan":
+        return 1
+    else if {_month} is "Feb":
+        return 2
+    else if {_month} is "Mar":
+        return 3
+    else if {_month} is "Apr":
+        return 4
+    else if {_month} is "May":
+        return 5
+    else if {_month} is "Jun":
+        return 6
+    else if {_month} is "Jul":
+        return 7
+    else if {_month} is "Aug":
+        return 8
+    else if {_month} is "Sep":
+        return 9
+    else if {_month} is "Oct":
+        return 10
+    else if {_month} is "Nov":
+        return 11
+    else if {_month} is "Dec":
+        return 12
+
 function dateGetYear(year: integer) :: string:
 
     if {year} is not 0:
@@ -116,30 +171,7 @@ function dateGetNextEvent(position: integer) :: string:
             add 1 to {_yearly}
 
         set {_event::*} to {_event} split at " "
-        if {_event::1} is "Jan":
-            set {_month} to 1
-        else if {_event::1} is "Feb":
-            set {_month} to 2
-        else if {_event::1} is "Mar":
-            set {_month} to 3
-        else if {_event::1} is "Apr":
-            set {_month} to 4
-        else if {_event::1} is "May":
-            set {_month} to 5
-        else if {_event::1} is "Jun":
-            set {_month} to 6
-        else if {_event::1} is "Jul":
-            set {_month} to 7
-        else if {_event::1} is "Aug":
-            set {_month} to 8
-        else if {_event::1} is "Sep":
-            set {_month} to 9
-        else if {_event::1} is "Oct":
-            set {_month} to 10
-        else if {_event::1} is "Nov":
-            set {_month} to 11
-        else if {_event::1} is "Dec":
-            set {_month} to 12
+        set {_month} to dateGetMonthInteger({_event::1})
         
         set {_remove::*} to split {_event::2} at "st"
         if {_remove::2} is not set:
@@ -200,45 +232,28 @@ function dateEventGetTime(event: string) :: string:
 function dateGetTimeTo(time: string) :: string:
 
     set {_event::*} to {_time} split at " "
-    if {_event::1} is "Jan":
-        set {_month} to 1
-    else if {_event::1} is "Feb":
-        set {_month} to 2
-    else if {_event::1} is "Mar":
-        set {_month} to 3
-    else if {_event::1} is "Apr":
-        set {_month} to 4
-    else if {_event::1} is "May":
-        set {_month} to 5
-    else if {_event::1} is "Jun":
-        set {_month} to 6
-    else if {_event::1} is "Jul":
-        set {_month} to 7
-    else if {_event::1} is "Aug":
-        set {_month} to 8
-    else if {_event::1} is "Sep":
-        set {_month} to 9
-    else if {_event::1} is "Oct":
-        set {_month} to 10
-    else if {_event::1} is "Nov":
-        set {_month} to 11
-    else if {_event::1} is "Dec":
-        set {_month} to 12
+    set {_month} to dateGetMonthInteger({_event::1})
         
-    set {_remove::*} to split {_event::2} at "st", "nd", "rd" or "th"
+    set {_remove::*} to split {_event::2} at "st"
+    if {_remove::2} is not set:
+        set {_remove::*} to split {_event::2} at "nd"
+    if {_remove::2} is not set:
+        set {_remove::*} to split {_event::2} at "rd"
+    if {_remove::2} is not set:
+        set {_remove::*} to split {_event::2} at "th"
     set {_days} to (({_month} * 30)) + ({_event::4} parsed as integer * 360) + ({_remove::1} parsed as integer)
-    set {_timeTo} to {_days} * 24
+    set {_hours} to ({_days} - 30) * 24
+    set {_timeTo} to {_hours} * 60 + {minute}
 
     set {_days2} to (({month} * 30)) + ({year} * 360) + ({day})
-    set {_timeNow} to {_days2} * 24 + {hour}
-    set {_difference} to {_timeTo} - {_timeNow}
+    set {_hours2} to (({_days2} - 30) * 24) + {hour}
+    set {_timeNow} to {_hours2} * 60 + {minute}
+    set {_difference} to ({_timeTo} - {_timeNow})
 
-    set {_getSeconds} to {_difference} * 45
+    set {_getSeconds} to {_difference} * 0.75
     set {_getMinutes} to {_getSeconds} / 60
     set {_getHours} to {_getMinutes} / 60
     set {_getDays} to {_getHours} / 24
-
-    send "%{_time}%|%{_getDays}% days, %{_getHours}% hours, %{_getMinutes}% minutes, %{_getSeconds}% seconds" to console
 
     if {_getDays} is greater than 1:
         return "%round({_getDays})% days"
@@ -270,6 +285,9 @@ function dateCreateCalendar(player: player, name: string):
         if {_borderIndex} is 49:
             set slot {_borderIndex} of metadata tag "calendar" of {_player} to barrier named "&cClose"
 
+        if {_borderIndex} is 48:
+            set slot {_borderIndex} of metadata tag "calendar" of {_player} to chest named "&cRewards"
+
         if {_borderIndex} is 11, 12, 13, 14, 15, 20, 21, 22, 23, 24, 29, 30, 31, 32 or 33:
             
             add 1 to {_counter}
@@ -296,16 +314,6 @@ on inventory click:
 
         if index of event-slot is 49:
             open (metadata tag "menu" of player) to player
-
-command /test:
-    permission: op
-    trigger:
-        set {event::yearly::amount} to 1
-        set {event::farming::amount} to 4
-        set {event::winter::amount} to 1
-        #send dateEventGetTime("4 Winter Wonderland")
-       # send "this event will be: %dateEventGetTime("3 Winter Wonderland")%." to player
-        send "the next event is: %dateGetNextEvent(1)%." to player
 
 every 15 ticks:
 
