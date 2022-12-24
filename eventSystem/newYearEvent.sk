@@ -1,0 +1,37 @@
+function loadNewYearStand():
+
+    # Terracotta Decorations
+    set block at location(-178, 5, -38, world "world") to minecraft:purple_terracotta
+    set block at location(-178, 4, -38, world "world") to minecraft:blue_terracotta
+    set block at location(-178, 6, -38, world "world") to minecraft:diamond_block
+    set block at location(-177, 5, -39, world "world") to minecraft:blue_terracotta
+    set block at location(-177, 4, -39, world "world") to minecraft:light_blue_terracotta
+    set block at location(-172, 5, -40, world "world") to minecraft:diamond_block
+    set block at location(-172, 4, -40, world "world") to minecraft:purple_terracotta
+    set block at location(-172, 4, -41, world "world") to minecraft:note_block
+
+    # Warped Hyphae
+    set block at location(-172, 4, -39, world "world") to minecraft:warped_hyphae[axis=y]
+    set block at location(-172, 5, -39, world "world") to minecraft:warped_hyphae[axis=y]
+    set block at location(-173, 4, -42, world "world") to minecraft:warped_hyphae[axis=y]
+    set block at location(-173, 5, -42, world "world") to minecraft:warped_hyphae[axis=y]
+    set block at location(-173, 6, -42, world "world") to minecraft:warped_hyphae[axis=y]
+    set block at location(-173, 7, -42, world "world") to minecraft:warped_hyphae[axis=y]
+    set block at location(-177, 4, -40, world "world") to minecraft:warped_hyphae[axis=y]
+    set block at location(-177, 5, -40, world "world") to minecraft:warped_hyphae[axis=y]
+    set block at location(-178, 4, -37, world "world") to minecraft:warped_hyphae[axis=y]
+    set block at location(-178, 5, -37, world "world") to minecraft:warped_hyphae[axis=y]
+    set block at location(-178, 6, -37, world "world") to minecraft:warped_hyphae[axis=y]
+    set block at location(-178, 7, -37, world "world") to minecraft:warped_hyphae[axis=y]
+
+    # Other
+    set block at location(-178, 4, -39, world "world") to minecraft:beacon
+    set block at location(-178, 5, -39, world "world") to minecraft:warped_roots
+    set block at location(-177, 4, -35, world "world") to minecraft:warped_roots
+    set block at location(-174, 4, -39, world "world") to minecraft:warped_roots
+    set block at location(-175, 4, -42, world "world") to minecraft:warped_roots
+    set block at location(-173, 4, -40, world "world") to minecraft:twisting_vines_plant
+    set block at location(-173, 5, -40, world "world") to minecraft:twisting_vines_plant
+    set block at location(-173, 6, -40, world "world") to minecraft:twisting_vines_plant
+    set block at location(-175, 4, -38, world "world") to minecraft:twisting_vines_plant
+    set block at location(-175, 5, -38, world "world") to minecraft:twisting_vines_plant

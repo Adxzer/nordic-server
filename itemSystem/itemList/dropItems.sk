@@ -69,10 +69,10 @@ on load:
     set {_wart} to nether wart named "&fWart" with lore "&7Crafting Ingredient.", "",  "&f★★★&8☆☆" and "&f&lNORMAL"
     set {_spikes} to nether quartz named "&aSpikes" with lore "&7Crafting Ingredient.", "",  "&a★★★&8☆☆" and "&a&lUNIQUE"
     set {_lavaWeb} to crimson roots named "&9Lava Web" with lore "&7Crafting Ingredient.", "",  "&9★★★&8☆☆" and "&9&lRARE"
-    set {_teplateCap} to leather cap named "&fTeplate Cap" with lore "&7Crafting Ingredient.", "",  "&f★★★&8☆☆" and "&f&lUNIQUE"
-    set {_teplateTunic} to leather tunic named "&fTeplate Tunic" with lore "&7Crafting Ingredient.", "",  "&f★★★&8☆☆" and "&f&lUNIQUE"
-    set {_teplatePants} to leather pants named "&fTeplate Pants" with lore "&7Crafting Ingredient.", "",  "&f★★★&8☆☆" and "&f&lUNIQUE"
-    set {_teplateBoots} to leather boots named "&fTeplate Boots" with lore "&7Crafting Ingredient.", "",  "&f★★★&8☆☆" and "&f&lUNIQUE"
+    set {_teplateCap} to leather cap named "&fTeplate Cap" with lore "&7Crafting Ingredient.", "",  "&f★★★&8☆☆" and "&f&lUNIQUE" with all flags hidden
+    set {_teplateTunic} to leather tunic named "&fTeplate Tunic" with lore "&7Crafting Ingredient.", "",  "&f★★★&8☆☆" and "&f&lUNIQUE" with all flags hidden
+    set {_teplatePants} to leather pants named "&fTeplate Pants" with lore "&7Crafting Ingredient.", "",  "&f★★★&8☆☆" and "&f&lUNIQUE" with all flags hidden
+    set {_teplateBoots} to leather boots named "&fTeplate Boots" with lore "&7Crafting Ingredient.", "",  "&f★★★&8☆☆" and "&f&lUNIQUE" with all flags hidden
 
     # 4 Star
     set {_inuredDemis} to melon seeds named "&5Inured Demis" with lore "&7Crafting Ingredient.", "",  "&5★★★★&8☆" and "&5&lEPIC"
@@ -100,4 +100,4 @@ on load:
     set {_iceShard} to prismarine shard named "&fIce Shard" with lore "&7Crafting Ingredient.", "",  "&f★★★★&8☆" and "&f&lNORMAL"
     set {_mossTurf} to large fern named "&aMoss Turf" with lore "&7Crafting Ingredient.", "",  "&a★★★★&8☆" and "&a&lNORMAL"
 
-    set {items::dropItems::*} to ({_prototypeDrop}, {_rawBeef}, {_rawMutton}, {_rawChicken}, {_egg}, {_rottenFlesh}, {_arrow}, {_seeds}, {_wheat}, {_leather}, {_wool}, {_feather}, {_bone}, {_rootedSkin}, {_hay}, {_glossyBerry}, {_pellucid}, {_potato}, {_goldIngot}, {_rootedHeart}, {_ardour}, {_platinumTeeth}, {_redMushroom}, {_brownMushroom}, {_string}, {_potato}, {_carrot}, {_web}, {_livingEssence}, {_stuffedPotato}, {_gleamingCarrot}, {_enormousShroom}, {_spiderHeart}, {_natureBrace}, {_lavaWeb}, {_teplateCap}, {_teplateTunic}, {_teplatePants}, {_teplateBoots}, {_infernalite}, {_blemish}, {_fadedRose}, {_wart}, {_spikes}, {_inuredDemis}, {_shinyApple}, {_goldNugget}, {_teplateSticks}, {_deityShard}, {_iceVein}, {_firm}, {_berries}, {_graspLeaf}, {_twine}, {_frozenIce}, {_mossHunk}, {_deityCrystal}, {_iceShard}, {_mossTurf})
+    set {items::dropItems::*} to ({_prototypeDrop}, {_rawBeef}, {_rawMutton}, {_rawChicken}, {_egg}, {_rottenFlesh}, {_arrow}, {_seeds}, {_wheat}, {_leather}, {_wool}, {_feather}, {_bone}, {_rootedSkin}, {_hay}, {_glossyBerry}, {_pellucid}, {_potato}, {_goldIngot}, {_rootedHeart}, {_ardour}, {_platinumTeeth}, {_redMushroom}, {_brownMushroom}, {_string}, {_carrot}, {_web}, {_livingEssence}, {_stuffedPotato}, {_gleamingCarrot}, {_enormousShroom}, {_spiderHeart}, {_natureBrace}, {_lavaWeb}, {_teplateCap}, {_teplateTunic}, {_teplatePants}, {_teplateBoots}, {_infernalite}, {_blemish}, {_fadedRose}, {_wart}, {_spikes}, {_inuredDemis}, {_shinyApple}, {_goldNugget}, {_teplateSticks}, {_deityShard}, {_iceVein}, {_firm}, {_berries}, {_graspLeaf}, {_twine}, {_frozenIce}, {_mossHunk}, {_deityCrystal}, {_iceShard}, {_mossTurf})

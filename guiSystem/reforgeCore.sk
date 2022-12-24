@@ -10,7 +10,7 @@ function reforgeCreateInterface(player: player, name: string):
         if {_borderIndex} is not 13 or 30:
             set slot {_borderIndex} of metadata tag "reforge" of {_player} to black stained glass pane named "&8Border"
 
-        if {_borderIndex} is 10, 16, 19, 25, 28, 34, 37, 43:
+        if {_borderIndex} is 10, 16, 19, 25, 28, 34, 37 or 43:
             set slot {_borderIndex} of metadata tag "reforge" of {_player} to gray stained glass pane named "&7Border"
 
         if {_borderIndex} is 31:
@@ -26,12 +26,26 @@ function reforgeGetValidInput(tool: item, stone: item) :: string:
 
         if uncolored name of {_stone} is "Icicle Stone":
             return "Ravishing:Ore 2"
+        else if uncolored name of {_stone} is "Refined Stone":
+
+            if uncolored name of {_tool} is "Frost Shovel" or "Glaze Shovel":
+                return "Refined:Ore 5"
         
     if uncolored name of {_tool} contains "Hoe":
 
         if uncolored name of {_stone} is "Charming Stone":
             return "Charming:Crops 3"
     
+    if uncolored name of {_tool} contains "Bionic":
+
+        if uncolored name of {_stone} is "Swift Stone":
+            return "Swift:Speed 1"
+
+    if uncolored name of {_tool} contains "Sword", "Blade", "Bow", "Staff", "Spell", "Flinger" or "Axe":
+
+        if uncolored name of {_stone} is "Gentle Stone":
+            return "Gentle:Damage 7"
+
     return "none"
 
 function reforgeGetLore(player: player, tool: item, stone: item):
@@ -79,7 +93,7 @@ on inventory click:
 
                     remove 1 of slot 30 of player's current inventory from slot 30 of player's current inventory
                     remove 1 of slot 13 of player's current inventory from slot 13 of player's current inventory
-                    give player {_item}
+                    give player 1 of {_item}
                     reforgeGetLore(player, slot 13 of player's current inventory, slot 30 of player's current inventory)
                     play sound "ENTITY_FIREWORK_ROCKET_BLAST" with volume 0.2 to player
                     play sound "BLOCK_BEACON_POWER_SELECT" with volume 0.2 to player

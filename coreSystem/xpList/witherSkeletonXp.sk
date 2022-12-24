@@ -2,7 +2,7 @@ on death:
 
     set {_name} to coreGetEntity(name of victim)
 
-    if {_name} is "Zombified Piglin":
+    if {_name} is "Wither Skeleton":
 
         set {_xp} to 170
         coreAddXp(attacker, {_xp})

@@ -1,0 +1,23 @@
+on player change armor:
+
+    set {_speed} to 0.2
+
+    # calculate current speed
+    set {_items::*} to (helmet of player, chestplate of player, leggings of player, boots of player)
+    loop 4 times:
+        add 1 to {_counter}
+        set {_lore::*} to {_items::%{_counter}%}'s lore
+        loop {_lore::*}:
+            if loop-value-2 contains "Speed":
+                set {_speed::*} to split uncolored loop-value-2 at "+"
+                set {_speedAdd} to {_speed::2} parsed as integer
+                set {_split::*} to split uncolored loop-value-2 at " "
+                if {_split::3} is set:
+                    set {_attributes::*} to split {_split::4} at "+"
+                    set {_attributes::*} to split {_attributes::2} at ")"
+                    set {_regular::*} to split {_split::2} at "+"
+                    set {_break} to ({_attributes::1} parsed as integer) + ({_regular::2} parsed as integer)
+                    set {_speedAdd} to {_speedAdd} + {_break}
+                add {_speedAdd} / 70 to {_speed}
+            
+    set player's walk speed to {_speed}

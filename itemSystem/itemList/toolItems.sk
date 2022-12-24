@@ -2,7 +2,7 @@ on load:
 
 # Prototypes
     set {_prototypeHoe} to wooden hoe named "&fPrototype Hoe" with lore "&7Harvesting Tool.", "", "&7Crops: &b+2", "&7Double Drop: &b10%%", "", "&cRequires Level &4⚗1", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
-    set {_prototypeSword} to wooden sword named "&fPrototype Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+1000", "&7Crit Chance: &c+50%%", "&7Attack Speed: &c+50", "", "&eItem Ability: Transmission &8(Right Click)", "&7When right clicked, this item will teleport", "&7you 7 blocks ahead of you.", "", "&7Expense: &6✦3", "&7Cooldown: &615 seconds", "", "&cRequires Level &4⚗2", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
+    set {_prototypeSword} to wooden sword named "&fPrototype Sword" with lore "&7Damaging Tool.", "", "&7Damage: &c+100", "&7Crit Chance: &c+40%%", "&7Attack Speed: &c+5", "", "&eItem Ability: Transmission &8(Right Click)", "&7When right clicked, this item will teleport", "&7you 7 blocks ahead of you.", "", "&7Expense: &6✦3", "&7Cooldown: &615 seconds", "", "&cRequires Level &4⚗2", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
     set {_prototypeBow} to bow named "&fPrototype Bow" with lore "&7Archer Tool.", "", "&7Damage: &d+3", "&7Crit Chance: &d+50%%", "", "&cRequires Level &4⚗2", "&cto use this item.", "", "&f★&8☆☆☆☆" and "&f&lNORMAL" with all flags hidden
 
 # Swords
@@ -36,6 +36,8 @@ on load:
     set {_grimeHoe} to netherite hoe named "&aGrime Hoe" with lore "&7Harvesting Tool.", "", "&7Crops: &b+4", "&7Double Drop: &b10%%", "", "&cRequires Level &4⚗7", "&cto use this item.", "", "&a★★★★★&8" and "&a&lUNIQUE" with all flags hidden
     set {_fabledHoe} to golden hoe named "&9Fabled Hoe" with lore "&7Harvesting Tool.", "", "&7Crops: &b+5", "&7Double Drop: &b25%%",  "", "&cRequires Level &4⚗9", "&cto use this item.", "", "&9★★&8☆☆☆" and "&9&lRARE" with all flags hidden
 
+    set {_monomialHoe} to diamond hoe named "&6Monomial Hoe" with lore "&7Harvesting Tool.", "", "&7Crops: &b+8", "&7Double Drop: &b40%%",  "", "&cRequires Level &4⚗17", "&cto use this item.", "" ,"&6★★★&8☆☆" and "&6&lLEGENDARY" with all flags hidden
+
 # Spells
     set {_basicSpell} to stick named "&fBasic Spell" with lore "&7Magical Tool.", "", "&7Damage: &6+5", "&7Range: &640 blocks", "", "&7Expense: &6✦3", "&7Cooldown: &62 seconds", "", "&cRequires Level &4⚗2", "&cto use this item.", "", "&f★★★&8☆☆" and "&f&lNORMAL" with all flags hidden
     set {_vitalSpell} to bamboo named "&aVital Spell" with lore "&7Magical Tool.", "", "&7Damage: &6+8", "&7Range: &660 blocks", "", "&ePassive Ability: Pierce &8(Always Used)", "&7When used this item will use nature to", "&7pierce through enemies to eliminate them.", "", "&7Expense: &6✦4", "&7Cooldown: &62 seconds", "", "&cRequires Level &4⚗4", "&cto use this item.", "", "&a★★★★&8☆" and "&a&lUNIQUE" with all flags hidden
@@ -53,5 +55,6 @@ on load:
 
 # Other
     set {_shield} to shield named "&aShield" with lore "&7Defense Tool.", "" and "&a★&8☆☆☆☆", "&a&lUNIQUE" with all flags hidden
+    set {_snowFlaker} to fishing rod named "&9Snow Flaker" with lore "&7Travelling Tool.", "", "&eItem Ability: Fling &8(Right Click)", "&7When using this item you will get", "&7flinged fast forward in the air.", "", "&7Expense: &6✦4", "&7Cooldown: &63 seconds", "", "&cRequires Level &4⚗14", "&cto use this item.", "", "&9★★★&8☆☆" and "&9&lRARE" with all flags hidden
 
-    set {items::toolItems::*} to ({_prototypeHoe}, {_prototypeSword}, {_prototypeBow}, {_commonSword}, {_zombieSword}, {_ghoulSword}, {_cryptoSword}, {_prudentAxe}, {_mushrewAxe}, {_curativeSword}, {_perishSword}, {_viciousBlade}, {_skeletonBow}, {_ghoulBow}, {_revenantBow}, {_jockeyBow}, {_dimBow}, {_heroicBow}, {_beginnersHoe}, {_harvestingHoe}, {_soiledHoe}, {_grimeHoe}, {_fabledHoe}, {_basicSpell}, {_vitalSpell}, {_aesirFlinger}, {_transientFlinger}, {_binarySpell}, {_serratedStaff}, {_rockShovel}, {_frostShovel}, {_glazeShovel}, {_shield})
+    set {items::toolItems::*} to ({_prototypeHoe}, {_prototypeSword}, {_prototypeBow}, {_commonSword}, {_zombieSword}, {_ghoulSword}, {_cryptoSword}, {_prudentAxe}, {_mushrewAxe}, {_curativeSword}, {_perishSword}, {_viciousBlade}, {_skeletonBow}, {_ghoulBow}, {_revenantBow}, {_jockeyBow}, {_dimBow}, {_heroicBow}, {_beginnersHoe}, {_harvestingHoe}, {_soiledHoe}, {_grimeHoe}, {_fabledHoe}, {_monomialHoe}, {_basicSpell}, {_vitalSpell}, {_aesirFlinger}, {_transientFlinger}, {_binarySpell}, {_serratedStaff}, {_rockShovel}, {_frostShovel}, {_glazeShovel}, {_shield}, {_snowFlaker})

@@ -2,9 +2,16 @@ on load:
 
 # Reforge
 
-    set {_icicleStone} to player skull with nbt "{display:{Name:""Gem (blue)""},SkullOwner:{Id:""e96057b4-3778-4d48-ac73-ce7871fa67b7"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTNlZGVlZWM2ZDczYTRiZTZlYTY4NmNjN2IxNDk1ZGU2OGU4NGMwMjQwNDRlOGQzZTIwNDFjZTQ3YTY5M2M5NSJ9fX0=""}]}}}" named "&5Icicle Stone" with lore "&7Reforge Stone.", "", "&7Can be given to the Reforger", "&7to apply the &3Ravishing&7 reforge", "&7on a pickaxe.", "", "&7Ore: &3+2", "", "&5★★&8☆☆☆" and "&5&lEPIC"
+    set {_icicleStone} to player skull with nbt "{display:{Name:""Gem (blue)""},SkullOwner:{Id:""e96057b4-3778-4d48-ac73-ce7871fa67b7"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTNlZGVlZWM2ZDczYTRiZTZlYTY4NmNjN2IxNDk1ZGU2OGU4NGMwMjQwNDRlOGQzZTIwNDFjZTQ3YTY5M2M5NSJ9fX0=""}]}}}" named "&5Icicle Stone" with lore "&7Reforge Stone.", "", "&7Can be given to the Reforger", "&7to apply the &3Ravishing&7 reforge", "&7on a shovel.", "", "&7Ore: &3+2", "", "&5★★&8☆☆☆" and "&5&lEPIC"
+    set {_refinedStone} to player skull with nbt "{display:{Name:""Silver Gem""},SkullOwner:{Id:""a1acacb4-24e6-423e-b8c3-98b08185628c"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGIyZTMyMDFmNjI1NTU2YzE0NmY2ZGUxYzljOGYyN2NjMTdiZWEzNTYxMDFmMjQ1YmViMTNhZTcyZjAwODE3MiJ9fX0=""}]}}}" named "&6Refined Stone" with lore "&7Reforge Stone.", "", "&7Can be given to the Reforger", "&7to apply the &3Refined&7 reforge", "&7on certain shovels.", "", "&7Ore: &3+5", "", "&6★&8☆☆☆☆" and "&6&lLEGENDARY"
     set {_charmingStone} to player skull with nbt "{display:{Name:""Malachite Gem""},SkullOwner:{Id:""30654419-78c7-4808-9568-26271e6ab95f"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmU2Y2EzY2U1ZDg5YWNiMDZhNjQzZjQ5ZjUyNzQ4NTVlZGVlNmVlYjFhNTQ1MTViMzA0MGExYjNmOGNiYjdhMSJ9fX0=""}]}}}" named "&5Charming Stone" with lore "&7Reforge Stone.", "", "&7Can be given to the Reforger", "&7to apply the &bCharming&7 reforge", "&7on a hoe.", "", "&7Crops: &b+3", "", "&5★&8☆☆☆☆" and "&5&lEPIC"
+    set {_swiftStone} to player skull with nbt "{display:{Name:""Citrine Gem""},SkullOwner:{Id:""83deb23f-14a5-4e8e-9885-922e8ea0ed1b"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTMzZTkyYjA2NTcxOTZjYmExODZjZTc0ZjIwMzhiOTNiZThlNDI1MWFlMmNhYTNlYmY1MWNkZWYwM2E3NDM4NCJ9fX0=""}]}}}" named "&9Swift Stone" with lore "&7Reforge Stone.", "", "&7Can be given to the Reforger", "&7to apply the &2Swift&7 reforge", "&7on certain armor pieces.", "", "&7Speed: &2+1", "", "&9★★★&8☆☆" and "&9&lRARE"
+    set {_gentleStone} to player skull with nbt "{display:{Name:""Gem (orange)""},SkullOwner:{Id:""c13932d8-214c-45f6-8554-586849397033"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWQ5Y2NmMGQyODM1MTRiM2Q3N2NhYmEwMWJmYzI2YjQ1NGM3ZDU3NGJiN2E0Y2VhMTA2NDYxZDU4ZDE1ZjNjMSJ9fX0=""}]}}}" named "&5Gentle Stone" with lore "&7Reforge Stone.", "", "&7Can be given to the Reforger", "&7to apply the &cGentle&7 reforge", "&7on a weapon.", "", "&7Damage: &c+7", "", "&5★★&8☆☆☆" and "&5&lEPIC"
 
 
-# charming
-    set {items::reforgeItems::*} to ({_icicleStone}, {_charmingStone})
+# https://minecraft-heads.com/custom-heads/decoration/39492-amethyst-gem
+# https://minecraft-heads.com/custom-heads/decoration/34896-carobbiite-gem
+# https://minecraft-heads.com/custom-heads/decoration/32365-sky-topaz
+
+
+    set {items::reforgeItems::*} to ({_icicleStone}, {_charmingStone}, {_swiftStone}, {_refinedStone}, {_gentleStone})

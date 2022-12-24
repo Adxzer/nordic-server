@@ -1,0 +1,34 @@
+function loadFarmingStand():
+
+    # Terracotta Decorations
+    set block at location(-178, 5, -38, world "world") to minecraft:yellow_terracotta
+    set block at location(-178, 4, -38, world "world") to minecraft:yellow_terracotta
+    set block at location(-177, 5, -39, world "world") to minecraft:yellow_terracotta
+    set block at location(-177, 4, -39, world "world") to minecraft:yellow_terracotta
+    set block at location(-172, 5, -40, world "world") to minecraft:yellow_terracotta
+    set block at location(-172, 4, -40, world "world") to minecraft:yellow_terracotta
+    set block at location(-172, 4, -41, world "world") to minecraft:yellow_terracotta
+
+    # Oak Wood
+    set block at location(-172, 4, -39, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-172, 5, -39, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-173, 4, -42, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-173, 5, -42, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-173, 6, -42, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-173, 7, -42, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-177, 4, -40, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-177, 5, -40, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-178, 4, -37, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-178, 5, -37, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-178, 6, -37, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-178, 7, -37, world "world") to minecraft:oak_wood[axis=y]
+
+    # Other
+    set block at location(-175, 6, -40, world "world") to minecraft:lantern[hanging=true]
+    set block at location(-178, 6, -38, world "world") to minecraft:hay_block[axis=y]
+    set block at location(-178, 4, -39, world "world") to minecraft:hay_block[axis=y]
+    
+    # Wheat
+    set block at location(-173, 4, -41, world "world") to minecraft:wheat[age=5]
+    set block at location(-175, 4, -38, world "world") to minecraft:wheat[age=6]
+    set block at location(-178, 5, -39, world "world") to minecraft:wheat[age=4]

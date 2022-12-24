@@ -1,6 +1,33 @@
 
 function loadDefaultStand():
 
+    # Remove Farming
+    set block at location(-173, 4, -41, world "world") to minecraft:air
+    set block at location(-175, 4, -38, world "world") to minecraft:air
+    set block at location(-178, 5, -39, world "world") to minecraft:air
+    set block at location(-175, 6, -40, world "world") to minecraft:air
+
+    # Remove New Year
+    set block at location(-178, 5, -39, world "world") to minecraft:air
+    set block at location(-177, 4, -35, world "world") to minecraft:air
+    set block at location(-174, 4, -39, world "world") to minecraft:air
+    set block at location(-175, 4, -42, world "world") to minecraft:air
+    set block at location(-173, 6, -40, world "world") to minecraft:air
+    set block at location(-173, 5, -40, world "world") to minecraft:air
+    set block at location(-173, 4, -40, world "world") to minecraft:air
+    set block at location(-175, 5, -38, world "world") to minecraft:air
+    set block at location(-175, 4, -38, world "world") to minecraft:air
+    set block at location(-178, 4, -39, world "world") to minecraft:air
+
+    # Remove Mining
+    set block at location(-178, 4, -39, world "world") to minecraft:air
+    set block at location(-175, 4, -38, world "world") to minecraft:air
+    set block at location(-175, 5, -38, world "world") to minecraft:air
+    set block at location(-173, 4, -40, world "world") to minecraft:air
+    set block at location(-173, 4, -41, world "world") to minecraft:air
+    set block at location(-175, 6, -40, world "world") to minecraft:air
+    set block at location(-175, 6, -40, world "world") to minecraft:air
+
     # Remove Winter Snow
     set block at location(-179, 4, -38, world "world") to minecraft:air
     set block at location(-178, 5, -39, world "world") to minecraft:air
@@ -22,11 +49,9 @@ function loadDefaultStand():
     set block at location(-173, 4, -40, world "world") to minecraft:air
     set block at location(-172, 4, -43, world "world") to minecraft:air
     set block at location(-171, 4, -40, world "world") to minecraft:air
-
-    # Remove Winter Other
     set block at location(-176, 5, -40, world "world") to minecraft:air
 
-        # Spruce Wood
+    # Spruce Wood
     set block at location(-172, 4, -39, world "world") to minecraft:spruce_wood[axis=y]
     set block at location(-172, 5, -39, world "world") to minecraft:spruce_wood[axis=y]
     set block at location(-173, 4, -42, world "world") to minecraft:spruce_wood[axis=y]
@@ -40,7 +65,7 @@ function loadDefaultStand():
     set block at location(-178, 6, -37, world "world") to minecraft:spruce_wood[axis=y]
     set block at location(-178, 7, -37, world "world") to minecraft:spruce_wood[axis=y]
 
-        # Green Terracotta
+    # Green Terracotta
     set block at location(-178, 5, -38, world "world") to minecraft:green_terracotta
     set block at location(-178, 4, -38, world "world") to minecraft:green_terracotta
     set block at location(-177, 5, -39, world "world") to minecraft:green_terracotta
@@ -49,7 +74,7 @@ function loadDefaultStand():
     set block at location(-172, 4, -40, world "world") to minecraft:green_terracotta
     set block at location(-172, 4, -41, world "world") to minecraft:green_terracotta
 
-        # Spruce slabs and stairs
+    # Spruce slabs and stairs
     set block at location(-174, 4, -42, world "world") to minecraft:spruce_stairs[facing=east,half=top,shape=straight]
     set block at location(-176, 4, -40, world "world") to minecraft:spruce_stairs[facing=west,half=top,shape=straight]
     set block at location(-175, 4, -40, world "world") to minecraft:spruce_slab[type=top]
@@ -69,7 +94,7 @@ function loadDefaultStand():
     set block at location(-177, 6, -37, world "world") to minecraft:spruce_slab[type=top]
     set block at location(-177, 7, -38, world "world") to minecraft:spruce_slab[type=bottom]
 
-        # Cobblestone slabs
+    # Cobblestone slabs
     set block at location(-178, 8, -37, world "world") to minecraft:cobblestone_slab[type=bottom]
     set block at location(-178, 7, -38, world "world") to minecraft:cobblestone_slab[type=bottom]
     set block at location(-177, 6, -39, world "world") to minecraft:cobblestone_slab[type=top]
@@ -83,7 +108,7 @@ function loadDefaultStand():
     set block at location(-172, 6, -40, world "world") to minecraft:cobblestone_slab[type=top]
     set block at location(-172, 6, -39, world "world") to minecraft:cobblestone_slab[type=bottom]
 
-        # Spruce fence
+    # Spruce fence
     set block at location(-173, 5, -43, world "world") to minecraft:spruce_fence[south=true]
     set block at location(-172, 5, -42, world "world") to minecraft:spruce_fence[south=true,west=true]
     set block at location(-172, 5, -41, world "world") to minecraft:spruce_fence[north=true,south=true]
@@ -94,7 +119,7 @@ function loadDefaultStand():
     set block at location(-178, 6, -36, world "world") to minecraft:spruce_fence[north=true]
     set block at location(-179, 5, -37, world "world") to minecraft:spruce_fence[east=true]
 
-        # Stone Wall
+    # Stone Wall
     set block at location(-173, 4, -43, world "world") to minecraft:cobblestone_wall[up=true,south=tall]
     set block at location(-172, 4, -42, world "world") to minecraft:cobblestone_wall[up=true,south=tall,west=tall]
     set block at location(-172, 6, -41, world "world") to minecraft:cobblestone_wall[up=true]
@@ -106,7 +131,20 @@ function loadDefaultStand():
     set block at location(-177, 4, -41, world "world") to minecraft:cobblestone_wall[up=true,south=tall]
     set block at location(-177, 5, -41, world "world") to minecraft:cobblestone_wall[up=true,south=tall]
 
-        # Other
+    # Other
     set block at location(-178, 4, -39, world "world") to minecraft:oak_leaves
     set block at location(-178, 6, -38, world "world") to minecraft:oak_leaves
 
+
+command /load [<text>]:
+    permission: op
+    trigger:
+        loadDefaultStand()
+        if arg-1 is "winter":
+            loadWinterStand()
+        else if arg-1 is "farming":
+            loadFarmingStand()
+        else if arg-1 is "year":
+            loadNewYearStand()
+        else if arg-1 is "mining":
+            loadMiningStand()

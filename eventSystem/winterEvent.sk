@@ -33,10 +33,3 @@ function loadWinterStand():
 
     # Other
     set block at location(-176, 5, -40, world "world") to minecraft:soul_lantern
-
-command /load [<text>]:
-    permission: op
-    trigger:
-        loadDefaultStand()
-        if arg-1 is "winter":
-            loadWinterStand()

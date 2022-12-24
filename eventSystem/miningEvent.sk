@@ -1,0 +1,39 @@
+function loadMiningStand():
+
+    # Terracotta Decorations
+    set block at location(-178, 5, -38, world "world") to minecraft:stone
+    set block at location(-178, 4, -38, world "world") to minecraft:cobbled_deepslate
+    set block at location(-177, 5, -39, world "world") to minecraft:cyan_terracotta
+    set block at location(-177, 4, -39, world "world") to minecraft:stone
+    set block at location(-172, 5, -40, world "world") to minecraft:cobbled_deepslate
+    set block at location(-172, 4, -40, world "world") to minecraft:cyan_terracotta
+    set block at location(-172, 4, -41, world "world") to minecraft:stone
+    set block at location(-178, 6, -38, world "world") to minecraft:cyan_terracotta
+
+    # Oak Wood
+    set block at location(-172, 4, -39, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-172, 5, -39, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-173, 4, -42, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-173, 5, -42, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-173, 6, -42, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-173, 7, -42, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-177, 4, -40, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-177, 5, -40, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-178, 4, -37, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-178, 5, -37, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-178, 6, -37, world "world") to minecraft:oak_wood[axis=y]
+    set block at location(-178, 7, -37, world "world") to minecraft:oak_wood[axis=y]
+
+    # Deepslate slabs
+    set block at location(-178, 7, -38, world "world") to minecraft:cobbled_deepslate_slab[type=bottom]
+    set block at location(-177, 6, -39, world "world") to minecraft:cobbled_deepslate_slab[type=top]
+    set block at location(-177, 6, -40, world "world") to minecraft:cobbled_deepslate_slab[type=bottom]
+    set block at location(-176, 6, -40, world "world") to minecraft:cobbled_deepslate_slab[type=top]
+    set block at location(-175, 7, -41, world "world") to minecraft:cobbled_deepslate_slab[type=bottom]
+    set block at location(-174, 7, -41, world "world") to minecraft:cobbled_deepslate_slab[type=top]
+    set block at location(-173, 8, -42, world "world") to minecraft:cobbled_deepslate_slab[type=bottom]
+
+    # Other
+    set block at location(-178, 4, -39, world "world") to minecraft:gold_block
+    set block at location(-175, 4, -38, world "world") to minecraft:chain[axis=y]
+    set block at location(-175, 5, -38, world "world") to minecraft:chain[axis=y]

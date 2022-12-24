@@ -4,6 +4,8 @@ function dateStartFarmingFestival():
     add 1 to {event::farming::amount}
     clear {event::farming::collected::*}
 
+# Noah Teleport : /npc select 36 /npc moveto -173 4 -40 world
+
 function dateEndFarmingFestival():
 
     set {event::farming::status} to false
@@ -157,8 +159,9 @@ function dateGetNextEvent(position: integer) :: string:
     set {_farming} to 0
     set {_winter} to 0
     set {_yearly} to 0
+    set {_mining} to 0
 
-    loop 30 times:
+    loop 40 times:
 
         if {_counter} is between 0 and 9:
             set {_event} to dateEventGetTime("%{event::winter::amount} + {_winter}% Winter Wonderland")
@@ -169,6 +172,9 @@ function dateGetNextEvent(position: integer) :: string:
         else if {_counter} is between 20 and 29:
             set {_event} to dateEventGetTime("%{event::yearly::amount} + {_yearly}% New Year")
             add 1 to {_yearly}
+        else if {_counter} is between 30 and 39:
+            set {_event} to dateEventGetTime("%{event::mining::amount} + {_mining}% Mining Carnival")
+            add 1 to {_mining}
 
         set {_event::*} to {_event} split at " "
         set {_month} to dateGetMonthInteger({_event::1})
@@ -191,12 +197,14 @@ function dateGetNextEvent(position: integer) :: string:
     set {_counter} to 0
     loop sorted indices of {_events::*} in ascending order:
         add 1 to {_counter}
-        if {_counter} is {_position}:   
+        if {_counter} is {_position}: 
             set {_var::*} to split "%{_return::%{_events::%loop-value%}%}%" at " "
             if {_var::2} is "1st":
                 return "&b%dateGetDay({_var::4} parsed as integer)% Winter Wonderland:%{_return::%{_events::%loop-value%}%}%"
             else if {_var::2} is "18th":
                 return "&eFarming Festival:%{_return::%{_events::%loop-value%}%}%"
+            else if {_var::2} is "6th":
+                return "&3Mining Carnival:%{_return::%{_events::%loop-value%}%}%"
             else if {_var::2} is "29th":
                 return "&d%dateGetDay({_var::4} parsed as integer)% New Year:%{_return::%{_events::%loop-value%}%}%"
 
@@ -207,6 +215,8 @@ function dateEventGetTime(event: string) :: string:
         set {_active} to "winter"
     else if "%{_event::2}% %{_event::3}%" is "Farming Festival":
         set {_active} to "farming"
+    else if "%{_event::2}% %{_event::3}%" is "Mining Carnival":
+        set {_active} to "mining"
     else if {_event::3} is "Year":
         set {_active} to "yearly"
     else:
@@ -226,6 +236,8 @@ function dateEventGetTime(event: string) :: string:
             set {_month} to "Oct"
         
         return "%{_month}% 18th Year %ceil({_number} / 3) - 1%"
+    else if {_active} is "mining":
+        return "Feb 6th Year %{_number} * 2%"
     else if {_active} is "yearly":
         return "Dec 29th Year %{_number}%"
 
@@ -250,7 +262,7 @@ function dateGetTimeTo(time: string) :: string:
     set {_timeNow} to {_hours2} * 60 + {minute}
     set {_difference} to ({_timeTo} - {_timeNow})
 
-    set {_getSeconds} to {_difference} * 0.75
+    set {_getSeconds} to ({_difference} / 3) * 0.75
     set {_getMinutes} to {_getSeconds} / 60
     set {_getHours} to {_getMinutes} / 60
     set {_getDays} to {_getHours} / 24
@@ -299,6 +311,8 @@ function dateCreateCalendar(player: player, name: string):
                 set slot {_borderIndex} of metadata tag "calendar" of {_player} to powder snow bucket named "%{_name}%" with lore "&7The yearly winter time event for", "&7all the players to enjoy.", "", "&7Server date: &f%{_year}%", "&7Starting in: &f%dateGetTimeTo({_year})%"
             else if uncolored {_name} contains "Farming Festival":
                 set slot {_borderIndex} of metadata tag "calendar" of {_player} to wheat named "%{_name}%" with lore "&7Seasonal festival for all the", "&7farmers on the server.", "", "&7Server date: &f%{_year}%", "&7Starting in: &f%dateGetTimeTo({_year})%"
+            else if uncolored {_name} contains "Mining Carnival":
+                set slot {_borderIndex} of metadata tag "calendar" of {_player} to prismarine shard named "%{_name}%" with lore "&7Cole visits the server for", "&7the infrequent Mining Carnival.", "", "&7Server date: &f%{_year}%", "&7Starting in: &f%dateGetTimeTo({_year})%"
             else if uncolored {_name} contains "Year":
                 set slot {_borderIndex} of metadata tag "calendar" of {_player} to cake named "%{_name}%" with lore "&7Clocking in the new year", "&7with fireworks and happiness.", "", "&7Server date: &f%{_year}%", "&7Starting in: &f%dateGetTimeTo({_year})%"
 
@@ -315,9 +329,9 @@ on inventory click:
         if index of event-slot is 49:
             open (metadata tag "menu" of player) to player
 
-every 15 ticks:
+every 30 ticks:
 
-    add 1 to {minute}
+    add 6 to {minute}
 
     if {minute} >= 60:
 

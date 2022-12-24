@@ -43,8 +43,8 @@ on join:
     set {health::currentHearts::%player's uuid%} to {health::maxHearts::%player's uuid%}
     set {mana::currentMana::%player's uuid%} to {mana::maxMana::%player's uuid%}
     set {combat::%player's uuid%} to false
-    set slot 7 of player's inventory to book named "&aQuest Book" with lore "&7View all your active quests and", "&7how many you have left to finish.", "" and "&eView (Right Click)"
-    set slot 8 of player's inventory to nether star named "&aRemote Menu" with lore "&7A remote menu to access special", "&7features and view your current stats.", "" and "&eLeft (Right Click)"
+    set slot 7 of player's inventory to book named "<##5EB6B6>Quest Book" with lore "&7View all your active quests and", "&7how many you have left to finish.", "" and "&eView (Right Click)"
+    set slot 8 of player's inventory to nether star named "<##5EB6B6>Remote Menu" with lore "&7A remote menu to access special", "&7features and view your current stats.", "" and "&eLeft (Right Click)"
 
     toggle scoreboard of all players on
     while player is online:

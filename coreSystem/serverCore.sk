@@ -46,7 +46,24 @@ function coreCheckLevel(player: player):
         add 1 to {level::%{_u}%}
         set {xp::%{_u}%} to 0
         play sound "ENTITY_PLAYER_LEVELUP" with volume 0.2 to {_player}
-        send "<##508a7f>[<##5EB6B6>&lLEVEL<##508a7f>] » &fYou just leveled up to level &3%{level::%{_u}%}%&f and gained &c+2❤ &fand &6+1✦&f." to {_player}
+        if {level::%{_u}%} is 5:
+            send "&7&m                                                                  " to {_player}
+            send "" to {_player}
+            send "  <##508a7f>[<##5EB6B6>&lLEVEL UP<##508a7f>]" to {_player}
+            send "" to {_player}
+            send "    &fYou just leveled up to level <##5EB6B6>%{level::%{_u}%}%!" to {_player}
+            send "     <##5EB6B6>- &fYou gained &c+2❤&f, &6+1✦&f and unlocked the <##5EB6B6>Bestiary&f." to {_player}
+            send "" to {_player}
+            send "&7&m                                                                  " to {_player}
+        else:
+            send "&7&m                                                                  " to {_player}
+            send "" to {_player}
+            send "  <##508a7f>[<##5EB6B6>&lLEVEL UP<##508a7f>]" to {_player}
+            send "" to {_player}
+            send "    &fYou just leveled up to level <##5EB6B6>%{level::%{_u}%}%!" to {_player}
+            send "     <##5EB6B6>- &fYou gained &c+2❤ &fand &6+1✦&f!" to {_player}
+            send "" to {_player}
+            send "&7&m                                                                  " to {_player}
 
 function coreAddXp(player: player, experience: number):
 
@@ -212,6 +229,37 @@ function coreKillDrop(player: player, amount: number, drop: item):
         coreCheckLevel({_player})
         set {actionBarSet::%{_u}%} to true
 
+function coreDropCheckUpgrade(player: player, item: item) :: item:
+
+    if uncolored name of {_item} is "Wheat", "Potato", "Carrot" or "Wart":
+
+        if {_player}'s inventory contains beehive:
+
+            set {_item} to 1 of {_item}
+            loop {_player}'s inventory:
+                if uncolored name of loop-value is uncolored name of {_item}:
+                    add item amount of loop-value to {_amount}
+
+            set {_full} to item amount of {_item} + {_amount}
+            if uncolored name of {_item} is "Wheat":
+                if {_full} is greater than or equal to 248:
+                    remove {_amount} of {_item} from {_player}'s inventory
+                    return {items::dropItems::15}
+            else if uncolored name of {_item} is "Potato":
+                if {_full} is greater than or equal to 512:
+                    remove {_amount} of {_item} from {_player}'s inventory
+                    return {items::dropItems::27}
+            else if uncolored name of {_item} is "Carrot":
+                if {_full} is greater than or equal to 512:
+                    remove {_amount} of {_item} from {_player}'s inventory
+                    return {items::dropItems::28}
+            else if uncolored name of {_item} is "Wart":
+                if {_full} is greater than or equal to 248:
+                    remove {_amount} of {_item} from {_player}'s inventory
+                    return {items::dropItems::32}
+
+    return air
+
 function coreBreakDrop(player: player, tool: item, reward: item, min: number, max: number, experience: number) :: number:
     
     set {_u} to uuid of {_player}
@@ -232,7 +280,11 @@ function coreBreakDrop(player: player, tool: item, reward: item, min: number, ma
                 set {_random} to random number between {_min} and {_max}
                 
                 if {_player}'s inventory have space for {_random} of {_reward}:
-                    give {_player} {_random} of {_reward}
+                    set {_upgrade} to coreDropCheckUpgrade({_player}, ({_random} of {_reward}))
+                    if {_upgrade} is not air:
+                        give {_player} {_upgrade}
+                    else:
+                        give {_player} {_random} of {_reward}
                     coreAddXp({_player}, {_experience})
                     coreCheckLevel({_player})
                     return round({_random})
@@ -251,7 +303,11 @@ function coreBreakDrop(player: player, tool: item, reward: item, min: number, ma
         set {_random} to random number between {_min} and {_max}
         
         if {_player}'s inventory have space for {_random} of {_reward}:
-            give {_player} {_random} of {_reward}
+            set {_upgrade} to coreDropCheckUpgrade({_player}, ({_random} of {_reward}))
+            if {_upgrade} is not air:
+                give {_player} {_upgrade}
+            else:
+                give {_player} {_random} of {_reward}
             coreAddXp({_player}, {_experience})
             coreCheckLevel({_player})
             return round({_random})
@@ -318,11 +374,18 @@ function coreDamageBoost(player: player, tool: item) :: number:
         loop {_lore::*}:
             if loop-value contains "Damage":
                 set {_damage::*} to split uncolored loop-value at "+"
+                set {_damage} to {_damage::2} parsed as integer
+                set {_split::*} to split uncolored loop-value at " "
+                if {_split::3} is set:
+                    set {_attributes::*} to split {_split::4} at "+"
+                    set {_attributes::*} to split {_attributes::2} at ")"
+                    set {_regular::*} to split {_split::2} at "+"
+                    set {_damage} to ({_attributes::1} parsed as integer) + ({_regular::2} parsed as integer)
             else if loop-value contains "Level":
                 set {_level::*} to split uncolored loop-value at "⚗"
 
         if {level::%{_u}%} >= {_level::2} parsed as integer:
-            return {_damage::2} parsed as integer
+            return {_damage}
 
         else:
             set {actionBarSet::%{_u}%} to true

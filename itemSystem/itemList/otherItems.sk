@@ -1,0 +1,7 @@
+on load:
+
+# Other
+
+    set {_supplyBasket} to beehive named "&5Supply Basket" with lore "&7Miscellaneous item.", "", "&7Automatically turns &bWheat&7, &bCarrot&7,", "&bPotato &7and &bWart&7 into their more", "&7worthy and upgraded form.", "", "&5★★★★&8☆" and "&5&lEPIC"
+
+    set {items::otherItems::*} to ({_supplyBasket})

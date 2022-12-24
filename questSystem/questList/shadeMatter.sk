@@ -29,7 +29,7 @@ on npc rightclick:
             set {quests::shadeMatter::interaction::%player's uuid%::6} to true
             questNew(player, {quests::shadeMatter::name})
         else if {quests::shadeMatter::interaction::%player's uuid%::7} is false:  
-            if player's inventory contains 246 of wither rose:
+            if player's inventory contains 86 of wither rose:
                 set {quests::shadeMatter::interaction::%player's uuid%::7} to true
                 send "%{quests::shadeMatter::dialouge::8}%"
                 set {quests::shadeMatter::interaction::%player's uuid%::8} to true
@@ -48,7 +48,7 @@ on npc rightclick:
                         set {_teplateBoots} to loop-value 
                     else if uncolored name of loop-value is "Teplate Sticks":
                         set {_teplateSticks} to loop-value 
-                remove 246 of wither rose from player
+                remove 86 of wither rose from player
                 give player 12 of {_gemstone}
                 give player {_teplateCap}, {_teplateTunic}, {_teplatePants}, {_teplateBoots}, {_teplateSticks}
                 wait 3 seconds

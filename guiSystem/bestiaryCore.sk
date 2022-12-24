@@ -34,19 +34,19 @@ function bestiaryCreateItem(player: player, name: string):
 
         if {_borderIndex} is 21:
             set {_farmingString} to "Farming"
-            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone hoe named "&aFarming" with lore "&7View your farming bestiary", "&7and items you have discovered.", "","&7Collection: &f%{guiSystem/bestiaryCore._Farming::_collected}%/%{guiSystem/bestiaryCore._Farming::_progress}%", {guiSystem/bestiaryCore._Farming::_addBar}, "" and "&eView (Left Click)" with all flags hidden
+            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone hoe named "<##5EB6B6>Farming" with lore "&7View your farming bestiary", "&7and items you have discovered.", "","&7Collection: &f%{guiSystem/bestiaryCore._Farming::_collected}%/%{guiSystem/bestiaryCore._Farming::_progress}%", {guiSystem/bestiaryCore._Farming::_addBar}, "" and "&eView (Left Click)" with all flags hidden
             
         if {_borderIndex} is 22:
             set {_slayingString} to "Slaying"
-            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone sword named "&aSlaying" with lore "&7View your slaying bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Slaying::_collected}%/%{guiSystem/bestiaryCore._Slaying::_progress}%", {guiSystem/bestiaryCore._Slaying::_addBar}, "", "&eView (Left Click)" with all flags hidden
+            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone sword named "<##5EB6B6>Slaying" with lore "&7View your slaying bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Slaying::_collected}%/%{guiSystem/bestiaryCore._Slaying::_progress}%", {guiSystem/bestiaryCore._Slaying::_addBar}, "", "&eView (Left Click)" with all flags hidden
 
         if {_borderIndex} is 23:
             set {_miningString} to "Mining"
-            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone pickaxe named "&aMining" with lore "&7View your mining bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Mining::_collected}%/%{guiSystem/bestiaryCore._Mining::_progress}%", {guiSystem/bestiaryCore._Mining::_addBar}, "", "&eView (Left Click)" with all flags hidden
+            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to stone pickaxe named "<##5EB6B6>Mining" with lore "&7View your mining bestiary", "&7and items you have discovered.", "", "&7Collection: &f%{guiSystem/bestiaryCore._Mining::_collected}%/%{guiSystem/bestiaryCore._Mining::_progress}%", {guiSystem/bestiaryCore._Mining::_addBar}, "", "&eView (Left Click)" with all flags hidden
 
         if {_borderIndex} is 31:
             set {_bossString} to "Boss"
-            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to wither skeleton skull named "&aBoss" with lore "&7View your boss bestiary", "&7and items you have discovered.",  "", "&7Collection: &f%{guiSystem/bestiaryCore._Boss::_collected}%/%{guiSystem/bestiaryCore._Boss::_progress}%", {guiSystem/bestiaryCore._Boss::_addBar}, "", "&eView (Left Click)" with all flags hidden
+            set slot {_borderIndex} of metadata tag "bestiary" of {_player} to wither skeleton skull named "<##5EB6B6>Boss" with lore "&7View your boss bestiary", "&7and items you have discovered.",  "", "&7Collection: &f%{guiSystem/bestiaryCore._Boss::_collected}%/%{guiSystem/bestiaryCore._Boss::_progress}%", {guiSystem/bestiaryCore._Boss::_addBar}, "", "&eView (Left Click)" with all flags hidden
 
         add 1 to {_borderIndex}
 
@@ -62,15 +62,15 @@ function bestiaryGetLeaderboardRank(position: number, target: string) :: string:
 function bestiaryGetLeaderboardItem(player: player, position: number, return: string, target: string) :: item:
 
     set {_user} to {_return} parsed as offline player
-    set {_rank} to ({_user})'s head named "&a%{_user}%" with lore "&7This player have mastered %{_target}% and", "&7is currently on the leaderboard.", "", "&7Collection: &a%bestiaryGetFormat(round({bestiary::%{_target}%::collected::%{_user}'s uuid%}))%", "&7Ranked: &a##%{_position}%" with all flags hidden
+    set {_rank} to ({_user})'s head named "<##5EB6B6>%{_user}%" with lore "&7This player have mastered %{_target}% and", "&7is currently on the leaderboard.", "", "&7Collection: <##5EB6B6>%bestiaryGetFormat(round({bestiary::%{_target}%::collected::%{_user}'s uuid%}))%", "&7Ranked: <##5EB6B6>##%{_position}%" with all flags hidden
             
     if {_player} is not {_user}:
         if {bestiary::%{_target}%::collected::%{_player}'s uuid%} is greater than {bestiary::%{_target}%::collected::%{_user}'s uuid%}:
             add "", "&7You are above this player." to lore of {_rank}   
         else:
-            add "", "&7The difference between you" and "&7and this player is &a%bestiaryGetFormat(round({bestiary::%{_target}%::collected::%{_user}'s uuid%} - {bestiary::%{_target}%::collected::%{_player}'s uuid%}))%&7." to lore of {_rank}
+            add "", "&7The difference between you" and "&7and this player is <##5EB6B6>%bestiaryGetFormat(round({bestiary::%{_target}%::collected::%{_user}'s uuid%} - {bestiary::%{_target}%::collected::%{_player}'s uuid%}))%&7." to lore of {_rank}
     else:
-        add "", "&7This is &ayou&7, well done." to lore of {_rank}   
+        add "", "&7This is <##5EB6B6>you&7, well done." to lore of {_rank}   
     return {_rank}
 
 function bestiaryCreateLeaderboard(player: player, target: string, name: string):
@@ -194,36 +194,36 @@ function bestiaryGetItemLore(player: player, target: string) :: item:
             set {_rank} to bestiaryGetRank({_player}, {_target})
             
             if {_collected} is between 0 and 1000:
-                set {_last} to "&7You are a %{_target}% &8beginner&7."
+                set {_last} to "&7You are %{_target}% &8beginner&7."
                 add "&7Collected: &8%bestiaryGetFormat({_collected})%", "&7Ranked: &8##%{_rank}%", "", {_last} to lore of {_return} 
                 set {_addBar} to "&8&m "
                 set {_progress} to 1000
             else if {_collected} is between 1001 and 5000:
-                set {_last} to "&7You are a %{_target}% &enovice&7."
+                set {_last} to "&7You are %{_target}% &enovice&7."
                 add "&7Collected: &e%bestiaryGetFormat({_collected})%", "&7Ranked: &e##%{_rank}%", "", {_last} to lore of {_return} 
                 set {_addBar} to "&e&m "
                 set {_progress} to 5000
             else if {_collected} is between 5001 and 25000:
-                set {_last} to "&7You are a %{_target}% &badequate&7."
+                set {_last} to "&7You are %{_target}% &badequate&7."
                 add "&7Collected: &b%bestiaryGetFormat({_collected})%", "&7Ranked: &b##%{_rank}%", "", {_last} to lore of {_return} 
                 set {_addBar} to "&b&m "
                 set {_progress} to 25000
             else if {_collected} is between 25001 and 100000:
-                set {_last} to "&7You are a %{_target}% &9proficient&7."
+                set {_last} to "&7You are %{_target}% &9proficient&7."
                 add "&7Collected: &9%bestiaryGetFormat({_collected})%", "&7Ranked: &9##%{_rank}%", "", {_last} to lore of {_return} 
                 set {_addBar} to "&9&m "
                 set {_progress} to 100000
             else:
-                set {_last} to "&7You are a %{_target}% &6expert&7."
+                set {_last} to "&7You are %{_target}% &6expert&7."
                 add "&7Collected: &6%bestiaryGetFormat({_collected})%", "&7Ranked: &6##%{_rank}%", "", {_last} to lore of {_return} 
                 set {_addBar} to "&6&m "
                 
-            set name of {_return} to "&a%{_target}%"
+            set name of {_return} to "<##5EB6B6>%{_target}%"
 
             set {_bar} to ""
-            loop (length of {_last} + 2) times:
+            loop (length of {_last}) times:
                 if {_progress} is set:
-                    if {_collected} >= (({_progress}) / ((length of {_last} + 2)) * loop-number):
+                    if {_collected} >= (({_progress}) / ((length of {_last})) * loop-number):
                         set {_bar} to "%{_bar}%%{_addBar}%"
                     else:
                         set {_bar} to "%{_bar}%&7&m "

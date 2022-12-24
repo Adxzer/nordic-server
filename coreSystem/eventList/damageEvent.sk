@@ -1,5 +1,8 @@
 on damage:
 
+    if victim is item frame:
+        cancel event
+        stop trigger
 
     if "%damage cause%" is "fall", "lightning" or "contact":
     

@@ -1,4 +1,4 @@
 on swap hand items:
 
-    if player's tool is book or nether star:
+    if player's tool is book, trident or nether star:
         cancel event
