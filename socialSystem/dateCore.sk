@@ -1,14 +1,251 @@
+function dateLaunchFireworks():
+
+    loop 50 times:
+
+        set {_random1} to random number between -3 and 3
+        set {_random2} to random number between -3 and 3
+        set {_random3} to random number between -3 and 3
+
+        launch flickering trailing burst firework colored blue and green at location(-184 + {_random1}, 4 + {_random2}, -35 + {_random3}, world "world")
+        launch trailing flickering star coloured purple, yellow, blue, green and red fading to pink at location(-184 + {_random3}, 4 + {_random2}, -35 + {_random2}, world "world")
+        launch ball large coloured red, purple and white fading to light green and black at location(-184 + {_random2}, 4 + {_random3}, -35 + {_random1}, world "world")
+        wait 15 ticks
+
 function dateStartFarmingFestival():
 
     set {event::farming::status} to true
     add 1 to {event::farming::amount}
     clear {event::farming::collected::*}
 
-# Noah Teleport : /npc select 36 /npc moveto -173 4 -40 world
+    make console execute command "hd setline eventNpcTag 1 &7&lCLICK"
+    make console execute command "load farming"
+
+    make console execute command "npc select 36"
+    make console execute command "npc moveto -173 4 -40 world"
+
+    play sound "BLOCK_NOTE_BLOCK_PLING" with volume 0.2 to all players
+    play sound "BLOCK_NOTE_BLOCK_BELL" with volume 0.2 to all players
+    
+    broadcast "&7&m                                                                  "
+    broadcast ""
+    broadcast "  &e&lFARMING FESTIVAL"
+    broadcast ""
+    broadcast "    &7Head down to Arland to view the leaderboard. Don't forget"
+    broadcast "    &7to talk to Noah and buy his exclusive farming items!"
+    broadcast ""
+    broadcast "  &f%dateGetMonth({month})% %dateGetDay({day})% &f%uncolored dateGetYear({year})%"
+    broadcast ""
+    broadcast "&7&m                                                                  "
 
 function dateEndFarmingFestival():
 
     set {event::farming::status} to false
+    make console execute command "hd setline eventNpcTag 1 &7"
+    make console execute command "load"
+
+    make console execute command "npc select 36"
+    make console execute command "npc moveto -634 1 -481 world"
+
+    loop sorted indices of {event::farming::collected::*} in descending order:
+
+        add 1 to {_counter}
+        if {_counter} is less than 5:
+
+            set {_user} to loop-value parsed as offline player
+            set {_u} to uuid of {_user}
+            set {_top::%{_counter}%} to {_u}
+            add bucket of axolotl of unbreaking 1 named "&cDelightful Bucket" with lore "&7Event Trophie.", "", "&7A reward granted from placing", "&7%dateGetDay({_counter})% in the &eFarming Festival &7event.", "",  "&c★★★★&8☆" and "&c&lSPECIAL" with all flags hidden to {event::rewards::%{_u}%::*}
+        else:
+            stop loop
+
+    broadcast "&7&m                                                                  "
+    broadcast ""
+    broadcast "  &e&lFARMING FESTIVAL"
+    broadcast ""
+    broadcast "    &fThank you everyone for participating, here's the top 4"
+    broadcast "    &ffrom the Farming Festival event:"
+    broadcast ""
+    broadcast "    &61## &7%{_top::1} parsed as offline player% &e%bestiaryGetFormat(round({event::farming::collected::%{_top::1}%}))%"
+    broadcast "    &62## &7%{_top::2} parsed as offline player% &e%bestiaryGetFormat(round({event::farming::collected::%{_top::2}%}))%"
+    broadcast "    &63## &7%{_top::3} parsed as offline player% &e%bestiaryGetFormat(round({event::farming::collected::%{_top::3}%}))%"
+    broadcast "    &64## &7%{_top::4} parsed as offline player% &e%bestiaryGetFormat(round({event::farming::collected::%{_top::4}%}))%"
+    broadcast ""
+    broadcast "  &f%dateGetMonth({month})% %dateGetDay({day})% &f%uncolored dateGetYear({year})%"
+    broadcast ""
+    broadcast "&7&m                                                                  "
+
+
+function dateStartMiningCarnival():
+
+    set {event::mining::status} to true
+    add 1 to {event::mining::amount}
+    clear {event::mining::collected::*}
+
+    make console execute command "hd setline eventNpcTag 1 &7&lCLICK"
+    make console execute command "load mining"
+
+    make console execute command "npc select 40"
+    make console execute command "npc moveto -173 4 -40 world"
+
+    play sound "BLOCK_NOTE_BLOCK_PLING" with volume 0.2 to all players
+    play sound "BLOCK_NOTE_BLOCK_BELL" with volume 0.2 to all players
+    
+    broadcast "&7&m                                                                  "
+    broadcast ""
+    broadcast "  &3&lMINING CARNIVAL"
+    broadcast ""
+    broadcast "    &7Cole has visited Arland for his yearly Mining Carnival,"
+    broadcast "    &7get down there and see what he has to offer!"
+    broadcast ""
+    broadcast "  &f%dateGetMonth({month})% %dateGetDay({day})% &f%uncolored dateGetYear({year})%"
+    broadcast ""
+    broadcast "&7&m                                                                  "
+
+function dateEndMiningCarnival():
+
+    set {event::mining::status} to false
+    make console execute command "hd setline eventNpcTag 1 &7"
+    make console execute command "load"
+
+    make console execute command "npc select 40"
+    make console execute command "npc moveto -634 1 -481 world"
+
+    loop sorted indices of {event::mining::collected::*} in descending order:
+
+        add 1 to {_counter}
+        if {_counter} is less than 5:
+
+            set {_user} to loop-value parsed as offline player
+            set {_u} to uuid of {_user}
+            set {_top::%{_counter}%} to {_u}
+            add bucket of pufferfish of unbreaking 1 named "&cIndustrious Bucket" with lore "&7Event Trophie.", "", "&7A reward granted from placing", "&7%dateGetDay({_counter})% in the &3Mining Carnival &7event.", "",  "&c★★★★&8☆" and "&c&lSPECIAL" with all flags hidden to {event::rewards::%{_u}%::*}
+        else:
+            stop loop
+
+    broadcast "&7&m                                                                  "
+    broadcast ""
+    broadcast "  &3&lMINING CARNIVAL"
+    broadcast ""
+    broadcast "    &fThank you everyone for participating, here's the top 4"
+    broadcast "    &ffrom the Mining Carnival event:"
+    broadcast ""
+    broadcast "    &b1## &7%{_top::1} parsed as offline player% &3%bestiaryGetFormat(round({event::mining::collected::%{_top::1}%}))%"
+    broadcast "    &b2## &7%{_top::2} parsed as offline player% &3%bestiaryGetFormat(round({event::mining::collected::%{_top::2}%}))%"
+    broadcast "    &b3## &7%{_top::3} parsed as offline player% &3%bestiaryGetFormat(round({event::mining::collected::%{_top::3}%}))%"
+    broadcast "    &b4## &7%{_top::4} parsed as offline player% &3%bestiaryGetFormat(round({event::mining::collected::%{_top::4}%}))%"
+    broadcast ""
+    broadcast "  &f%dateGetMonth({month})% %dateGetDay({day})% &f%uncolored dateGetYear({year})%"
+    broadcast ""
+    broadcast "&7&m                                                                  "
+
+function dateStartWinterWonderland():
+
+    set {event::winter::status} to true
+    add 1 to {event::winter::amount}
+    clear {event::snowball::collected::*}
+
+    make console execute command "hd setline eventNpcTag 1 &7&lCLICK"
+    make console execute command "load winter"
+
+    make console execute command "npc select 37"
+    make console execute command "npc moveto -173 4 -40 world"
+
+    play sound "BLOCK_NOTE_BLOCK_PLING" with volume 0.2 to all players
+    play sound "BLOCK_NOTE_BLOCK_BELL" with volume 0.2 to all players
+    
+    broadcast "&7&m                                                                  "
+    broadcast ""
+    broadcast "  &b&lWINTER WONDERLAND"
+    broadcast ""
+    broadcast "    &7Alfred is back with his snowball fight! Visit him at"
+    broadcast "    &7his stand to buy gifts and participate in the event!"
+    broadcast ""
+    broadcast "  &f%dateGetMonth({month})% %dateGetDay({day})% &f%uncolored dateGetYear({year})%"
+    broadcast ""
+    broadcast "&7&m                                                                  "
+
+function dateEndWinterWonderland():
+
+    set {event::winter::status} to false
+    make console execute command "hd setline eventNpcTag 1 &7"
+    make console execute command "load"
+
+    make console execute command "npc select 37"
+    make console execute command "npc moveto -634 1 -481 world"
+
+    loop sorted indices of {event::snowball::collected::*} in descending order:
+
+        add 1 to {_counter}
+        if {_counter} is less than 5:
+
+            set {_user} to loop-value parsed as offline player
+            set {_u} to uuid of {_user}
+            set {_top::%{_counter}%} to {_u}
+            
+            add powder snow bucket of unbreaking 1 named "&cChilly Bucket" with lore "&7Event Trophie.", "", "&7A reward granted from placing", "&7%dateGetDay({_counter})% in the &bWinter Wonderland &7event.", "",  "&c★★★★★&8" and "&c&lSPECIAL" with all flags hidden to {event::rewards::%{_u}%::*}
+        else:
+            stop loop
+
+    broadcast "&7&m                                                                  "
+    broadcast ""
+    broadcast "  &b&lWINTER WONDERLAND"
+    broadcast ""
+    broadcast "    &fThank you everyone for participating, here's the top 4"
+    broadcast "    &ffrom the Winter Wonderland event:"
+    broadcast ""
+    broadcast "    &91## &7%{_top::1} parsed as offline player% &b%bestiaryGetFormat(round({event::snowball::collected::%{_top::1}%}))%"
+    broadcast "    &92## &7%{_top::2} parsed as offline player% &b%bestiaryGetFormat(round({event::snowball::collected::%{_top::2}%}))%"
+    broadcast "    &93## &7%{_top::3} parsed as offline player% &b%bestiaryGetFormat(round({event::snowball::collected::%{_top::3}%}))%"
+    broadcast "    &94## &7%{_top::4} parsed as offline player% &b%bestiaryGetFormat(round({event::snowball::collected::%{_top::4}%}))%"
+    broadcast ""
+    broadcast "  &f%dateGetMonth({month})% %dateGetDay({day})% &f%uncolored dateGetYear({year})%"
+    broadcast ""
+    broadcast "&7&m                                                                  "
+
+function dateStartNewYear():
+
+    set {event::yearly::status} to true
+    add 1 to {event::yearly::amount}
+
+    make console execute command "hd setline eventNpcTag 1 &7&lCLICK"
+    make console execute command "load year"
+
+    make console execute command "npc select 38"
+    make console execute command "npc moveto -173 4 -40 world"
+
+    play sound "BLOCK_NOTE_BLOCK_PLING" with volume 0.2 to all players
+    play sound "BLOCK_NOTE_BLOCK_BELL" with volume 0.2 to all players
+    
+    broadcast "&7&m                                                                  "
+    broadcast ""
+    broadcast "  &d&lNEW YEAR"
+    broadcast ""
+    broadcast "    &7Celebrate the clocking in of the new year. Buy some"
+    broadcast "    &7fireworks from Aurora and have fun!"
+    broadcast ""
+    broadcast "  &f%dateGetMonth({month})% %dateGetDay({day})% &f%uncolored dateGetYear({year})%"
+    broadcast ""
+    broadcast "&7&m                                                                  "
+
+function dateEndNewYear():
+
+    set {event::yearly::status} to false
+    make console execute command "hd setline eventNpcTag 1 &7"
+    make console execute command "load"
+
+    make console execute command "npc select 38"
+    make console execute command "npc moveto -634 1 -481 world"
+
+    broadcast "&7&m                                                                  "
+    broadcast ""
+    broadcast "  &d&lNEW YEAR"
+    broadcast ""
+    broadcast "    &7Thank you for attending the annual New Year event,"
+    broadcast "    &7good luck in the new year!"
+    broadcast ""
+    broadcast "  &f%dateGetMonth({month})% %dateGetDay({day})% &f%uncolored dateGetYear({year})%"
+    broadcast ""
+    broadcast "&7&m                                                                  "
 
 function dateCheckHour(day: integer):
     
@@ -18,7 +255,7 @@ function dateCheckHour(day: integer):
         loop sorted indices of {event::farming::collected::*} in descending order:
 
             add 1 to {_counter}
-            if {_counter} is less than 6:
+            if {_counter} is less than 5:
 
                 set {_user} to loop-value parsed as offline player
                 set {_u} to uuid of {_user}
@@ -30,9 +267,64 @@ function dateCheckHour(day: integer):
         set {_counter} to 0
         if {_counter} is not 5:
             # 2
-            loop 5 times:
+            loop 4 times:
                 add 1 to {_counter}
                 make console execute command "hd setline eventLeaderboard %{_times} + {_counter} + 2% &6%{_times} + {_counter}%## &7None &e0"    
+        make console execute command "hd setline eventLeaderboard 7 &8&oUpdates every 2 minutes..."
+
+    else if {event::winter::status} is true:
+        make console execute command "hd setline eventLeaderboard 2 &7Current snowball leaderboard:"
+        set {_counter} to 0
+        loop sorted indices of {event::snowball::collected::*} in descending order:
+
+            add 1 to {_counter}
+            if {_counter} is less than 5:
+
+                set {_user} to loop-value parsed as offline player
+                set {_u} to uuid of {_user}
+                make console execute command "hd setline eventLeaderboard %{_counter} + 2% &9%{_counter}%## &7%{_user}% &b%bestiaryGetFormat(round({event::snowball::collected::%{_u}%}))%"
+            else:
+                stop
+
+        set {_times} to {_counter}
+        set {_counter} to 0
+        if {_counter} is not 5:
+            loop 4 times:
+                add 1 to {_counter}
+                make console execute command "hd setline eventLeaderboard %{_times} + {_counter} + 2% &9%{_times} + {_counter}%## &7None &b0"    
+        make console execute command "hd setline eventLeaderboard 7 &8&oUpdates every 2 minutes..."
+
+    else if {event::mining::status} is true:
+        make console execute command "hd setline eventLeaderboard 2 &7Current mining leaderboard:"
+        set {_counter} to 0
+        loop sorted indices of {event::mining::collected::*} in descending order:
+
+            add 1 to {_counter}
+            if {_counter} is less than 5:
+
+                set {_user} to loop-value parsed as offline player
+                set {_u} to uuid of {_user}
+                make console execute command "hd setline eventLeaderboard %{_counter} + 2% &b%{_counter}%## &7%{_user}% &3%bestiaryGetFormat(round({event::mining::collected::%{_u}%}))%"
+            else:
+                stop
+
+        set {_times} to {_counter}
+        set {_counter} to 0
+        if {_counter} is not 5:
+            loop 4 times:
+                add 1 to {_counter}
+                make console execute command "hd setline eventLeaderboard %{_times} + {_counter} + 2% &b%{_times} + {_counter}%## &7None &30"    
+        make console execute command "hd setline eventLeaderboard 7 &8&oUpdates every 2 minutes..."
+
+    else if {event::yearly::status} is true:
+
+        make console execute command "hd setline eventLeaderboard 2 &7Celebrate the clocking in of the new year"
+        make console execute command "hd setline eventLeaderboard 3 &7by buying some fireworks from &dAurora&7."
+        make console execute command "hd setline eventLeaderboard 4 &7"
+        make console execute command "hd setline eventLeaderboard 5 &7The time until the new year is:"
+        set {_to} to dateGetTimeTo("Dec 31th %uncolored dateGetYear({year})%")
+        make console execute command "hd setline eventLeaderboard 6 &7&f%{_to}%"
+        make console execute command "hd setline eventLeaderboard 7 &7Get ready!"
 
     else:
         make console execute command "hd setline eventLeaderboard 2 &7There is currently no active event"
@@ -49,14 +341,106 @@ function dateCheckHour(day: integer):
 
 function dateCheckDay(day: integer):
 
-    if {_day} is 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 or 30:
+    if {_day} is 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 or 30:
         if {month} is 4, 7 or 10:
-            if {event::farming::status} is false:
-                dateStartFarmingFestival()
+            if {_day} is not 17:
+                if {event::farming::status} is not true:
+                    dateStartFarmingFestival()
+            else:
+                play sound "BLOCK_NOTE_BLOCK_PLING" with volume 0.2 to all players
+                play sound "BLOCK_NOTE_BLOCK_BELL" with volume 0.2 to all players
+                broadcast "&7&m                                                                  "
+                broadcast ""
+                broadcast "  &e&lFARMING FESTIVAL"
+                broadcast ""
+                broadcast "    &7The event will start tomorrow. Grab your farming tools"
+                broadcast "    &7and get yourself ready for the the competition!"
+                broadcast ""
+                broadcast "  &f%dateGetMonth({month})% %dateGetDay({day})% &f%uncolored dateGetYear({year})%"
+                broadcast ""
+                broadcast "&7&m                                                                  "
         else:
-            dateEndFarmingFestival()
+            if {event::farming::status} is true:
+                dateEndFarmingFestival()
     else:
-        dateEndFarmingFestival()
+        if {event::farming::status} is true:
+            dateEndFarmingFestival()
+
+    if {_day} is 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 or 30:
+        if {month} is 2:
+            if {_day} is not 5:
+                if {event::mining::status} is not true:
+                    dateStartMiningCarnival()
+            else:
+                play sound "BLOCK_NOTE_BLOCK_PLING" with volume 0.2 to all players
+                play sound "BLOCK_NOTE_BLOCK_BELL" with volume 0.2 to all players
+                broadcast "&7&m                                                                  "
+                broadcast ""
+                broadcast "  &3&lMINING CARNIVAL"
+                broadcast ""
+                broadcast "    &7The event will start tomorrow. It's time to grab your"
+                broadcast "    &7shovel and get down to the mine!"
+                broadcast ""
+                broadcast "  &f%dateGetMonth({month})% %dateGetDay({day})% &f%uncolored dateGetYear({year})%"
+                broadcast ""
+                broadcast "&7&m                                                                  "
+        else:
+            if {event::mining::status} is true:
+                dateEndMiningCarnival()
+    else:
+        if {event::mining::status} is true:
+            dateEndMiningCarnival()
+
+    if {_day} is not 25, 26, 27 or 28:
+        if {month} is 11:
+            if {_day} is 31:
+                if {event::winter::status} is not true:
+                    dateStartWinterWonderland()
+            else if {_day} is 30:
+                play sound "BLOCK_NOTE_BLOCK_PLING" with volume 0.2 to all players
+                play sound "BLOCK_NOTE_BLOCK_BELL" with volume 0.2 to all players
+                broadcast "&7&m                                                                  "
+                broadcast ""
+                broadcast "  &b&lWINTER WONDERLAND"
+                broadcast ""
+                broadcast "    &7The event will start tomorrow. Get ready for a"
+                broadcast "    &7winter wonderland and a lot of snowballs!"
+                broadcast ""
+                broadcast "  &f%dateGetMonth({month})% %dateGetDay({day})% &f%uncolored dateGetYear({year})%"
+                broadcast ""
+                broadcast "&7&m                                                                  "
+        else if {month} is not 12:
+            if {event::winter::status} is true:
+                dateEndWinterWonderland()
+    else:
+        if {event::winter::status} is true:
+            dateEndWinterWonderland()
+
+    if {_day} is 1, 2, 26, 27, 28, 29 or 30:
+        if {month} is 12:
+            if {_day} is not 26:
+                if {event::yearly::status} is not true:
+                    dateStartNewYear()
+            else if {_day} is not 1 or 2:
+                play sound "BLOCK_NOTE_BLOCK_PLING" with volume 0.2 to all players
+                play sound "BLOCK_NOTE_BLOCK_BELL" with volume 0.2 to all players
+                broadcast "&7&m                                                                  "
+                broadcast ""
+                broadcast "  &d&lNEW YEAR"
+                broadcast ""
+                broadcast "    &7The event will start tomorrow. Get yourself ready"
+                broadcast "    &7for the annual clocking in of the new year!"
+                broadcast ""
+                broadcast "  &f%dateGetMonth({month})% %dateGetDay({day})% &f%uncolored dateGetYear({year})%"
+                broadcast ""
+                broadcast "&7&m                                                                  "
+        else if {month} is 1:
+            if {_day} is 2:
+                if {event::yearly::status} is true:
+                    dateEndNewYear()
+    else:
+        if {event::yearly::status} is true:
+            dateEndNewYear()   
 
     send "The day have been checked." to console
 
@@ -66,6 +450,7 @@ function dateCheckMonth(month: integer):
 
 function dateCheckYear(year: integer):
 
+    dateLaunchFireworks()
     send "The year have been checked." to console
 
 function dateGetDay(day: integer) :: string:
@@ -298,7 +683,18 @@ function dateCreateCalendar(player: player, name: string):
             set slot {_borderIndex} of metadata tag "calendar" of {_player} to barrier named "&cClose"
 
         if {_borderIndex} is 48:
-            set slot {_borderIndex} of metadata tag "calendar" of {_player} to chest named "&cRewards"
+
+            set {_rewards} to chest named "<##5EB6B6>Rewards" with lore "&7You can claim rewards that you", "&7have stacked up from the" and "&7calendar events here."
+            if size of {event::rewards::%{_u}%::*} is greater than 0:
+
+                add "" and "&7&nRewards:" to lore of {_rewards}
+                loop {event::rewards::%{_u}%::*}:
+                    add "&8- &7%item amount of loop-value-2%x %uncolored name of loop-value-2%" to lore of {_rewards}
+                add "" and "&eClaim (Right Click)" to lore of {_rewards}
+            else:
+                add "" and "&cNo rewards!" to lore of {_rewards}
+
+            set slot {_borderIndex} of metadata tag "calendar" of {_player} to {_rewards}
 
         if {_borderIndex} is 11, 12, 13, 14, 15, 20, 21, 22, 23, 24, 29, 30, 31, 32 or 33:
             
@@ -328,6 +724,15 @@ on inventory click:
 
         if index of event-slot is 49:
             open (metadata tag "menu" of player) to player
+        else if index of event-slot is 48:
+
+            if size of {event::rewards::%player's uuid%::*} is greater than 0:
+
+                loop {event::rewards::%player's uuid%::*}:
+                    give loop-value to player
+                clear {event::rewards::%player's uuid%::*}
+                play sound "ENTITY_PLAYER_LEVELUP" with volume 0.2 to player
+                dateCreateCalendar(player, "&8Remote Calendar")
 
 every 30 ticks:
 
@@ -343,13 +748,14 @@ every 30 ticks:
         set {hour} to 0
         add 1 to {day}
         dateCheckDay({day})
+        dateCheckHour({hour})
 
-    if {day} >= 31:
+    if {day} > 30:
         set {day} to 1
         add 1 to {month}
         dateCheckMonth({month})
 
-    if {month} >= 12:
+    if {month} > 12:
         set {month} to 1
         add 1 to {year}
         dateCheckYear({year})

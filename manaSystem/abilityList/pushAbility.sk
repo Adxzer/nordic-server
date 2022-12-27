@@ -1,0 +1,18 @@
+
+function abilityCheckPush(player: player) :: boolean:
+
+    return true
+
+function abilityUsePush(player: player) :: boolean:
+
+    loop all entities in radius 4 of {_player}:
+        if loop-entity is not player:
+            if loop-entity is not item frame:
+                if loop-entity is zombie or skeleton:
+                    set {_v} to vector between {_player} and loop-entity
+                    push loop-entity {_v} with force 1.8
+
+    play sound "ENTITY_GENERIC_EXPLODE" with volume 0.2 at {_player}'s location
+    play sound "BLOCK_PUMPKIN_CARVE" with volume 0.5 at {_player}'s location
+    draw 0.3 of explosion at {_player}'s location
+    return true

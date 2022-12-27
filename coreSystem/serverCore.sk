@@ -53,6 +53,8 @@ function coreCheckLevel(player: player):
             send "" to {_player}
             send "    &fYou just leveled up to level <##5EB6B6>%{level::%{_u}%}%!" to {_player}
             send "     <##5EB6B6>- &fYou gained &c+2❤&f, &6+1✦&f and unlocked the <##5EB6B6>Bestiary&f." to {_player}
+            if itemGetNewlyUnlocked({level::%{_u}%}) is set:
+                send formatted "<tooltip:&7Items unlocked:%nl%%itemGetNewlyUnlocked({level::%{_u}%})%>     <##5EB6B6>- &fHover to see what new items you unlocked!" to {_player}
             send "" to {_player}
             send "&7&m                                                                  " to {_player}
         else:
@@ -62,6 +64,8 @@ function coreCheckLevel(player: player):
             send "" to {_player}
             send "    &fYou just leveled up to level <##5EB6B6>%{level::%{_u}%}%!" to {_player}
             send "     <##5EB6B6>- &fYou gained &c+2❤ &fand &6+1✦&f!" to {_player}
+            if itemGetNewlyUnlocked({level::%{_u}%}) is set:
+                send formatted "<tooltip:&7Items unlocked:%nl%%itemGetNewlyUnlocked({level::%{_u}%})%>     <##5EB6B6>- &fHover to see what new items you unlocked!" to {_player}
             send "" to {_player}
             send "&7&m                                                                  " to {_player}
 
@@ -222,6 +226,10 @@ function coreKillDrop(player: player, amount: number, drop: item):
 
     if {_player}'s inventory have space for {_amount} of {_drop}:
         give {_player} {_amount} of {_drop}
+        if {event::winter::status} is true:
+            set {_random} to random number between 1 and 2
+            chance of 25%:
+                give {_player} {_random} of {item::otherList::2}
     else:
         set {actionBarSet::%{_u}%} to true
         send action bar coreGetActionBar({_player}, "&cFull inventory!") to {_player}
@@ -404,11 +412,18 @@ function coreArmorBoost(player: player, tool: item) :: number:
         loop {_lore::*}:
             if loop-value contains "Health":
                 set {_health::*} to split uncolored loop-value at "+"
+                set {_health} to {_health::2} parsed as integer
+                set {_split::*} to split uncolored loop-value at " "
+                if {_split::3} is set:
+                    set {_attributes::*} to split {_split::4} at "+"
+                    set {_attributes::*} to split {_attributes::2} at ")"
+                    set {_regular::*} to split {_split::2} at "+"
+                    set {_health} to ({_attributes::1} parsed as integer) + ({_regular::2} parsed as integer)
             else if loop-value contains "Level":
                 set {_level::*} to split uncolored loop-value at "⚗"
         
         if {level::%{_u}%} >= {_level::2} parsed as integer:
-            return {_health::2} parsed as integer
+            return {_health}
 
 function coreManaBoost(player: player, tool: item) :: number:
 
@@ -421,11 +436,18 @@ function coreManaBoost(player: player, tool: item) :: number:
         loop {_lore::*}:
             if loop-value contains "Mana":
                 set {_mana::*} to split uncolored loop-value at "+"
+                set {_mana} to {_mana::2} parsed as integer
+                set {_split::*} to split uncolored loop-value at " "
+                if {_split::3} is set:
+                    set {_attributes::*} to split {_split::4} at "+"
+                    set {_attributes::*} to split {_attributes::2} at ")"
+                    set {_regular::*} to split {_split::2} at "+"
+                    set {_mana} to ({_attributes::1} parsed as integer) + ({_regular::2} parsed as integer)
             else if loop-value contains "Level":
                 set {_level::*} to split uncolored loop-value at "⚗"
         
         if {level::%{_u}%} >= {_level::2} parsed as integer:
-            return {_mana::2} parsed as integer
+            return {_mana}
 
 function coreAttackSpeedBoost(player: player, tool: item) :: number:
 

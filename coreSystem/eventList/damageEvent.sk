@@ -8,6 +8,12 @@ on damage:
     
         cancel event
     
+    if "%damage cause%" is "attack":
+
+        if uncolored name of attacker's tool contains "Bow":
+            cancel event
+            stop trigger
+
     if victim and attacker is player:
 
         if coreGetPlayerRegion(victim) is "safe" or "arland":

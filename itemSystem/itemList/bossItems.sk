@@ -7,4 +7,9 @@ on load:
     set {_basaltSlag} to fire charge of unbreaking 1 named "&cBasalt Slag" with lore "&7Boss Reward.", "", "&7A reward granted from slaying", "&7the Draug boss.", "",  "&c★★★&8☆☆" and "&c&lSPECIAL" with all flags hidden
     set {_divinityCake} to cake of unbreaking 1 named "&cDivinity Cake" with lore "&7Boss Reward.", "", "&7A reward granted from slaying", "&7the Odin boss.", "",  "&c★★★★&8☆" and "&c&lSPECIAL" with all flags hidden
 
-    set {items::bossItems::*} to ({_woodlandTree}, {_spiritualPrompt}, {_basaltSlag}, {_divinityCake})
+# Event
+    set {_delightfulBucket} to bucket of axolotl of unbreaking 1 named "&cDelightful Bucket" with lore "&7Event Trophie.", "", "&7A reward granted from placing", "&7X in the &eFarming Festival &7event.", "",  "&c★★★★&8☆" and "&c&lSPECIAL" with all flags hidden
+    set {_chillyBucket} to powder snow bucket of unbreaking 1 named "&cChilly Bucket" with lore "&7Event Trophie.", "", "&7A reward granted from placing", "&7X in the &bWinter Wonderland &7event.", "",  "&c★★★★★&8" and "&c&lSPECIAL" with all flags hidden
+    set {_industriousBucket} to bucket of pufferfish of unbreaking 1 named "&cIndustrious Bucket" with lore "&7Event Trophie.", "", "&7A reward granted from placing", "&7X in the &3Mining Carnival &7event.", "",  "&c★★★★&8☆" and "&c&lSPECIAL" with all flags hidden
+
+    set {items::bossItems::*} to ({_woodlandTree}, {_spiritualPrompt}, {_basaltSlag}, {_divinityCake}, {_delightfulBucket}, {_chillyBucket}, {_industriousBucket})

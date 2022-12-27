@@ -9,11 +9,19 @@ function abilityUse(player: player, ability: string, cooldown: integer, mana: in
         wait "%{_cooldown}% seconds" parsed as timespan
     set {ability::%{_ability}%::%{_u}%} to false
 
+function abilityResetTimer(player: player):
+
+    set {_u} to uuid of {_player}
+    set {_list::*} to ("transmission", "explosion", "sight", "fling", "push", "inferno", "shine", "venom", "expiry" and "restore")
+
+    loop {_list::*}:
+        set {ability::%loop-value%::status::%{_u}'s uuid%} to false
+        set {ability::%loop-value%::%{_u}%} to false
 
 function abilityCheckOtherActive(player: player) :: boolean:
     
     set {_u} to uuid of {_player}
-    set {_list::*} to ("transmission", "explosion", "sight", "inferno", "shine", "venom", "expiry" and "restore")
+    set {_list::*} to ("transmission", "explosion", "sight", "push", "inferno", "shine", "venom", "expiry" and "restore")
     
     loop {_list::*}:
 
@@ -57,7 +65,7 @@ on rightclick:
             if {_ability::2} is "Right Click)":
 
                 if {level::%{_u}%} >= {_level}:
-
+                    
                     if {ability::%{_ability}%::%player's uuid%} is true:
                         set {actionBarSet::%{_u}%} to true
                         send action bar coreGetActionBar(player, "&cThis item has a cooldown!") to player
@@ -81,6 +89,10 @@ on rightclick:
                                     if abilityCheckExpiry(player) is not false:
                                         abilityUse(player, {_ability}, {_cooldown}, {_mana})
                                         abilityUseExpiry(player)
+                                else if {_ability} is "Push":
+                                    if abilityCheckPush(player) is not false:
+                                        abilityUse(player, {_ability}, {_cooldown}, {_mana})
+                                        abilityUsePush(player)
                                 else if {_ability} is "Sight":
                                     if abilityCheckSight(player) is not false:
                                         abilityUse(player, {_ability}, {_cooldown}, {_mana})
@@ -188,3 +200,6 @@ on leftclick:
                     wait 1 second
                     set {actionBarSet::%{_u}%} to false
                     stop trigger
+
+on join:
+    abilityResetTimer(player)

@@ -14,4 +14,4 @@ on npc rightclick:
             else if uncolored name of loop-value is "Binary Spell":
                 set {_binarySpell} to loop-value 
 
-        guiCreateMerchant(player, "&8Ostvik Tool Merchant", ({_teplateSticks}, {_perishSword}, air, air, air, {_dimeBow}, air, air, air, air, {_binarySpell}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &715x Gemstone:&8- &718x Gold Ingot:&8- &77x Inured Demis", "&8- &723x Gemstone:&8- &740x Gold Ingot:&8- &792x Faded Rose", "", "", "", "&8- &719x Gemstone:&8- &736x Spikes:&8- &778x Faded Rose", "", "", "", "", "&8- &724x Gemstone:&8- &752x Gold Ingot:&8- &746x Spikes"))
+        guiCreateMerchant(player, "&8Ostvik Tool Merchant", ({_teplateSticks}, {_perishSword}, air, air, air, {_dimeBow}, air, air, air, air, {_binarySpell}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), (960, 1472, 0, 0, 0, 1216, 0, 0, 0, 0, 1536), ("&8- &718x Gold Ingot:&8- &77x Inured Demis", "&8- &740x Gold Ingot:&8- &792x Faded Rose", "", "", "", "&8- &736x Spikes:&8- &778x Faded Rose", "", "", "", "", "&8- &752x Gold Ingot:&8- &746x Spikes"))

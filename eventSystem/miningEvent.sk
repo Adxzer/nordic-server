@@ -37,3 +37,4 @@ function loadMiningStand():
     set block at location(-178, 4, -39, world "world") to minecraft:gold_block
     set block at location(-175, 4, -38, world "world") to minecraft:chain[axis=y]
     set block at location(-175, 5, -38, world "world") to minecraft:chain[axis=y]
+    set block at location(-176, 5, -40, world "world") to minecraft:lantern

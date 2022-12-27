@@ -21,6 +21,9 @@ on npc rightclick:
                 set {_charmingStone} to loop-value
             else if uncolored name of loop-value is "Swift Stone":
                 set {_swiftStone} to loop-value
+            else if uncolored name of loop-value is "Yellow Dye":
+                set {_yellowDye} to loop-value
+            else if uncolored name of loop-value is "Orange Dye":
+                set {_orangeDye} to loop-value
 
-                
-        guiCreateMerchant(player, "&8Event Noah", ({_bionicSkull}, {_bionicTunic}, {_bionicPants}, {_bionicBoots}, air, {_momonialHoe}, {_supplyBasket}, air, air, air, {_swiftStone}, {_charmingStone}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), ("&8- &723x Gemstone:&8- &728x Gleaming Carrot:&8- &734x Stuffed Potatoes", "&8- &735x Gemstone:&8- &770x Gleaming Carrot:&8- &758x Stuffed Potatoes", "&8- &728x Gemstone:&8- &730x Gleaming Carrot:&8- &744x Stuffed Potatoes", "&8- &717x Gemstone:&8- &725x Gleaming Carrot:&8- &732x Stuffed Potatoes", "", "&8- &754x Gemstone:&8- &7128x Hay:&8- &792x Lava Web", "&8- &732x Gemstone:&8- &7512x Berries:&8- &776x Lava Web", "", "", "", "&8- &712x Gemstone:&8- &748x Hay:&8- &7128x Berries", "&8- &728x Gemstone:&8- &774x Hay:&8- &742x Stuffed Potatoes"))
+        guiCreateMerchant(player, "&8Event Noah", ({_bionicSkull}, {_bionicTunic}, {_bionicPants}, {_bionicBoots}, air, {_momonialHoe}, {_supplyBasket}, air, air, air, {_swiftStone}, {_charmingStone}, air, air, air, {_yellowDye}, {_orangeDye}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"),  (1470, 2240, 1792, 1088, 0, 3456, 2048, 0, 0, 0, 768, 1792, 0, 0, 0, 1408, 1792), ("&8- &728x Gleaming Carrot:&8- &734x Stuffed Potato", "&8- &770x Gleaming Carrot:&8- &758x Stuffed Potato", "&8- &730x Gleaming Carrot:&8- &744x Stuffed Potato", "&8- &725x Gleaming Carrot:&8- &732x Stuffed Potato", "", "&8- &7128x Hay:&8- &792x Lava Web", "&8- &7512x Berries:&8- &776x Lava Web", "", "", "", "&8- &748x Hay:&8- &7128x Berries", "&8- &774x Hay:&8- &742x Stuffed Potato", "", "", "", "&8- &71x Clear Paint:&8- &734x Gleaming Carrot", "&8- &71x Clear Paint:&8- &756x Stuffed Potato"))

@@ -3,242 +3,39 @@ function getSellValue(item: item, amount: number) :: number:
     if {_amount} is not set:
         set {_amount} to 1
 
-    if uncolored name of {_item} is "Common Sword":
-        return 8 * {_amount}
-    else if uncolored name of {_item} is "Zombie Sword":
-        return 26 * {_amount}
-    else if uncolored name of {_item} is "Ghoul Sword":
-        return 52 * {_amount}
-    else if uncolored name of {_item} is "Crypto Sword":
-        return 98 * {_amount}
-    else if uncolored name of {_item} is "Beginners Hoe":
-        return 6 * {_amount}
-    else if uncolored name of {_item} is "Harvesting Hoe":
-        return 18 * {_amount}
-    else if uncolored name of {_item} is "Soiled Hoe":
-        return 34 * {_amount}
-    else if uncolored name of {_item} is "Skeleton Bow":
-        return 24 * {_amount}
-    else if uncolored name of {_item} is "Ghoul Bow":
-        return 67 * {_amount}
-    else if uncolored name of {_item} is "Wheat Skull":
-        return 6 * {_amount}
-    else if uncolored name of {_item} is "Wheat Tunic":
-        return 10 * {_amount}
-    else if uncolored name of {_item} is "Wheat Pants":
-        return 8 * {_amount}
-    else if uncolored name of {_item} is "Wheat Boots":
-        return 4 * {_amount}
-    else if uncolored name of {_item} is "Ghoul Skull":
-        return 28 * {_amount}
-    else if uncolored name of {_item} is "Ghoul Chestplate":
-        return 34 * {_amount}
-    else if uncolored name of {_item} is "Ghoul Pants":
-        return 31 * {_amount}
-    else if uncolored name of {_item} is "Ghoul Boots":
-        return 25 * {_amount}
-    else if uncolored name of {_item} is "Crypto Skull":
-        return 72 * {_amount}
-    else if uncolored name of {_item} is "Crypto Chestplate":
-        return 83 * {_amount}
-    else if uncolored name of {_item} is "Crypto Pants":
-        return 76 * {_amount}
-    else if uncolored name of {_item} is "Crypto Boots":
-        return 66 * {_amount}
-    else if uncolored name of {_item} is "Arrow":
-        return 1 * {_amount}
-    else if uncolored name of {_item} is "Bone":
-        return 1 * {_amount}
-    else if uncolored name of {_item} is "Egg":
-        return 8 * {_amount}
-    else if uncolored name of {_item} is "Feather":
-        return 1 * {_amount}
-    else if uncolored name of {_item} is "Gold Ingot":
-        return 13 * {_amount}
-    else if uncolored name of {_item} is "Leather":
-        return 1 * {_amount}
-    else if uncolored name of {_item} is "Platinum Teeth":
-        return 42 * {_amount}
-    else if uncolored name of {_item} is "Raw Beef":
-        return 1 * {_amount}
-    else if uncolored name of {_item} is "Raw Chicken":
-        return 1 * {_amount}
-    else if uncolored name of {_item} is "Raw Mutton":
-        return 1 * {_amount}
-    else if uncolored name of {_item} is "Rooted Heart":
-        return 87 * {_amount}
-    else if uncolored name of {_item} is "Rooted Skin":
-        return 32 * {_amount}
-    else if uncolored name of {_item} is "Rotten Flesh":
-        return 1 * {_amount}
-    else if uncolored name of {_item} is "Seeds":
-        return 0 * {_amount}
-    else if uncolored name of {_item} is "Wheat":
-        return 0 * {_amount}
-    else if uncolored name of {_item} is "Hay":
-        return 2 * {_amount}
-    else if uncolored name of {_item} is "Wool":
-        return 3 * {_amount}
-    else if uncolored name of {_item} is "Red Mushroom":
-        return 1 * {_amount}
-    else if uncolored name of {_item} is "Brown Mushroom":
-        return 1 * {_amount}
-    else if uncolored name of {_item} is "String":
-        return 2 * {_amount}
-    else if uncolored name of {_item} is "Potato":
-        return 0 * {_amount}
-    else if uncolored name of {_item} is "Carrot":
-        return 0 * {_amount}
-    else if uncolored name of {_item} is "Web":
-        return 3 * {_amount}
-    else if uncolored name of {_item} is "Living Essence":
-        return 124 * {_amount}
-    else if uncolored name of {_item} is "Stuffed Potato":
-        return 4 * {_amount}
-    else if uncolored name of {_item} is "Gleaming Carrot":
-        return 4 * {_amount}
-    else if uncolored name of {_item} is "Enormous Shroom":
-        return 7 * {_amount}
-    else if uncolored name of {_item} is "Spider Heart":
-        return 65 * {_amount}
-    else if uncolored name of {_item} is "Prudent Axe":
-        return 72 * {_amount}
-    else if uncolored name of {_item} is "Mushrew Axe":
-        return 112 * {_amount}
-    else if uncolored name of {_item} is "Curative Sword":
-        return 212 * {_amount}
-    else if uncolored name of {_item} is "Revenant Bow":
-        return 68 * {_amount}
-    else if uncolored name of {_item} is "Jockey Bow":
-        return 142 * {_amount}
-    else if uncolored name of {_item} is "Grime Hoe":
-        return 42 * {_amount}
-    else if uncolored name of {_item} is "Fabled Hoe":
-        return 74 * {_amount}
-    else if uncolored name of {_item} is "Shield":
-        return 10 * {_amount}
-    else if uncolored name of {_item} is "Red Apple":
-        return 7 * {_amount}
-    else if uncolored name of {_item} is "Brownie":
-        return 28 * {_amount}
-    else if uncolored name of {_item} is "Mana Shard":
-        return 11 * {_amount}
-    else if uncolored name of {_item} is "Crystalline":
-        return 33 * {_amount}
-    else if uncolored name of {_item} is "Orgone Skull":
-        return 44 * {_amount}
-    else if uncolored name of {_item} is "Orgone Tunic":
-        return 52 * {_amount}
-    else if uncolored name of {_item} is "Orgone Pants":
-        return 48 * {_amount}
-    else if uncolored name of {_item} is "Orgone Boots":
-        return 40 * {_amount}
-    else if uncolored name of {_item} is "Remedial Skull":
-        return 90 * {_amount}
-    else if uncolored name of {_item} is "Remedial Tunic":
-        return 108 * {_amount}
-    else if uncolored name of {_item} is "Remedial Pants":
-        return 99 * {_amount}
-    else if uncolored name of {_item} is "Remedial Boots":
-        return 83 * {_amount}
-    else if uncolored name of {_item} is "Serrated Staff":
-        return 144 * {_amount}
-    else if uncolored name of {_item} is "Serrated Skull":
-        return 132 * {_amount}
-    else if uncolored name of {_item} is "Serrated Tunic":
-        return 162 * {_amount}
-    else if uncolored name of {_item} is "Serrated Pants":
-        return 148 * {_amount}
-    else if uncolored name of {_item} is "Serrated Boots":
-        return 123 * {_amount}
-    else if uncolored name of {_item} is "Vicious Blade":
-        return 155 * {_amount}
-    else if uncolored name of {_item} is "Vicious Skull":
-        return 132 * {_amount}
-    else if uncolored name of {_item} is "Vicious Tunic":
-        return 162 * {_amount}
-    else if uncolored name of {_item} is "Vicious Pants":
-        return 148 * {_amount}
-    else if uncolored name of {_item} is "Vicious Boots":
-        return 123 * {_amount}
-    else if uncolored name of {_item} is "Heroic Bow":
-        return 142 * {_amount}
-    else if uncolored name of {_item} is "Heroic Skull":
-        return 132 * {_amount}
-    else if uncolored name of {_item} is "Heroic Tunic":
-        return 162 * {_amount}
-    else if uncolored name of {_item} is "Heroic Pants":
-        return 148 * {_amount}
-    else if uncolored name of {_item} is "Heroic Boots":
-        return 123 * {_amount}
-    else if uncolored name of {_item} is "Pellucid":
-        return 75 * {_amount}
-    else if uncolored name of {_item} is "Nature Brace":
-        return 82 * {_amount}
-    else if uncolored name of {_item} is "Blemish":
-        return 94 * {_amount}
-    else if uncolored name of {_item} is "Wart":
-        return 0 * {_amount}
-    else if uncolored name of {_item} is "Faded Rose":
-        return 4 * {_amount}
-    else if uncolored name of {_item} is "Infernalite":
-        return 31 * {_amount}
-    else if uncolored name of {_item} is "Spikes":
-        return 7 * {_amount}
-    else if uncolored name of {_item} is "Ice Shard":
-        return 0 * {_amount}
-    else if uncolored name of {_item} is "Lava Web":
-        return 28 * {_amount}
-    else if uncolored name of {_item} is "Teplate Cap":
-        return 44 * {_amount}
-    else if uncolored name of {_item} is "Teplate Tunic":
-        return 52 * {_amount}
-    else if uncolored name of {_item} is "Teplate Pants":
-        return 48 * {_amount}
-    else if uncolored name of {_item} is "Teplate Boots":
-        return 40 * {_amount}
-    else if uncolored name of {_item} is "Inured Demis":
-        return 13 * {_amount}
-    else if uncolored name of {_item} is "Gold Nugget":
-        return 0 * {_amount}
-    else if uncolored name of {_item} is "Teplate Sticks":
-        return 66 * {_amount}
-    else if uncolored name of {_item} is "Deity Shard":
-        return 25 * {_amount}
-    else if uncolored name of {_item} is "Deity Crystal":
-        return 272 * {_amount}
-    else if uncolored name of {_item} is "Firm":
-        return 68 * {_amount}
-    else if uncolored name of {_item} is "Berries":
-        return 0 * {_amount}
-    else if uncolored name of {_item} is "Grasp Leaf":
-        return 83 * {_amount}
-    else if uncolored name of {_item} is "Twine":
-        return 43 * {_amount}
-    else if uncolored name of {_item} is "Frozen Ice":
-        return 8 * {_amount}
-    else if uncolored name of {_item} is "Moss Hunk":
-        return 34 * {_amount}
-    else if uncolored name of {_item} is "Ice Vein":
-        return 89 * {_amount}
-    else if uncolored name of {_item} is "Moss Turf":
-        return 4 * {_amount}
-    else if uncolored name of {_item} is "Ardour":
-        return 81 * {_amount}
-    else if uncolored name of {_item} is "Glossy Berry":
-        return 55 * {_amount}
-    else if uncolored name of {_item} is "Shiny Apple":
-        return 61 * {_amount}
-    
-    set {_list::*} to "Woodland Tree", "Spiritual Prompt", "Basalt Slag" and "Divinity Cake"
-    set {_check::*} to " I", " II", " III", " IV" and " V"
-    loop {_list::*}:
-        if uncolored name of {_item} is uncolored loop-value:
-            return 0
-        else:
-            loop {_check::*}:
-                if uncolored name of {_item} is uncolored "%loop-value-1%%loop-value-2%":
-                    return 0
+    loop lore of {_item}:
+
+        if uncolored loop-value contains "NORMAL", "UNIQUE", "RARE", "EPIC", "SPECIAL" or "LEGENDARY":
+            set {_rarity} to uncolored loop-value
+    set {_type} to 1st line of lore of {_item}
+
+    if {_rarity} is "NORMAL":
+        set {_rarityplier} to 1
+    else if {_rarity} is "UNIQUE":
+        set {_rarityplier} to 7
+    else if {_rarity} is "RARE":
+        set {_rarityplier} to 14
+    else if {_rarity} is "EPIC":
+        set {_rarityplier} to 21
+    else if {_rarity} is "SPECIAL":
+        set {_rarityplier} to 37
+    else if {_rarity} is "LEGENDARY":
+        set {_rarityplier} to 56
+
+    if uncolored {_type} contains "Crafting Ingredient":
+        set {_typlier} to 1
+    else if uncolored {_type} contains "Miscellaneous item" or "Consumable Item":
+        set {_typlier} to 3
+    else if uncolored {_type} contains "Reforge Stone", "Boss Reward" or "Event Trophie":
+        set {_typlier} to 5
+    else if uncolored {_type} contains "Damaging Tool", "Archer Tool", "Defense Armor", "Harvesting Tool", "Magical Tool", "Mining Tool", "Travelling Tool" or "Defense Tool":
+        set {_typlier} to 8
+
+    if uncolored name of {_item} contains "Wheat", "Seeds", "Potato", "Carrot", "Firework", "Snowball", "Wart", "Gold Nugget", "Ice Shard" or "Berries":
+        return 0
+    else:
+        if {_typlier} is set:
+            return {_amount} * ({_typlier} * {_rarityplier})
 
 function checkFuseItem(items: itemtypes) :: string:
     
@@ -325,6 +122,49 @@ function checkFuseItem(items: itemtypes) :: string:
                     return "Vicious Boots"
 
     return "none"
+
+function itemGetNewlyUnlocked(level: integer) :: string:
+
+    if {_level} is 2:
+        return "<##5EB6B6>- &fBasic Spell"
+    else if {_level} is 3:
+        return "<##5EB6B6>- &fHarvesting Hoe%nl%<##5EB6B6>- &aZombie Sword%nl%<##5EB6B6>- &aSkeleton Bow"
+    else if {_level} is 4:
+        return "<##5EB6B6>- &aGhoul Bow%nl%<##5EB6B6>- &aVital Spell"
+    else if {_level} is 5:
+        return "<##5EB6B6>- &aGhoul Armor%nl%<##5EB6B6>- &aGhoul Sword"
+    else if {_level} is 6:
+        return "<##5EB6B6>- &aSoiled Hoe%nl%<##5EB6B6>- &9Revenant Bow"
+    else if {_level} is 7:
+        return "<##5EB6B6>- &aGrime Hoe%nl%<##5EB6B6>- &9Prudent Axe%nl%<##5EB6B6>- &9Orgone Armor"
+    else if {_level} is 8:
+        return "<##5EB6B6>- &9Mushrew Axe%nl%<##5EB6B6>- &9Crypto Sword%nl%<##5EB6B6>- &9Crypto Armor"
+    else if {_level} is 9:
+        return "<##5EB6B6>- &9Remedial Armor%nl%<##5EB6B6>- &9Fabled Hoe%nl%<##5EB6B6>- &5Jockey Bow%nl%<##5EB6B6>- &5Ruinous Armor"
+    else if {_level} is 11:
+        return "<##5EB6B6>- &9Aesir Flinger%nl%<##5EB6B6>- &5Bionic Armor"
+    else if {_level} is 12:
+        return "<##5EB6B6>- &5Curative Sword"
+    else if {_level} is 13:
+        return "<##5EB6B6>- &5Transient Flinger%nl%<##5EB6B6>- &5Extract Armor"
+    else if {_level} is 14:
+        return "<##5EB6B6>- &9Snow Flaker%nl%<##5EB6B6>- &5Dim Bow"
+    else if {_level} is 15:
+        return "<##5EB6B6>- &5Perish Sword"
+    else if {_level} is 16:
+        return "<##5EB6B6>- &aRock Shovel"
+    else if {_level} is 17:
+        return "<##5EB6B6>- &5Binary Spell%nl%<##5EB6B6>- &6Monomial Hoe"
+    else if {_level} is 18:
+        return "<##5EB6B6>- &9Frost Shovel%nl%<##5EB6B6>- &6Serrated Armor"
+    else if {_level} is 19:
+        return "<##5EB6B6>- &5Glaze Shovel%nl%<##5EB6B6>- &6Heroic Bow%nl%<##5EB6B6>- &6Vicious Armor"
+    else if {_level} is 20:
+        return "<##5EB6B6>- &6Heroic Armor%nl%<##5EB6B6>- &6Serrated Staff"
+    else if {_level} is 21:
+        return "<##5EB6B6>- &6Vicious Blade"
+    else if {_level} is 24:
+        return "<##5EB6B6>- &6Colossal Shovel"
 
 on rightclick on player:
         
@@ -423,6 +263,22 @@ on fishing:
                 wait 1 second
                 set {actionBarSet::%{_u}%} to false
                 stop trigger
+
+on rightclick:
+
+    if uncolored name of player's tool is "Firework":   
+
+        if {firework::cooldown::%player's uuid%} is not set:
+            set {firework::cooldown::%player's uuid%} to 0 seconds
+
+        if difference between now and {firework::cooldown::%player's uuid%} is less than 4 seconds:
+            send action bar coreGetActionBar(player, "&cThis item has a cooldown!") to player
+            
+        else:
+            remove 1 of player's tool from player
+            launch trailing flickering star coloured purple, yellow, blue, green and red fading to pink at player
+            set {firework::cooldown::%player's uuid%} to now
+                  
 
 command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
     permission: skript.admin

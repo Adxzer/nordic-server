@@ -29,7 +29,7 @@ function getPlayerTag(player: player) :: string:
     else if {_login} is greater than 6 hours:
         return "a specialist"
     else:
-        return "a peaseant"
+        return "a peasant"
 
 function sendPlayerStats(target: player, player: player):
 

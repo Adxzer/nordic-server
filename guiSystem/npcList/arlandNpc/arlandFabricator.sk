@@ -1,0 +1,5 @@
+on npc rightclick:
+    
+    if npc id of target is 39:
+
+        fabricatorCreateInterface(player, "&8Arland Fabricator")

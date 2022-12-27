@@ -1,0 +1,18 @@
+on npc rightclick:
+    
+    if npc id of target is 38:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::otherItems::*}, {items::reforgeItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+        set {_yearlyCrystal} to end crystal of unbreaking 1 named "&c%dateGetDay({year})% Yearly Crystal" with lore "&7Event Reward.", "", "&7This item can be bought during the", "&7celebration of &d%dateGetDay({year})% New Year&7.", "",  "&c★★&8☆☆☆" and "&c&lSPECIAL" with all flags hidden
+        
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Firework":
+                set {_firework} to loop-value 
+            else if uncolored name of loop-value is "Pink Dye":
+                set {_pinkDye} to loop-value 
+            else if uncolored name of loop-value is "Magenta Dye":
+                set {_magentaDye} to loop-value 
+            else if uncolored name of loop-value is "Purple Dye":
+                set {_purpleDye} to loop-value 
+
+        guiCreateMerchant(player, "&8Event Aurora", ({_yearlyCrystal}, {_firework}, air, air, air, {_pinkDye}, {_purpleDye}, {_magentaDye}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), (768, 18, 0, 0, 0, 1024, 1536, 2432), ("&8- &71x Crystalline", "&8- &78x Snowball", "", "", "", "&8- &71x Clear Paint:&8- &72x Red Gift", "&8- &71x Clear Paint:&8- &74x Green Gift", "&8- &71x Clear Paint:&8- &78x Blue Gift"))

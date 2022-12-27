@@ -1,0 +1,26 @@
+on npc rightclick:
+    
+    if npc id of target is 37:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::otherItems::*}, {items::reforgeItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Red Gift":
+                set {_redGift} to loop-value 
+            else if uncolored name of loop-value is "Green Gift":
+                set {_greenGift} to loop-value 
+            else if uncolored name of loop-value is "Blue Gift":
+                set {_blueGift} to loop-value 
+            else if uncolored name of loop-value is "Snow Flaker":
+                set {_snowFlaker} to loop-value 
+            else if uncolored name of loop-value is "Gentle Stone":
+                set {_gentleStone} to loop-value 
+            else if uncolored name of loop-value is "Red Dye":
+                set {_redDye} to loop-value
+            else if uncolored name of loop-value is "Green Dye":
+                set {_greenDye} to loop-value
+            else if uncolored name of loop-value is "White Dye":
+                set {_whiteDye} to loop-value
+
+        guiCreateMerchant(player, "&8Event Alfred", ({_redGift}, {_greenGift}, {_blueGift}, air, air, {_snowFlaker}, air, air, air, air, {_gentleStone}, air, air, air, air, {_redDye}, {_greenDye}, {_whiteDye}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), (0, 0, 0, 0, 0, 1152, 0, 0, 0, 0, 3456, 0, 0, 0, 0, 1600, 2368, 2752), ("&8- &716x Snowball", "&8- &764x Snowball:&8- &71x Red Gift", "&8- &7128x Snowball:&8- &73x Blue Gift", "", "", "&8- &78x Blue Gift", "", "", "", "", "&8- &715x Blue Gift", "", "", "", "", "&8- &71x Clear Paint:&8- &73x Blue Gift", "&8- &71x Clear Paint:&8- &76x Blue Gift", "&8- &71x Clear Paint:&8- &79x Blue Gift"))
+

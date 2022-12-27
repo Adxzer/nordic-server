@@ -1,6 +1,6 @@
 on left click:
     
-    if event-block is flower pot, smoker, trident, furnace or blast furnace:
+    if event-block is flower pot, stonecutter, smoker, trident, furnace or blast furnace:
         cancel event
 
 on click:

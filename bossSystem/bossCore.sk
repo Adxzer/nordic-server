@@ -40,9 +40,9 @@ function bossCreateRewards(player: player, name: string, rewards: strings, boss:
             if {boss::%{_boss}%::claimed::%{_squared}%::%{_u}%} is true:
                 add "" and "&cYou have already claimed this reward!" to lore of {_loopItem}
             else:
-                add "" and "&eClick to claim!" to lore of {_loopItem}
+                add "" and "&eClaim (Right Click)" to lore of {_loopItem}
         else:
-            add "" and "&cYou don't have enough %{_boss}% kills." to lore of {_loopItem}
+            add "" and "&cYou don't have enough %{_boss}% kills!" to lore of {_loopItem}
 
         if {_loopIndex} is 20:
             set name of {_loopItem} to "<##5EB6B6>Boss Reward I"
@@ -74,10 +74,10 @@ function bossCreateCore(player: player, name: string):
         if {boss::%loop-value%::%{_u}%} is not set:
             set {boss::%loop-value%::%{_u}%} to 0
 
-    set {_gui::groot} to dead bush named "<##5EB6B6>Groot Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the forest and the woodland.", "", "&7Defeated: &c%{boss::groot::%{_u}%}%", "" and "&eView (Left Click)"
-    set {_gui::chad} to red mushroom named "<##5EB6B6>Chad Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the mushroom forest.", "", "&7Defeated: &c%{boss::chad::%{_u}%}%", "" and "&eView (Left Click)"
-    set {_gui::draug} to crimson roots named "<##5EB6B6>Draug Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the red darkness.", "", "&7Defeated: &c%{boss::draug::%{_u}%}%", "" and "&eView (Left Click)"
-    set {_gui::odin} to feather named "<##5EB6B6>Odin Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the godly spirits.", "", "&7Defeated: &c%{boss::odin::%{_u}%}%", "" and "&eView (Left Click)"
+    set {_gui::groot} to dead bush named "<##5EB6B6>Groot Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the forest and the woodland.", "", "&7Defeated: &c%{boss::groot::%{_u}%}%", "" and "&eView (Right Click)"
+    set {_gui::chad} to red mushroom named "<##5EB6B6>Chad Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the mushroom forest.", "", "&7Defeated: &c%{boss::chad::%{_u}%}%", "" and "&eView (Right Click)"
+    set {_gui::draug} to crimson roots named "<##5EB6B6>Draug Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the red darkness.", "", "&7Defeated: &c%{boss::draug::%{_u}%}%", "" and "&eView (Right Click)"
+    set {_gui::odin} to feather named "<##5EB6B6>Odin Rewards" with lore "&7Rewards can be obtained by killing the boss", "&7of the godly spirits.", "", "&7Defeated: &c%{boss::odin::%{_u}%}%", "" and "&eView (Right Click)"
     set {_gui::soon} to gray dye named "&fComing soon..." with lore "&7There are still more challenges and rewards" and "&7to come, stay tuned for future updates."
 
     loop 54 times:

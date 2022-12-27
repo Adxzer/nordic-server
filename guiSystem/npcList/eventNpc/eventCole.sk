@@ -1,0 +1,23 @@
+on npc rightclick:
+    
+    if npc id of target is 40:
+
+        set {_itemList::*} to ({items::armorItems::*}, {items::otherItems::*}, {items::reforgeItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+
+        loop {_itemList::*}:
+            if uncolored name of loop-value is "Extract Skull":
+                set {_extractSkull} to loop-value 
+            else if uncolored name of loop-value is "Extract Tunic":
+                set {_extractTunic} to loop-value 
+            else if uncolored name of loop-value is "Extract Pants":
+                set {_extractPants} to loop-value 
+            else if uncolored name of loop-value is "Extract Boots":
+                set {_extractBoots} to loop-value 
+            else if uncolored name of loop-value is "Colossal Shovel":
+                set {_colossalShovel} to loop-value 
+            else if uncolored name of loop-value is "Refined Stone":
+                set {_refinedStone} to loop-value
+            else if uncolored name of loop-value is "Cyan Dye":
+                set {_cyanDye} to loop-value
+                
+        guiCreateMerchant(player, "&8Event Cole", ({_extractSkull}, {_extractTunic}, {_extractPants}, {_extractBoots}, air, {_colossalShovel}, air, air, air, air, {_refinedStone}, air, air, air, air, {_cyanDye}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy", "buy"), (1470, 2240, 1792, 1088, 0, 2944, 0, 0, 0, 0, 5248, 0, 0, 0, 0, 3328), ("&8- &78x Frozen Ice", "&8- &714x Frozen Ice", "&8- &712x Frozen Ice", "&8- &710x Frozen Ice", "", "&8- &73x Ice Vein", "", "", "", "", "&8- &76x Ice Vein", "", "", "", "", "&8- &71x Clear Paint:&8- &75x Frozen Ice"))

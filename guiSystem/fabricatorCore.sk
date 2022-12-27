@@ -1,0 +1,273 @@
+function fabricatorCreateInterface(player: player, name: string):
+
+    set metadata tag "fabricator" of {_player} to chest with 6 row named "%{_name}%"
+    
+    set {_u} to uuid of {_player}
+    set {_borderIndex} to 0
+
+    loop 54 times:
+
+        if {_borderIndex} is not 12, 13, 14 or 40:
+            set slot {_borderIndex} of metadata tag "fabricator" of {_player} to black stained glass pane named "&8Border"
+
+        if {_borderIndex} is 10, 16, 19, 25, 28, 34, 37 or 43:
+            set slot {_borderIndex} of metadata tag "fabricator" of {_player} to gray stained glass pane named "&7Border"
+
+        if {_borderIndex} is 31:
+            set slot {_borderIndex} of metadata tag "fabricator" of {_player} to loom named "&fDye Item" with lore "&7Insert your leather armor", "&7to dye your armor.", "", "&cNot a valid dye!"
+
+        if {_borderIndex} is 32:
+            set slot {_borderIndex} of metadata tag "fabricator" of {_player} to arrow named "&fShop" with lore "&7Visit the color dye", "&7shop by clicking here.", "", "&eView (Right Click)"
+
+        add 1 to {_borderIndex}
+
+    open (metadata tag "fabricator" of {_player}) to {_player}
+
+function fabricatorGetHash(dye: item) :: string:
+
+    if uncolored name of {_dye} is "Gray Dye":
+        return "5D6A70"
+    else if uncolored name of {_dye} is "Brown Dye":
+        return "5D3D28"
+    else if uncolored name of {_dye} is "Lime Dye":
+        return "4FA119"
+    else if uncolored name of {_dye} is "Blue Dye":
+        return "1963A0"
+    else if uncolored name of {_dye} is "Black Dye":
+        return "333D3F"
+    else if uncolored name of {_dye} is "Amethyst Dye":
+        return "AAA0DC"
+    else if uncolored name of {_dye} is "Pink Dye":
+        return "C755AD"
+    else if uncolored name of {_dye} is "Magenta Dye":
+        return "A2056C"
+    else if uncolored name of {_dye} is "Purple Dye":
+        return "7B19A0"
+    else if uncolored name of {_dye} is "Cyan Dye":
+        return "19A18D"
+    else if uncolored name of {_dye} is "Green Dye":
+        return "3F7D32"
+    else if uncolored name of {_dye} is "Red Dye":
+        return "A22A1A"
+    else if uncolored name of {_dye} is "White Dye":
+        return "F0F0F0"
+    else if uncolored name of {_dye} is "Yellow Dye":
+        return "A0941A"
+    else if uncolored name of {_dye} is "Orange Dye":
+        return "C47E0C"
+
+function fabricatorGetDye(dye: item) :: integers:
+
+    if uncolored name of {_dye} is "Gray Dye":
+        return (93, 106, 112)
+    else if uncolored name of {_dye} is "Brown Dye":
+        return (93, 61, 40)
+    else if uncolored name of {_dye} is "Lime Dye":
+        return (79, 161, 25)
+    else if uncolored name of {_dye} is "Blue Dye":
+        return (25, 99, 160)
+    else if uncolored name of {_dye} is "Black Dye":
+        return (51, 61, 63)
+    else if uncolored name of {_dye} is "Amethyst Dye":
+        return (170, 160, 220 )
+    else if uncolored name of {_dye} is "Pink Dye":
+        return (199, 85, 173)
+    else if uncolored name of {_dye} is "Magenta Dye":
+        return (162, 5, 108)
+    else if uncolored name of {_dye} is "Purple Dye":
+        return (123, 25, 160)
+    else if uncolored name of {_dye} is "Cyan Dye":
+        return (25, 161, 141)
+    else if uncolored name of {_dye} is "Green Dye":
+        return (63, 125, 50)
+    else if uncolored name of {_dye} is "Red Dye":
+        return (162, 42, 26)
+    else if uncolored name of {_dye} is "White Dye":
+        return (240, 240, 240)
+    else if uncolored name of {_dye} is "Yellow Dye":
+        return (160, 148, 26)
+    else if uncolored name of {_dye} is "Orange Dye":
+        return (196, 126, 12)
+
+function fabricatorGetLore(player: player, dye: item):
+
+    set {_armor::*} to (slot 12 of {_player}'s current inventory, slot 13 of {_player}'s current inventory, slot 14 of {_player}'s current inventory)
+
+    loop {_armor::*}:
+        if loop-value is not leather boots, leather pants, leather tunic, air or leather cap:
+            set {_valid} to false
+
+    if {_valid} is not false:
+
+        loop {_armor::*}:
+            set {_max} to size of lore of loop-value
+            set {_rarity} to uncolored {_max}th line of lore of loop-value
+
+            if {_rarity} is "NORMAL":
+                add 32 to {_cost}
+            else if {_rarity} is "UNIQUE":
+                add 124 to {_cost}
+            else if {_rarity} is "RARE":
+                add 256 to {_cost}
+            else if {_rarity} is "EPIC":
+                add 512 to {_cost}
+            else if {_rarity} is "LEGENDARY":
+                add 1024 to {_cost}
+
+        if {_cost} is not set:
+            clear lore of slot 31 of {_player}'s current inventory
+            set lore of slot 31 of {_player}'s current inventory to "&7Insert your leather armor", "&7to dye your armor.", "" and "&cNot a valid dye!"
+        else:
+            clear lore of slot 31 of {_player}'s current inventory
+            add "&7Insert your leather armor", "&7to dye your armor.", "", "&7Cost: &a$%{_cost}%", "" and "&eFabricate (Right Click)" to lore of slot 31 of {_player}'s current inventory
+    else:
+        clear lore of slot 31 of {_player}'s current inventory
+        set lore of slot 31 of {_player}'s current inventory to "&7Insert your leather armor", "&7to dye your armor.", "" and "&cNot a valid dye!"
+
+on inventory click:
+
+    if uncolored name of player's current inventory contains "Fabricator":
+        cancel event
+
+        if event-inventory = (metadata tag "fabricator" of player):
+
+            if index of event-slot is 12, 13, 14 or 40:
+
+                set {_item} to event-slot
+                set event-slot to air
+                give player {_item}
+                fabricatorGetLore(player, slot 40 of player's current inventory)
+
+            if index of event-slot is 32:
+
+                set {_itemList::*} to ({items::otherItems::*})
+
+                loop {_itemList::*}:
+                    if uncolored name of loop-value is "Gray Dye":
+                        set {_grayDye} to loop-value
+                    else if uncolored name of loop-value is "Brown Dye":
+                        set {_brownDye} to loop-value
+                    else if uncolored name of loop-value is "Lime Dye":
+                        set {_limeDye} to loop-value
+                    else if uncolored name of loop-value is "Blue Dye":
+                        set {_blueDye} to loop-value
+                    else if uncolored name of loop-value is "Black Dye":
+                        set {_blackDye} to loop-value
+                    else if uncolored name of loop-value is "Amethyst Dye":
+                        set {_amethystDye} to loop-value
+                                
+                guiCreateMerchant(player, "&8Fabricator Shop", ({_grayDye}, {_brownDye}, {_limeDye}, {_blueDye}, {_blackDye}, {_amethystDye}), ("buy", "buy", "buy", "buy", "buy", "buy", "buy"), (256, 768, 1792, 2944, 4160, 5376), ("&8- &71x Clear Paint", "&8- &71x Clear Paint", "&8- &71x Clear Paint", "&8- &71x Clear Paint", "&8- &71x Clear Paint", "&8- &71x Clear Paint"))
+
+            if index of event-slot is 31:
+
+                set {_armor::*} to (slot 12 of player's current inventory, slot 13 of player's current inventory and slot 14 of player's current inventory)
+                
+                loop {_armor::*}:
+                    if uncolored name of loop-value contains "Tunic", "Pants" or "Boots":
+                        set {_valid} to true
+
+                if {_valid} is true:
+
+                    set {_cost::*} to 4th line of lore of slot 31 of player's current inventory split at "$"
+                    set {_cost} to {_cost::2} parsed as integer
+
+                    loop player's inventory:
+                        if loop-value is emerald block:
+                            add item amount of loop-value to {_gemstone}
+                            add 64 * item amount of loop-value to {_money}
+                        else if loop-value is emerald:
+                            add item amount of loop-value to {_emerald}
+                            add item amount of loop-value to {_money}
+
+                    if {_cost} is not set:
+                        set {_cost} to 0
+                    if {_money} is not set:
+                        set {_money} to 0
+
+                    if {_money} is greater than or equal to {_cost}:
+                        
+                        loop player's inventory:
+
+                            if {_cost} is greater than 0:
+
+                                if loop-value is emerald block or emerald:
+
+                                    if {_gemstone} is greater than or equal to {_cost} / 64:
+
+                                        if {_cost} is less than 64:
+                                            if {_emerald} is greater than or equal to {_cost}:
+                                                remove {_cost} of emerald from player's inventory
+                                                stop loop
+                                            else:
+                                                set {_give} to 64 - {_cost}
+                                                remove 1 of emerald block from player's inventory
+                                                give {_give} of {items::economyItems::1} to player
+                                                stop loop
+                                        else:
+                                            remove {_cost} / 64 of emerald block from player's inventory
+                                            remove {_gemstone} * 64 from {_cost}
+                                    else:
+
+                                        remove {_gemstone} of emerald block from player's inventory
+                                        remove {_gemstone} * 64 from {_cost}
+
+                                        if {_emerald} is greater than or equal to {_cost}:
+                                            remove {_cost} of emerald from player's inventory
+                                            remove {_emerald} from {_cost}
+
+                        set {_dye::*} to fabricatorGetDye(slot 40 of player's current inventory)
+
+                        set {_armor::*} to (slot 12 of player's current inventory, slot 13 of player's current inventory and slot 14 of player's current inventory)
+                        loop {_armor::*}:
+                            add 1 to {_counter}
+                            set name of {_armor::%{_counter}%} to "%name of {_armor::%{_counter}%}% &8##%fabricatorGetHash(slot 40 of player's current inventory)%"
+                            dye {_armor::%{_counter}%} rgb({_dye::1}, {_dye::2}, {_dye::3})
+                            give player {_armor::%{_counter}%}
+
+
+                        if slot 12 of player's current inventory is not air:
+                            remove 1 of slot 12 of player's current inventory from slot 12 of player's current inventory
+                        if slot 13 of player's current inventory is not air:
+                            remove 1 of slot 13 of player's current inventory from slot 13 of player's current inventory
+                        if slot 14 of player's current inventory is not air:
+                            remove 1 of slot 14 of player's current inventory from slot 14 of player's current inventory
+                        if slot 40 of player's current inventory is not air:
+                            remove 1 of slot 40 of player's current inventory from slot 40 of player's current inventory
+
+                        fabricatorGetLore(player, slot 40 of player's current inventory)
+                        play sound "ENTITY_FIREWORK_ROCKET_BLAST" with volume 0.2 to player
+                        play sound "UI_LOOM_SELECT_PATTERN" with volume 0.2 to player
+                        play sound "ENTITY_ANVIL_USE" with volume 0.2 to player
+
+        else:
+
+            if event-slot is not air or arrow:
+
+                set {_item} to event-slot                    
+                set {_counter} to 1
+                set {_numbers::*} to 40, 12, 13 and 14
+
+                loop 4 times:
+
+                    if slot {_numbers::%{_counter}%} of player's current inventory is air:
+
+                        set event-slot to air
+                        set slot {_numbers::%{_counter}%} of player's current inventory to {_item}
+                        fabricatorGetLore(player, slot 40 of player's current inventory)
+                        stop loop
+
+                    else:
+                        add 1 to {_counter}
+
+on inventory close:
+
+    if event-inventory = (metadata tag "fabricator" of player): 
+
+        if slot 12 of player's current inventory is not air:
+            give player slot 12 of player's current inventory
+        if slot 13 of player's current inventory is not air:
+            give player slot 13 of player's current inventory
+        if slot 14 of player's current inventory is not air:
+            give player slot 14 of player's current inventory
+        if slot 40 of player's current inventory is not air:
+            give player slot 40 of player's current inventory
