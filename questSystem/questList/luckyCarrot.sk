@@ -74,7 +74,7 @@ on break:
             if {quests::luckyCarrot::carrot::%player's uuid%} >= 1380:
                 set {quests::luckyCarrot::interaction::%player's uuid%::6} to true
                 set {quests::luckyCarrot::interaction::%player's uuid%::5} to true
-                send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fYou have finished the first part of the quest &aLucky Carrot&f, talk to Dalur to claim your rewards." to player
+                send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fYou have finished the first part of the quest <##5EB6B6>Lucky Carrot&f, talk to Dalur to claim your rewards." to player
 
             else:
                 cancel drops

@@ -31,7 +31,9 @@ function getSellValue(item: item, amount: number) :: number:
     else if uncolored {_type} contains "Damaging Tool", "Archer Tool", "Defense Armor", "Harvesting Tool", "Magical Tool", "Mining Tool", "Travelling Tool" or "Defense Tool":
         set {_typlier} to 8
 
-    if uncolored name of {_item} contains "Wheat", "Seeds", "Potato", "Carrot", "Firework", "Snowball", "Wart", "Gold Nugget", "Ice Shard" or "Berries":
+    if uncolored name of {_item} is "Stuffed Potato" or "Gleaming Carrot":
+        return {_amount} * 9
+    else if uncolored name of {_item} contains "Wheat", "Seeds", "Potato", "Carrot", "Firework", "Snowball", "Wart", "Gold Nugget", "Ice Shard" or "Berries":
         return 0
     else:
         if {_typlier} is set:
@@ -175,10 +177,10 @@ on rightclick on player:
         loop {_itemList::*}:
             if uncolored name of loop-value is "Rotten Flesh", "Wheat", "Seeds", "Feather", "Wool", "Red Mushroom", "Brown Mushroom", "String", "Ice Shard" or "Moss Turf":
                 add loop-value to {_redGiftList::*}
-            else if uncolored name of loop-value is "Egg", "Hay", "Gold Ingot", "Berries", "Green Gift" or "Spikes":
+            else if uncolored name of loop-value is "Egg", "Hay", "Gold Ingot", "Berries" or "Spikes":
                 add loop-value to {_redGiftList::*}
                 add loop-value to {_greenGiftList::*}
-            else if uncolored name of loop-value is "Lava Web", "Moss Hunk", "Platinum Teeth", "Spider Heart" or "Blue Gift":
+            else if uncolored name of loop-value is "Lava Web", "Moss Hunk", "Platinum Teeth" or "Spider Heart":
                 add loop-value to {_greenGiftList::*}
                 add loop-value to {_blueGiftList::*}
             else if uncolored name of loop-value is "Living Essence", "Inured Demis", "Twine" or "Firm":
@@ -269,17 +271,16 @@ on rightclick:
     if uncolored name of player's tool is "Firework":   
 
         if {firework::cooldown::%player's uuid%} is not set:
-            set {firework::cooldown::%player's uuid%} to 0 seconds
+            set {firework::cooldown::%player's uuid%} to 4 seconds
 
         if difference between now and {firework::cooldown::%player's uuid%} is less than 4 seconds:
             send action bar coreGetActionBar(player, "&cThis item has a cooldown!") to player
             
         else:
             remove 1 of player's tool from player
-            launch trailing flickering star coloured purple, yellow, blue, green and red fading to pink at player
+            make console execute command "summon firework_rocket %player's x coordinate% %player's y coordinate% %player's z coordinate% {LifeTime:30,FireworksItem:{id:firework_rocket,Count:1,tag:{Fireworks:{Flight:2,Explosions:[{Type:2,Flicker:1,Trail:1,Colors:[I;11743532,3887386,2437522,8073150,14602026],FadeColors:[I;14188952]}]}}}}"
             set {firework::cooldown::%player's uuid%} to now
-                  
-
+       
 command /item [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
     permission: skript.admin
     permission message: Unknown command. Type "/help" for help.

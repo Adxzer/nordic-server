@@ -60,7 +60,7 @@ on break:
             if {quests::animalFood::wheat::%player's uuid%} >= 250:
                 set {quests::animalFood::interaction::%player's uuid%::6} to true
                 set {quests::animalFood::interaction::%player's uuid%::5} to true
-                send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fYou have finished the quest &aAnimal Food&f, talk to Eirik to claim your rewards." to player
+                send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fYou have finished the quest <##5EB6B6>Animal Food&f, talk to Eirik to claim your rewards." to player
 
             else:
                 cancel drops

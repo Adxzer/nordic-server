@@ -10,4 +10,4 @@ on npc rightclick:
             else if uncolored name of loop-value is "Lava Web":
                 set {_lavaWeb} to loop-value 
                 
-        guiCreateMerchant(player, "&8Ostvik Guardian", ({_goldIngot}, {_lavaWeb}), ("buy", "buy"), (0, 0), ("&8- &7124x Gold Nugget", "&8- &7248x Wart"))
+        guiCreateMerchant(player, "&8Ostvik Guardian", ({_goldIngot}, {_lavaWeb}), ("buy", "buy"), (0, 0), ("&8- &796x Gold Nugget", "&8- &7248x Wart"))

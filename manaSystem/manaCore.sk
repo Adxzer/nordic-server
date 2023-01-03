@@ -124,7 +124,7 @@ function manaRaycast(player: player, length: number, tool: item):
                     stop
         
         loop blocks in radius 0.5 around {_rg%{_x}%}:
-            if loop-block is not tall grass, short grass, snow layer, air or water:
+            if loop-block is not tall grass, red mushroom, brown mushroom, nether wart, vine, dark oak leaves, oak leaves, dead bubble coral, dead brain coral fan, dead fire coral, sweet berry bush, short grass, snow layer, air or water:
                 stop    
     play sound "BLOCK_REDSTONE_TORCH_BURNOUT" with volume 0.1 to {_player}
 

@@ -46,6 +46,14 @@ function sendPlayerStats(target: player, player: player):
     send "" to {_target}
     send "    &7Level: &3⚗%{level::%{_player}'s uuid%}%" to {_target}
     send "    &7Joined: &f%{_time}%" to {_target}
+
+    if {guild::%{_player}'s uuid%::current} is set:
+        set {_tag} to guildGetTag({guild::%{_player}'s uuid%::current})
+        if {_tag} is not set:
+            set {_tag} to ""
+        send "" to {_target}
+        send "    &7Guild: &f%{guild::%{_player}'s uuid%::current}% %guildGetTag({guild::%{_player}'s uuid%::current})%" to {_target}
+
     send "" to {_target}
     send "  &7This player is %getPlayerTag({_player})%." to {_target}
     send "" to {_target}

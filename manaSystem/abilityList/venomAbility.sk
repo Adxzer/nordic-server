@@ -3,7 +3,7 @@ function abilityCheckVenom(player: player) :: boolean:
 
     set {_u} to uuid of {_player}
 
-    if uncolored name of {_player}'s tool is not "Dim Bow":
+    if uncolored name of {_player}'s tool does not contain "Dim Bow":
         set {actionBarSet::%{_u}%} to true
         send action bar coreGetActionBar({_player}, "&cMust hold the Dim Bow!") to {_player}
         coreEndActionBar({_player})
@@ -19,7 +19,7 @@ function abilityCheckVenom(player: player) :: boolean:
 function abilityUseVenom(player: player) :: boolean:
 
     set {_u} to uuid of {_player}
-    if uncolored name of {_player}'s tool is "Dim Bow":
+    if uncolored name of {_player}'s tool contains "Dim Bow":
         set {ability::venom::status::%{_u}%} to true
         make {_player} shoot an arrow at speed 2.5
         remove arrow from {_player}
@@ -31,6 +31,6 @@ on projectile hit:
     
     set {_u} to uuid of shooter 
     
-    if uncolored name of shooter's tool is "Dim Bow":
+    if uncolored name of shooter's tool contains "Dim Bow":
         if {ability::venom::status::%{_u}%} is true:
             apply potion of slowness 4 to victim for 20 seconds

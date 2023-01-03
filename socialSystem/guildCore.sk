@@ -1,0 +1,705 @@
+function guildGetRank(player: player) :: string:
+
+    if {guild::%{_player}'s uuid%::current} is not set:
+
+        return "none"
+    else:
+        if {guild::%{guild::%{_player}'s uuid%::current}%::master} is {_player}'s uuid:
+            return "master"
+        else:
+            if {guild::%{guild::%{_player}'s uuid%::current}%::deputy} is {_player}'s uuid:
+                return "deputy"
+            else:
+                if {guild::%{guild::%{_player}'s uuid%::current}%::agents::*} contains {_player}'s uuid:
+                    return "agent"
+                else:
+                    return "member"
+
+function guildGetColor(guild: string) :: string:
+
+    if {guild::%{_guild}%::level} is between 1 and 3:
+        return "&a" 
+    else if {guild::%{_guild}%::level} is between 4 and 6:
+        return "&2"
+    else if {guild::%{_guild}%::level} is between 7 and 9:
+        return "<##FFC0CB>"
+    else if {guild::%{_guild}%::level} is 10:
+
+        set {_counter} to 1
+        loop sorted indices of {guild::experience::*} in descending order:
+
+            if {_counter} is less than 4:
+                if loop-value is {_guild}:
+                    return "<##171616>"
+            else:
+                stop loop
+            add 1 to {_counter}
+
+        return "&c"
+
+    return "&7"
+
+function guildGetTag(guild: string) :: string:
+
+    if {guild::%{_guild}%::tag} is not set:
+        return ""
+    else:
+        
+        set {_color} to guildGetColor({_guild})
+        return "&8[%{_color}%##%{guild::%{_guild}%::tag}%&8] "
+
+function guildGetExtra(player: player) :: integer:
+
+    if {_player} has permission "skript.asgard":
+        return 20
+    else if {_player} has permission "skript.warrior":
+        return 10
+    else if {_player} has permission "skript.berserk":
+        return 5
+    else:
+        return 0
+
+function guildGetSize(guild: string) :: integer:
+
+    set {_size} to size of {guild::%{_guild}%::members::*} + 1
+    if {guild::%{_guild}%::deputy} is set:
+        add 1 to {_size}
+    add size of {guild::%{_guild}%::agents::*} to {_size}
+    return {_size}
+
+function guildReturnLevel(guild: string) :: string:
+
+    if {guild::%{_guild}%::level} is 1:
+        return "I"
+    else if {guild::%{_guild}%::level} is 2:
+        return "II"
+    else if {guild::%{_guild}%::level} is 3:
+        return "III"
+    else if {guild::%{_guild}%::level} is 4:
+        return "IV"
+    else if {guild::%{_guild}%::level} is 5:
+        return "V"
+    else if {guild::%{_guild}%::level} is 6:
+        return "VI"
+    else if {guild::%{_guild}%::level} is 7:
+        return "VII"
+    else if {guild::%{_guild}%::level} is 8:
+        return "VIII"
+    else if {guild::%{_guild}%::level} is 9:
+        return "IX"
+    else if {guild::%{_guild}%::level} is 10:
+        return "X"
+
+function guildGetPosition(guild: string) :: integer:
+    
+    set {_top::*} to sorted indices of {guild::experience::*} in descending order
+    set {_rank} to 1
+
+    loop {_top::*}:
+
+        add 1 to {_counter}
+        if {guild::experience::%{_top::%{_counter}%}%} is greater than {guild::experience::%{_guild}%}:
+            add 1 to {_rank}
+        else:
+            return {_rank}
+
+command /guild [<text>] [<text>] [<text>] [<text>] [<text>]:
+    permission: skript.test
+    trigger:
+        
+        if arg-1 is set:
+
+            # Bulk in where you need to be in a guild to issue the command
+            if arg-1 is "edit", "leave", "edit" or "chat":
+
+                if {guild::%player's uuid%::current} is set:
+
+                    if arg-1 is "edit":
+
+                        if arg-2 is set:
+
+                            if arg-2 is "disband":
+
+                                if guildGetRank(player) is "master":
+
+                                    if arg-3 is set:
+
+                                        if arg-3 is "confirm":
+
+                                            if arg-2 is "disband":
+
+                                                loop {guild::%{guild::%player's uuid%::current}%::members::*} and {guild::%{guild::%player's uuid%::current}%::agents::*}:
+                                                    clear {guild::%loop-value%::current}
+
+                                                clear {guild::%{guild::%player's uuid%::deputy}'s uuid%::current}
+                                                clear {guild::%{guild::%player's uuid%::current}%::*}
+                                                clear {guild::experience::%{guild::%player's uuid%::current}%}
+                                                clear {guild::%player's uuid%::current}
+                                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYour guild has been disbanded."
+
+                                            else:
+                                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou must confirm the disbanding of your guild by typing /guild edit disband confirm."
+                                        
+                                        else:
+                                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou must confirm the disbanding of your guild by typing /guild edit disband confirm."
+
+                                    else:
+                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou must confirm the disbanding of your guild by typing /guild edit disband confirm."
+                                
+                                else:
+                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou must be the master of your guild to disband it."
+
+                            else if arg-2 is "transfer":
+
+                                if arg-3 is set:
+
+                                    set {_target} to arg-3 parsed as player
+                                    if {_target} is not player:
+
+                                        if {guild::%player's uuid%::current} is {guild::%{_target}'s uuid%::current}:
+
+                                            if {level::%{_target}'s uuid%} is greater than 24:
+
+                                                if arg-4 is set:
+
+                                                    if arg-4 is "confirm":
+
+                                                        # get what rank the target is before we change it
+                                                        set {_rank} to guildGetRank({_target})
+                                                        if {_rank} is "deputy":
+                                                            set {guild::%{guild::%player's uuid%::current}%::deputy} to player's uuid
+                                                        else if {_rank} is "agent":
+                                                            remove {_target}'s uuid from {guild::%{guild::%player's uuid%::current}%::agents::*}
+                                                            add player's uuid to {guild::%{guild::%player's uuid%::current}%::agents::*}
+                                                        else if {_rank} is "member":
+                                                            remove {_target}'s uuid from {guild::%{guild::%player's uuid%::current}%::members::*}
+                                                            add player's uuid to {guild::%{guild::%player's uuid%::current}%::members::*}
+                                                        set {guild::%{guild::%player's uuid%::current}%::master} to {_target}'s uuid
+                                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have transferred ownership of your guild to <##5EB6B6>%{_target}%&f."
+
+                                                    else:
+                                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou need to confirm this action by typing /guild edit transfer %{_target}% confirm."
+
+                                                else:
+                                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou need to confirm this action by typing /guild edit transfer %{_target}% confirm."
+
+                                            else:
+                                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &c%{_target}% must be level 25 or higher to be able to take ownership of a guild."
+
+                                        else:
+                                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &c%{_target}% is not in your guild."
+
+                                    else:
+                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &c%{_target}% is not a valid player."
+
+                                else:
+                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou need to specify a player to transfer ownership to."
+
+                            else if arg-2 is "promote" or "demote":
+
+                                if guildGetRank(player) is "master":
+
+                                    if arg-3 is set:
+
+                                        set {_target} to arg-3 parsed as player
+                                        if {_target} is not player:
+
+                                            if {guild::%player's uuid%::current} is {guild::%{_target}'s uuid%::current}:
+
+                                                set {_rank} to guildGetRank({_target})
+                                                
+                                                if arg-2 is "promote":
+
+                                                    if {_rank} is not "deputy":
+                                                        
+                                                        if {_rank} is "member":
+
+                                                            if size of {guild::%{guild::%player's uuid%::current}%::agents::*} is not 2:
+                                                                remove {_target}'s uuid from {guild::%{guild::%player's uuid%::current}%::members::*}
+                                                                add {_target}'s uuid to {guild::%{guild::%player's uuid%::current}%::agents::*}
+                                                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have promoted <##5EB6B6>%{_target}%&f to <##5EB6B6>agent&f."
+                                                        else if {_rank} is "agent":
+                                                            
+                                                            if {guild::%{guild::%player's uuid%::current}%::deputy} is not set:
+                                                                remove {_target}'s uuid from {guild::%{guild::%player's uuid%::current}%::agents::*}
+                                                                set {guild::%{guild::%player's uuid%::current}%::deputy} to {_target}'s uuid
+                                                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have promoted <##5EB6B6>%{_target}%&f to <##5EB6B6>deputy&f."
+
+                                                    else:
+                                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou cannot promote this player any further."
+
+                                                else if arg-2 is "demote":
+
+                                                    if {_rank} is not "member":
+
+                                                        if {_rank} is "agent":
+                                                            remove {_target}'s uuid from {guild::%{guild::%player's uuid%::current}%::agents::*}
+                                                            add {_target}'s uuid to {guild::%{guild::%player's uuid%::current}%::members::*}
+                                                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have demoted <##5EB6B6>%{_target}%&f to <##5EB6B6>member&f."
+                                                        else if {_rank} is "deputy":
+                                                            clear {guild::%{guild::%player's uuid%::current}%::deputy}
+                                                            add {_target}'s uuid to {guild::%{guild::%player's uuid%::current}%::agents::*}
+                                                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have demoted <##5EB6B6>%{_target}%&f to <##5EB6B6>agent&f."
+
+                                                    else:
+                                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou cannot demote this player any further."
+
+                                                else:
+                                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou cannot promote/demote yourself."
+                                                
+                                            else:
+                                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThis player is not in your guild."
+
+                                        else:
+                                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThis player does not exist."
+
+                                    else:
+                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou need to specify a player."
+
+                                else:
+                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou are not the master of this guild."
+
+                            else if arg-2 is "tag" or "kick":
+
+                                if guildGetRank(player) is "master" or "deputy":
+
+                                    if arg-3 is set:
+
+                                        if arg-2 is "tag":
+
+                                            if arg-3 matches "[a-zA-Z]*":
+
+                                                if length of arg-3 is greater than 2:
+
+                                                    if length of arg-3 is less than 8:
+
+                                                        loop {guilds::*}:
+                                                            if {guild::%loop-value%::tag} is arg-3 in upper case:
+                                                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThis tag is already in use."
+                                                                stop trigger
+
+                                                        set {guild::%{guild::%player's uuid%::current}%::tag} to arg-3 in upper case
+                                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYour guild tag has been changed to &8[%guildGetColor({guild::%player's uuid%::current})%%arg-3 in upper case%&8]."
+                                                    
+                                                    else:
+                                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYour guild tag must be less than 7 characters long."
+
+                                                else:
+                                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYour guild tag must be at least 3 characters long."
+
+                                            else:
+                                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou can only use letters for your guild tag."
+
+                                        else if arg-2 is "kick":
+
+                                            set {_player} to arg-3 parsed as player
+                                            set {_include::*} to {guild::%{guild::%player's uuid%::current}%::members::*} and {guild::%{guild::%player's uuid%::current}%::agents::*}
+                                            add {guild::%{guild::%player's uuid%::current}%::deputy} to {_include::*}
+
+                                            loop {_include::*}:
+
+                                                if {_player}'s uuid is loop-value:
+                                                    set {_target} to loop-value parsed as player
+
+                                            if guildGetRank({_player}) is "master":
+                                                if {guild::%player's uuid%::current} is {guild::%{_player}'s uuid%::current}:
+                                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou cannot kick the master of the guild."
+                                                    stop trigger
+
+                                            if {_target} is set:
+
+                                                if {_target} is not player:
+
+                                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have kicked %{_target}'s name%&f from the guild."
+                                                    
+                                                    loop {guild::%{guild::%player's uuid%::current}%::members::*}:
+                                                        if loop-value is {_target}'s uuid:
+                                                            remove loop-value from {guild::%{guild::%player's uuid%::current}%::members::*}
+                                                    loop {guild::%{guild::%player's uuid%::current}%::agents::*}:
+                                                        if loop-value is {_target}'s uuid:
+                                                            remove loop-value from {guild::%{guild::%player's uuid%::current}%::agents::*}
+                                                    if {_target}'s uuid is {guild::%{guild::%player's uuid%::current}%::deputy}:
+                                                        clear {guild::%{guild::%player's uuid%::current}%::deputy}
+                                                    
+                                                    clear {guild::%{_target}'s uuid%::current}
+
+                                                else:
+                                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou cannot kick yourself from the guild."
+
+                                            else:
+                                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThat player is not in your guild."
+
+                            else if arg-2 is "invite":
+
+                                if guildGetRank(player) is "master", "deputy" or "agent": 
+
+                                    if arg-3 is set:
+
+                                        set {_player} to arg-3 parsed as player
+
+                                        if {_player} is not player:
+
+                                            if {guild::%{_player}'s uuid%::current} is not set:
+
+                                                if {level::%{_player}'s uuid%} is greater than 9:
+
+                                                    loop {guild::%{guild::%player's uuid%::current}%::invites::*}:
+                                                        if loop-value is {_player}'s uuid:
+                                                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThat player has already been invited to your guild."
+                                                            stop trigger
+                                                            
+                                                    add {_player}'s uuid to {guild::%{guild::%player's uuid%::current}%::invites::*}
+                                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have invited <##5EB6B6>%{_player}'s name%&f to the guild."
+                                                    send formatted "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have been invited to join <##5EB6B6>%{guild::%player's uuid%::current}%&f. <suggest command:/guild join %{guild::%player's uuid%::current}%>&7Click here to <tooltip:&7Click here.>&a&ojoin<reset>&7." to {_player}
+
+                                                else:
+                                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThat player is not level 10 or above."
+
+                                            else:
+                                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThat player is already in your guild."
+
+                                        else:
+                                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou can't invite yourself."
+
+                                    else:
+                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou need to specify an argument."
+
+                                else:
+                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou are not the master or deputy of this guild."
+
+                            else:
+                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou need to specify what you want to edit."
+
+                        else:
+                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou need to specify what you want to edit."
+
+                    else if arg-1 is "leave":
+
+                        if guildGetRank(player) is not "master":
+
+                            set {_rank} to guildGetRank(player)
+                            set {_guild} to {guild::%player's uuid%::current}
+
+                            if {_rank} is "member":
+                                remove player's uuid from {guild::%{_guild}%::members::*}
+                            else if {_rank} is "agent":
+                                remove player's uuid from {guild::%{_guild}%::agents::*}
+                            else if {_rank} is "deputy":
+                                clear {guild::%{_guild}%::deputy}
+                            clear {guild::%player's uuid%::current}
+                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have left your guild."
+
+                        else:
+                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou cannot leave your guild as the master."
+
+                    else if arg-1 is "chat":
+
+                        if arg-2 is set:
+
+                            if arg-3 is set:
+                                set {_message::3} to "%arg-3% "
+                            else:
+                                set {_message::3} to ""
+                            if arg-4 is set:
+                                set {_message::4} to "%arg-4% "
+                            else:
+                                set {_message::4} to ""
+                            if arg-5 is set:
+                                set {_message::5} to arg-5
+                            else:
+                                set {_message::5} to ""
+
+                            set {_message} to "%arg-2% %{_message::3}%%{_message::4}%%{_message::5}%"
+
+                            set {_rank} to guildGetRank(player)
+                            if {_rank} is "master":
+                                set {_tag} to "&8[%guildGetColor({guild::%player's uuid%::current})%MASTER&8]"
+                            else if {_rank} is "deputy":
+                                set {_tag} to "&8[%guildGetColor({guild::%player's uuid%::current})%DEPUTY&8]"
+                            else if {_rank} is "agent":
+                                set {_tag} to "&8[%guildGetColor({guild::%player's uuid%::current})%AGENT&8]"
+                            else if {_rank} is "member":
+                                set {_tag} to "&8[%guildGetColor({guild::%player's uuid%::current})%MEMBER&8]"
+
+
+                            loop all players:
+
+                                if {guild::spy::*} contains loop-player's uuid:
+                                    if loop-player has permission "skript.admin":
+                                        send "<##508a7f>[<##5EB6B6>&l%{guild::%{guild::%player's uuid%::current}%::tag}%<##508a7f>] | %player's prefix%%player's name% %{_tag}%&f &8» &f%{_message}%" to loop-player
+                                else:
+                                    if {guild::%loop-player's uuid%::current} is {guild::%player's uuid%::current}:
+                                        send "<##508a7f>[<##5EB6B6>&l%{guild::%{guild::%player's uuid%::current}%::tag}%<##508a7f>] | %player's prefix%%player's name% %{_tag}%&f &8» &f%{_message}%" to loop-player
+
+                        else:
+                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou need to specify a message."
+
+                else:
+                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou are not in a guild."
+
+            else if arg-1 is "create" or "join":
+
+                if {guild::%player's uuid%::current} is not set:
+
+                    if arg-1 is "create":
+
+                        if {level::%player's uuid%} is greater than 24:
+
+                            if arg-2 is set:
+
+                                if length of arg-2 is not less than 3:
+
+                                    if length of arg-2 is not greater than 15:
+
+                                        # check if arg-2 contains anything but letters and numbers
+                                        if arg-2 matches "[a-zA-Z]*":
+
+                                            # check if the guild name is already taken
+                                            loop {guild::*}:
+
+                                                if arg-2 is loop-value:
+                                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThis guild name is already taken."
+                                                    stop trigger
+
+                                            set {guild::%player's uuid%::current} to arg-2
+                                            set {guild::%arg-2%::master} to player's uuid
+                                            set {guild::%arg-2%::name} to arg-2
+                                            set {guild::%arg-2%::level} to 1
+                                            set {guild::experience::%arg-2%} to 0
+                                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have created the guild <##5EB6B6>%arg-2%&f."
+
+                                        else:
+                                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThe guild name can only contain letters and numbers."
+
+                                    else:
+                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThe guild name cannot be longer than 15 characters."
+
+                                else:
+                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThe guild name cannot be shorter than 3 characters."
+
+                            else:
+                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cPlease specify a guild name."
+
+
+                        else:
+                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou need to be level 25 to create a guild."
+
+                    else if arg-1 is "join":
+
+                        if arg-2 is set:
+
+                            loop {guild::%arg-2%::invites::*}:
+
+                                if player's uuid is loop-value:
+
+                                    if size of {guild::%arg-2%::members::*} is 7 + guildGetExtra({guild::%arg-2%::master} parsed as player):
+                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThis guild is currently full."
+                                        stop trigger
+                                    else:
+                                        set {guild::%player's uuid%::current} to arg-2
+                                        remove player's uuid from {guild::%arg-2%::invites::*}
+                                        add player's uuid to {guild::%arg-2%::members::*}
+                                        send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have joined the guild <##5EB6B6>%arg-2%&f."
+                                        stop trigger
+
+                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou have not been invited to this guild."
+    
+                        else:
+                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cPlease specify a guild to join."
+
+                else:
+                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou are already in a guild."
+
+            else if arg-1 is "info":
+
+                if arg-2 is not set:
+                    set {_target} to {guild::%player's uuid%::current}
+                else:
+                    set {_target} to arg-2
+
+                if {guild::%{_target}%::name} is set:
+
+                    send "&7&m                                                                  "
+                    send ""
+                    send "  <##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] »&f %{guild::%{_target}%::name}%"
+                    send ""
+                    send "    &7Size: &f%guildGetSize({_target})%/%11 + guildGetExtra({guild::%{_target}%::master} parsed as player)%"
+
+                    set {_tag} to {guild::%{_target}%::tag}
+                    if {_tag} is not set:
+                        set {_tag} to "&8None"
+
+                    send "    &7Tag: %guildGetColor({_target})%%{_tag}%"
+                    send "    &7Level: %guildGetColor({_target})%%guildReturnLevel({_target})%"
+                    send "    &7Rank: %guildGetColor({_target})%##%guildGetPosition({_target})%"
+                    send ""
+                    send "    &7Members:"
+                    send "    <##5EB6B6>-%last 17 characters of ({guild::%{_target}%::master} parsed as player)'s prefix%%{guild::%{_target}%::master} parsed as offline player% &7(&fMaster&7)"
+
+                    if {guild::%{_target}%::deputy} is set:
+                        send "    <##5EB6B6>-%last 17 characters of ({guild::%{_target}%::deputy} parsed as player)'s prefix%%{guild::%{_target}%::deputy} parsed as offline player% &7(&fDeputy&7)"
+                    loop {guild::%{_target}%::agents::*}:
+                        send "    <##5EB6B6>-%last 17 characters of (loop-value parsed as player)'s prefix%%loop-value parsed as offline player% &7(&fAgent&7)"
+                    loop {guild::%{_target}%::members::*}:
+                        send "    <##5EB6B6>-%last 17 characters of (loop-value parsed as player)'s prefix%%loop-value parsed as offline player% &7(&fMember&7)"
+                        
+                    send ""
+                    send "&7&m                                                                  "
+                    
+                else:
+                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThis guild does not exist."
+
+            else if arg-1 is "admin":
+
+                if player has permission "skript.admin":
+
+                    if arg-2 is "delete":
+
+                        if arg-3 is set:
+
+                            if {guild::%arg-3%::name} is set:
+
+                                loop {guild::%arg-3%::members::*} and {guild::%arg-3%::agents::*}:
+                                    clear {guild::%loop-value%::current}
+
+                                clear {guild::%{guild::%arg-3%::deputy}%::current}
+                                clear {guild::%{guild::%arg-3%::master}%::current}
+                                clear {guild::%arg-3%::*}
+                                clear {guild::experience::%arg-3%}
+                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have deleted the guild <##5EB6B6>%arg-3%&f."
+
+                            else:
+                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThis guild does not exist."
+
+                    else if arg-2 is "spy":
+
+                        if arg-3 is set:
+
+                            if arg-3 is "true":
+
+                                add player's uuid to {guild::spy::*}
+                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have enabled guild spy."
+
+                            else if arg-3 is "false":
+
+                                remove player's uuid from {guild::spy::*}
+                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have disabled guild spy."
+
+                            else:
+                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cPlease specify a valid option."
+
+                        else:
+                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cPlease specify a valid option."
+
+                    else if arg-2 is "kick":
+
+                        if arg-3 is set:
+
+                            set {_target} to arg-3 parsed as player
+
+                            if {guild::%{_target}'s uuid%::current} is set:
+
+                                set {_rank} to guildGetRank({_target})
+                                set {_guild} to {guild::%{_target}'s uuid%::current}
+
+                                if {_rank} is "member", "agent" or "deputy":
+
+                                    if {_rank} is "member":
+                                        remove {_target}'s uuid from {guild::%{_guild}%::members::*}
+                                    else if {_rank} is "agent":
+                                        remove {_target}'s uuid from {guild::%{_guild}%::agents::*}
+                                    else if {_rank} is "deputy":
+                                        clear {guild::%{_guild}%::deputy}
+                                    clear {guild::%{_target}'s uuid%::current}
+                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &fYou have kicked <##5EB6B6>%{_target}%&f from <##5EB6B6>%{_guild}%&f."
+                                
+                                else:
+                                    send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cYou cannot kick the master of a guild."
+
+                            else:
+                                send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cThis player is not in a guild."
+
+                        else:
+                            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cPlease specify a player."
+
+        else:
+            send "<##508a7f>[<##5EB6B6>&lGUILD<##508a7f>] » &cPlease specify a command option."
+
+
+on tab complete of "/guild":
+
+    if tab arg-1 is not "edit", "leave", "invite", "join", "create", "info", "admin" or "chat": # add new options  
+        clear {_tabCompletion::*}
+        if {guild::%player's uuid%::current} is set:
+            add ("chat") to {_tabCompletion::*}
+            if {guild::%{guild::%player's uuid%::current}%::master} is not player's uuid:
+                add ("leave") to {_tabCompletion::*}
+
+        else:
+            if {level::%player's uuid%} is greater than 9:
+                add ("join") to {_tabCompletion::*}
+            if {level::%player's uuid%} is greater than 24:
+                add ("create") to {_tabCompletion::*}
+
+        if guildGetRank(player) is "master", "deputy" or "agent":
+            add ("edit") to {_tabCompletion::*}
+        
+        if player has permission "skript.admin":
+            add ("admin") to {_tabCompletion::*}
+        
+        add ("info") to {_tabCompletion::*}
+        set tab completions for position 1 to {_tabCompletion::*}
+
+    if tab arg-1 is "edit":
+
+        clear {_tabCompletion::*}
+        set {_rank} to guildGetRank(player)
+        if {_rank} is "master":
+            add ("disband", "transfer", "kick", "promote", "demote" and "tag") to {_tabCompletion::*}
+        else if {_rank} is "deputy":
+            add ("kick" and "tag") to {_tabCompletion::*}
+        
+        if {_rank} is "master", "deputy" or "agent":
+            add ("invite") to {_tabCompletion::*}
+
+        set tab completions for position 2 to {_tabCompletion::*}
+
+        if tab arg-2 is "invite":
+            clear {_tabCompletion::*}
+            loop all players:
+                if {guild::%loop-player's uuid%::current} is not set:
+                    if {level::%loop-player's uuid%} is greater than 9:
+                        add loop-player's name to {_tabCompletion::*}
+            set tab completions for position 3 to {_tabCompletion::*}
+
+        if tab arg-2 is "transfer", "promote", "demote" or "kick":
+            clear {_tabCompletion::*}
+            loop all players:
+                if {guild::%player's uuid%::current} is {guild::%loop-player's uuid%::current}:
+                    if loop-player is not player:
+                        add loop-player's name to {_tabCompletion::*}
+            set tab completions for position 3 to {_tabCompletion::*}
+
+        if tab arg-1 is "join":
+            clear {_tabCompletion::*}
+            loop {guild::%player's uuid%::invites::*}:
+                add {guild::%loop-value%::name} to {_tabCompletion::*}
+            set tab completions for position 2 to {_tabCompletion::*}
+
+    if tab arg-1 is "admin":
+
+        if player has permission "skript.admin":
+            clear {_tabCompletion::*}
+            set {_tabCompletion::*} to ("kick", "vault", "delete" and "spy")
+            set tab completions for position 2 to {_tabCompletion::*}
+
+        if tab arg-2 is "kick":
+            clear {_tabCompletion::*}
+            loop all players:
+                if {guild::%loop-player's uuid%::current} is set:
+                    add loop-player's name to {_tabCompletion::*}
+            set tab completions for position 3 to {_tabCompletion::*}
+
+        if tab arg-2 is "spy":
+            clear {_tabCompletion::*}
+            set tab completions for position 3 to ("true" and "false")

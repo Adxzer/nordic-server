@@ -164,80 +164,83 @@ on inventory click:
                 
                 loop {_armor::*}:
                     if uncolored name of loop-value contains "Tunic", "Pants" or "Boots":
-                        set {_valid} to true
+                        if uncolored name of loop-value does not contain "##":
+                            set {_valid} to true
 
                 if {_valid} is true:
 
-                    set {_cost::*} to 4th line of lore of slot 31 of player's current inventory split at "$"
-                    set {_cost} to {_cost::2} parsed as integer
+                    if uncolored name of slot 40 of player's current inventory contains "Dye":
 
-                    loop player's inventory:
-                        if loop-value is emerald block:
-                            add item amount of loop-value to {_gemstone}
-                            add 64 * item amount of loop-value to {_money}
-                        else if loop-value is emerald:
-                            add item amount of loop-value to {_emerald}
-                            add item amount of loop-value to {_money}
+                        set {_cost::*} to 4th line of lore of slot 31 of player's current inventory split at "$"
+                        set {_cost} to {_cost::2} parsed as integer
 
-                    if {_cost} is not set:
-                        set {_cost} to 0
-                    if {_money} is not set:
-                        set {_money} to 0
-
-                    if {_money} is greater than or equal to {_cost}:
-                        
                         loop player's inventory:
+                            if loop-value is emerald block:
+                                add item amount of loop-value to {_gemstone}
+                                add 64 * item amount of loop-value to {_money}
+                            else if loop-value is emerald:
+                                add item amount of loop-value to {_emerald}
+                                add item amount of loop-value to {_money}
 
-                            if {_cost} is greater than 0:
+                        if {_cost} is not set:
+                            set {_cost} to 0
+                        if {_money} is not set:
+                            set {_money} to 0
 
-                                if loop-value is emerald block or emerald:
+                        if {_money} is greater than or equal to {_cost}:
+                            
+                            loop player's inventory:
 
-                                    if {_gemstone} is greater than or equal to {_cost} / 64:
+                                if {_cost} is greater than 0:
 
-                                        if {_cost} is less than 64:
+                                    if loop-value is emerald block or emerald:
+
+                                        if {_gemstone} is greater than or equal to {_cost} / 64:
+
+                                            if {_cost} is less than 64:
+                                                if {_emerald} is greater than or equal to {_cost}:
+                                                    remove {_cost} of emerald from player's inventory
+                                                    stop loop
+                                                else:
+                                                    set {_give} to 64 - {_cost}
+                                                    remove 1 of emerald block from player's inventory
+                                                    give {_give} of {items::economyItems::1} to player
+                                                    stop loop
+                                            else:
+                                                remove {_cost} / 64 of emerald block from player's inventory
+                                                remove {_gemstone} * 64 from {_cost}
+                                        else:
+
+                                            remove {_gemstone} of emerald block from player's inventory
+                                            remove {_gemstone} * 64 from {_cost}
+
                                             if {_emerald} is greater than or equal to {_cost}:
                                                 remove {_cost} of emerald from player's inventory
-                                                stop loop
-                                            else:
-                                                set {_give} to 64 - {_cost}
-                                                remove 1 of emerald block from player's inventory
-                                                give {_give} of {items::economyItems::1} to player
-                                                stop loop
-                                        else:
-                                            remove {_cost} / 64 of emerald block from player's inventory
-                                            remove {_gemstone} * 64 from {_cost}
-                                    else:
+                                                remove {_emerald} from {_cost}
 
-                                        remove {_gemstone} of emerald block from player's inventory
-                                        remove {_gemstone} * 64 from {_cost}
+                            set {_dye::*} to fabricatorGetDye(slot 40 of player's current inventory)
 
-                                        if {_emerald} is greater than or equal to {_cost}:
-                                            remove {_cost} of emerald from player's inventory
-                                            remove {_emerald} from {_cost}
-
-                        set {_dye::*} to fabricatorGetDye(slot 40 of player's current inventory)
-
-                        set {_armor::*} to (slot 12 of player's current inventory, slot 13 of player's current inventory and slot 14 of player's current inventory)
-                        loop {_armor::*}:
-                            add 1 to {_counter}
-                            set name of {_armor::%{_counter}%} to "%name of {_armor::%{_counter}%}% &8##%fabricatorGetHash(slot 40 of player's current inventory)%"
-                            dye {_armor::%{_counter}%} rgb({_dye::1}, {_dye::2}, {_dye::3})
-                            give player {_armor::%{_counter}%}
+                            set {_armor::*} to (slot 12 of player's current inventory, slot 13 of player's current inventory and slot 14 of player's current inventory)
+                            loop {_armor::*}:
+                                add 1 to {_counter}
+                                set name of {_armor::%{_counter}%} to "%name of {_armor::%{_counter}%}% &8##%fabricatorGetHash(slot 40 of player's current inventory)%"
+                                dye {_armor::%{_counter}%} rgb({_dye::1}, {_dye::2}, {_dye::3})
+                                give player {_armor::%{_counter}%}
 
 
-                        if slot 12 of player's current inventory is not air:
-                            remove 1 of slot 12 of player's current inventory from slot 12 of player's current inventory
-                        if slot 13 of player's current inventory is not air:
-                            remove 1 of slot 13 of player's current inventory from slot 13 of player's current inventory
-                        if slot 14 of player's current inventory is not air:
-                            remove 1 of slot 14 of player's current inventory from slot 14 of player's current inventory
-                        if slot 40 of player's current inventory is not air:
-                            remove 1 of slot 40 of player's current inventory from slot 40 of player's current inventory
+                            if slot 12 of player's current inventory is not air:
+                                remove 1 of slot 12 of player's current inventory from slot 12 of player's current inventory
+                            if slot 13 of player's current inventory is not air:
+                                remove 1 of slot 13 of player's current inventory from slot 13 of player's current inventory
+                            if slot 14 of player's current inventory is not air:
+                                remove 1 of slot 14 of player's current inventory from slot 14 of player's current inventory
+                            if slot 40 of player's current inventory is not air:
+                                remove 1 of slot 40 of player's current inventory from slot 40 of player's current inventory
 
-                        fabricatorGetLore(player, slot 40 of player's current inventory)
-                        play sound "ENTITY_FIREWORK_ROCKET_BLAST" with volume 0.2 to player
-                        play sound "UI_LOOM_SELECT_PATTERN" with volume 0.2 to player
-                        play sound "ENTITY_ANVIL_USE" with volume 0.2 to player
+                            fabricatorGetLore(player, slot 40 of player's current inventory)
+                            play sound "ENTITY_FIREWORK_ROCKET_BLAST" with volume 0.2 to player
+                            play sound "UI_LOOM_SELECT_PATTERN" with volume 0.2 to player
+                            play sound "ENTITY_ANVIL_USE" with volume 0.2 to player
 
         else:
 

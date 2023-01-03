@@ -27,13 +27,13 @@ function reforgeGetValidInput(tool: item, stone: item) :: string:
     
     if uncolored name of {_tool} contains "Shovel":
 
-        if uncolored name of {_tool} does not contain "Ravishing":
+        if uncolored name of {_tool} does not contain "Ravishing" or "Refined":
 
             if uncolored name of {_stone} is "Icicle Stone":
                 return "Ravishing:Ore 2"
             else if uncolored name of {_stone} is "Refined Stone":
 
-                if uncolored name of {_tool} is "Frost Shovel" or "Glaze Shovel":
+                if uncolored name of {_tool} is "Frost Shovel", "Colossal Shovel" or "Glaze Shovel":
                     return "Refined:Ore 5"
         
     if uncolored name of {_tool} contains "Hoe":

@@ -95,12 +95,22 @@ function guiCreateBank(player: player, target: offline player, name: string, num
             add item amount of loop-value to {_value}
     set {_value} to floor({_value} / 64)
 
+
+    if {_player} has permission "skript.asgard":
+        set {_max} to 9 + 15
+    else if {_player} has permission "skript.warrior":
+        set {_max} to 9 + 7
+    else if {_player} has permission "skript.berserk":
+        set {_max} to 9 + 3
+    else:
+        set {_max} to 9
+
     if {_number} > 1:
         set {_showPrevious} to true
     else:
         set {_showPrevious} to false
 
-    if {_number} < 9:
+    if {_number} < {_max}:
         set {_showNext} to true
     else:
         set {_showNext} to false
@@ -118,7 +128,7 @@ function guiCreateBank(player: player, target: offline player, name: string, num
         
         if {_borderIndex} is 48:
             set slot {_borderIndex} of metadata tag "bank" of {_player} to chest named "<##5EB6B6>Inventory Compressor" with lore "&7Compress your inventory.", "", "&7&nCompress For:", "&8- &7%{_value}%x Gemstone", "" and "&eCompress (Right Click)"
-        
+
         if {_borderIndex} is 50:
 
             if {_showPrevious} is true:
@@ -139,9 +149,29 @@ function guiCreateBank(player: player, target: offline player, name: string, num
 function guiCreateItemBuyer(player: player, name: string):
 
     set {_u} to uuid of {_player}
+    set {_borderIndex} to 0
 
-    set metadata tag "buyer" of {_player} to chest with 1 row named "%{_name}%"
-    set slot 8 of metadata tag "buyer" of {_player} to composter named "&fSell Items" with lore "&7Currently no items, add", "&7items to sell them.", "" and "&cEmpty grid!"
+    if uncolored {_name} contains "Remote":
+        set metadata tag "buyer" of {_player} to chest with 6 rows named "%{_name}%"
+    else:
+        set metadata tag "buyer" of {_player} to chest with 5 rows named "%{_name}%"
+
+    loop 54 times:
+
+        if {_borderIndex} is not 19, 20, 21, 22, 23 or 24:
+            set slot {_borderIndex} of metadata tag "buyer" of {_player} to black stained glass pane named "&8Border"
+
+        if {_borderIndex} is 11, 12, 13, 14, 29, 30, 31 or 32:
+            set slot {_borderIndex} of metadata tag "buyer" of {_player} to gray stained glass pane named "&7Border"
+
+        if {_borderIndex} is 49:
+
+            if uncolored {_name} contains "Remote":
+                set slot {_borderIndex} of metadata tag "buyer" of {_player} to barrier named "&cClose"
+
+        add 1 to {_borderIndex}
+
+    set slot 25 of metadata tag "buyer" of {_player} to composter named "&fSell Items" with lore "&7Currently no items, add", "&7items to sell them.", "" and "&cEmpty grid!"
 
     questTalk({_player})
     open (metadata tag "buyer" of {_player}) to {_player}
@@ -160,7 +190,7 @@ function guiCreateItemFuser(player: player, name: string):
         else:
 
             if {_borderIndex} is 25:
-                set slot {_borderIndex} of metadata tag "fuser" of {_player} to lodestone named "&bFuse Items" with lore "&7Insert items in the grid", "&7below to create a new item.", "", and "&cNot a valid recipe!"
+                set slot {_borderIndex} of metadata tag "fuser" of {_player} to lodestone named "&bFuse Items" with lore "&7Insert items in the grid", "&7below to create a new item.", "" and "&cNot a valid recipe!"
             
             if {_borderIndex} is not 21, 22, 23 or 25:
                 set slot {_borderIndex} of metadata tag "fuser" of {_player} to black stained glass pane named "&8Border"
@@ -172,35 +202,35 @@ function guiCreateItemFuser(player: player, name: string):
 
 function guiEditItemLore(player: player):
 
-    clear lore of slot 8 of {_player}'s current inventory
-    set 1th line of lore of slot 8 of {_player}'s current inventory to "&7To sell the grid items"
-    set 2th line of lore of slot 8 of {_player}'s current inventory to "&7click on this composter."
-    set 4th line of lore of slot 8 of {_player}'s current inventory to "&7&nItems:"
+    clear lore of slot 25 of {_player}'s current inventory
+    set 1th line of lore of slot 25 of {_player}'s current inventory to "&7To sell the grid items"
+    set 2th line of lore of slot 25 of {_player}'s current inventory to "&7click on this composter."
+    set 4th line of lore of slot 25 of {_player}'s current inventory to "&7&nItems:"
 
-    set {_counter2} to 0
+    set {_counter2} to 19
     loop 8 times:
         set {_item2} to slot {_counter2} of {_player}'s current inventory
         set {_value2} to getSellValue({_item2}, item amount of {_item2})
         if {_value2} is set:
             if item amount of {_item2} is greater than 1:
                 if {_value2} > 0:
-                    add "&7%item amount of {_item2}%x %uncolored name of {_item2}% &7(&a%{_value2}%$&7)" to lore of slot 8 of {_player}'s current inventory
+                    add "&7%item amount of {_item2}%x %uncolored name of {_item2}% &7(&a%{_value2}%$&7)" to lore of slot 25 of {_player}'s current inventory
                 else:
-                    add "&7%item amount of {_item2}%x %uncolored name of {_item2}% &7(&cTRASH&7)" to lore of slot 8 of {_player}'s current inventory
+                    add "&7%item amount of {_item2}%x %uncolored name of {_item2}% &7(&cTRASH&7)" to lore of slot 25 of {_player}'s current inventory
             else:
                 if {_value2} > 0:
-                    add "&7%uncolored name of {_item2}% &7(&a%{_value2}%$&7)" to lore of slot 8 of {_player}'s current inventory
+                    add "&7%uncolored name of {_item2}% &7(&a%{_value2}%$&7)" to lore of slot 25 of {_player}'s current inventory
                 else:
-                    add "&7%uncolored name of {_item2}% &7(&cTRASH&7)" to lore of slot 8 of {_player}'s current inventory
+                    add "&7%uncolored name of {_item2}% &7(&cTRASH&7)" to lore of slot 25 of {_player}'s current inventory
         add 1 to {_counter2}
 
-    add "" to lore of slot 8 of {_player}'s current inventory
-    add "&eSell (Right Click)" to lore of slot 8 of {_player}'s current inventory
+    add "" to lore of slot 25 of {_player}'s current inventory
+    add "&eSell (Right Click)" to lore of slot 25 of {_player}'s current inventory
 
 function guiCheckItemLore(player: player):
 
-    set {_counter} to 0
-    loop 8 times:
+    set {_counter} to 19
+    loop 6 times:
         if slot {_counter} of {_player}'s current inventory is not air:
             guiEditItemLore({_player})
             set {_empty} to false
@@ -208,8 +238,8 @@ function guiCheckItemLore(player: player):
         add 1 to {_counter}
                 
     if {_empty} is not false:
-        clear lore of slot 8 of {_player}'s current inventory
-        set lore of slot 8 of {_player}'s current inventory to "&7Currently no items, add", "&7items to sell them.", "" and "&cEmpty grid!"
+        clear lore of slot 25 of {_player}'s current inventory
+        set lore of slot 25 of {_player}'s current inventory to "&7Currently no items, add", "&7items to sell them.", "" and "&cEmpty grid!"
 
 function guiEditFuserLore(player: player, list: itemtypes):
 
@@ -251,6 +281,24 @@ on rightclick:
 
                 set slot {_borderIndex} of metadata tag "menu" of player to {_placeItem}
 
+            if {_borderIndex} is 21:
+
+                if {guild::%player's uuid%::current} is set:
+
+                    set {_color} to guildGetColor({guild::%player's uuid%::current})
+                    if {_color} is "&a":
+                        set {_item} to lime standing banner
+                    else if {_color} is "&2":
+                        set {_item} to green standing banner
+                    else if {_color} is "<##FFC0CB>":
+                        set {_item} to pink standing banner
+                    else if {_color} is "&c":
+                        set {_item} to red standing banner
+                    else if {_color} is "<##171616>":
+                        set {_item} to black standing banner
+
+                    set slot {_borderIndex} of metadata tag "menu" of player to {_item} named "<##5EB6B6>Guild" with lore "&7View your current guild and", "&7the your guild stats", "", "&7Guild: %{_color}%%{guild::%player's uuid%::current}%", "&7Rank: &f%capitalized first character of guildGetRank(player)%%subtext of guildGetRank(player) from characters 2 to length of guildGetRank(player)%", "" and "&eView (Right Click)"
+
             if {_borderIndex} is 22:
 
                 set {_next::*} to dateGetNextEvent(1) split at ":"
@@ -285,6 +333,12 @@ on rightclick:
                         set slot {_borderIndex} of metadata tag "menu" of player to chest named "<##5EB6B6>Bank" with lore "&7Access your remote bank to store", "&7your items and convert emeralds.", "", "&7Left click to change page", "&7that should be opened: &f%{bank::saved::%{_u}%}%&7.", "" and "&eView (Right Click)"
                     else if {_borderIndex} is 41:
                         set slot {_borderIndex} of metadata tag "menu" of player to compass named "<##5EB6B6>Teleport" with lore "&7While not in combat this menu gives", "&7you instant access to all the parts of the map.", "" and "&eView (Right Click)"
+                else:
+                    set slot {_borderIndex} of metadata tag "menu" of player to gray dye named "&fAccess denied" with lore "&7You currently lack access to this feature and", "&7you can unlock it by supporting the server.", "" and "&cInherit permissions!"
+
+            if {_borderIndex} is 40:
+                if player has permission "skript.asgard":
+                    set slot {_borderIndex} of metadata tag "menu" of player to empty map named "<##5EB6B6>Item Buyer" with lore "&7Access the Item Buyer and sell", "&7your items directly and remotely.", "" and "&eView (Right Click)"
                 else:
                     set slot {_borderIndex} of metadata tag "menu" of player to gray dye named "&fAccess denied" with lore "&7You currently lack access to this feature and", "&7you can unlock it by supporting the server.", "" and "&cInherit permissions!"
 
@@ -400,7 +454,11 @@ on inventory click:
                         set {_type::*} to split loop-value at " "
                         stop loop
 
-                if event-item is diamond axe:
+
+                if event-item is diamond axe or fishing rod:
+                    set {_type::1} to "Buy"
+
+                if uncolored name of event-item contains "Supply Basket":
                     set {_type::1} to "Buy"
 
                 if uncolored {_type::1} is "Buy":
@@ -431,7 +489,7 @@ on inventory click:
                     set {_splitThree::*} to uncolored split {_checkLine3}th line of lore of event-item at "x "
                     set {_itemThreeList::*} to uncolored split {_splitThree::1} at " "
 
-                    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::toolItems::*}, {items::economyItems::*}, {items::consumableItems::*})
+                    set {_itemList::*} to ({items::armorItems::*}, {items::dropItems::*}, {items::otherItems::*}, {items::bossItems::*}, {items::toolItems::*}, {items::reforgeItems::*}, {items::economyItems::*}, {items::consumableItems::*})
                     loop {_itemList::*}:
                         if uncolored name of loop-value is {_splitOne::2}:
                             set {_itemOne} to {_itemOneList::2} parsed as integer of loop-value
@@ -504,7 +562,10 @@ on inventory click:
                                     else:
                                         stop loop
 
-                                give player {_item}
+                                if uncolored name of {_item} contains "Yearly Crystal":
+                                    give player end crystal of unbreaking 1 named "&c%dateGetDay({year})% Yearly Crystal" with lore "&7Event Reward.", "", "&7This item can be bought during the", "&7celebration of &d%dateGetDay({year})% New Year&7.", "",  "&c★★&8☆☆☆" and "&c&lSPECIAL" with all flags hidden
+                                else:
+                                    give player {_item}
 
                             else:
                                 send "<##508a7f>[<##5EB6B6>&lWARNING<##508a7f>] » &fYou don't have any space in your inventory for that action."
@@ -522,7 +583,17 @@ on inventory click:
             if player has permission "skript.rank":
                 
                 if click type is right mouse button:
-                    if {bank::saved::%player's uuid%} is 9:
+
+                    if player has permission "skript.asgard":
+                        set {_max} to 9 + 15
+                    else if player has permission "skript.warrior":
+                        set {_max} to 9 + 7
+                    else if player has permission "skript.berserk":
+                        set {_max} to 9 + 3
+                    else:
+                        set {_max} to 9
+
+                    if {bank::saved::%player's uuid%} is {_max}:
                         set {bank::saved::%player's uuid%} to 1
                     else:
                         add 1 to {bank::saved::%player's uuid%}
@@ -530,6 +601,10 @@ on inventory click:
                 
                 else:
                     guiCreateBank(player, player, "&8Remote Banker", {bank::saved::%player's uuid%})
+        else if index of event-slot is 40:
+
+            if player has permission "skript.asgard":
+                guiCreateItemBuyer(player, "&8Remote Item Buyer")
         else if index of event-slot is 41:
 
             if player has permission "skript.rank":
@@ -550,6 +625,23 @@ on inventory click:
 
                     if {_borderIndex} is 49:
                         set slot {_borderIndex} of metadata tag "teleport" of player to barrier named "&cClose"
+
+                    if {_borderIndex} is 48:
+
+                        if player has permission "skript.asgard", "skript.warrior" or "skript.berserk":
+
+                            if {location::saved::%player's uuid%} is not set:
+                                set {location::saved::%player's uuid%} to 1
+
+                            if {location::%{location::saved::%player's uuid%}%::%player's uuid%} is set:
+                                set {_loc} to {location::%{location::saved::%player's uuid%}%::%player's uuid%}
+                            else:
+                                set {_loc} to "None"
+
+                            set slot {_borderIndex} of metadata tag "teleport" of player to ender pearl named "<##5EB6B6>Custom" with lore "&7Bind this to custom locations", "&7with the /custom command.", "", "&7Left click to change teleport" and "&7location: %{location::saved::%player's uuid%}% &7(&f%{_loc}%&7)", "", "&eTeleport (Right Click)"
+                        
+                        else:
+                            set slot {_borderIndex} of metadata tag "teleport" of player to gray dye named "&fAccess denied" with lore "&7You currently lack access to this feature and", "&7you can unlock it by upgrading your rank.", "" and "&cInherit permissions!"
 
                     add 1 to {_borderIndex}
 
@@ -581,12 +673,42 @@ on inventory click:
                 teleport player to location(-5, 7, -21, world "world", 0, 0)
             else if index of event-slot is 23:
                 teleport player to location(-141, 31, 62, world "world", 90, 0)
+            else if index of event-slot is 48:
+
+                if player has permission "skript.asgard", "skript.warrior" or "skript.berserk":
+
+                    if click type is right mouse button:
+
+                        if player has permission "skript.asgard":
+                            set {_max} to 10
+                        else if player has permission "skript.warrior":
+                            set {_max} to 5
+                        else if player has permission "skript.berserk":
+                            set {_max} to 2
+
+                        if {location::saved::%player's uuid%} is {_max}:
+                            set {location::saved::%player's uuid%} to 1
+                        else:
+                            add 1 to {location::saved::%player's uuid%}
+
+                        if {location::%{location::saved::%player's uuid%}%::%player's uuid%} is set:
+                            set {_loc} to {location::%{location::saved::%player's uuid%}%::%player's uuid%}
+                        else:
+                            set {_loc} to "None"
+
+                        set 5th line of lore of slot 48 of player's current inventory to "&7location: %{location::saved::%player's uuid%}% &7(&f%{_loc}%&7)"
+                    else:
+                        
+                        if {location::%{location::saved::%player's uuid%}%::%player's uuid%} is set:
+                            set {_split::*} to split {location::%{location::saved::%player's uuid%}%::%player's uuid%} at " "
+                            teleport player to location(({_split::1} parsed as integer), ({_split::2} parsed as integer), ({_split::3} parsed as integer), world "world", 90, 0)
+
     if uncolored name of player's current inventory contains "Item Buyer":
         cancel event
     
         if event-inventory = (metadata tag "buyer" of player):
         
-            if index of event-slot is not 8:
+            if index of event-slot is 19, 20, 21, 22, 23 or 24:
 
                 set {_item} to event-slot
                 set event-slot to air
@@ -594,11 +716,11 @@ on inventory click:
 
                 guiCheckItemLore(player)
 
-            else if index of event-slot is 8:
+            else if index of event-slot is 25:
 
-                set {_counter} to 0
+                set {_counter} to 19
                 set {_value} to 0
-                loop 8 times:
+                loop 6 times:
                     if slot {_counter} of player's current inventory is not air:
                         add getSellValue(slot {_counter} of player's current inventory, item amount of slot {_counter} of player's current inventory) to {_value}
                         set slot {_counter} of player's current inventory to air
@@ -615,18 +737,21 @@ on inventory click:
                     play sound "BLOCK_COMPOSTER_FILL_SUCCESS" at volume 0.2 to player
                     guiCheckItemLore(player)
                     give player {_value} of {_emerald}
+                    
+            else if index of event-slot is 49:
+                open (metadata tag "menu" of player) to player
 
         else:
 
-            if event-slot is not air:
+            if event-slot is not air, black stained glass pane or gray stained glass pane:
 
                 set {_item} to event-slot
                 set {_value} to getSellValue({_item}, item amount of {_item})
                 if {_value} is set:
                     
-                    set {_counter} to 0
+                    set {_counter} to 19
 
-                    loop 8 times:
+                    loop 6 times:
 
                         if slot {_counter} of player's current inventory is air:
 
@@ -732,8 +857,8 @@ on inventory close:
             add 1 to {_slot}
     else if event-inventory = (metadata tag "buyer" of player): 
 
-        set {_counter} to 0
-        loop 8 times:
+        set {_counter} to 19
+        loop 6 times:
             if slot {_counter} of player's current inventory is not air:
                 give player slot {_counter} of player's current inventory
             add 1 to {_counter}

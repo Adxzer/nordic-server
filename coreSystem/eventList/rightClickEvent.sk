@@ -1,7 +1,10 @@
 on right click:
 
-    if player's tool is a egg, shear or trident:
+    if player's tool is a egg, milk bucket, shear or trident:
         cancel event
     
     if event-block is flower pot, stonecutter, item frame, smoker, blast furnace, furnace, barrel or anvil:
         cancel event
+
+on consume:
+    cancel event

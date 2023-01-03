@@ -142,6 +142,7 @@ function dateStartWinterWonderland():
 
     set {event::winter::status} to true
     add 1 to {event::winter::amount}
+    set {event::winter::show} to {event::winter::amount} - 1
     clear {event::snowball::collected::*}
 
     make console execute command "hd setline eventNpcTag 1 &7&lCLICK"
@@ -206,6 +207,7 @@ function dateStartNewYear():
 
     set {event::yearly::status} to true
     add 1 to {event::yearly::amount}
+    set {event::yearly::show} to {event::yearly::amount} - 1
 
     make console execute command "hd setline eventNpcTag 1 &7&lCLICK"
     make console execute command "load year"
@@ -322,7 +324,7 @@ function dateCheckHour(day: integer):
         make console execute command "hd setline eventLeaderboard 3 &7by buying some fireworks from &dAurora&7."
         make console execute command "hd setline eventLeaderboard 4 &7"
         make console execute command "hd setline eventLeaderboard 5 &7The time until the new year is:"
-        set {_to} to dateGetTimeTo("Dec 31th %uncolored dateGetYear({year})%")
+        set {_to} to dateGetTimeTo("Dec 31th %uncolored dateGetYear({event::yearly::show})%")
         make console execute command "hd setline eventLeaderboard 6 &7&f%{_to}%"
         make console execute command "hd setline eventLeaderboard 7 &7Get ready!"
 
@@ -418,10 +420,10 @@ function dateCheckDay(day: integer):
 
     if {_day} is 1, 2, 26, 27, 28, 29 or 30:
         if {month} is 12:
-            if {_day} is not 26:
+            if {_day} is not 26, 1 or 2:
                 if {event::yearly::status} is not true:
                     dateStartNewYear()
-            else if {_day} is not 1 or 2:
+            else if {_day} is not 30, 1 or 2:
                 play sound "BLOCK_NOTE_BLOCK_PLING" with volume 0.2 to all players
                 play sound "BLOCK_NOTE_BLOCK_BELL" with volume 0.2 to all players
                 broadcast "&7&m                                                                  "

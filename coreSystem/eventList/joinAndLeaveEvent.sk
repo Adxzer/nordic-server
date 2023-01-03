@@ -12,6 +12,19 @@ function sendJoinMessage(target: player):
     send "" to {_target}
     send "&7&m                                                                  " to {_target}
 
+
+function formatNumber(num: string) :: string:
+
+    send "%{_num}%" to console
+    if {_num} is "1", "31" or "21":
+        return "%{_num}%st"
+    else if {_num} is "2" or "22":
+        return "%{_num}%nd"
+    else if {_day} is "3" or "23":
+        return "%{_num}%rd"
+    else:
+        return "%{_num}%th"
+
 on join:
 
     if {vanish::%player's uuid%} is not true:
@@ -49,8 +62,13 @@ on join:
     toggle scoreboard of all players on
     while player is online:
 
+        set {_counter} to 0
+        loop {vanish::players::*}:
+            if loop-value is online:
+                add 1 to {_counter}
+
         set player's tablist header to "%nl%&f&lNordic&3&lRPG%nl%"
-        set player's tablist footer to  "%nl%&f%dateGetMonth({month})% &3%dateGetDay({day})% &f%dateGetYear({year})%%nl%&fOnline: &3%number of all players%/%max players%%nl%&eNordicRPG.minehut.gg%nl%                                             "    
+        set player's tablist footer to  "%nl%&f%dateGetMonth({month})% &3%dateGetDay({day})% &f%dateGetYear({year})%%nl%&fOnline: &3%number of all players - {_counter}%/%max players%%nl%&eNordicRPG.minehut.gg%nl%                                             "    
         set player's tablist name to "%player's prefix%%player%"
 
         set {_gems} to 0
@@ -98,7 +116,7 @@ on join:
             if {event::snowball::collected::%player's uuid%} is not set:
                 set {event::snowball::collected::%player's uuid%} to 0
             set {_ending} to dateGetTimeTo(uncolored "%dateGetMonth({month})% %dateGetDay(26)% %dateGetYear({year})%")
-            set line 5 of player's scoreboard to " &b%dateGetDay({event::winter::amount})% Winter Wonderland"
+            set line 5 of player's scoreboard to " &b%dateGetDay({year})% Winter Wonderland"
             set line 4 of player's scoreboard to "  &7Snowballs: &9%bestiaryGetFormat({event::snowball::collected::%player's uuid%})%"
             set line 3 of player's scoreboard to "   &7Left: &9%{_ending}%"
             set line 2 of player's scoreboard to ""
@@ -108,11 +126,14 @@ on join:
 
             set {_default} to 1
             clear scoreboard of player
-            set {_add} to {event::yearly::amount} + 1
-            set {_ending} to dateGetTimeTo(uncolored "Jan %dateGetDay(2)% %dateGetYear({_add})%")
-            set line 5 of player's scoreboard to " &d%dateGetDay({event::yearly::amount})% New Year"
+            if {event::yearly::show} is {year}:
+                set {_add} to {year}
+            else:
+                set {_add} to {year} - 1
+            set {_ending} to dateGetTimeTo(uncolored "Dec %dateGetDay(31)% %dateGetYear({_year})%")
+            set line 5 of player's scoreboard to " &d%dateGetDay({_add})% New Year"
             set line 4 of player's scoreboard to "  &7Players: &5%number of all players%"
-            set line 3 of player's scoreboard to "   &7Left: &5%{_ending}%"
+            set line 3 of player's scoreboard to "   &7New year: &5%{_ending}%"
             set line 2 of player's scoreboard to ""
             set line 1 of player's scoreboard to "&eNordicRPG.minehut.gg"
 

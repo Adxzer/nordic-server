@@ -220,11 +220,11 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                 if arg-2 is set:
 
                     if arg-2 is "true":
-
+                        
                         if {vanish::%player's uuid%} is not true:
                             hide player from all players
                             set {vanish::%player's uuid%} to true
-                            add {vanish::%player's uuid%} to {vanish::players::*}
+                            add player to {vanish::players::*}
                             send "<##508a7f>[<##5EB6B6>&lSTAFF<##508a7f>] » &fYou are now <##5EB6B6>vanished&f."
 
                         else:
@@ -234,7 +234,7 @@ command /staff [<text>] [<text>] [<text>] [<text>] [<text>]:
                         if {vanish::%player's uuid%} is true:
                             reveal player from all players
                             set {vanish::%player's uuid%} to false
-                            remove {vanish::%player's uuid%} from {vanish::players::*}
+                            remove player from {vanish::players::*}
                             send "<##508a7f>[<##5EB6B6>&lSTAFF<##508a7f>] » &fYou left vanish and you are now <##5EB6B6>revealed&f for other players."
                         else:
                             send "<##508a7f>[<##5EB6B6>&lSTAFF<##508a7f>] » &cYou are not in vanish."

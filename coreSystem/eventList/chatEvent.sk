@@ -1,96 +1,112 @@
 on chat:
-
-    if {muteChat} is true:
-
-        if player does not have permission "skript.mod" or "skript.admin":
-            send "<##508a7f>[<##5EB6B6>&lSTAFF<##508a7f>] » &cThe chat is currently muted."
-            cancel event
-        else:
-            set chat format to "%player's prefix%%player%&7%{_message::1}% %{_message::2}%"     
-
-    else:
         
-        if {mute::%player's uuid%} is true:
-            cancel event
-            send "<##508a7f>[<##5EB6B6>&lSTAFF<##508a7f>] » &cYou are currently muted and can not speak in the chat."
+    if {mute::%player's uuid%} is true:
+        cancel event
+        send "<##508a7f>[<##5EB6B6>&lSTAFF<##508a7f>] » &cYou are currently muted and can not speak in the chat."
+    else:
+        if player's group is "admin", "viking", "berserk", "warrior", "asgard", "helper", "owner" or "mod":
+            set {_message::*} to ("&8»", "&f%message%")
+
         else:
-            if player's group is "admin", "viking", "helper", "owner" or "mod":
-                set {_message::*} to ("&8 »", "&f%message%")
+            set {_message::*} to ("&8»", "&7%message%")
 
+        loop sorted indices of {level::*} in descending order:
+
+            add 1 to {_counter}
+            if {_counter} is less than 4:
+                if player's uuid is loop-value:
+                    set {_color} to "&5"
+            else if {_counter} is less than 11:
+                if player's uuid is loop-value:
+                    set {_color} to "&6"
             else:
-                set {_message::*} to ("&8 »", "&7%message%")
+                stop loop
 
-            loop sorted indices of {level::*} in descending order:
-
-                add 1 to {_counter}
-                if {_counter} is less than 4:
-                    if player's uuid is loop-value:
-                        set {_color} to "&5"
-                else if {_counter} is less than 11:
-                    if player's uuid is loop-value:
-                        set {_color} to "&6"
-                else:
-                    stop loop
-
-            set {_list::*} to {bestiary::Farming::*}, {bestiary::Slaying::*}, {bestiary::Mining::*} and {bestiary::Boss::*}
-            loop {_list::*}:
-                loop sorted indices of {bestiary::%loop-value%::collected::*} in descending order:
-                    if loop-value-2 is player's uuid:
-                        add 1 to {_check}
-                        add loop-value-1 to {_check::*}
-                    exit 1 loop
+        set {_list::*} to {bestiary::Farming::*}, {bestiary::Slaying::*}, {bestiary::Mining::*} and {bestiary::Boss::*}
+        loop {_list::*}:
+            loop sorted indices of {bestiary::%loop-value%::collected::*} in descending order:
+                if loop-value-2 is player's uuid:
+                    add 1 to {_check}
+                    add loop-value-1 to {_check::*}
+                exit 1 loop
             
+        set {_tag} to " %guildGetTag({guild::%player's uuid%::current})%"
+        if {_tag} is not set:
+            set {_tag} to " "
 
-            if {_check} is set:
-                set {_top} to " [&e🔥%{_check}%&8]"
+        if {_check} is set:
+            set {_top} to "-&e🔥%{_check}%&8"
+            set {_trident} to false
 
-                loop {bestiary::Farming::*}:
-                    loop {_check::*}:
-                        if loop-value-1 is loop-value-2:
-                            add 1 to {_checkTwo}
-                if {_checkTwo} is size of {bestiary::Farming::*}:
-                    set {_trident} to true
-                else:
-                    set {_trident} to false
+            loop {bestiary::Farming::*}:
+                loop {_check::*}:
+                    if loop-value-1 is loop-value-2:
+                        add 1 to {_checkTwo}
+            if {_checkTwo} is size of {bestiary::Farming::*}:
+                set {_trident} to true
 
-                set {_checkTwo} to 0
-                loop {bestiary::Slaying::*}:
-                    loop {_check::*}:
-                        if loop-value-1 is loop-value-2:
-                            add 1 to {_checkTwo}
-                if {_checkTwo} is size of {bestiary::Slaying::*}:
-                    set {_trident} to true
-                else:
-                    set {_trident} to false
 
-                set {_checkTwo} to 0
-                loop {bestiary::Mining::*}:
-                    loop {_check::*}:
-                        if loop-value-1 is loop-value-2:
-                            add 1 to {_checkTwo}
-                if {_checkTwo} is size of {bestiary::Mining::*}:
-                    set {_trident} to true
-                else:
-                    set {_trident} to false
+            set {_checkTwo} to 0
+            loop {bestiary::Slaying::*}:
+                loop {_check::*}:
+                    if loop-value-1 is loop-value-2:
+                        add 1 to {_checkTwo}
+            if {_checkTwo} is size of {bestiary::Slaying::*}:
+                set {_trident} to true
 
-                set {_checkTwo} to 0
-                loop {bestiary::Boss::*}:
-                    loop {_check::*}:
-                        if loop-value-1 is loop-value-2:
-                            add 1 to {_checkTwo}
 
-                if {_checkTwo} is size of {bestiary::Boss::*}:
-                    set {_trident} to true
-                else:
-                    set {_trident} to false
+            set {_checkTwo} to 0
+            loop {bestiary::Mining::*}:
+                loop {_check::*}:
+                    if loop-value-1 is loop-value-2:
+                        add 1 to {_checkTwo}
+            if {_checkTwo} is size of {bestiary::Mining::*}:
+                set {_trident} to true
 
-                if {_trident} is true:
-                    set {_top} to " [<##7DB8F8>🔱%{_check}%&8]"
 
-            if {_color} is not set:
-                set {_color} to "&3"
+            set {_checkTwo} to 0
+            loop {bestiary::Boss::*}:
+                loop {_check::*}:
+                    if loop-value-1 is loop-value-2:
+                        add 1 to {_checkTwo}
 
-            if {_top} is not set:
-                set {_top} to ""
+            if {_checkTwo} is size of {bestiary::Boss::*}:
+                set {_trident} to true
 
-            set chat format to "&8[%{_color}%⚗%{level::%player's uuid%}%&8]%{_top}% %player's prefix%%player%&7%{_message::1}% %{_message::2}%"
+
+            if {_trident} is true:
+                set {_top} to "-<##7DB8F8>🔱%{_check}%&8"
+
+        if {_color} is not set:
+            set {_color} to "&3"
+
+        if {_top} is not set:
+            set {_top} to ""
+
+        if {muteChat} is true:
+
+            if player does not have permission "skript.mod", "skript.staff" or "skript.admin":
+                send "<##508a7f>[<##5EB6B6>&lSTAFF<##508a7f>] » &cThe chat is currently muted."
+                cancel event
+            else:
+                set chat format to "&8[%{_color}%⚗%{level::%player's uuid%}%&8%{_top}%] %player's prefix%%player%%{_tag}%&7%{_message::1}% %{_message::2}%"
+
+        else:
+
+            set chat format to "&8[%{_color}%⚗%{level::%player's uuid%}%&8%{_top}%] %player's prefix%%player%%{_tag}%&7%{_message::1}% %{_message::2}%"
+
+            if message contains "[item]":
+
+                if player's tool is not air:
+
+                    if uncolored name of player's tool is set:
+
+                        cancel event
+                        set {_message} to {_message::2}
+                        set {_item} to player's tool
+                        set {_lore::*} to lore of {_item}
+                        set {_show} to name of player's tool
+                        loop {_lore::*}:
+                            set {_show} to "%{_show}%%nl%%loop-value%"
+                        replace all "[item]" with "<tooltip:%{_show}%>[%first 2 characters of name of player's tool%%item amount of {_item}%x %name of {_item}%%first 2 characters of {_message::2}%]" in {_message}
+                        send formatted "&8[%{_color}%⚗%{level::%player's uuid%}%&8%{_top}%] %player's prefix%%player%%{_tag}%&7%{_message::1}% %{_message}%" to all players

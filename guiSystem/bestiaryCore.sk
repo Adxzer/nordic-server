@@ -166,10 +166,13 @@ function bestiaryCheckItem(player: player, item: string, amount: number):
                 if {_item} contains loop-value:
                     add {_amount} to {event::mining::collected::%{_u}%}
         else if {event::winter::status} is true:
-            loop {bestiary::Slaying::*}:
+            loop {bestiary::Slaying::*} or {bestiary::Boss::*}:
                 if {_item} contains loop-value:
                     set {_random} to random integer between 0 and 2
-                    add round({_random}) to {event::snowball::collected::%{_u}%}
+                    if {_item} is in {bestiary::Boss::*}:
+                        add round({_random}) * 4 to {event::snowball::collected::%{_u}%} 
+                    else:   
+                        add round({_random}) to {event::snowball::collected::%{_u}%}
                     give round({_random}) of {items::otherItems::2} to {_player}
         add {_amount} to {bestiary::%{_item}%::collected::%{_u}%}
 
@@ -302,13 +305,14 @@ on load:
     set {bestiary::progress::Potato::*} to (1000, 5000, 25000, 100000)
     set {bestiary::progress::Carrot::*} to (1000, 5000, 25000, 100000)
     set {bestiary::progress::Wart::*} to (1000, 5000, 25000, 100000)
-    set {bestiary::progress::Wart::*} to (500, 1000, 5000, 25000)
+    set {bestiary::progress::Berries::*} to (500, 1000, 5000, 25000)
     set {bestiary::progress::Raw Beef::*} to (250, 500, 1000, 5000)
     set {bestiary::progress::Raw Mutton::*} to (250, 500, 1000, 5000)
     set {bestiary::progress::Raw Chicken::*} to (250, 500, 1000, 5000)
-    set {bestiary::progress::Egg::*} to (250, 500, 1000, 5000)
+    set {bestiary::progress::Egg::*} to (50, 100, 250, 500)
     set {bestiary::progress::Leather::*} to (250, 500, 1000, 5000)
     set {bestiary::progress::Feather::*} to (250, 500, 1000, 5000)
+    set {bestiary::progress::Wool::*} to (250, 500, 1000, 5000)
 
     set {bestiary::progress::Rotten Flesh::*} to (250, 500, 1000, 5000)
     set {bestiary::progress::Arrow::*} to (250, 500, 1000, 5000)

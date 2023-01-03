@@ -22,7 +22,7 @@ command /rank [<text>] [<text>] [<text>] [<text>]:
 
                                     if arg-4 is set:
 
-                                        set {_ranks::*} to "default", "viking", "helper", "mod", "admin" and "owner"
+                                        set {_ranks::*} to "default", "viking", "asgard", "warrior", "berserk", "helper", "mod", "admin" and "owner"
                                         loop {_ranks::*}:
                                             if arg-4 is loop-value:
                                                 set {_continue} to true
@@ -82,5 +82,5 @@ on tab complete of "/rank":
             set tab completions for position 3 to {_tabCompletion::*}
 
     if tab arg-3 is "grant":
-        set {_tabCompletion::*} to ("default", "viking", "helper", "mod", "admin" and "owner") # add new ranks 
+        set {_tabCompletion::*} to ("default", "viking", "berserk", "warrior", "asgard", "helper", "mod", "admin" and "owner") # add new ranks 
         set tab completions for position 4 to {_tabCompletion::*}

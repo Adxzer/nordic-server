@@ -10,10 +10,10 @@ function abilityUseInferno(player: player) :: boolean:
 
     set {ability::inferno::status::%{_u}%} to true
     loop 3 times:
-        if uncolored name of {_player}'s tool is "Vicious Blade":
+        if uncolored name of {_player}'s tool contains "Vicious Blade":
             shoot fireball from {_player} at speed 3
             play sound "ENTITY_WITHER_HURT" with volume 0.2 to {_player}
-            wait 0.2 seconds
+            wait 0.3 seconds
         else:
             stop loop
     wait 2.1 seconds
@@ -23,6 +23,6 @@ on projectile hit:
 
     set {_u} to uuid of shooter 
 
-    if uncolored name of shooter's tool is "Vicious Blade":
+    if uncolored name of shooter's tool contains "Vicious Blade":
         if {ability::inferno::status::%{_u}%} is true:
             make shooter damage victim by 0

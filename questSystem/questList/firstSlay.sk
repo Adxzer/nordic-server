@@ -54,7 +54,7 @@ on death:
             if {quests::firstSlay::animals::%attacker's uuid%} is 10:
                 set {quests::firstSlay::interaction::%attacker's uuid%::4} to true
                 set {quests::firstSlay::interaction::%attacker's uuid%::5} to true
-                send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fYou have finished the quest &aFirst Slay&f, talk to Alicia to claim your rewards." to attacker
+                send "<##508a7f>[<##5EB6B6>&lQUEST<##508a7f>] » &fYou have finished the quest <##5EB6B6>First Slay&f, talk to Alicia to claim your rewards." to attacker
 
             else:
                 add 1 to {quests::firstSlay::animals::%attacker's uuid%}

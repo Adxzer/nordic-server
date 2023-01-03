@@ -1,0 +1,78 @@
+command /custom [<text>] [<text>] [<text>] [<text>]:
+    permission: skript.rank
+    permission message: Unknown command. Type "/help" for help.
+    trigger:
+        
+        if player has permission "skript.asgard", "skript.warrior" or "skript.berserk":
+
+            if arg-1 is set:
+
+                set {_number} to arg-1 parsed as integer
+
+                if player has permission "skript.asgard":
+                    set {_max} to 10
+                else if player has permission "skript.warrior":
+                    set {_max} to 5
+                else if player has permission "skript.berserk":
+                    set {_max} to 2
+                
+                if {_number} is between 1 and {_max}:
+
+                    if arg-1, arg-2 and arg-3 is set:
+
+                        if arg-2 parsed as integer is between -320 and 140:
+
+                            if arg-3 parsed as integer is between 4 and 90:
+
+                                if arg-4 parsed as integer is between -330 and 80:
+
+                                    send "<##508a7f>[<##5EB6B6>&lCUSTOM<##508a7f>] » &fYou have set custom location <##5EB6B6>%{_number}%&f to <##5EB6B6>%arg-2% %arg-3% %arg-4%&f."
+                                    set {_cord} to "%arg-2% %arg-3% %arg-4%"
+                                    set {location::%{_number}%::%player's uuid%} to {_cord}
+
+                                else:
+                                    send "<##508a7f>[<##5EB6B6>&lCUSTOM<##508a7f>] » &cYour Z coordinate is out of range."
+
+                            else:
+                                send "<##508a7f>[<##5EB6B6>&lCUSTOM<##508a7f>] » &cYour Y coordinate is out of range."
+
+                        else:
+                            send "<##508a7f>[<##5EB6B6>&lCUSTOM<##508a7f>] » &cYour X coordinate is out of range."
+
+                    else:
+                        send "<##508a7f>[<##5EB6B6>&lCUSTOM<##508a7f>] » &cYou need to all coordinates."
+
+                else:
+                    send "<##508a7f>[<##5EB6B6>&lCUSTOM<##508a7f>] » &cYou haven't unlocked that index range."
+
+            else:
+                send "<##508a7f>[<##5EB6B6>&lCUSTOM<##508a7f>] » &cPlease specify a command option."
+    
+        else:
+            send "<##508a7f>[<##5EB6B6>&lCUSTOM<##508a7f>] » &cYou can access this feature with /buy."
+
+on tab complete of "/custom":
+
+    if tab arg-1 is not "1", "2", "3", "4", "5", "6", "7", "8", "9" or "10":
+
+        if player has permission "skript.asgard":
+            set {_max} to 10
+        else if player has permission "skript.warrior":
+            set {_max} to 5
+        else if player has permission "skript.berserk":
+            set {_max} to 2
+
+        loop {_max} times:
+            add "%loop-value%" to {_tabCompletion::*}
+        set tab completions for position 1 to {_tabCompletion::*}
+        
+    if tab arg-1 is "1", "2", "3", "4", "5", "6", "7", "8", "9" or "10":
+        
+        if tab arg-2 is not set:
+            set tab completions for position 2 to round(player's x coordinate)
+
+        if tab arg-3 is not set:
+            set tab completions for position 3 to round(player's y coordinate)
+
+        if tab arg-4 is not set:
+            set tab completions for position 4 to round(player's z coordinate)

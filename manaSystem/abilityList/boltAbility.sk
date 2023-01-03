@@ -3,7 +3,7 @@ function abilityCheckBolt(player: player) :: boolean:
 
     set {_u} to uuid of {_player}
 
-    if uncolored name of {_player}'s tool is not "Heroic Bow":
+    if uncolored name of {_player}'s tool does not contain "Heroic Bow":
         set {actionBarSet::%{_u}%} to true
         send action bar coreGetActionBar({_player}, "&cMust hold the Heroic Bow!") to {_player}
         coreEndActionBar({_player})
@@ -25,7 +25,7 @@ on projectile hit:
     
     set {_u} to uuid of shooter 
 
-    if uncolored name of shooter's tool is "Heroic Bow":
+    if uncolored name of shooter's tool contains "Heroic Bow":
         if {ability::bolt::status::%{_u}%} is true:
             if victim is not player:
                 strike lightning at victim
